@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>沈毅 — 资深全栈与 AI 解决方案开发者 | Symfony、RAG 与 AI 智能体</title>
+<meta name="description" content="资深全栈与 AI 解决方案开发者，25 年以上企业级软件经验。高性能 Symfony/PHP 平台、混合检索 RAG 引擎与多智能体 AI 系统。巴黎 · 新加坡 · 上海，项目起价 100 美元。">
+<meta name="author" content="沈毅">
+<meta name="theme-color" content="#0f172a">
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<link rel="canonical" href="https://shenyi.dev/zh/">
+<link rel="alternate" hreflang="en" href="https://shenyi.dev/">
+<link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/">
+<link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/">
+<link rel="alternate" hreflang="x-default" href="https://shenyi.dev/">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en">
+<meta property="og:locale:alternate" content="fr">
+<meta property="og:site_name" content="沈毅 — 全栈与 AI 解决方案开发者">
+<meta property="og:url" content="https://shenyi.dev/zh/">
+<meta property="og:title" content="沈毅 — 资深全栈与 AI 解决方案开发者">
+<meta property="og:description" content="25 年以上企业级系统开发经验。Symfony/PHP 平台、混合检索 RAG 引擎与多智能体 AI 系统。巴黎 · 新加坡 · 上海。">
+<meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="沈毅 — 资深全栈与 AI 解决方案开发者。Symfony、RAG 与 AI 智能体。">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@scheffer_shen">
+<meta name="twitter:creator" content="@scheffer_shen">
+<meta name="twitter:title" content="沈毅 — 资深全栈与 AI 解决方案开发者">
+<meta name="twitter:description" content="25 年以上企业级系统开发经验。Symfony/PHP 平台、混合检索 RAG 引擎与多智能体 AI 系统。">
+<meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"></noscript>
+
+<link rel="stylesheet" href="../assets/css/style.css">
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">跳到主要内容</a>
+
+<header class="header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#hero" aria-label="沈毅 — 首页">
+      <span class="brand-mark" aria-hidden="true">YS</span>
+      <span class="brand-text">
+        <span class="brand-name">沈毅</span>
+        <span class="brand-role">全栈 &amp; AI</span>
+      </span>
+    </a>
+
+    <p class="hubs-badge"><span class="dot" aria-hidden="true"></span>巴黎 • 新加坡 • 上海</p>
+
+    <nav class="nav-desktop" aria-label="主导航">
+      <ul>
+        <li><a href="#services">服务</a></li>
+        <li><a href="#portfolio">项目案例</a></li>
+        <li><a href="#stack">技术栈</a></li>
+        <li><a href="#contact">联系</a></li>
+      </ul>
+    </nav>
+
+    <div class="lang">
+      <button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu">
+        <span aria-hidden="true">🇨🇳</span><span>ZH</span>
+        <svg class="lang-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        <span class="sr-only">切换语言</span>
+      </button>
+      <div class="lang-menu" id="lang-menu" role="menu">
+        <a href="../" hreflang="en" lang="en" role="menuitem"><span aria-hidden="true">🇬🇧</span>English</a>
+        <a href="../fr/" hreflang="fr" lang="fr" role="menuitem"><span aria-hidden="true">🇫🇷</span>Français</a>
+        <a href="./" hreflang="zh" lang="zh" aria-current="true" role="menuitem"><span aria-hidden="true">🇨🇳</span>中文</a>
+      </div>
+    </div>
+
+    <button class="burger" type="button" aria-expanded="false" aria-controls="drawer">
+      <span class="burger-box" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="sr-only">打开菜单</span>
+    </button>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-top">
+    <button class="drawer-close" type="button"><span aria-hidden="true">✕</span><span class="sr-only">关闭菜单</span></button>
+  </div>
+  <nav aria-label="移动端导航">
+    <ul>
+      <li><a href="#services"><i>01</i>服务</a></li>
+      <li><a href="#portfolio"><i>02</i>项目案例</a></li>
+      <li><a href="#stack"><i>03</i>技术栈</a></li>
+      <li><a href="#contact"><i>04</i>联系</a></li>
+    </ul>
+  </nav>
+  <div class="drawer-foot">
+    <p class="drawer-hubs"><span class="dot" aria-hidden="true"></span>巴黎 • 新加坡 • 上海</p>
+    <a class="btn btn-primary btn-block" href="#contact">预约需求沟通</a>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero wrap" id="hero">
+    <div class="hero-grid">
+      <div>
+        <p class="hero-availability"><span class="dot" aria-hidden="true"></span>目前可承接新项目</p>
+
+        <h1>
+          资深<span class="grad">全栈与 AI</span> 解决方案开发者
+          <small>25 年以上企业级系统开发经验。</small>
+        </h1>
+
+        <p class="hero-sub">
+          为医药与大型企业客户构建高性能
+          <strong>Symfony/PHP 平台</strong>、混合检索
+          <strong>RAG 引擎</strong>与<strong>多智能体 AI 系统</strong>。
+        </p>
+
+        <p class="hero-geo">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          服务欧洲与亚洲客户 — 巴黎 • 新加坡 • 上海。
+        </p>
+
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#contact">
+            预约需求沟通
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#portfolio">查看项目案例</a>
+        </div>
+
+        <dl class="hero-proof">
+          <div><dt>25+</dt><dd>年企业级开发经验</dd></div>
+          <div><dt>884</dt><dd>份文档接入混合 RAG</dd></div>
+          <div><dt>6.5K</dt><dd>个知识图谱实体抽取</dd></div>
+        </dl>
+      </div>
+
+      <div class="terminal reveal" data-delay="0.1">
+        <div class="terminal-bar" aria-hidden="true">
+          <i></i><i></i><i></i><span>~/shen — zsh</span>
+        </div>
+        <pre class="terminal-body" aria-label="终端显示能力概览"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">shen --status</span></span>
+<span class="row"><span class="t-dim">▸</span> <span class="t-key">技术栈</span>  <span class="t-val">PHP 8.3 · Symfony 6.4 · Python 3.12</span></span>
+<span class="row"><span class="t-dim">▸</span> <span class="t-key">AI  </span>   <span class="t-val">RAG · 知识图谱 · MCP 智能体</span></span>
+<span class="row"><span class="t-dim">▸</span> <span class="t-key">检索 </span>  <span class="t-val">Qdrant + Meilisearch + LightRAG</span></span>
+<span class="row"><span class="t-dim">▸</span> <span class="t-key">已索引</span>  <span class="t-num">884</span> <span class="t-val">份文档 →</span> <span class="t-num">6,503</span> <span class="t-val">个实体</span></span>
+<span class="row"><span class="t-dim">▸</span> <span class="t-key">客户 </span>  <span class="t-num">25+</span> <span class="t-val">家医药与健康行业平台</span></span>
+<span class="row"><span class="t-dim">▸</span> <span class="t-key">语言 </span>  <span class="t-val">中文 · 法语 · 英语</span></span>
+<span class="row"><span class="t-dim">▸</span> <span class="t-key">地区 </span>  <span class="t-val">巴黎 · 新加坡 · 上海</span></span>
+<span class="row"><span class="t-ok">●</span> <span class="t-ok">目前可承接新项目</span> <span class="caret" aria-hidden="true"></span></span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section class="section wrap" id="services">
+    <div class="section-head reveal">
+      <p class="eyebrow">核心服务</p>
+      <h2 class="section-title">以交付为导向的工程，价格公开透明。</h2>
+      <p class="section-sub">
+        四项聚焦服务，从一天交付的落地页，到完整的企业平台或企业级 AI 系统。
+        起价透明，交付周期务实。
+      </p>
+    </div>
+
+    <div class="grid grid-4">
+      <article class="card reveal">
+        <span class="card-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="7" rx="2"/><rect x="2" y="14" width="20" height="7" rx="2"/><path d="M6 6.5h.01M6 17.5h.01"/></svg>
+        </span>
+        <h3>企业级 Web 应用</h3>
+        <div class="card-meta">
+          <span class="card-price">起价 $1,000</span>
+          <span class="card-eta">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+            最快 1 周
+          </span>
+        </div>
+        <p class="card-focus">
+          定制后端、复杂 API 迁移、多客户 SaaS 平台与安全的企业架构 —
+          依托 25 年以上在受监管行业的 PHP/Symfony 生产经验。
+        </p>
+        <ul class="tags">
+          <li class="tag">PHP 8</li><li class="tag">Symfony 5–6</li>
+          <li class="tag">MySQL / PostgreSQL</li><li class="tag">Doctrine ORM</li>
+          <li class="tag">JWT / LDAP / SAML</li><li class="tag">REST / GraphQL</li>
+        </ul>
+      </article>
+
+      <article class="card reveal" data-delay="0.08">
+        <span class="card-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg>
+        </span>
+        <h3>企业级 RAG 系统</h3>
+        <div class="card-meta">
+          <span class="card-price">起价 $1,000</span>
+          <span class="card-eta">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+            最快 1 周
+          </span>
+        </div>
+        <p class="card-focus">
+          将企业文档、PDF 与内部文件转化为安全、高准确率的混合检索
+          （向量 + 关键词 + 图谱）对话式知识库。
+        </p>
+        <ul class="tags">
+          <li class="tag">Python</li><li class="tag">Qdrant</li>
+          <li class="tag">Meilisearch</li><li class="tag">LightRAG</li>
+          <li class="tag">FastAPI</li><li class="tag">MCP</li>
+        </ul>
+      </article>
+
+      <article class="card reveal" data-delay="0.16">
+        <span class="card-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4M9 14h.01M15 14h.01"/></svg>
+        </span>
+        <h3>自主 AI 智能体</h3>
+        <div class="card-meta">
+          <span class="card-price">起价 $1,000</span>
+          <span class="card-eta">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+            最快 1 周
+          </span>
+        </div>
+        <p class="card-focus">
+          理解代码库的 AI 助手、多智能体任务路由、工具集成，
+          以及定制化的企业 LLM 工作流。
+        </p>
+        <ul class="tags">
+          <li class="tag">Python</li><li class="tag">OpenAI / LangChain</li>
+          <li class="tag">MCP</li><li class="tag">专家路由</li>
+          <li class="tag">tree-sitter</li>
+        </ul>
+      </article>
+
+      <article class="card card-featured reveal" data-delay="0.24">
+        <span class="card-flag">入门方案</span>
+        <span class="card-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5Z"/></svg>
+        </span>
+        <h3>企业静态官网一站式交付</h3>
+        <div class="card-meta">
+          <span class="card-price">起价 $100</span>
+          <span class="card-eta">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+            最快 1 天
+          </span>
+        </div>
+        <p class="card-focus">
+          快速、响应式、SEO 优化的落地页与企业官网，为转化而设计。
+        </p>
+        <ul class="tags">
+          <li class="tag">HTML</li><li class="tag">Tailwind CSS</li>
+          <li class="tag">Astro</li><li class="tag">静态导出</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ PORTFOLIO ============ -->
+  <section class="section wrap" id="portfolio">
+    <div class="section-head reveal">
+      <p class="eyebrow">精选项目</p>
+      <h2 class="section-title">生产环境系统，真实数据。</h2>
+      <p class="section-sub">
+        为医药与受监管行业客户交付的企业平台与 AI 系统。
+        客户名称因保密协议不予披露。
+      </p>
+    </div>
+
+    <div class="grid grid-2">
+      <article class="card reveal">
+        <p class="card-index">项目 01 — AI / RAG</p>
+        <h3>面向医药质量管理的混合检索 RAG 对话系统</h3>
+        <p class="card-focus">
+          为某医药集团构建的混合检索 RAG 对话系统，索引内部质量管理文档
+          （SOP、风险分析、审计清单），并自动生成知识图谱 Wiki，
+          以及 AI 辅助的审计问卷填写功能。
+        </p>
+        <div class="metric">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 7-7"/><path d="M14 8h6v6"/></svg>
+          <p>将 <b>884 份文档</b>（868 份成功）接入向量 + 关键词 + 知识图谱检索管道，
+          自动抽取 <b>6,500+ 个实体</b>，生成 <b>425 个 Wiki 页面</b>。</p>
+        </div>
+        <ul class="tags">
+          <li class="tag">Python</li><li class="tag">Qdrant</li>
+          <li class="tag">Meilisearch</li><li class="tag">LightRAG</li>
+          <li class="tag">FastAPI</li><li class="tag">MCP 服务</li>
+          <li class="tag">Ragas</li>
+        </ul>
+      </article>
+
+      <article class="card reveal" data-delay="0.08">
+        <p class="card-index">项目 02 — 多智能体 AI</p>
+        <h3>多专家 AI 代码助手</h3>
+        <p class="card-focus">
+          定制多智能体助手，将开发与支持人员的问题在大型 Symfony 代码库中
+          路由至 12 个领域专家（缺陷、API 使用、配置、安全／GDPR、需求规划），
+          并强制要求基于证据、附带来源引用的回答。
+        </p>
+        <div class="metric">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 7-7"/><path d="M14 8h6v6"/></svg>
+          <p>作为 AI 领航员，服务于 <b>800+ 文件</b>、<b>180+ 实体</b>
+          的生产环境 Symfony 6.4 代码库。</p>
+        </div>
+        <ul class="tags">
+          <li class="tag">Python</li><li class="tag">OpenAI SDK</li>
+          <li class="tag">MCP 服务</li><li class="tag">tree-sitter（PHP AST）</li>
+          <li class="tag">NetworkX</li>
+        </ul>
+      </article>
+
+      <article class="card reveal" data-delay="0.16">
+        <p class="card-index">项目 03 — 企业平台</p>
+        <h3>面向医药医学事务的企业级 Symfony 平台</h3>
+        <p class="card-focus">
+          作为主力开发者，构建医学信息管理平台，处理医学咨询、FAQ
+          与药物警戒／质量投诉工作流，服务医药企业。
+        </p>
+        <div class="metric">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 7-7"/><path d="M14 8h6v6"/></svg>
+          <p>已为 <b>25+ 家医药与健康行业客户</b>部署并持续维护。</p>
+        </div>
+        <ul class="tags">
+          <li class="tag">PHP 8.3</li><li class="tag">Symfony 6.4</li>
+          <li class="tag">MySQL</li><li class="tag">Redis</li>
+          <li class="tag">Meilisearch</li><li class="tag">JWT / LDAP</li>
+          <li class="tag">React</li>
+        </ul>
+      </article>
+
+      <article class="card reveal" data-delay="0.24">
+        <p class="card-index">项目 04 — 法规合规</p>
+        <h3>PSMF — 药物警戒法规文档系统</h3>
+        <p class="card-focus">
+          基于 Symfony 的应用，管理药物警戒系统主文件（PSMF）的完整生命周期 —
+          版本化发布、完整审计轨迹与版本比对、往来函件追踪，
+          以及定时合规提醒。
+        </p>
+        <div class="metric">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 7-7"/><path d="M14 8h6v6"/></svg>
+          <p>自动化生成多格式<b>（HTML / PDF / Word）</b>法规文档，
+          为合规团队提供完整版本历史。</p>
+        </div>
+        <ul class="tags">
+          <li class="tag">PHP</li><li class="tag">Symfony</li>
+          <li class="tag">MySQL</li><li class="tag">Doctrine Audit</li>
+          <li class="tag">mPDF</li><li class="tag">PhpWord</li>
+        </ul>
+      </article>
+
+      <article class="card reveal" data-delay="0.32">
+        <p class="card-index">项目 05 — 静态官网一站式交付</p>
+        <h3>Studio Ma Félicité — 三语活动工作室官网</h3>
+        <p class="card-focus">
+          为巴黎一家活动布置与主持工作室（婚礼、纪念日）打造的定制单页网站，
+          是"企业静态官网一站式交付"服务的旗舰示例。
+        </p>
+        <div class="metric">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 7-7"/><path d="M14 8h6v6"/></svg>
+          <p>完整三语支持<b>（法语 / 英语 / 中文）</b>，配备可筛选的作品画廊、
+          客户评价轮播，以及经过验证的 Formspree 预约表单。</p>
+        </div>
+        <ul class="tags">
+          <li class="tag">HTML</li><li class="tag">Tailwind CSS</li>
+          <li class="tag">Formspree</li><li class="tag">多语言 i18n</li>
+        </ul>
+        <a class="card-link" href="https://github.com/scheffershen/studiomafelicite" rel="noopener noreferrer" target="_blank">
+          查看代码仓库
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ 地区与语言 ============ -->
+  <section class="section wrap" id="global">
+    <div class="globe reveal">
+      <div class="globe-grid">
+        <div>
+          <h3>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/></svg>
+            服务地区
+          </h3>
+          <ul class="globe-list">
+            <li class="globe-item">
+              <span class="flag" aria-hidden="true">🇫🇷</span>
+              <span><b>巴黎</b><span>法国 — 拥有合法工作许可，CET/CEST</span></span>
+            </li>
+            <li class="globe-item">
+              <span class="flag" aria-hidden="true">🇸🇬</span>
+              <span><b>新加坡</b><span>拥有当地完全工作权，无需签证担保，SGT</span></span>
+            </li>
+            <li class="globe-item">
+              <span class="flag" aria-hidden="true">🇨🇳</span>
+              <span><b>上海</b><span>中国 — 完全市场准入，CST</span></span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"/></svg>
+            工作语言
+          </h3>
+          <ul class="globe-list">
+            <li class="globe-item">
+              <span class="flag" aria-hidden="true">🇨🇳</span>
+              <span><b>中文</b><span>母语 — 技术与商务沟通无障碍</span></span>
+            </li>
+            <li class="globe-item">
+              <span class="flag" aria-hidden="true">🇫🇷</span>
+              <span><b lang="fr">Français</b><span>法语 — 双语水平，技术与商务沟通无障碍</span></span>
+            </li>
+            <li class="globe-item">
+              <span class="flag" aria-hidden="true">🇬🇧</span>
+              <span><b>English</b><span>英语 — 专业水平，技术文档与项目交付</span></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 技术栈 ============ -->
+  <section class="section wrap" id="stack">
+    <div class="section-head reveal">
+      <p class="eyebrow">技术栈与生态</p>
+      <h2 class="section-title">支撑交付的工具。</h2>
+      <p class="section-sub">
+        一套刻意收窄、深度打磨的技术栈：企业级 PHP 负责平台，Python 负责 AI，
+        底层是经过实战验证的检索与数据基础设施。
+      </p>
+    </div>
+
+    <div class="stack-grid">
+      <div class="stack-group reveal">
+        <h3>后端与 API</h3>
+        <ul class="tags">
+          <li class="tag">PHP 8</li><li class="tag">Symfony 5–6</li>
+          <li class="tag">Doctrine ORM</li><li class="tag">REST API</li>
+          <li class="tag">GraphQL</li><li class="tag">Twig</li>
+        </ul>
+      </div>
+      <div class="stack-group reveal" data-delay="0.06">
+        <h3>AI、RAG 与智能体</h3>
+        <ul class="tags">
+          <li class="tag">Python</li><li class="tag">RAG</li>
+          <li class="tag">LightRAG</li><li class="tag">知识图谱</li>
+          <li class="tag">MCP</li><li class="tag">OpenAI / LangChain</li>
+          <li class="tag">FastAPI</li>
+        </ul>
+      </div>
+      <div class="stack-group reveal" data-delay="0.12">
+        <h3>数据与检索</h3>
+        <ul class="tags">
+          <li class="tag">MySQL</li><li class="tag">PostgreSQL</li>
+          <li class="tag">Redis</li><li class="tag">Qdrant</li>
+          <li class="tag">Meilisearch</li><li class="tag">Elasticsearch</li>
+        </ul>
+      </div>
+      <div class="stack-group reveal" data-delay="0.18">
+        <h3>前端</h3>
+        <ul class="tags">
+          <li class="tag">React</li><li class="tag">TypeScript</li>
+          <li class="tag">Tailwind CSS</li><li class="tag">Astro</li>
+          <li class="tag">Webpack Encore</li>
+        </ul>
+      </div>
+      <div class="stack-group reveal" data-delay="0.24">
+        <h3>安全与身份</h3>
+        <ul class="tags">
+          <li class="tag">JWT</li><li class="tag">LDAP</li>
+          <li class="tag">SSO / SAML</li><li class="tag">Keycloak</li>
+          <li class="tag">GDPR / RGPD</li>
+        </ul>
+      </div>
+      <div class="stack-group reveal" data-delay="0.3">
+        <h3>运维与工具</h3>
+        <ul class="tags">
+          <li class="tag">Docker</li><li class="tag">WSL</li>
+          <li class="tag">Nginx</li><li class="tag">Git</li>
+          <li class="tag">PHPUnit</li><li class="tag">PHPStan</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 联系 ============ -->
+  <section class="section wrap" id="contact">
+    <div class="section-head reveal">
+      <p class="eyebrow">联系</p>
+      <h2 class="section-title">一起梳理你的项目。</h2>
+      <p class="section-sub">
+        告诉我你要做什么以及所在时区 —
+        你会收到关于可行性、价格与交付周期的直接答复。
+      </p>
+    </div>
+
+    <div class="contact-grid">
+      <!-- 静态托管没有后端：上线前请将 action 指向你自己的表单服务
+           （Formspree、Netlify Forms、Basin 等）——此 ID 仅为占位符。 -->
+      <form id="contactForm" class="form reveal" action="https://formspree.io/f/xnpaazwa" method="post">
+        <div class="field-row">
+          <div class="field">
+            <label for="name">姓名 <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="name" name="name" autocomplete="name" placeholder="张伟" required>
+          </div>
+          <div class="field">
+            <label for="email">邮箱 <span class="req" aria-hidden="true">*</span></label>
+            <input type="email" id="email" name="email" autocomplete="email" inputmode="email" placeholder="zhang@company.com" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="location">所在地 / 时区</label>
+          <input type="text" id="location" name="location" autocomplete="address-level2" placeholder="上海 (GMT+8)">
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="project-type">项目类型</label>
+            <select id="project-type" name="project_type">
+              <option value="">请选择…</option>
+              <option>企业级 Web 应用</option>
+              <option>企业级 RAG 系统</option>
+              <option>自主 AI 智能体</option>
+              <option>企业静态官网</option>
+              <option>其他 / 尚未确定</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="budget">预算范围</label>
+            <select id="budget" name="budget">
+              <option value="">请选择…</option>
+              <option>$100 – $500</option>
+              <option>$500 – $1,000</option>
+              <option>$1,000 – $5,000</option>
+              <option>$5,000 – $20,000</option>
+              <option>$20,000 以上</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="message">项目说明 <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="message" name="message" placeholder="你要构建什么？期望的时间节点是？什么样的结果算成功？" required></textarea>
+        </div>
+
+        <div class="hp" aria-hidden="true">
+          <label for="website">网站</label>
+          <input type="text" id="website" name="_gotcha" tabindex="-1" autocomplete="off">
+        </div>
+
+        <button class="btn btn-primary btn-block" type="submit">
+          发送项目需求
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <p class="form-note">通常一个工作日内回复，支持中文、法语或英语。</p>
+      </form>
+
+      <div class="direct reveal" data-delay="0.1">
+        <a class="direct-link" href="mailto:scheffer.shen@gmail.com">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m3 7 9 6 9-6"/></svg>
+          <span><b>邮箱</b><span>scheffer.shen@gmail.com</span></span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="direct-link" href="https://github.com/scheffershen" rel="noopener noreferrer" target="_blank">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.85-2.35 4.7-4.58 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+          <span><b>GitHub</b><span>github.com/scheffershen</span></span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="direct-link" href="https://www.linkedin.com/in/shen-yi-333611b/" rel="noopener noreferrer" target="_blank">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05A4.2 4.2 0 0 1 17.6 8.7c3.2 0 3.8 2.1 3.8 4.9V21h-4v-6.6c0-1.6-.03-3.6-2.2-3.6s-2.5 1.7-2.5 3.5V21h-4V9Z"/></svg>
+          <span><b>LinkedIn</b><span>linkedin.com/in/shen-yi-333611b</span></span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div class="footer-meta">
+      <p><strong>沈毅</strong> — 资深全栈与 AI 解决方案开发者</p>
+      <p class="mono">巴黎 • 新加坡 • 上海 — 中文 · 法语 · 英语</p>
+      <p>© <span data-year>2026</span> 沈毅. 保留所有权利。</p>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:scheffer.shen@gmail.com" aria-label="邮箱">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m3 7 9 6 9-6"/></svg>
+      </a>
+      <a href="https://github.com/scheffershen" rel="noopener noreferrer" target="_blank" aria-label="GitHub">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.85-2.35 4.7-4.58 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/shen-yi-333611b/" rel="noopener noreferrer" target="_blank" aria-label="LinkedIn">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05A4.2 4.2 0 0 1 17.6 8.7c3.2 0 3.8 2.1 3.8 4.9V21h-4v-6.6c0-1.6-.03-3.6-2.2-3.6s-2.5 1.7-2.5 3.5V21h-4V9Z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js" defer></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://shenyi.dev/#person",
+      "name": "沈毅",
+      "alternateName": "SHEN YI",
+      "jobTitle": "资深全栈与 AI 解决方案开发者",
+      "description": "拥有 25 年以上企业级软件经验的资深全栈与 AI 解决方案开发者，专注 Symfony/PHP 平台、混合检索 RAG 引擎与多智能体 AI 系统。",
+      "url": "https://shenyi.dev/zh/",
+      "email": "mailto:scheffer.shen@gmail.com",
+      "knowsLanguage": [
+        { "@type": "Language", "name": "Chinese", "alternateName": "zh" },
+        { "@type": "Language", "name": "French", "alternateName": "fr" },
+        { "@type": "Language", "name": "English", "alternateName": "en" }
+      ],
+      "knowsAbout": [
+        "PHP", "Symfony", "Python", "检索增强生成 RAG",
+        "知识图谱", "Model Context Protocol", "向量数据库",
+        "Qdrant", "Meilisearch", "LightRAG", "REST API", "GraphQL",
+        "药物警戒软件", "企业级 Web 应用"
+      ],
+      "sameAs": [
+        "https://github.com/scheffershen",
+        "https://www.linkedin.com/in/shen-yi-333611b/",
+        "https://twitter.com/scheffer_shen"
+      ]
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://shenyi.dev/#service",
+      "name": "沈毅 — 全栈与 AI 解决方案开发服务",
+      "description": "自由职业工程服务：企业级 Symfony/PHP Web 应用、企业级 RAG 系统、自主 AI 智能体，以及企业静态官网一站式交付。",
+      "url": "https://shenyi.dev/zh/",
+      "image": "https://shenyi.dev/assets/img/og-image.png",
+      "provider": { "@id": "https://shenyi.dev/#person" },
+      "priceRange": "$100 - $1000+",
+      "availableLanguage": [
+        { "@type": "Language", "name": "Chinese", "alternateName": "zh" },
+        { "@type": "Language", "name": "French", "alternateName": "fr" },
+        { "@type": "Language", "name": "English", "alternateName": "en" }
+      ],
+      "areaServed": [
+        { "@type": "City", "name": "巴黎", "containedInPlace": { "@type": "Country", "name": "法国" } },
+        { "@type": "City", "name": "新加坡", "containedInPlace": { "@type": "Country", "name": "新加坡" } },
+        { "@type": "City", "name": "上海", "containedInPlace": { "@type": "Country", "name": "中国" } }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "核心服务",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "priceCurrency": "USD",
+            "price": "1000",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "priceCurrency": "USD",
+              "minPrice": "1000",
+              "description": "起价 $1,000"
+            },
+            "deliveryLeadTime": { "@type": "QuantitativeValue", "minValue": 1, "unitCode": "WEE" },
+            "itemOffered": {
+              "@type": "Service",
+              "name": "企业级 Web 应用",
+              "description": "基于 PHP 8 / Symfony 的定制后端、复杂 API 迁移、多客户 SaaS 平台与安全的企业架构。"
+            }
+          },
+          {
+            "@type": "Offer",
+            "priceCurrency": "USD",
+            "price": "1000",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "priceCurrency": "USD",
+              "minPrice": "1000",
+              "description": "起价 $1,000"
+            },
+            "deliveryLeadTime": { "@type": "QuantitativeValue", "minValue": 1, "unitCode": "WEE" },
+            "itemOffered": {
+              "@type": "Service",
+              "name": "企业级 RAG 系统",
+              "description": "使用 Qdrant、Meilisearch 与知识图谱，将企业文档与 PDF 转化为安全的混合检索对话式知识库。"
+            }
+          },
+          {
+            "@type": "Offer",
+            "priceCurrency": "USD",
+            "price": "1000",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "priceCurrency": "USD",
+              "minPrice": "1000",
+              "description": "起价 $1,000"
+            },
+            "deliveryLeadTime": { "@type": "QuantitativeValue", "minValue": 1, "unitCode": "WEE" },
+            "itemOffered": {
+              "@type": "Service",
+              "name": "自主 AI 智能体",
+              "description": "理解代码库的 AI 助手、多智能体任务路由、工具集成与基于 MCP 的定制化企业 LLM 工作流。"
+            }
+          },
+          {
+            "@type": "Offer",
+            "priceCurrency": "USD",
+            "price": "100",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "priceCurrency": "USD",
+              "minPrice": "100",
+              "description": "起价 $100"
+            },
+            "deliveryLeadTime": { "@type": "QuantitativeValue", "minValue": 1, "unitCode": "DAY" },
+            "itemOffered": {
+              "@type": "Service",
+              "name": "企业静态官网一站式交付",
+              "description": "快速、响应式、SEO 优化的落地页与企业官网，为转化而设计。"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://shenyi.dev/zh/#website",
+      "url": "https://shenyi.dev/zh/",
+      "name": "沈毅 — 资深全栈与 AI 解决方案开发者",
+      "inLanguage": "zh-CN",
+      "publisher": { "@id": "https://shenyi.dev/#person" }
+    }
+  ]
+}
+</script>
+</body>
+</html>
