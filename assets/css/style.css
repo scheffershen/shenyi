@@ -979,6 +979,82 @@ ul { margin: 0; padding: 0; list-style: none; }
   transform: translateY(-2px);
 }
 
+/* ---------- Cookie consent banner ---------- */
+.consent-banner {
+  position: fixed;
+  z-index: 60;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  max-width: 640px;
+  margin-inline: auto;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--bg);
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+}
+.consent-banner[hidden] { display: none; }
+.consent-text {
+  flex: 1 1 260px;
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+.consent-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex: 0 0 auto;
+}
+.consent-actions .btn {
+  min-height: 2.6rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+}
+
+.footer-legal {
+  font-size: 0.85rem;
+}
+.footer-legal a { color: var(--text-dim); }
+.footer-legal a:hover { color: var(--accent); }
+.link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.link-btn:hover { color: var(--accent); }
+
+/* ---------- Policy / legal content ---------- */
+.policy-body { max-width: 46rem; }
+.policy-body h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+}
+.policy-body h2:first-child { margin-top: 0; }
+.policy-body p { margin-bottom: 1rem; color: var(--text-dim); }
+.policy-body ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--text-dim);
+}
+.policy-body li { margin-bottom: 0.4rem; }
+.policy-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.policy-body a:hover { color: var(--accent-deep); }
+.policy-body strong { color: var(--text); }
+
 /* ---------- Scroll reveal (progressive: only active when JS present) ---------- */
 .js .reveal { opacity: 0; transform: translateY(18px); }
 .js .reveal.is-in {

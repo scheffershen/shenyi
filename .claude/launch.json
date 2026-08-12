@@ -6,6 +6,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8123", "--directory", "D:\\Sandbox\\shenyi"],
       "port": 8123
+    },
+    {
+      "name": "studiomafelicite",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8124", "--directory", "D:\\Sandbox\\studiomafelicite"],
+      "port": 8124
     }
   ]
 }

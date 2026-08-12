@@ -144,6 +144,32 @@
     }
   }
 
+  /* ---------- Cookie consent (GA4 Consent Mode) ---------- */
+  var consentBanner = document.getElementById("consentBanner");
+  if (consentBanner && window.gtag) {
+    var storedConsent = localStorage.getItem("consent_analytics");
+    if (storedConsent === "granted") {
+      gtag("consent", "update", { analytics_storage: "granted" });
+    } else if (!storedConsent) {
+      consentBanner.hidden = false;
+    }
+    consentBanner.addEventListener("click", function (e) {
+      var btn = e.target.closest("[data-consent]");
+      if (!btn) return;
+      var granted = btn.dataset.consent === "accept";
+      gtag("consent", "update", { analytics_storage: granted ? "granted" : "denied" });
+      localStorage.setItem("consent_analytics", granted ? "granted" : "denied");
+      consentBanner.hidden = true;
+    });
+  }
+
+  // Lets visitors reopen the banner from the footer to change an earlier choice.
+  document.querySelectorAll("[data-consent-manage]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      if (consentBanner) consentBanner.hidden = false;
+    });
+  });
+
   /* ---------- Footer year ---------- */
   var year = document.querySelector("[data-year]");
   if (year) year.textContent = String(new Date().getFullYear());

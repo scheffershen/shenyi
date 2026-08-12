@@ -9,6 +9,12 @@
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
   gtag('js', new Date());
   gtag('config', 'G-S0YRBQKHLZ');
 </script>
@@ -718,6 +724,7 @@
       <p><strong>Yi SHEN</strong> — Développeur Senior Full-Stack &amp; Solutions IA</p>
       <p class="mono">Paris • Singapour • Shanghai — FR · ZH · EN</p>
       <p>© <span data-year>2026</span> Yi SHEN. Tous droits réservés.</p>
+      <p class="footer-legal"><a href="privacy/">Politique de confidentialité</a> · <button type="button" class="link-btn" data-consent-manage>Préférences cookies</button></p>
     </div>
     <div class="footer-links">
       <a href="mailto:contact@shenyi.dev" aria-label="E-mail">
@@ -741,6 +748,14 @@
     </div>
   </div>
 </footer>
+
+<div class="consent-banner" id="consentBanner" hidden role="dialog" aria-live="polite" aria-label="Consentement aux cookies">
+  <p class="consent-text">Ce site utilise Google Analytics pour mesurer l'audience. Vos données ne sont collectées qu'avec votre accord.</p>
+  <div class="consent-actions">
+    <button type="button" class="btn btn-ghost" data-consent="decline">Refuser</button>
+    <button type="button" class="btn btn-primary" data-consent="accept">Accepter</button>
+  </div>
+</div>
 
 <script src="../assets/js/main.js" defer></script>
 

@@ -9,6 +9,12 @@
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
   gtag('js', new Date());
   gtag('config', 'G-S0YRBQKHLZ');
 </script>
@@ -690,6 +696,7 @@
       <p><strong>沈毅</strong> — 资深全栈与 AI 解决方案开发者</p>
       <p class="mono">巴黎 • 新加坡 • 上海 — 中文 · 法语 · 英语</p>
       <p>© <span data-year>2026</span> 沈毅. 保留所有权利。</p>
+      <p class="footer-legal"><a href="privacy/">隐私政策</a> · <button type="button" class="link-btn" data-consent-manage>Cookie 偏好设置</button></p>
     </div>
     <div class="footer-links">
       <a href="mailto:contact@shenyi.dev" aria-label="邮箱">
@@ -713,6 +720,14 @@
     </div>
   </div>
 </footer>
+
+<div class="consent-banner" id="consentBanner" hidden role="dialog" aria-live="polite" aria-label="Cookie 同意">
+  <p class="consent-text">本网站使用 Google Analytics 统计访问量，仅在您同意后才会收集您的数据。</p>
+  <div class="consent-actions">
+    <button type="button" class="btn btn-ghost" data-consent="decline">拒绝</button>
+    <button type="button" class="btn btn-primary" data-consent="accept">接受</button>
+  </div>
+</div>
 
 <script src="../assets/js/main.js" defer></script>
 

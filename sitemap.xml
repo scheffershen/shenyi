@@ -35,4 +35,37 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/"/>
   </url>
 
+  <url>
+    <loc>https://shenyi.dev/privacy/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/privacy/"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/fr/privacy/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/privacy/"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/zh/privacy/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/privacy/"/>
+  </url>
+
 </urlset>
