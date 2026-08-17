@@ -60,16 +60,30 @@ Every AI Lab route must appear in `sitemap.xml`. Each of the 12 URL entries must
 
 - French pages use professional French and preserve technical names such as RAG, MCP, Qdrant, and LightRAG.
 - Chinese pages use Simplified Chinese and preserve product/project names and technical names.
-- Keep project names `RAG Engineer`, `RAG Evaluation`, and `RAG Formation` unchanged.
-- Translate navigation, calls to action, metadata, image alt text, status labels, and visible explanatory copy.
+- Keep project names `RAG Engineer`, `RAG Evaluation`, and `RAG Formation` unchanged as canonical visible labels; translate the descriptive copy around them.
+- Translate navigation, calls to action, metadata, image alt text, status labels, and visible explanatory copy while preserving the canonical project labels.
 - Keep claims aligned across languages; do not add availability, results, or credentials to one language only.
 
 ## Verification
 
-From the repository root, run:
+From the repository root, run with Python 3:
 
 ```bash
-python3 tests/ai-lab-localized-pages.py
+python tests/ai-lab-localized-pages.py
 ```
 
-The check validates all 12 pages, metadata, reciprocal alternates, analytics, structured data, local links/assets, RAG Formation status, and sitemap coverage. Also serve the repository locally and request all 12 routes, expecting HTTP 200 responses.
+If `python` does not resolve to Python 3, use `py -3` on Windows or `python3` on Unix-like systems.
+
+The check validates all 12 pages, required metadata, reciprocal alternates, analytics consent defaults, image alt text, canonical project labels, structured data, local links/assets, RAG Formation status in visible copy and Course JSON-LD, valid sitemap alternates, and sitemap `lastmod` presence. Update `lastmod` manually whenever page content changes.
+
+For the HTTP smoke test, start the static server in one terminal:
+
+```bash
+python -m http.server 8123 --directory .
+```
+
+Then request every AI Lab route from a second terminal; the command prints each status and fails unless all are HTTP 200:
+
+```bash
+python -c "from urllib.request import urlopen; routes=('/ai-lab/','/fr/ai-lab/','/zh/ai-lab/','/ai-lab/rag-engineer/','/fr/ai-lab/rag-engineer/','/zh/ai-lab/rag-engineer/','/ai-lab/rag-evaluation/','/fr/ai-lab/rag-evaluation/','/zh/ai-lab/rag-evaluation/','/ai-lab/rag-formation/','/fr/ai-lab/rag-formation/','/zh/ai-lab/rag-formation/'); statuses=[(route,urlopen('http://127.0.0.1:8123'+route).status) for route in routes]; print(*statuses,sep='\n'); assert all(status == 200 for _, status in statuses)"
+```
