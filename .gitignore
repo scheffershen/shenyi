@@ -1,3 +1,5 @@
 .claude/*.json
 *.lock
 .codebase-memory/
+tests/
+docs/
