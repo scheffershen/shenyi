@@ -3,3 +3,4 @@
 .codebase-memory/
 tests/
 docs/
+.gstack/
