@@ -37,30 +37,126 @@
 
   <url>
     <loc>https://shenyi.dev/ai-lab/</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/"/>
   </url>
 
   <url>
     <loc>https://shenyi.dev/ai-lab/rag-engineer/</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-engineer/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-engineer/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-engineer/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-engineer/"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-engineer/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-engineer/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-engineer/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-engineer/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-engineer/"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-engineer/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-engineer/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-engineer/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-engineer/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-engineer/"/>
   </url>
 
   <url>
     <loc>https://shenyi.dev/ai-lab/rag-evaluation/</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-evaluation/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-evaluation/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-evaluation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-evaluation/"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-evaluation/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-evaluation/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-evaluation/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-evaluation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-evaluation/"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-evaluation/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-evaluation/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-evaluation/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-evaluation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-evaluation/"/>
   </url>
 
   <url>
     <loc>https://shenyi.dev/ai-lab/rag-formation/</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/"/>
   </url>
 
   <url>
@@ -73,7 +169,6 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/privacy/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/privacy/"/>
   </url>
-
   <url>
     <loc>https://shenyi.dev/fr/privacy/</loc>
     <lastmod>2026-08-12</lastmod>
@@ -84,7 +179,6 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/privacy/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/privacy/"/>
   </url>
-
   <url>
     <loc>https://shenyi.dev/zh/privacy/</loc>
     <lastmod>2026-08-12</lastmod>

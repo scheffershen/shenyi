@@ -3,15 +3,32 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0YRBQKHLZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+  gtag('js', new Date());
+  gtag('config', 'G-S0YRBQKHLZ');
+</script>
 <title>AI Engineering Lab — Reliable RAG Systems | SHEN YI</title>
 <meta name="description" content="The SHEN YI AI Engineering Lab documents practical methods for building, evaluating and teaching reliable RAG systems.">
 <meta name="author" content="SHEN YI">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://shenyi.dev/ai-lab/">
 <link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/">
+<link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/">
+<link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/">
 <link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SHEN YI — Full-Stack &amp; AI Solutions Developer">
+<meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://shenyi.dev/ai-lab/">
 <meta property="og:title" content="AI Engineering Lab — Reliable RAG Systems">
 <meta property="og:description" content="Practical methods for building, evaluating and teaching reliable AI systems.">
@@ -32,12 +49,12 @@
   <div class="wrap header-inner">
     <a class="brand" href="../" aria-label="SHEN YI — home"><span class="brand-mark" aria-hidden="true">YS</span><span class="brand-text"><span class="brand-name">SHEN YI</span><span class="brand-role">Full-Stack &amp; AI</span></span></a>
     <p class="hubs-badge"><span class="dot" aria-hidden="true"></span>Paris • Singapore • Shanghai</p>
-    <nav class="nav-desktop" aria-label="Main"><ul><li><a href="../#services">Services</a></li><li><a href="../#portfolio">Portfolio</a></li><li><a href="../#ai-lab" aria-current="page">AI Lab</a></li><li><a href="../#stack">Tech Stack</a></li><li><a href="../#contact">Contact</a></li></ul></nav>
-    <div class="lang"><button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu"><span>EN</span><span class="lang-caret" aria-hidden="true">⌄</span><span class="sr-only">Change language</span></button><div class="lang-menu" id="lang-menu" role="menu"><a href="../" hreflang="en" aria-current="true" role="menuitem">English</a><a href="../fr/" hreflang="fr" role="menuitem">Français</a><a href="../zh/" hreflang="zh" role="menuitem">中文</a></div></div>
+    <nav class="nav-desktop" aria-label="Main"><ul><li><a href="../#services">Services</a></li><li><a href="../#portfolio">Portfolio</a></li><li><a href="./" aria-current="page">AI Lab</a></li><li><a href="../#stack">Tech Stack</a></li><li><a href="../#contact">Contact</a></li></ul></nav>
+    <div class="lang"><button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu"><span>EN</span><span class="lang-caret" aria-hidden="true">⌄</span><span class="sr-only">Change language</span></button><div class="lang-menu" id="lang-menu" role="menu"><a href="../" hreflang="en" aria-current="true" role="menuitem">English</a><a href="../fr/ai-lab/" hreflang="fr" role="menuitem">Français</a><a href="../zh/ai-lab/" hreflang="zh" role="menuitem">中文</a></div></div>
     <button class="burger" type="button" aria-expanded="false" aria-controls="drawer"><span class="burger-box" aria-hidden="true"><span></span><span></span><span></span></span><span class="sr-only">Open menu</span></button>
   </div>
 </header>
-<div class="drawer" id="drawer" aria-hidden="true"><div class="drawer-top"><button class="drawer-close" type="button"><span aria-hidden="true">✕</span><span class="sr-only">Close menu</span></button></div><nav aria-label="Mobile"><ul><li><a href="../#services"><i>01</i>Services</a></li><li><a href="../#portfolio"><i>02</i>Portfolio</a></li><li><a href="../#ai-lab"><i>03</i>AI Engineering Lab</a></li><li><a href="../#contact"><i>04</i>Contact</a></li></ul></nav><div class="drawer-foot"><p class="drawer-hubs"><span class="dot" aria-hidden="true"></span>Paris • Singapore • Shanghai</p><a class="btn btn-primary btn-block" href="../#contact">Book a Discovery Call</a></div></div>
+<div class="drawer" id="drawer" aria-hidden="true"><div class="drawer-top"><button class="drawer-close" type="button"><span aria-hidden="true">✕</span><span class="sr-only">Close menu</span></button></div><nav aria-label="Mobile"><ul><li><a href="../#services"><i>01</i>Services</a></li><li><a href="../#portfolio"><i>02</i>Portfolio</a></li><li><a href="./"><i>03</i>AI Engineering Lab</a></li><li><a href="../#contact"><i>04</i>Contact</a></li></ul></nav><div class="drawer-foot"><p class="drawer-hubs"><span class="dot" aria-hidden="true"></span>Paris • Singapore • Shanghai</p><a class="btn btn-primary btn-block" href="../#contact">Book a Discovery Call</a></div></div>
 <main id="main">
   <section class="hero wrap"><div class="hero-grid"><div><p class="eyebrow">AI Engineering Lab</p><h1>Building AI systems you can <span class="grad">inspect, measure, and trust.</span></h1><p class="ai-lab-hero-note">The AI Engineering Lab documents the methods behind my RAG consulting work: how to build reliable retrieval systems, prove that they work, and teach the workflow through practical experiments.</p><div class="ai-lab-cta"><a class="btn btn-primary" href="../#contact">Discuss an AI project <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="#skills">Browse the methods</a></div></div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/ai-lab</span></div><pre class="terminal-body" aria-label="AI Engineering Lab methodology"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">lab --method</span></span>
 <span class="row"><span class="t-key">▸ build  </span><span class="t-val">source-aware RAG systems</span></span>
@@ -52,6 +69,9 @@
   <section class="section wrap"><div class="globe"><div class="section-head"><p class="eyebrow">Consulting application</p><h2 class="section-title">Methods that become delivery.</h2><p class="section-sub">These public projects support the same outcome as my client work: AI systems that are useful, inspectable, and ready for real operational constraints.</p><div class="ai-lab-cta"><a class="btn btn-primary" href="../#contact">Discuss a corporate RAG system <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="../#portfolio">View production projects</a></div></div></div></section>
 </main>
 <footer class="footer"><div class="wrap footer-inner"><div class="footer-meta"><p><strong>SHEN YI</strong> — Senior Full-Stack &amp; AI Solutions Developer</p><p class="mono">Paris • Singapore • Shanghai — FR · ZH · EN</p><p>© <span data-year>2026</span> SHEN YI. All rights reserved.</p></div><div class="footer-links"><a href="mailto:contact@shenyi.dev" aria-label="Email">@</a><a href="https://github.com/scheffershen" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GH</a><a href="https://www.linkedin.com/in/shen-yi-333611b/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a></div></div></footer>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"CollectionPage","name":"AI Engineering Lab — Reliable RAG Systems","description":"The SHEN YI AI Engineering Lab documents practical methods for building, evaluating and teaching reliable RAG systems.","url":"https://shenyi.dev/ai-lab/","inLanguage":"en","author":{"@type":"Person","name":"SHEN YI","url":"https://shenyi.dev/"}}
+</script>
 <script src="../assets/js/main.js" defer></script>
 </body>
 </html>
