@@ -67,15 +67,13 @@
 <section class="card accent">
       <h2>Today’s tangible win</h2>
       <p>By the end of today you'll have a fresh, live baseline for the sanitized Meridian Labs system — and you'll know exactly what it proves, and just as importantly, what it doesn't.</p>
-      <p class="zh"><strong>本课的具体收获：</strong> 学完这节课，你会拿到脱敏版 Meridian Labs 系统一份全新的实时基线——而且能准确说清它证明了什么，更重要的是，它没能证明什么。</p>
-    </section>
+      </section>
 
     <section>
       <h2>1 · Safety first: use the isolated demo</h2>
       <p>Run every command from the demo directory — not from `api`:</p>
       <pre><code>cd demo</code></pre>
       <p>The demo stack is fully isolated: its own service names, ports, collections, workspaces, and data directories. It only reads the demo configuration and the one demo API key file. Never print or open the secret environment files.</p>
-      <p class="zh">所有命令都要在演示目录里跑，别跑到 `api` 去了。演示环境是完全独立的一套：服务名、端口、集合、工作区、数据目录全都单独一份，只读取演示专用的配置和那一个演示 API key 文件。密钥相关的环境文件，千万别打印出来，也别随便打开。</p>
       <p>Before you start, double-check:</p>
       <ul>
         <li>Docker is running.</li>
@@ -96,8 +94,7 @@ python3 test_scoring.py</code></pre>
       <p>Now index the synthetic corpus:</p>
       <pre><code>python3 setup_demo.py ingest</code></pre>
       <p>Ingestion isn't instant — the graph and summary indexes both call the LLM, so budget real time for it. If the corpus is already indexed and you want to keep it that way, use the documented options carefully. Don't casually blow away production data.</p>
-      <p class="zh">索引这一步不会很快——图索引和摘要索引都要调用 LLM，得留够时间。如果语料库已经建好索引、你也想保留它，那就仔细看文档里的选项再操作，千万别手一滑把生产数据重建了。</p>
-    </section>
+      </section>
 
     <section>
       <h2>3 · Measure retrieval before answers</h2>
@@ -113,8 +110,7 @@ python3 test_scoring.py</code></pre>
         <li>Vector plus full-text plus summary</li>
         <li>All indexes, including approximate graph matching</li>
       </ul>
-      <p class="zh">先只测检索这一步——不走 LLM 评审，也就不花那份钱。这一步能让你清楚看到每个索引各自扛了多少活。</p>
-    </section>
+      </section>
 
     <section>
       <h2>4 · Measure generated answers</h2>
@@ -124,7 +120,6 @@ python3 test_scoring.py</code></pre>
   --workspace meridian_demo \
   --tag lesson-4-answer</code></pre>
       <p>This run hits `/api/v1/qa`, checks the citations and required keywords, and lets a judge model sort each answer into `correct`, `partial`, or `incorrect`. It also tracks refusals and latency along the way.</p>
-      <p class="zh">这一步会调用 `/api/v1/qa`，核对引用和必需关键词，再交给评审模型把每个答案判成 `correct`、`partial` 或 `incorrect` 三档，顺带把拒答率和延迟也一并测出来。</p>
       <p>Doing this for the first time? Limit the sample size:</p>
       <pre><code>python3 eval.py run \
   --mode both \
@@ -149,28 +144,24 @@ python3 test_scoring.py</code></pre>
           <tr><td>Latency p50 / p95</td><td>_____</td><td>Typical and slow-tail response time</td></tr>
         </tbody>
       </table>
-      <p class="zh">光甩一个数字出来、不说清楚它的定义，没有意义。把这几项都记下来：检索覆盖率、严格准确率、来源命中率、拒答准确率、幻觉率，还有 p50/p95 延迟。</p>
-    </section>
+      </section>
 
     <section>
       <h2>6 · Practice: baseline or overclaim?</h2>
       <div class="lesson-quiz" data-quiz>
         <p><strong>Statement A:</strong> “On the 65-question Meridian Labs eval set, using `gpt-4o-mini`, topk 5, in this workspace, strict answer accuracy came out to 70%.” Does that count as a solid baseline statement?</p>
-        <p class="zh">“在 65 个问题的 Meridian Labs 评估集上，用 `gpt-4o-mini`、topk 5、当前这个工作区跑出来，严格答案准确率是 70%。”这句话算得上是一个站得住脚的基线陈述吗？</p>
         <button type="button" data-answer="correct" data-feedback="Right — it locks down the corpus, the configuration, and the metric definition.">Yes</button>
         <button type="button" data-answer="incorrect" data-feedback="Not quite — those exact conditions and metric definition are what make it reproducible.">No</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
       </div>
       <div class="lesson-quiz" data-quiz>
         <p><strong>Statement B:</strong> “The chatbot is 70% accurate.” Would that fly in a technical report?</p>
-        <p class="zh">“这个聊天机器人准确率是 70%。”写进技术报告里，这句话够格吗？</p>
         <button type="button" data-answer="correct" data-feedback="Correct — it hides the dataset, the metric, the model, the configuration, and how refusals get handled.">No</button>
         <button type="button" data-answer="incorrect" data-feedback="Not enough — a number only means something when it’s tied to a reproducible setup.">Yes</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
       </div>
       <div class="lesson-quiz" data-quiz>
         <p><strong>Statement C:</strong> Retrieval union is high, but strict answer accuracy is low. Where do you look next?</p>
-        <p class="zh">检索覆盖率很高，但严格答案准确率却很低，这时候你该去查哪里？</p>
         <button type="button" data-answer="correct" data-feedback="Correct — the sources are already getting through, so look at context assembly, prompting, and generation.">Generation path</button>
         <button type="button" data-answer="incorrect" data-feedback="Not first — retrieval is already doing its job and bringing back the expected sources.">Ingestion only</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
@@ -180,8 +171,7 @@ python3 test_scoring.py</code></pre>
     <section class="card">
       <h2>Mission connection</h2>
       <p>A QA or regulatory team can't do anything with a number they can't interpret or reproduce. A baseline is what keeps a prototype honest — it lays bare what's working, what isn't, and whether your next change actually moved the needle.</p>
-      <p class="zh">QA 或法规团队拿到一个既解释不了、也复现不了的数字，其实什么都做不了。基线的作用就是让原型保持诚实——它把现在的优势、现在的短板都摆在台面上，也能告诉你下一次改动到底有没有真的起作用。</p>
-    </section>
+      </section>
 
     <section>
       <h2>Next action</h2>
@@ -194,10 +184,8 @@ python3 test_scoring.py</code></pre>
         <li>Refusal accuracy and hallucination rate.</li>
         <li>One failure you want to dig into first, along with its judge reason.</li>
       </ol>
-      <p class="zh"><strong>下一步：</strong> 至少把检索评估和答案评估都跑一遍，然后把两个报告标签、几项关键指标，还有一个你最想优先排查的失败案例，发给我。</p>
       <p><strong>Ask follow-up questions</strong> anytime Docker, ingestion, the judge, or a metric doesn't make sense to you. I'll help you make sense of the live numbers before we call Lesson 4 done.</p>
-      <p class="zh"><strong>如果 Docker、索引、评审模型，或者任何一个指标你没弄明白，随时问我，不用自己瞎猜。</strong> 在我们把第 4 课标记完成之前，我会帮你一起把这份实时结果看懂。</p>
-    </section>
+      </section>
 </section>
 <section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0003-build-a-trustworthy-evaluation-set.html">← Previous lesson</a><a class="btn btn-ghost" href="../reference/baseline-evaluation-cheatsheet.html">Reference sheet</a><a href="0005-semantic-keyword-and-hybrid-retrieval.html">Next lesson →</a></div></section>
 </main>
@@ -206,4 +194,6 @@ python3 test_scoring.py</code></pre>
 <script src="../../../assets/js/lesson.js" defer></script>
 </body>
 </html>
+
+
 

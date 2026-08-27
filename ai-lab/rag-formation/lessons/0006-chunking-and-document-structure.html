@@ -67,8 +67,7 @@
 <section class="card accent">
       <h2>Today’s tangible win</h2>
       <p>You'll compare two source-window configurations and land on one chunking hypothesis — bounded, and backed by evidence.</p>
-      <p class="zh"><strong>本课的具体收获：</strong> 你会做一份前后对比记录——两种窗口配置、一个可衡量的指标、一个回归风险，外加一个有边界的结论。</p>
-    </section>
+      </section>
 
     <section>
       <h2>1 · The smallest useful model</h2>
@@ -79,8 +78,7 @@
         <li><strong>Bounded conclusion:</strong> a source-window result gives you a chunking hypothesis, nothing more. It doesn't prove the live index retrieves or answers any better.</li>
       </ul>
       <p><a href="https://docs.llamaindex.ai/en/stable/examples/node_postprocessor/MetadataReplacementDemo/" target="_blank" rel="noreferrer">Primary reading: LlamaIndex — Sentence Window Retrieval</a>. Watch for how a retrieved window can restore local context around a fact without losing track of which source it came from.</p>
-      <p class="zh">本课说的“窗口”，就是长度有限的一段源文本。重叠可以把跨边界的信息保住，但重叠太多，换来的只是一堆重复证据。这一课只测“事实和文档编号是否落在同一个窗口里”，别把它当成真实检索或答案质量已经变好的证明。</p>
-    </section>
+      </section>
 
     <section>
       <h2>2 · Run one controlled source-window experiment</h2>
@@ -92,8 +90,7 @@ python3 chunk_lab.py --question q24 --window-chars 420 --overlap-chars 40 --outp
       <pre><code>reports/lesson-06-baseline/lesson-06-q24-chunks.md
 reports/lesson-06-larger-window/lesson-06-q24-chunks.md</code></pre>
       <p class="lesson-callout">The metric here is simple: how many windows — and what rate — contain both the expected reference and every <code>must_include</code> term. A higher number can back up a chunking hypothesis. It is not retrieval accuracy.</p>
-      <p class="zh">离线工具 <code>chunk_lab.py</code> 只读两样东西：合成 Markdown 语料和 <code>eval_set.yaml</code>，不会碰 Docker、不读密钥、不调 API，也不会重建索引。重叠固定在 40 不动，只把窗口大小从 280 换成 420，然后比较“同时包含文档编号和所有必需事实词”的窗口数量与比例。</p>
-    </section>
+      </section>
 
     <section>
       <h2>3 · Inspect three question shapes</h2>
@@ -108,8 +105,7 @@ reports/lesson-06-larger-window/lesson-06-q24-chunks.md</code></pre>
           </tbody>
         </table>
       </div>
-      <p class="zh">分别看这三题：q24 的版本编号有没有跟变更后的期限待在一起；q30 的多跳答案还差哪一份来源；q52 的 RTO 数字有没有跟连续性计划编号绑在一起。</p>
-    </section>
+      </section>
 
     <section>
       <h2>4 · Record the before/after evidence</h2>
@@ -124,8 +120,7 @@ reports/lesson-06-larger-window/lesson-06-q24-chunks.md</code></pre>
         </table>
       </div>
       <p>Fill in this sentence frame: <em>“With ___ characters and ___ overlap, ___ of ___ windows put the required fact and the source identity in the same place. That supports the hypothesis that ___. It doesn't prove live retrieval quality — next I'd reindex and rerun the retrieval evaluation.”</em></p>
-      <p class="zh">按这个句式写结论：<em>“窗口设为 ___ 字符、重叠设为 ___ 字符时，___ / ___ 个窗口把必需事实和来源身份放在了一起。这支持 ___ 这个假设，但还不能说明线上检索质量如何。下一步，在隔离环境里重新建立索引，再跑一遍检索评估。”</em></p>
-    </section>
+      </section>
 
     <section>
       <h2>5 · Retrieval practice</h2>
@@ -134,29 +129,25 @@ reports/lesson-06-larger-window/lesson-06-q24-chunks.md</code></pre>
         <button type="button" data-answer="correct" data-feedback="Correct. Preserve or prepend the heading/reference before assuming a larger window is needed.">Keep heading</button>
         <button type="button" data-answer="incorrect" data-feedback="Not first. The missing evidence is document identity, not necessarily more surrounding text.">Drop heading</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
-        <p class="zh">案例 A：窗口里有期限，却没有文档编号。这时候该做的，是先把标题/编号保留或前置，而不是想着窗口是不是该开大一点。</p>
-      </div>
+        </div>
       <div class="lesson-quiz" data-quiz>
         <p><strong>Case B:</strong> After you raise the overlap, two neighboring windows end up repeating almost the same text. What risk goes in your notes?</p>
         <button type="button" data-answer="correct" data-feedback="Correct. Larger overlap may spend top-k on near-duplicates instead of complementary evidence.">Raise overlap</button>
         <button type="button" data-answer="correct" data-feedback="Correct. Reducing overlap is a valid next experiment when duplicate windows dominate the evidence budget.">Lower overlap</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
-        <p class="zh">案例 B：重叠一变大，相邻窗口几乎变成了同一段内容。这里要记下的风险是：重复窗口可能占满 top-k 的名额，把本该互补的证据挤出去；接下来该试试调小重叠。</p>
-      </div>
+        </div>
       <div class="lesson-quiz" data-quiz>
         <p><strong>Case C:</strong> The bigger window pushes the proxy metric up. What's the honest next move?</p>
         <button type="button" data-answer="correct" data-feedback="Correct. Reindex in the isolated environment, then measure retrieval with the same evaluation set.">Rerun metric</button>
         <button type="button" data-answer="incorrect" data-feedback="Not yet. The proxy supports a hypothesis but cannot prove live retrieval or answer quality.">Assume cause</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
-        <p class="zh">案例 C：换成更大的窗口后，代理指标确实变好看了。诚实的下一步，是在隔离环境里重新索引，再用同一套评估集去测检索效果——而不是直接宣布因果关系已经证明。</p>
-      </div>
+        </div>
     </section>
 
     <section class="card">
       <h2>Mission connection</h2>
       <p>An SOP answer is often only as good as whether its heading, version, date, and exceptions all show up together. That makes chunking part of citation and compliance quality — not some ingestion detail you can set and forget.</p>
-      <p class="zh">员工、QA、法规和审计人员都需要看清楚：这条事实到底出自哪份受控文件。分块要是把期限、版本、例外和文件身份拆开了，引用就没法核实了。</p>
-    </section>
+      </section>
 
     <section>
       <h2>6 · Deliverable and next action</h2>
@@ -165,12 +156,9 @@ reports/lesson-06-larger-window/lesson-06-q24-chunks.md</code></pre>
         <li>Fill in the evidence table for q24 plus one of q30 or q52.</li>
         <li>Write down one bounded conclusion, one regression risk, and the reindex-plus-retrieval check you'd run next.</li>
       </ol>
-      <p class="zh">交付物：保存 q24 那两份对比报告；把 q24 和 q30/q52 其中一个的证据表填完；写出一个有边界的结论、一个回归风险，再加上下一步“重新索引 + 检索评估”要跑的验证。</p>
       <p><strong>Next:</strong> Lesson 7 — Metadata, filters, and access boundaries. Hang on to this record — it tells you whether a retrieval problem actually starts upstream of the search backends.</p>
-      <p class="zh"><strong>下一步：</strong> 第 7 课会讲元数据、筛选和访问边界。留着这份记录，它能帮你判断问题是不是在搜索后端之前就已经埋下了。</p>
       <p><strong>Got questions? Ask me.</strong> About the reports, the proxy metric, a boundary effect, or what to run next live — I'm your teacher for this course.</p>
-      <p class="zh"><strong>报告、代理指标、边界效应，或者下一步的线上实验，有任何不清楚的地方，尽管问我。</strong></p>
-    </section>
+      </section>
 </section>
 <section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0005-semantic-keyword-and-hybrid-retrieval.html">← Previous lesson</a><a class="btn btn-ghost" href="../reference/chunking-and-document-structure-cheatsheet.html">Reference sheet</a><a href="0007-metadata-filters-and-access-boundaries.html">Next lesson →</a></div></section>
 </main>
@@ -179,4 +167,6 @@ reports/lesson-06-larger-window/lesson-06-q24-chunks.md</code></pre>
 <script src="../../../assets/js/lesson.js" defer></script>
 </body>
 </html>
+
+
 

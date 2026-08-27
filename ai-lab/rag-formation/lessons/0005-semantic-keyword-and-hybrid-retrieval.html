@@ -67,8 +67,7 @@
 <section class="card accent">
       <h2>Today’s tangible win</h2>
       <p>By the end of this lesson, you will have filled in a question-by-question comparison table and picked one retrieval improvement the evidence actually supports.</p>
-      <p class="zh"><strong>本课的具体收获：</strong> 填完一张逐题对比表，并选出一个真正有证据支持的检索改进点。</p>
-    </section>
+      </section>
 
     <section>
       <h2>1 · The smallest useful model</h2>
@@ -79,8 +78,7 @@
         <li><strong>Hybrid retrieval:</strong> A production hybrid path might fuse or rerank both signals together. Here we start with the simpler vector-plus-full-text union, so each one's contribution stays visible.</li>
       </ul>
       <p><a href="https://qdrant.tech/documentation/search/text-search/hybrid-search" target="_blank" rel="noreferrer">Primary reading: Qdrant Hybrid Search</a> — pay attention to how it combines multiple search representations, and why that combination needs to be evaluated rather than just assumed to work.</p>
-      <p class="zh">这节课我们先只测“向量结果 ∪ 全文结果”覆盖了多少来源——来源被检索到，不等于答案就是对的，这两件事别混在一起。</p>
-    </section>
+      </section>
 
     <section>
       <h2>2 · Run one controlled experiment</h2>
@@ -98,8 +96,7 @@ reports/lesson-05-experiment.json</code></pre>
         <li><code>results[].retrieval.cumulative["vector+fulltext"].all</code></li>
       </ul>
       <p class="lesson-callout">Judge a hit by source metadata, not by text matching — a document ID that merely shows up inside another document’s body text does not count as a retrieval hit.</p>
-      <p class="zh">判断文档有没有被检索到，看的是来源元数据，不是文字匹配。某个编号只是碰巧出现在另一份文档正文里，不能算这份文档被检索到了。</p>
-    </section>
+      </section>
 
     <section>
       <h2>3 · Fill the comparison table</h2>
@@ -110,8 +107,7 @@ reports/lesson-05-experiment.json</code></pre>
           <tbody><tr><td>q21</td><td>Reference lookup</td><td>PR-QA-MRD-010</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q24</td><td>Reference lookup / revision</td><td>PR-QA-MRD-009</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q32</td><td>Cross-lingual factual</td><td>PR-EXM-MRD-003</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q46</td><td>Literal factual</td><td>PR-ACH-MRD-007</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q63</td><td>Multi-hop</td><td>PR-CLI-MRD-013 + PR-QA-MRD-009</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody>
         </table>
       </div>
-      <p class="zh">三个结果栏分别填 <code>all</code>、<code>partial</code> 或 <code>miss</code>；多文档问题只找到部分来源时，就填 <code>partial</code>。每一行再补一句解释，加一个具体的下一步。</p>
-    </section>
+      </section>
 
     <section>
       <h2>4 · Interpret before changing code</h2>
@@ -138,8 +134,7 @@ reports/lesson-05-experiment.json</code></pre>
     <section class="card">
       <h2>Mission connection</h2>
       <p>A chatbot for a regulated company has to nail both ends — a precisely worded procedure lookup and a policy question phrased the way a real person would ask it. This table is what turns that reliability goal into an actual, traceable retrieval decision.</p>
-      <p class="zh">这正是我们要做的事：无论是员工、QA、法规、供应商还是审计人员来提问，机器人给出的答案都要可验证、可引用，并且清楚自己的边界在哪里。</p>
-    </section>
+      </section>
 
     <section>
       <h2>5 · Deliverable and next action</h2>
@@ -149,10 +144,8 @@ reports/lesson-05-experiment.json</code></pre>
         <li>Pick one next action, and name the metric you'll rerun to check it worked.</li>
       </ol>
       <p><strong>Next:</strong> Lesson 6 — Chunking and document structure. Hang onto this table — it's your retrieval baseline for the chunking and query-handling experiments still to come.</p>
-      <p class="zh"><strong>下一步：</strong> 把五行对比表填完，写一条有证据支撑的检索结论，再定一个带明确指标的后续实验。</p>
       <p><strong>Ask me anything</strong> about the report fields, metadata matching, query categories, or any row that isn't clicking for you. I'm your teacher for this course — that's exactly what I'm here for.</p>
-      <p class="zh"><strong>报告字段、元数据匹配、问题类别，或者哪一行看不懂，随时问我——这门课我就是负责给你答疑解惑的。</strong></p>
-    </section>
+      </section>
 </section>
 <section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0004-establish-the-mvp-baseline.html">← Previous lesson</a><a class="btn btn-ghost" href="../reference/semantic-keyword-and-hybrid-retrieval-cheatsheet.html">Reference sheet</a><a href="0006-chunking-and-document-structure.html">Next lesson →</a></div></section>
 </main>
@@ -161,4 +154,6 @@ reports/lesson-05-experiment.json</code></pre>
 <script src="../../../assets/js/lesson.js" defer></script>
 </body>
 </html>
+
+
 
