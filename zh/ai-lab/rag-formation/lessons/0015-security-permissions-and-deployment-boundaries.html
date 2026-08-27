@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0YRBQKHLZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+  gtag('js', new Date());
+  gtag('config', 'G-S0YRBQKHLZ');
+</script>
+<title>第 15 课 · 安全、权限与部署边界 | RAG Formation</title>
+<meta name="author" content="沈毅">
+<meta name="description" content="防止聊天机器人向错误用户暴露文档，或泄露秘密和客户数据。 一份 MVP 威胁与权限核对清单。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html">
+<link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html">
+<link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html">
+<link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html">
+<link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="沈毅 — 资深全栈与 AI 解决方案开发者">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html">
+<meta property="og:title" content="第 15 课 · 安全、权限与部署边界 | RAG Formation">
+<meta property="og:description" content="防止聊天机器人向错误用户暴露文档，或泄露秘密和客户数据。 一份 MVP 威胁与权限核对清单。">
+<meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="第 15 课 · 安全、权限与部署边界 | RAG Formation">
+<meta name="twitter:description" content="防止聊天机器人向错误用户暴露文档，或泄露秘密和客户数据。 一份 MVP 威胁与权限核对清单。">
+<meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
+<link rel="icon" href="../../../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../../assets/css/style.css">
+<script>document.documentElement.classList.add("js");</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "第 15 课 · 安全、权限与部署边界 | RAG Formation", "description": "防止聊天机器人向错误用户暴露文档，或泄露秘密和客户数据。 一份 MVP 威胁与权限核对清单。", "url": "https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html", "inLanguage": "zh-CN", "articleSection": "可靠性与产品就绪", "isPartOf": {"@type": "Course", "name": "RAG Formation", "url": "https://shenyi.dev/zh/ai-lab/rag-formation/"}, "author": {"@type": "Person", "name": "沈毅", "url": "https://shenyi.dev/"}}</script>
+</head>
+<body class="ai-lab-page">
+<a class="skip-link" href="#main">跳到主要内容</a>
+<header class="header"><div class="wrap header-inner">
+  <a class="brand" href="../../../../" aria-label="沈毅 — 首页"><span class="brand-mark" aria-hidden="true">YS</span><span class="brand-text"><span class="brand-name">沈毅</span><span class="brand-role">全栈与 AI</span></span></a>
+  <p class="hubs-badge"><span class="dot" aria-hidden="true"></span>巴黎 • 新加坡 • 上海</p>
+  <nav class="nav-desktop" aria-label="课程导航"><ul><li><a href="../../">AI 工程实验室</a></li><li><a href="../">课程路线图</a></li><li><a href="#main" aria-current="page">第 15 课</a></li></ul></nav>
+  <div class="lang"><button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu"><span aria-hidden="true">🇨🇳</span><span>ZH</span><span class="lang-caret" aria-hidden="true">⌄</span><span class="sr-only">切换语言</span></button><div class="lang-menu" id="lang-menu" role="menu"><a href="../../../../ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html" hreflang="en" lang="en" role="menuitem">English</a><a href="../../../../fr/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html" hreflang="fr" lang="fr" role="menuitem">Français</a><a href="../../../../zh/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html" hreflang="zh" lang="zh-CN" aria-current="true" role="menuitem">中文</a></div></div>
+</div></header>
+<main id="main">
+  <section class="hero wrap"><div class="hero-grid"><div>
+    <p class="eyebrow">RAG Formation · 第 15 课 · 可靠性与产品就绪</p>
+    <h1>安全、权限与部署边界</h1>
+    <p class="ai-lab-hero-note">让客户数据、秘密、租户边界和生产服务不被不安全的演示假设所混淆。</p>
+    <div class="ai-lab-cta"><a class="btn btn-primary" href="../">课程路线图 <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="../../">AI 工程实验室</a></div>
+  </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="第 15 课 · 安全、权限与部署边界 | RAG Formation"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">lesson --status</span></span>
+<span class="row"><span class="t-key">▸ course </span><span class="t-val">RAG Formation</span></span>
+<span class="row"><span class="t-key">▸ lesson </span><span class="t-num">15</span> <span class="t-val">/ 16</span></span>
+<span class="row"><span class="t-key">▸ phase </span><span class="t-val">可靠性与产品就绪</span></span>
+<span class="row"><span class="t-key">▸ status </span><span class="t-num">开发中</span></span>
+<span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
+  <section class="section wrap lesson-content" id="lesson-content">
+<div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
+<section class="card accent"><h2>Today’s tangible win</h2><p>A lightweight MVP checklist of threats and permissions, with one negative test proving each boundary actually holds.</p><p class="zh"><strong>本课的具体收获：</strong> 做一份 MVP 级别的威胁与权限清单，每条边界都配一个负向测试，证明它真的挡得住。</p></section>
+<section><h2>1 · The skill</h2><p>Walk the demo boundary, how environment variables get loaded, your CORS and logging assumptions, and run one negative access test — all without opening a single secrets file.</p><ul><li><strong>Least privilege:</strong> Users, services, tools — each one gets only the access it actually needs.</li><li><strong>Data boundary:</strong> A real, technical wall between demo, staging, and production — covering both the data and the credentials that unlock it.</li><li><strong>Prompt/data injection:</strong> Untrusted document or user content trying to hijack system behavior or leak information it should not.</li></ul><p><a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank" rel="noreferrer">Primary reading: OWASP — Top 10 for Large Language Model Applications</a></p><p class="zh">最小权限，说白了就是用户、服务、工具，谁都只给刚好够用的权限。数据边界，是演示、预发布、生产这几个环境之间，数据和凭证都要有真正的技术隔离，不能只靠自觉。提示词/数据注入，指的是那些不受信任的文档或用户输入，想方设法改变系统行为，或者把不该露的信息套出来。</p></section>
+<section><h2>2 · Run the evidence loop</h2><pre><code>cd demo
+python3 setup_demo.py ingest --dry-run</code></pre><p>For each boundary, write down what is protecting it right now, a safe command that proves it, and where the enforcement gap is.</p><p class="lesson-callout">It does not matter how accurate the answer is — if it exposes a restricted document or a secret, that is a failure.</p><p class="zh">把用到的命令、配置、跑出来的结果和失败的案例都记下来；千万别拿一次实验的结果，就断言整个系统已经靠谱。</p></section>
+<section><h2>3 · Decision worksheet</h2><div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Baseline evidence</th><th>One hypothesis/change</th><th>Metric</th><th>Regression check</th><th>Bounded conclusion</th></tr></thead><tbody><tr><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody></table></div><p class="zh">把这几栏填完：基线证据、一个假设或改动、要看的指标、回归检查，还有一个有边界、不夸大的结论。</p></section>
+<section><h2>4 · Retrieval practice</h2><div class="lesson-quiz" data-quiz><p><strong>Question:</strong> A secret never makes it into Git, but it still gets printed in a debug log. Is that boundary safe?</p><button type="button" data-answer="correct" data-feedback="Correct. Secret handling covers everything the app outputs at runtime, not just what is tracked in Git.">Still leaking</button><button type="button" data-answer="incorrect" data-feedback="Not safe. Keeping a file out of Git says nothing about what the code prints at runtime.">Looks safe</button><p class="lesson-feedback" data-feedback aria-live="polite"></p><p class="zh">该往下走哪一步，靠证据说话，别让选项的措辞代替了真正的验证。</p></div></section>
+<section class="card"><h2>Mission connection</h2><p>A company chatbot fails the moment it exposes a client document, a production key, or a restricted procedure — even if every word of the answer is factually correct.</p><p class="zh">哪怕答案本身完全正确，只要泄露了客户文件、生产密钥，或者受限的操作流程，这个企业聊天机器人就是不合格的。</p></section>
+<section><h2>5 · Deliverable and next action</h2><ol><li>Save the command output, or the report.</li><li>Fill in the decision worksheet.</li><li>Write down one failure case, and the next verification to run.</li></ol><p>A lightweight MVP checklist of threats and permissions, with one negative test proving each boundary actually holds.</p><p class="zh">交付物：把证据存好，工作表填完，再记一个失败案例和下一步要跑的验证。</p><p><strong>Next:</strong> Lesson 16 — Pilot review and 30-day implementation plan.</p><p><strong>Ask me follow-up questions</strong> about the evidence, the metric, the failure case, or what to try next — I am your teacher for this course.</p></section>
+</section>
+<section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0014-latency-cost-and-observability.html">← 上一课</a><a class="btn btn-ghost" href="../reference/security-permissions-and-deployment-boundaries-cheatsheet.html">参考资料</a><a href="0016-pilot-review-and-30-day-implementation-plan.html">下一课 →</a></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><div class="footer-meta"><p><strong>沈毅</strong> — 资深全栈与 AI 解决方案开发者</p><p class="mono">巴黎 • 新加坡 • 上海 — FR · ZH · EN</p><p>© <span data-year>2026</span> 沈毅. 版权所有。</p></div></div></footer>
+<script src="../../../../assets/js/main.js" defer></script>
+<script src="../../../../assets/js/lesson.js" defer></script>
+</body>
+</html>
+
+

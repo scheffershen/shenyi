@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0YRBQKHLZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+  gtag('js', new Date());
+  gtag('config', 'G-S0YRBQKHLZ');
+</script>
+<title>第 7 课 · 元数据、过滤器与访问边界 | RAG Formation</title>
+<meta name="author" content="沈毅">
+<meta name="description" content="理解公司、部门、文档类型、分类、版本和生效日期等元数据的重要性。 一份元数据与访问控制矩阵。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html">
+<link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html">
+<link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html">
+<link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html">
+<link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="沈毅 — 资深全栈与 AI 解决方案开发者">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html">
+<meta property="og:title" content="第 7 课 · 元数据、过滤器与访问边界 | RAG Formation">
+<meta property="og:description" content="理解公司、部门、文档类型、分类、版本和生效日期等元数据的重要性。 一份元数据与访问控制矩阵。">
+<meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="第 7 课 · 元数据、过滤器与访问边界 | RAG Formation">
+<meta name="twitter:description" content="理解公司、部门、文档类型、分类、版本和生效日期等元数据的重要性。 一份元数据与访问控制矩阵。">
+<meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
+<link rel="icon" href="../../../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../../assets/css/style.css">
+<script>document.documentElement.classList.add("js");</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "第 7 课 · 元数据、过滤器与访问边界 | RAG Formation", "description": "理解公司、部门、文档类型、分类、版本和生效日期等元数据的重要性。 一份元数据与访问控制矩阵。", "url": "https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html", "inLanguage": "zh-CN", "articleSection": "检索工程", "isPartOf": {"@type": "Course", "name": "RAG Formation", "url": "https://shenyi.dev/zh/ai-lab/rag-formation/"}, "author": {"@type": "Person", "name": "沈毅", "url": "https://shenyi.dev/"}}</script>
+</head>
+<body class="ai-lab-page">
+<a class="skip-link" href="#main">跳到主要内容</a>
+<header class="header"><div class="wrap header-inner">
+  <a class="brand" href="../../../../" aria-label="沈毅 — 首页"><span class="brand-mark" aria-hidden="true">YS</span><span class="brand-text"><span class="brand-name">沈毅</span><span class="brand-role">全栈与 AI</span></span></a>
+  <p class="hubs-badge"><span class="dot" aria-hidden="true"></span>巴黎 • 新加坡 • 上海</p>
+  <nav class="nav-desktop" aria-label="课程导航"><ul><li><a href="../../">AI 工程实验室</a></li><li><a href="../">课程路线图</a></li><li><a href="#main" aria-current="page">第 7 课</a></li></ul></nav>
+  <div class="lang"><button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu"><span aria-hidden="true">🇨🇳</span><span>ZH</span><span class="lang-caret" aria-hidden="true">⌄</span><span class="sr-only">切换语言</span></button><div class="lang-menu" id="lang-menu" role="menu"><a href="../../../../ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html" hreflang="en" lang="en" role="menuitem">English</a><a href="../../../../fr/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html" hreflang="fr" lang="fr" role="menuitem">Français</a><a href="../../../../zh/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html" hreflang="zh" lang="zh-CN" aria-current="true" role="menuitem">中文</a></div></div>
+</div></header>
+<main id="main">
+  <section class="hero wrap"><div class="hero-grid"><div>
+    <p class="eyebrow">RAG Formation · 第 7 课 · 检索工程</p>
+    <h1>元数据、过滤器与访问边界</h1>
+    <p class="ai-lab-hero-note">区分有用的文档标签与企业聊天机器人真正需要的授权边界。</p>
+    <div class="ai-lab-cta"><a class="btn btn-primary" href="../">课程路线图 <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="../../">AI 工程实验室</a></div>
+  </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="第 7 课 · 元数据、过滤器与访问边界 | RAG Formation"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">lesson --status</span></span>
+<span class="row"><span class="t-key">▸ course </span><span class="t-val">RAG Formation</span></span>
+<span class="row"><span class="t-key">▸ lesson </span><span class="t-num">07</span> <span class="t-val">/ 16</span></span>
+<span class="row"><span class="t-key">▸ phase </span><span class="t-val">检索工程</span></span>
+<span class="row"><span class="t-key">▸ status </span><span class="t-num">开发中</span></span>
+<span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
+  <section class="section wrap lesson-content" id="lesson-content">
+<div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
+<section class="card accent"><h2>Today’s tangible win</h2><p>By the end you’ll have a current-vs-proposed access matrix on paper — one that doesn’t pretend the demo already knows how to authorize roles, because it doesn’t.</p><p class="zh"><strong>本课的具体收获：</strong> 做出一张“现状 / 待实现”的访问矩阵，而不会把元数据误当成已经生效的权限控制。</p></section>
+<section><h2>1 · What exists today</h2><p>Right now, ingestion tags every document with a reference, company, department, and document type. Handy for filtering — but none of that is a user permission.</p><p><a href="https://qdrant.tech/documentation/search/filtering" target="_blank" rel="noreferrer">Primary reading: Qdrant — Filtering</a></p><pre><code>cd demo
+python3 metadata_lab.py --output-dir reports/lesson-07-inventory</code></pre><p>When it’s done, open <code>lesson-07-metadata-inventory.md</code>. The whole thing runs offline — it just reads the synthetic corpus definition, never calls an API, and never touches an index.</p><p class="zh">现在的导入流程会给每份文档打上编号、公司、部门、文档类型这些标签，方便筛选，但跟“谁能看什么”是两回事。跑完脚本后打开 lesson-07-metadata-inventory.md 看看——整个过程都是离线的，只读取合成语料的定义，不调用任何 API，也不会碰索引。</p></section>
+<section><h2>2 · Build the access matrix</h2><div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Role</th><th>Allowed department / type</th><th>Status</th><th>Evidence or gap</th></tr></thead><tbody><tr><td>Employee</td><td>Own department procedures</td><td>Proposed</td><td>Department metadata is already there, but nothing filters by the user’s own department yet.</td></tr><tr><td>Supplier</td><td>Approved supplier-facing documents</td><td>Proposed</td><td>The demo inventory has no supplier role, and no field marking a document as supplier-facing.</td></tr><tr><td>QA</td><td>Quality procedures and records</td><td>Metadata available</td><td>Department and type can describe the scope, but real authorization still has to be enforced server-side.</td></tr><tr><td>Auditor</td><td>Read-only approved scope</td><td>Proposed</td><td>Current metadata doesn’t represent a read-only role or an audit scope at all.</td></tr></tbody></table></div><p class="zh">针对员工、供应商、QA、审计员这四个角色，把允许范围、状态、证据或缺口都填清楚。状态一栏只能三选一：已实现、元数据可用、拟议——千万别把“元数据可用”偷换成“已授权”，这是两码事。</p></section>
+<section><h2>3 · Negative-access practice</h2><div class="lesson-quiz" data-quiz><p><strong>Case A:</strong> The prompt says “only answer HR questions.” Retrieval doesn’t care — it still pulls from every document. What’s missing?</p><button type="button" data-answer="correct" data-feedback="Correct. The backend needs a server-side filter before retrieval.">Server filter</button><button type="button" data-answer="incorrect" data-feedback="Not enough. A prompt cannot prevent an ineligible document entering retrieval.">Better prompt</button><p class="lesson-feedback" data-feedback aria-live="polite"></p><p class="zh">案例 A：提示词说“只回答 HR 问题”，可检索环节根本不认这句话，照样把所有文档都捞出来。真正缺的是服务端的过滤，光靠提示词是管不住的。</p></div>
+<div class="lesson-quiz" data-quiz><p><strong>Case B:</strong> A document carries department metadata, but the user has no department attribute at all. What status is honest here?</p><button type="button" data-answer="correct" data-feedback="Correct. The field exists, but a user-to-filter rule has not been enforced.">Metadata ready</button><button type="button" data-answer="incorrect" data-feedback="Not yet. Metadata alone does not grant or deny access.">Access enforced</button><p class="lesson-feedback" data-feedback aria-live="polite"></p><p class="zh">案例 B：文档标了部门，用户却压根没有部门这个属性——老实说，这种情况只能算“元数据可用”，可不能说成“访问控制已经生效”。</p></div>
+<div class="lesson-quiz" data-quiz><p><strong>Case C:</strong> A supplier has no business seeing a QA procedure. What does the negative test actually need to prove?</p><button type="button" data-answer="correct" data-feedback="Correct. The procedure must be absent from retrieval results before an answer is generated.">No retrieval</button><button type="button" data-answer="incorrect" data-feedback="Unsafe. Refusal after retrieval can still expose source content or metadata.">Late refusal</button><p class="lesson-feedback" data-feedback aria-live="polite"></p><p class="zh">案例 C：负向测试要证明的是，那份 QA 程序在生成答案之前，压根就没出现在检索结果里——不是靠事后拒答来补救。</p></div></section>
+<section class="card"><h2>Mission connection</h2><p>An answer can be word-for-word correct and still be a problem — if it came from a document the user had no business seeing. For a company chatbot, “reliable” isn’t just about getting the facts right; it includes never crossing that line.</p><p class="zh">哪怕答案在事实上完全正确，只要它来自用户本来无权访问的文件，这个答案就是不安全的。对企业聊天机器人来说，“可靠”这两个字本身就包含了不能越界访问。</p></section>
+<section><h2>4 · Deliverable</h2><ol><li>Save the metadata inventory report.</li><li>Fill in the four-role matrix, one status per row.</li><li>Write one negative-retrieval test you’d add before shipping this.</li></ol><p class="zh">交付物：保存元数据清单报告；填好四角色矩阵；再写一条上线前必须通过的负向检索测试。</p><p><strong>Next:</strong> Lesson 8 — Query handling and reranking.</p><p><strong>Ask me anything</strong> about a metadata field, role, filter, or negative test — I’m your teacher for this course.</p></section>
+</section>
+<section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0006-chunking-and-document-structure.html">← 上一课</a><a class="btn btn-ghost" href="../reference/metadata-filters-and-access-boundaries-cheatsheet.html">参考资料</a><a href="0008-query-handling-and-reranking.html">下一课 →</a></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><div class="footer-meta"><p><strong>沈毅</strong> — 资深全栈与 AI 解决方案开发者</p><p class="mono">巴黎 • 新加坡 • 上海 — FR · ZH · EN</p><p>© <span data-year>2026</span> 沈毅. 版权所有。</p></div></div></footer>
+<script src="../../../../assets/js/main.js" defer></script>
+<script src="../../../../assets/js/lesson.js" defer></script>
+</body>
+</html>
+
+

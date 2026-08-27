@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0YRBQKHLZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+  gtag('js', new Date());
+  gtag('config', 'G-S0YRBQKHLZ');
+</script>
+<title>第 1 课 · 从员工提问到带引用的回答 | RAG Formation</title>
+<meta name="author" content="沈毅">
+<meta name="description" content="把 RAG 理解为一条流水线，区分检索故障与生成故障。 第一份 RAG 质量模型与质量速查表。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html">
+<link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html">
+<link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html">
+<link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html">
+<link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="沈毅 — 资深全栈与 AI 解决方案开发者">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html">
+<meta property="og:title" content="第 1 课 · 从员工提问到带引用的回答 | RAG Formation">
+<meta property="og:description" content="把 RAG 理解为一条流水线，区分检索故障与生成故障。 第一份 RAG 质量模型与质量速查表。">
+<meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="第 1 课 · 从员工提问到带引用的回答 | RAG Formation">
+<meta name="twitter:description" content="把 RAG 理解为一条流水线，区分检索故障与生成故障。 第一份 RAG 质量模型与质量速查表。">
+<meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
+<link rel="icon" href="../../../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../../assets/css/style.css">
+<script>document.documentElement.classList.add("js");</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "第 1 课 · 从员工提问到带引用的回答 | RAG Formation", "description": "把 RAG 理解为一条流水线，区分检索故障与生成故障。 第一份 RAG 质量模型与质量速查表。", "url": "https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html", "inLanguage": "zh-CN", "articleSection": "基础与衡量", "isPartOf": {"@type": "Course", "name": "RAG Formation", "url": "https://shenyi.dev/zh/ai-lab/rag-formation/"}, "author": {"@type": "Person", "name": "沈毅", "url": "https://shenyi.dev/"}}</script>
+</head>
+<body class="ai-lab-page">
+<a class="skip-link" href="#main">跳到主要内容</a>
+<header class="header"><div class="wrap header-inner">
+  <a class="brand" href="../../../../" aria-label="沈毅 — 首页"><span class="brand-mark" aria-hidden="true">YS</span><span class="brand-text"><span class="brand-name">沈毅</span><span class="brand-role">全栈与 AI</span></span></a>
+  <p class="hubs-badge"><span class="dot" aria-hidden="true"></span>巴黎 • 新加坡 • 上海</p>
+  <nav class="nav-desktop" aria-label="课程导航"><ul><li><a href="../../">AI 工程实验室</a></li><li><a href="../">课程路线图</a></li><li><a href="#main" aria-current="page">第 1 课</a></li></ul></nav>
+  <div class="lang"><button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu"><span aria-hidden="true">🇨🇳</span><span>ZH</span><span class="lang-caret" aria-hidden="true">⌄</span><span class="sr-only">切换语言</span></button><div class="lang-menu" id="lang-menu" role="menu"><a href="../../../../ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html" hreflang="en" lang="en" role="menuitem">English</a><a href="../../../../fr/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html" hreflang="fr" lang="fr" role="menuitem">Français</a><a href="../../../../zh/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html" hreflang="zh" lang="zh-CN" aria-current="true" role="menuitem">中文</a></div></div>
+</div></header>
+<main id="main">
+  <section class="hero wrap"><div class="hero-grid"><div>
+    <p class="eyebrow">RAG Formation · 第 1 课 · 基础与衡量</p>
+    <h1>从员工提问到带引用的回答</h1>
+    <p class="ai-lab-hero-note">建立构建可靠 RAG 聊天机器人所需的第一个心智模型。</p>
+    <div class="ai-lab-cta"><a class="btn btn-primary" href="../">课程路线图 <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="../../">AI 工程实验室</a></div>
+  </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="第 1 课 · 从员工提问到带引用的回答 | RAG Formation"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">lesson --status</span></span>
+<span class="row"><span class="t-key">▸ course </span><span class="t-val">RAG Formation</span></span>
+<span class="row"><span class="t-key">▸ lesson </span><span class="t-num">01</span> <span class="t-val">/ 16</span></span>
+<span class="row"><span class="t-key">▸ phase </span><span class="t-val">基础与衡量</span></span>
+<span class="row"><span class="t-key">▸ status </span><span class="t-num">开发中</span></span>
+<span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
+  <section class="section wrap lesson-content" id="lesson-content">
+<div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
+<section class="card accent">
+      <h2>Today’s tangible win</h2>
+      <p>By the end of this lesson, you’ll be able to look at a chatbot’s answer and pinpoint whether it broke at <strong>retrieval</strong> or at <strong>generation</strong> — and that one distinction decides what you fix next.</p>
+      <p class="zh"><strong>本课的实际收获：</strong> 看到一个答案出了问题，你能马上判断是<strong>检索</strong>没找对证据，还是<strong>生成</strong>环节没写好——这个判断决定了接下来该动哪里。</p>
+    </section>
+
+    <section>
+      <h2>1 · RAG in one sentence</h2>
+      <p><strong>Retrieval-augmented generation (RAG)</strong> works like this: the moment someone asks a question, the system pulls relevant company evidence, drops it into the model’s context, and asks the model to answer based on what’s actually there.</p>
+      <p class="zh"><strong>检索增强生成（RAG）</strong>说白了就是：用户一提问，系统立刻从公司知识库里挑出相关证据，塞进模型的上下文，再让模型照着这些证据给出有依据的答案。</p>
+      <p>That’s very different from permanently teaching the model your SOPs — it only ever sees the evidence handed to it for this one request. Which means the chatbot can already have failed before the model writes a single word: it might grab the wrong document, the wrong chunk, or nothing useful at all.</p>
+      <p class="zh">这跟把所有 SOP 永久“教”给模型完全是两回事——模型每次看到的，只是为这一次请求挑出来的证据。也就是说，聊天机器人可能在模型动笔之前就已经出错了：检索错了文档、切错了文本块，或者压根没捞到有用的证据。</p>
+      <p class="lesson-callout">In a regulated, audited environment, “sounds plausible” doesn’t count as quality. An answer only counts if it’s backed by the right evidence — and cites it.</p>
+      <p class="zh callout">在受监管、要接受审计的场景里，“听起来靠谱”从来不是质量标准。答案必须有正确的证据撑腰，而且要标出处。</p>
+      <p><a href="https://platform.openai.com/docs/guides/optimizing-llm-accuracy" target="_blank" rel="noreferrer">Primary reading: OpenAI’s Optimizing LLM Accuracy guide</a> — for now, just read the RAG section.</p>
+    </section>
+
+    <section>
+      <h2>2 · Your actual system</h2>
+      <p>Your demo harness at <code>demo</code> is our safe sandbox: 25 fictional Meridian Labs documents and 65 questions, six of which the system should flat-out refuse to answer.</p>
+      <div class="card">
+        <p><strong>Question</strong><br>“Quel est le délai de clôture d’un plan d’action pour une non-conformité majeure ?”</p>
+        <p class="flow"><strong>1. Retrieve</strong> → Qdrant semantic chunks + Qdrant summaries + Meilisearch keyword hits + LightRAG context</p>
+        <p><strong>2. Assemble</strong> → `qa_service.py` combines and truncates the evidence</p>
+        <p><strong>3. Generate</strong> → a completion model writes the answer from the assembled context</p>
+        <p><strong>4. Cite</strong> → sources are extracted from the context items actually shown to the model</p>
+        <p><strong>5. Evaluate</strong> → `demo/eval.py` separately scores retrieval, answer correctness, citations, refusals, hallucinations, and latency</p>
+      </div>
+      <p>That separation is the whole foundation of this course — the demo report isn’t just a percentage score, it tells you exactly <em>where</em> the system is weak.</p>
+      <p class="zh">这种分层思维是整门课程的地基——演示报告可不只是给一个百分比，它会告诉你系统到底<strong>薄弱在哪个环节</strong>。</p>
+    </section>
+
+    <section>
+      <h2>3 · Diagnose before changing code</h2>
+      <table>
+        <thead><tr><th>Observation</th><th>Likely layer</th><th>First place to inspect</th></tr></thead>
+        <tbody>
+          <tr><td>Expected document absent from `/api/v1/search`</td><td>Retrieval</td><td>Index, chunking, query form, thresholds, ranking</td></tr>
+          <tr><td>Expected document retrieved, but not cited</td><td>Context/citation assembly</td><td>Context truncation and source extraction</td></tr>
+          <tr><td>Document cited, answer omits a required fact</td><td>Generation</td><td>Prompt, context organization, model behavior</td></tr>
+          <tr><td>Unanswerable question receives a confident answer</td><td>Grounding/safety</td><td>Refusal instruction, evidence threshold, eval set</td></tr>
+          <tr><td>Correct answer but slow response</td><td>Operations</td><td>Backend latency, graph calls, context size, concurrency</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>4 · Practice: retrieve or generate?</h2>
+      <div class="lesson-quiz" data-quiz>
+        <p><strong>Scenario A:</strong> The answer says “24 hours” — but `/api/v1/search` never returned `PR-QA-MRD-009` in the results. What failed first?</p>
+        <p class="zh">答案说是“24 小时”——可 `/api/v1/search` 根本没返回 `PR-QA-MRD-009`。先出问题的是哪一层？</p>
+        <button type="button" data-answer="correct" data-feedback="Correct. The answer may be a lucky or hallucinated guess, but the first proven failure is retrieval.">Retrieval</button>
+        <button type="button" data-answer="incorrect" data-feedback="Not first. Since the expected document was not returned, diagnose retrieval before generation.">Generation</button>
+        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
+      </div>
+      <div class="lesson-quiz" data-quiz>
+        <p><strong>Scenario B:</strong> `PR-QA-MRD-009` is right there in the search results, but the answer says “60 days” while the evidence clearly says “45 days.” What broke?</p>
+        <p class="zh">`PR-QA-MRD-009` 明明就在搜索结果里，但答案说“60 天”，证据写的却是“45 天”。这是哪里出了问题？</p>
+        <button type="button" data-answer="incorrect" data-feedback="Not primarily. The needed evidence was retrieved, so inspect context assembly and generation.">Retrieval</button>
+        <button type="button" data-answer="correct" data-feedback="Correct. The evidence was available; the system failed to use it faithfully.">Generation</button>
+        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
+      </div>
+      <div class="lesson-quiz" data-quiz>
+        <p><strong>Scenario C:</strong> A question with no real answer gets a detailed, confident reply — and no source in sight. Which metric should catch this?</p>
+        <p class="zh">一个本来答不了的问题，系统却给出一段详细又自信的回答，还没标来源。哪个指标应该揪出这个问题？</p>
+        <button type="button" data-answer="correct" data-feedback="Correct. Refusal accuracy should fall and hallucination rate should rise.">Grounding/safety</button>
+        <button type="button" data-answer="incorrect" data-feedback="Not the main signal. Citation coverage may also be poor, but refusal and hallucination metrics target this failure.">Operations</button>
+        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section>
+      <h2>5 · Your prototype success contract</h2>
+      <p class="zh">你的原型成功标准：继续做实验之前，先用自己的话把下面这五个目标写清楚。</p>
+      <p>Before you run another experiment, write these five targets down in your own words:</p>
+      <ol>
+        <li>Which question categories absolutely have to work first?</li>
+        <li>What accuracy bar does the first MVP need to clear?</li>
+        <li>What’s the minimum acceptable source hit rate?</li>
+        <li>What hallucination rate is a dealbreaker?</li>
+        <li>What response time will a real employee actually tolerate?</li>
+      </ol>
+      <p>Don’t just copy the historical `demo-fixed` numbers and call them your targets. They’re a baseline for discussion, not proof the current system is production-ready.</p>
+      <p class="zh">别直接把历史报告 `demo-fixed` 里的数字照搬当成自己的目标。那些数字只是拿来讨论的基线，不代表现在的系统已经能上生产。</p>
+    </section>
+
+    <section class="card">
+      <h2>Mission connection</h2>
+      <p>Your users are QA teams, regulators, suppliers, auditors — people who don’t care how eloquent an answer sounds. They care whether it checks out against the right SOP, policy, or questionnaire. That’s why our first engineering habit is this:</p>
+      <p><strong>When an answer is wrong, check the retrieved evidence before you touch the prompt.</strong></p>
+      <p class="zh"><strong>答案出错时，先查检索出来的证据，别急着改提示词。</strong></p>
+    </section>
+
+    <section>
+      <h2>Next action</h2>
+      <p class="zh"><strong>下一步：</strong> 在脱敏的演示环境里跑一遍离线检查，然后去看评估报告。</p>
+      <p>Stick to the sanitized demo and run these offline checks:</p>
+      <pre><code>cd demo
+python eval.py verify
+python test_scoring.py</code></pre>
+      <p>Then open the existing report, <span>demo-fixed.md</span>, and find two failures: one where retrieval worked but the answer still came out partial or wrong, and one where a source never got retrieved at all.</p>
+      <p><strong>Ask me follow-up questions</strong> about anything that’s still fuzzy — a term, a metric, a failure case. Next lesson, we trace one question all the way through the real code and evaluation harness.</p>
+      <p class="zh"><strong>如果哪个术语、指标或失败案例还没弄懂，尽管接着问我。</strong> 下一课，我们会拿一个真实问题，顺着实际代码和评估工具走一遍完整流程。</p>
+    </section>
+</section>
+<section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="../">← 课程路线图</a><a class="btn btn-ghost" href="../reference/rag-quality-cheatsheet.html">参考资料</a><a href="0002-trace-one-question.html">下一课 →</a></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><div class="footer-meta"><p><strong>沈毅</strong> — 资深全栈与 AI 解决方案开发者</p><p class="mono">巴黎 • 新加坡 • 上海 — FR · ZH · EN</p><p>© <span data-year>2026</span> 沈毅. 版权所有。</p></div></div></footer>
+<script src="../../../../assets/js/main.js" defer></script>
+<script src="../../../../assets/js/lesson.js" defer></script>
+</body>
+</html>
+
+

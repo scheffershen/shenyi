@@ -1163,6 +1163,23 @@ ul { margin: 0; padding: 0; list-style: none; }
   margin-top: 1.6rem;
 }
 
+/* Source-lesson structures retained when the full content is embedded. */
+.lesson-content .table-scroll,
+.lesson-content .lesson-table-scroll {
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+.lesson-content .comparison-table,
+.lesson-content .lesson-comparison-table {
+  min-width: 42rem;
+}
+.lesson-content .callout,
+.lesson-content .lesson-callout {
+  border-left: 3px solid var(--amber);
+  padding: 0.9rem 1rem;
+  background: rgba(251, 191, 36, 0.08);
+}
+
 /* ---------- Global hubs banner ---------- */
 .globe {
   border: 1px solid var(--border);

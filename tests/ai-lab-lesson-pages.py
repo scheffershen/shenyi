@@ -58,6 +58,25 @@ REFERENCES = [
     "security-permissions-and-deployment-boundaries-cheatsheet.html",
     "semantic-keyword-and-hybrid-retrieval-cheatsheet.html",
 ]
+REFERENCE_LESSONS = {
+    "baseline-evaluation-cheatsheet.html": "0004-establish-the-mvp-baseline.html",
+    "chunking-and-document-structure-cheatsheet.html": "0006-chunking-and-document-structure.html",
+    "citation-design-and-source-fidelity-cheatsheet.html": "0011-citation-design-and-source-fidelity.html",
+    "context-assembly-and-evidence-budgets-cheatsheet.html": "0009-context-assembly-and-evidence-budgets.html",
+    "evaluation-set-cheatsheet.html": "0003-build-a-trustworthy-evaluation-set.html",
+    "failure-isolation-and-graceful-degradation-cheatsheet.html": "0013-failure-isolation-and-graceful-degradation.html",
+    "glossary-cheatsheet.html": "0001-from-question-to-cited-answer.html",
+    "latency-cost-and-observability-cheatsheet.html": "0014-latency-cost-and-observability.html",
+    "metadata-filters-and-access-boundaries-cheatsheet.html": "0007-metadata-filters-and-access-boundaries.html",
+    "pilot-review-and-30-day-implementation-plan-cheatsheet.html": "0016-pilot-review-and-30-day-implementation-plan.html",
+    "prompts-that-answer-only-from-evidence-cheatsheet.html": "0010-prompts-that-answer-only-from-evidence.html",
+    "query-handling-and-reranking-cheatsheet.html": "0008-query-handling-and-reranking.html",
+    "rag-quality-cheatsheet.html": "0001-from-question-to-cited-answer.html",
+    "refusal-uncertainty-and-hallucination-control-cheatsheet.html": "0012-refusal-uncertainty-and-hallucination-control.html",
+    "request-path-cheatsheet.html": "0002-trace-one-question.html",
+    "security-permissions-and-deployment-boundaries-cheatsheet.html": "0015-security-permissions-and-deployment-boundaries.html",
+    "semantic-keyword-and-hybrid-retrieval-cheatsheet.html": "0005-semantic-keyword-and-hybrid-retrieval.html",
+}
 
 
 class PageParser(HTMLParser):
@@ -232,7 +251,7 @@ def check_lesson(page_path: Path, parser: PageParser, locale: str, basename: str
         fail(f"{route_label}: incomplete browser exercise markup")
     if "github.com" in raw.lower() or "MISSION.md" in raw or "RESOURCES.md" in raw:
         fail(f"{route_label}: repository-only link remains")
-    if not any("/reference/" in link.get("href", "") for link in parser.links):
+    if not any("reference/" in link.get("href", "") or "/reference/" in link.get("href", "") for link in parser.links):
         fail(f"{route_label}: missing local reference link")
     if not any(link.get("href") == "../" for link in parser.links):
         fail(f"{route_label}: missing course roadmap link")
@@ -248,7 +267,7 @@ def check_reference(page_path: Path, parser: PageParser, locale: str, basename: 
         fail(f"{route_label}: missing RAG content")
     if "github.com" in raw.lower() or "MISSION.md" in raw or "RESOURCES.md" in raw:
         fail(f"{route_label}: repository-only link remains")
-    lesson_name = basename.removesuffix("-cheatsheet.html")
+    lesson_name = REFERENCE_LESSONS[basename]
     if not any(lesson_name in link.get("href", "") for link in parser.links):
         fail(f"{route_label}: missing matching lesson link")
     check_local_links(page_path, parser, route_label)
@@ -257,8 +276,9 @@ def check_reference(page_path: Path, parser: PageParser, locale: str, basename: 
 
 def check_kind(locale: str, kind: str) -> None:
     basenames = LESSONS if kind == "lessons" else REFERENCES
+    path_kind = "reference" if kind == "references" else kind
     for basename in basenames:
-        page_path = ROOT / LANGUAGES[locale]["root"] / kind / basename
+        page_path = ROOT / LANGUAGES[locale]["root"] / path_kind / basename
         if not page_path.is_file():
             fail(f"missing {page_path}")
         parser = PageParser()

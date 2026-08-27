@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0YRBQKHLZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+  gtag('js', new Date());
+  gtag('config', 'G-S0YRBQKHLZ');
+</script>
+<title>Lesson · Chunking and document structure | RAG Formation</title>
+<meta name="author" content="SHEN YI">
+<meta name="description" content="Learn how chunk size, overlap, headings, tables, and document boundaries affect retrieval. A chunking decision record for the demo corpus.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html">
+<link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html">
+<link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html">
+<link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html">
+<link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="SHEN YI — Full-Stack &amp; AI Solutions Developer">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://shenyi.dev/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html">
+<meta property="og:title" content="Lesson · Chunking and document structure | RAG Formation">
+<meta property="og:description" content="Learn how chunk size, overlap, headings, tables, and document boundaries affect retrieval. A chunking decision record for the demo corpus.">
+<meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lesson · Chunking and document structure | RAG Formation">
+<meta name="twitter:description" content="Learn how chunk size, overlap, headings, tables, and document boundaries affect retrieval. A chunking decision record for the demo corpus.">
+<meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
+<link rel="icon" href="../../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+<script>document.documentElement.classList.add("js");</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Lesson · Chunking and document structure | RAG Formation", "description": "Learn how chunk size, overlap, headings, tables, and document boundaries affect retrieval. A chunking decision record for the demo corpus.", "url": "https://shenyi.dev/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html", "inLanguage": "en", "articleSection": "Retrieval engineering", "isPartOf": {"@type": "Course", "name": "RAG Formation", "url": "https://shenyi.dev/ai-lab/rag-formation/"}, "author": {"@type": "Person", "name": "SHEN YI", "url": "https://shenyi.dev/"}}</script>
+</head>
+<body class="ai-lab-page">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="header"><div class="wrap header-inner">
+  <a class="brand" href="../../../" aria-label="SHEN YI — home"><span class="brand-mark" aria-hidden="true">YS</span><span class="brand-text"><span class="brand-name">SHEN YI</span><span class="brand-role">Full-Stack &amp; AI</span></span></a>
+  <p class="hubs-badge"><span class="dot" aria-hidden="true"></span>Paris • Singapore • Shanghai</p>
+  <nav class="nav-desktop" aria-label="Lesson navigation"><ul><li><a href="../../">AI Lab</a></li><li><a href="../">Course roadmap</a></li><li><a href="#main" aria-current="page">Lesson</a></li></ul></nav>
+  <div class="lang"><button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu"><span aria-hidden="true">🇬🇧</span><span>EN</span><span class="lang-caret" aria-hidden="true">⌄</span><span class="sr-only">Change language</span></button><div class="lang-menu" id="lang-menu" role="menu"><a href="../../../ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html" hreflang="en" lang="en" aria-current="true" role="menuitem">English</a><a href="../../../fr/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html" hreflang="fr" lang="fr" role="menuitem">Français</a><a href="../../../zh/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html" hreflang="zh" lang="zh-CN" role="menuitem">中文</a></div></div>
+</div></header>
+<main id="main">
+  <section class="hero wrap"><div class="hero-grid"><div>
+    <p class="eyebrow">RAG Formation · Lesson · Retrieval engineering</p>
+    <h1>Chunking and document structure</h1>
+    <p class="ai-lab-hero-note">See how chunk size, overlap, headings, tables, and document boundaries change what retrieval can recover.</p>
+    <div class="ai-lab-cta"><a class="btn btn-primary" href="../">Course roadmap <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="../../">AI Lab</a></div>
+  </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="Lesson · Chunking and document structure | RAG Formation"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">lesson --status</span></span>
+<span class="row"><span class="t-key">▸ course </span><span class="t-val">RAG Formation</span></span>
+<span class="row"><span class="t-key">▸ lesson </span><span class="t-num">06</span> <span class="t-val">/ 16</span></span>
+<span class="row"><span class="t-key">▸ phase </span><span class="t-val">Retrieval engineering</span></span>
+<span class="row"><span class="t-key">▸ status </span><span class="t-num">In development</span></span>
+<span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
+  <section class="section wrap lesson-content" id="lesson-content">
+<div class="section-head"><p class="eyebrow">Standalone lesson</p><h2 class="section-title">Learn the full lesson and test your understanding here.</h2><p class="section-sub">RAG Formation remains in development. This page contains the complete lesson content, local reference material, and instant browser exercises.</p></div>
+<section class="card accent">
+      <h2>Today’s tangible win</h2>
+      <p>You'll compare two source-window configurations and land on one chunking hypothesis — bounded, and backed by evidence.</p>
+      <p class="zh"><strong>本课的具体收获：</strong> 你会做一份前后对比记录——两种窗口配置、一个可衡量的指标、一个回归风险，外加一个有边界的结论。</p>
+    </section>
+
+    <section>
+      <h2>1 · The smallest useful model</h2>
+      <ul>
+        <li><strong>Chunk/window:</strong> a bounded slice of source text. Handled well, it carries a fact together with its heading and document identity. Handled badly, it splits them apart.</li>
+        <li><strong>Overlap:</strong> the text repeated across the boundary into the next window. It can rescue a fact that straddles a boundary — but push it too far and you just end up with near-duplicate evidence.</li>
+        <li><strong>Evidence-and-identity co-location:</strong> the metric this lesson runs on — does a source window hold both the expected document reference and every required fact term?</li>
+        <li><strong>Bounded conclusion:</strong> a source-window result gives you a chunking hypothesis, nothing more. It doesn't prove the live index retrieves or answers any better.</li>
+      </ul>
+      <p><a href="https://docs.llamaindex.ai/en/stable/examples/node_postprocessor/MetadataReplacementDemo/" target="_blank" rel="noreferrer">Primary reading: LlamaIndex — Sentence Window Retrieval</a>. Watch for how a retrieved window can restore local context around a fact without losing track of which source it came from.</p>
+      <p class="zh">本课说的“窗口”，就是长度有限的一段源文本。重叠可以把跨边界的信息保住，但重叠太多，换来的只是一堆重复证据。这一课只测“事实和文档编号是否落在同一个窗口里”，别把它当成真实检索或答案质量已经变好的证明。</p>
+    </section>
+
+    <section>
+      <h2>2 · Run one controlled source-window experiment</h2>
+      <p>The offline <code>chunk_lab.py</code> utility only touches two things: the synthetic Markdown corpus and <code>eval_set.yaml</code>. It never contacts Docker, reads a secret, calls the API, or reindexes anything.</p>
+      <pre><code>cd demo
+python3 chunk_lab.py --question q24 --window-chars 280 --overlap-chars 40 --output-dir reports/lesson-06-baseline
+python3 chunk_lab.py --question q24 --window-chars 420 --overlap-chars 40 --output-dir reports/lesson-06-larger-window</code></pre>
+      <p>Hold overlap steady at 40 characters — the only thing you're changing is window size. Then compare these report files:</p>
+      <pre><code>reports/lesson-06-baseline/lesson-06-q24-chunks.md
+reports/lesson-06-larger-window/lesson-06-q24-chunks.md</code></pre>
+      <p class="lesson-callout">The metric here is simple: how many windows — and what rate — contain both the expected reference and every <code>must_include</code> term. A higher number can back up a chunking hypothesis. It is not retrieval accuracy.</p>
+      <p class="zh">离线工具 <code>chunk_lab.py</code> 只读两样东西：合成 Markdown 语料和 <code>eval_set.yaml</code>，不会碰 Docker、不读密钥、不调 API，也不会重建索引。重叠固定在 40 不动，只把窗口大小从 280 换成 420，然后比较“同时包含文档编号和所有必需事实词”的窗口数量与比例。</p>
+    </section>
+
+    <section>
+      <h2>3 · Inspect three question shapes</h2>
+      <p>After q24, run the same experiment for q30 and q52. Together the three give you distinct failure shapes: a revision lookup, an answer that spans two documents, and a factual-recovery target.</p>
+      <div class="lesson-table-scroll">
+        <table class="lesson-comparison-table">
+          <thead><tr><th>Question</th><th>Shape</th><th>Expected source(s)</th><th>Required fact</th><th>What to inspect</th></tr></thead>
+          <tbody>
+            <tr><td>q24</td><td>Revision lookup</td><td>PR-QA-MRD-009</td><td>45</td><td>Does the V4 identity stay attached to the changed deadline?</td></tr>
+            <tr><td>q30</td><td>Multi-hop</td><td>PR-QA-MRD-001 + PR-QA-MRD-009</td><td>90 jours</td><td>Which source carries the fact, and which second source is still missing?</td></tr>
+            <tr><td>q52</td><td>Factual lookup</td><td>PR-EXM-MRD-014</td><td>8 heures</td><td>Does the RTO fact stay attached to the continuity-plan identity?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="zh">分别看这三题：q24 的版本编号有没有跟变更后的期限待在一起；q30 的多跳答案还差哪一份来源；q52 的 RTO 数字有没有跟连续性计划编号绑在一起。</p>
+    </section>
+
+    <section>
+      <h2>4 · Record the before/after evidence</h2>
+      <div class="lesson-table-scroll">
+        <table class="lesson-comparison-table">
+          <thead><tr><th>Question</th><th>Configuration</th><th>Co-location count / rate</th><th>Observed boundary effect</th><th>Regression or cost</th><th>Bounded conclusion</th></tr></thead>
+          <tbody>
+            <tr><td>q24</td><td>280 / 40</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+            <tr><td>q24</td><td>420 / 40</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+            <tr><td>q30 or q52</td><td>Choose one controlled pair</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Fill in this sentence frame: <em>“With ___ characters and ___ overlap, ___ of ___ windows put the required fact and the source identity in the same place. That supports the hypothesis that ___. It doesn't prove live retrieval quality — next I'd reindex and rerun the retrieval evaluation.”</em></p>
+      <p class="zh">按这个句式写结论：<em>“窗口设为 ___ 字符、重叠设为 ___ 字符时，___ / ___ 个窗口把必需事实和来源身份放在了一起。这支持 ___ 这个假设，但还不能说明线上检索质量如何。下一步，在隔离环境里重新建立索引，再跑一遍检索评估。”</em></p>
+    </section>
+
+    <section>
+      <h2>5 · Retrieval practice</h2>
+      <div class="lesson-quiz" data-quiz>
+        <p><strong>Case A:</strong> The deadline shows up in a window, but the document reference doesn't. Which fix actually targets that risk?</p>
+        <button type="button" data-answer="correct" data-feedback="Correct. Preserve or prepend the heading/reference before assuming a larger window is needed.">Keep heading</button>
+        <button type="button" data-answer="incorrect" data-feedback="Not first. The missing evidence is document identity, not necessarily more surrounding text.">Drop heading</button>
+        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
+        <p class="zh">案例 A：窗口里有期限，却没有文档编号。这时候该做的，是先把标题/编号保留或前置，而不是想着窗口是不是该开大一点。</p>
+      </div>
+      <div class="lesson-quiz" data-quiz>
+        <p><strong>Case B:</strong> After you raise the overlap, two neighboring windows end up repeating almost the same text. What risk goes in your notes?</p>
+        <button type="button" data-answer="correct" data-feedback="Correct. Larger overlap may spend top-k on near-duplicates instead of complementary evidence.">Raise overlap</button>
+        <button type="button" data-answer="correct" data-feedback="Correct. Reducing overlap is a valid next experiment when duplicate windows dominate the evidence budget.">Lower overlap</button>
+        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
+        <p class="zh">案例 B：重叠一变大，相邻窗口几乎变成了同一段内容。这里要记下的风险是：重复窗口可能占满 top-k 的名额，把本该互补的证据挤出去；接下来该试试调小重叠。</p>
+      </div>
+      <div class="lesson-quiz" data-quiz>
+        <p><strong>Case C:</strong> The bigger window pushes the proxy metric up. What's the honest next move?</p>
+        <button type="button" data-answer="correct" data-feedback="Correct. Reindex in the isolated environment, then measure retrieval with the same evaluation set.">Rerun metric</button>
+        <button type="button" data-answer="incorrect" data-feedback="Not yet. The proxy supports a hypothesis but cannot prove live retrieval or answer quality.">Assume cause</button>
+        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
+        <p class="zh">案例 C：换成更大的窗口后，代理指标确实变好看了。诚实的下一步，是在隔离环境里重新索引，再用同一套评估集去测检索效果——而不是直接宣布因果关系已经证明。</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Mission connection</h2>
+      <p>An SOP answer is often only as good as whether its heading, version, date, and exceptions all show up together. That makes chunking part of citation and compliance quality — not some ingestion detail you can set and forget.</p>
+      <p class="zh">员工、QA、法规和审计人员都需要看清楚：这条事实到底出自哪份受控文件。分块要是把期限、版本、例外和文件身份拆开了，引用就没法核实了。</p>
+    </section>
+
+    <section>
+      <h2>6 · Deliverable and next action</h2>
+      <ol>
+        <li>Save the two reports from your controlled q24 comparison.</li>
+        <li>Fill in the evidence table for q24 plus one of q30 or q52.</li>
+        <li>Write down one bounded conclusion, one regression risk, and the reindex-plus-retrieval check you'd run next.</li>
+      </ol>
+      <p class="zh">交付物：保存 q24 那两份对比报告；把 q24 和 q30/q52 其中一个的证据表填完；写出一个有边界的结论、一个回归风险，再加上下一步“重新索引 + 检索评估”要跑的验证。</p>
+      <p><strong>Next:</strong> Lesson 7 — Metadata, filters, and access boundaries. Hang on to this record — it tells you whether a retrieval problem actually starts upstream of the search backends.</p>
+      <p class="zh"><strong>下一步：</strong> 第 7 课会讲元数据、筛选和访问边界。留着这份记录，它能帮你判断问题是不是在搜索后端之前就已经埋下了。</p>
+      <p><strong>Got questions? Ask me.</strong> About the reports, the proxy metric, a boundary effect, or what to run next live — I'm your teacher for this course.</p>
+      <p class="zh"><strong>报告、代理指标、边界效应，或者下一步的线上实验，有任何不清楚的地方，尽管问我。</strong></p>
+    </section>
+</section>
+<section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0005-semantic-keyword-and-hybrid-retrieval.html">← Previous lesson</a><a class="btn btn-ghost" href="../reference/chunking-and-document-structure-cheatsheet.html">Reference sheet</a><a href="0007-metadata-filters-and-access-boundaries.html">Next lesson →</a></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><div class="footer-meta"><p><strong>SHEN YI</strong> — Senior Full-Stack &amp; AI Solutions Developer</p><p class="mono">Paris • Singapore • Shanghai — FR · ZH · EN</p><p>© <span data-year>2026</span> SHEN YI. All rights reserved.</p></div></div></footer>
+<script src="../../../assets/js/main.js" defer></script>
+<script src="../../../assets/js/lesson.js" defer></script>
+</body>
+</html>
+

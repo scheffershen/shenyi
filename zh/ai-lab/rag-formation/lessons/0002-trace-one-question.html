@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0YRBQKHLZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+  gtag('js', new Date());
+  gtag('config', 'G-S0YRBQKHLZ');
+</script>
+<title>第 2 课 · 沿着真实代码追踪一个问题 | RAG Formation</title>
+<meta name="author" content="沈毅">
+<meta name="description" content="追踪一个问题经过 API、搜索函数、上下文组装、提示词和响应的全过程。 一页式问题系统追踪记录。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0002-trace-one-question.html">
+<link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0002-trace-one-question.html">
+<link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0002-trace-one-question.html">
+<link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0002-trace-one-question.html">
+<link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0002-trace-one-question.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="沈毅 — 资深全栈与 AI 解决方案开发者">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0002-trace-one-question.html">
+<meta property="og:title" content="第 2 课 · 沿着真实代码追踪一个问题 | RAG Formation">
+<meta property="og:description" content="追踪一个问题经过 API、搜索函数、上下文组装、提示词和响应的全过程。 一页式问题系统追踪记录。">
+<meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="第 2 课 · 沿着真实代码追踪一个问题 | RAG Formation">
+<meta name="twitter:description" content="追踪一个问题经过 API、搜索函数、上下文组装、提示词和响应的全过程。 一页式问题系统追踪记录。">
+<meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
+<link rel="icon" href="../../../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../../assets/css/style.css">
+<script>document.documentElement.classList.add("js");</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "第 2 课 · 沿着真实代码追踪一个问题 | RAG Formation", "description": "追踪一个问题经过 API、搜索函数、上下文组装、提示词和响应的全过程。 一页式问题系统追踪记录。", "url": "https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0002-trace-one-question.html", "inLanguage": "zh-CN", "articleSection": "基础与衡量", "isPartOf": {"@type": "Course", "name": "RAG Formation", "url": "https://shenyi.dev/zh/ai-lab/rag-formation/"}, "author": {"@type": "Person", "name": "沈毅", "url": "https://shenyi.dev/"}}</script>
+</head>
+<body class="ai-lab-page">
+<a class="skip-link" href="#main">跳到主要内容</a>
+<header class="header"><div class="wrap header-inner">
+  <a class="brand" href="../../../../" aria-label="沈毅 — 首页"><span class="brand-mark" aria-hidden="true">YS</span><span class="brand-text"><span class="brand-name">沈毅</span><span class="brand-role">全栈与 AI</span></span></a>
+  <p class="hubs-badge"><span class="dot" aria-hidden="true"></span>巴黎 • 新加坡 • 上海</p>
+  <nav class="nav-desktop" aria-label="课程导航"><ul><li><a href="../../">AI 工程实验室</a></li><li><a href="../">课程路线图</a></li><li><a href="#main" aria-current="page">第 2 课</a></li></ul></nav>
+  <div class="lang"><button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu"><span aria-hidden="true">🇨🇳</span><span>ZH</span><span class="lang-caret" aria-hidden="true">⌄</span><span class="sr-only">切换语言</span></button><div class="lang-menu" id="lang-menu" role="menu"><a href="../../../../ai-lab/rag-formation/lessons/0002-trace-one-question.html" hreflang="en" lang="en" role="menuitem">English</a><a href="../../../../fr/ai-lab/rag-formation/lessons/0002-trace-one-question.html" hreflang="fr" lang="fr" role="menuitem">Français</a><a href="../../../../zh/ai-lab/rag-formation/lessons/0002-trace-one-question.html" hreflang="zh" lang="zh-CN" aria-current="true" role="menuitem">中文</a></div></div>
+</div></header>
+<main id="main">
+  <section class="hero wrap"><div class="hero-grid"><div>
+    <p class="eyebrow">RAG Formation · 第 2 课 · 基础与衡量</p>
+    <h1>沿着真实代码追踪一个问题</h1>
+    <p class="ai-lab-hero-note">从 API 边界一路跟踪到检索、上下文组装、生成、引用和评估。</p>
+    <div class="ai-lab-cta"><a class="btn btn-primary" href="../">课程路线图 <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="../../">AI 工程实验室</a></div>
+  </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="第 2 课 · 沿着真实代码追踪一个问题 | RAG Formation"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">lesson --status</span></span>
+<span class="row"><span class="t-key">▸ course </span><span class="t-val">RAG Formation</span></span>
+<span class="row"><span class="t-key">▸ lesson </span><span class="t-num">02</span> <span class="t-val">/ 16</span></span>
+<span class="row"><span class="t-key">▸ phase </span><span class="t-val">基础与衡量</span></span>
+<span class="row"><span class="t-key">▸ status </span><span class="t-num">开发中</span></span>
+<span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
+  <section class="section wrap lesson-content" id="lesson-content">
+<div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
+<section class="card accent">
+      <h2>Today’s tangible win</h2>
+      <p>By the end of this lesson, you'll be able to point at the exact file and function behind every stage of a single `/api/v1/qa` request.</p>
+      <p class="zh"><strong>本课的具体收获：</strong> 学完之后，你能准确说出 `/api/v1/qa` 请求走到每个阶段时，究竟是哪个文件、哪个函数在处理。</p>
+    </section>
+
+    <section>
+      <h2>1 · The question we're tracing</h2>
+      <div class="card">
+        <p><strong>Question:</strong><br>“Quel est le délai de clôture d'un plan d'action pour une non-conformité majeure ?”</p>
+        <p class="zh"><strong>问题：</strong>“重大不符合项的行动计划关闭期限是多少？”</p>
+        <p><strong>Expected source:</strong> `PR-QA-MRD-009`</p>
+        <p><strong>Expected fact:</strong> `45 jours`</p>
+        <p class="zh"><strong>预期来源：</strong> `PR-QA-MRD-009`；<strong>预期事实：</strong> `45 天`。</p>
+      </div>
+      <p>We're not going to read every file top to bottom. Instead, we'll follow the request from the outside in, and only stop to look at the functions it actually touches.</p>
+      <p class="zh">我们不打算把所有文件从头看到尾，而是顺着请求从外到内一路跟下去，只在它真正调用到的函数那里停下来细看。</p>
+    </section>
+
+    <section>
+      <h2>2 · The call chain</h2>
+      <div class="card">
+        <p><strong>Client</strong></p>
+        <p>↓ `POST /api/v1/qa`</p>
+        <p><strong>`routes/qa.py` → `ask_question(request)`</strong></p>
+        <p>↓ delegates</p>
+        <p><strong>`qa_service.py` → `answer_question_internal(request)`</strong></p>
+        <p>↓ runs four retrieval paths</p>
+        <p><strong>`search_qdrant()` · `search_meilisearch()` · `query_lightrag_context()`</strong></p>
+        <p>↓ assembles evidence (Which function decides which source items survived?)</p>
+        <p><strong>`utils.build_context()`</strong></p>
+        <p>↓ derives citations (Which function converts surviving items into citations?)</p>
+        <p><strong>`utils.sources_from_items()`</strong></p>
+        <p>↓ builds prompt and generates</p>
+        <p><strong>`utils.build_prompt()` → `completion.generate()`</strong></p>
+        <p>↓ returns</p>
+        <p><strong>`models.AnswerResponse`</strong></p>
+      </div>
+      <p class="zh"><strong>调用链：</strong> 请求从客户端发出后，依次经过路由、QA 服务、四条检索路径、上下文组装、引用提取、提示词构造，最终由模型生成答案并返回响应。</p>
+      <p>Keep the <a href="../reference/request-path-cheatsheet.html">request-path cheat sheet</a> open in another tab while you work through this.</p>
+    </section>
+
+    <section>
+      <h2>3 · What each stage actually does</h2>
+      <table>
+        <thead><tr><th>Stage</th><th>Current implementation</th><th>Why it matters</th></tr></thead>
+        <tbody>
+          <tr><td>Route</td><td><code>routes/qa.py</code> validates the incoming request with Pydantic, then hands off.</td><td>Routes stay thin on purpose; the real logic lives elsewhere.</td></tr>
+          <tr><td>Orchestrate</td><td><code>qa_service.py</code> checks the services are up, cleans up the question, reads backend config, and kicks off retrieval.</td><td>It's the coordinator for the whole request, and the best place to start an end-to-end trace.</td></tr>
+          <tr><td>Retrieve</td><td>Qdrant hands back semantic chunks and summaries, Meilisearch returns keyword matches, and LightRAG supplies graph context.</td><td>If evidence is missing, check retrieval before you blame the prompt.</td></tr>
+          <tr><td>Assemble</td><td><code>build_context()</code> splits the budget fairly across channels and drops whole items rather than truncating them.</td><td>Whatever doesn't survive this stage, the model never gets to see.</td></tr>
+          <tr><td>Cite</td><td><code>sources_from_items()</code> only looks at the items that actually made it into the prompt.</td><td>A citation should never point to evidence the model never saw.</td></tr>
+          <tr><td>Generate</td><td><code>build_prompt()</code> instructs the model to stick to the given context and refuse anything unsupported; the completion service then writes the answer.</td><td>Even evidence that's right there can still get skipped, muddled, or contradicted.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>4 · Reconstruct the call chain — from memory</h2>
+      <p>Close the call-chain diagram in section 2. Without scrolling back to
+      it, fill in this table for the question we're tracing — recall beats
+      re-reading for making this stick:</p>
+      <p class="zh">把第 2 步的调用链图关掉，不要往回翻，凭记忆填下面这张表——靠回忆比重新看一遍更能记住。</p>
+      <table>
+        <thead><tr><th>Stage</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>Route</td><td>__________</td></tr>
+          <tr><td>Orchestrate</td><td>__________</td></tr>
+          <tr><td>Retrieve (three functions)</td><td>__________</td></tr>
+          <tr><td>Assemble (decides what survives)</td><td>__________</td></tr>
+          <tr><td>Cite (never cites dropped evidence)</td><td>__________</td></tr>
+          <tr><td>Generate</td><td>__________</td></tr>
+        </tbody>
+      </table>
+      <p>Check yourself against section 2. Anything you couldn't recall is
+      exactly what to re-read before moving on — that gap is the point of
+      doing it this way round.</p>
+      <p class="zh">对照第 2 步检查答案。想不起来的地方，正是你该回去重看的地方——这正是"先凭记忆再核对"这个练习方式的意义所在。</p>
+    </section>
+
+    <section>
+      <h2>5 · Verify against the running system</h2>
+      <p>The call chain lives in <code>api/</code>, which isn't part of this
+      free course — but the <em>running</em> API is, via the demo stack. Ask
+      it the traced question directly and confirm your trace against the
+      real response, with <code>demo/setup_demo.py up</code> running:</p>
+      <pre><code>curl -s -X POST http://localhost:8000/api/v1/qa \
+  -H "Content-Type: application/json" \
+  -d "{\"question\": \"Quel est le délai de clôture d'un plan d'action pour une non-conformité majeure ?\", \"workspace\": \"meridian_demo\"}"</code></pre>
+      <p>In the JSON response: <code>sources</code> should include
+      <code>PR-QA-MRD-009</code>, and <code>answer</code> should state
+      <code>45 jours</code>. If either is missing, you've just found a real
+      failure to diagnose with the trace you built in section 4 — was it a
+      retrieval miss or a generation miss?</p>
+      <p class="zh">调用链的代码在 <code>api/</code> 里，不属于这门免费课程——但通过 demo 环境跑起来的 API 本身是免费的。在 <code>demo/setup_demo.py up</code> 运行的情况下，直接向它提问，用真实返回结果核对你的推理。返回的 JSON 里，<code>sources</code> 应包含 <code>PR-QA-MRD-009</code>，<code>answer</code> 应提到 <code>45 jours</code>。少了任何一个，你就发现了一个真实的失败案例——该用第 4 步整理出的调用链去排查：到底是检索没找到，还是生成环节漏答了？</p>
+    </section>
+
+    <section>
+      <h2>6 · Check your reconstruction</h2>
+      <div class="lesson-quiz" data-quiz>
+        <p><strong>So — which function actually does the final context assembly?</strong></p>
+        <p class="zh">最终的上下文组装，到底是哪个函数在做？</p>
+        <button type="button" data-answer="correct" data-feedback="Correct. build_context() chooses what reaches the model.">`build_context()`</button>
+        <button type="button" data-answer="incorrect" data-feedback="Not quite. search_qdrant() retrieves one channel; context assembly happens later.">`search_qdrant()`</button>
+        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
+      </div>
+      <div class="lesson-quiz" data-quiz>
+        <p><strong>Why does `sources_from_items(context_items)` matter so much?</strong></p>
+        <p class="zh">`sources_from_items(context_items)` 这一步，为什么这么关键？</p>
+        <button type="button" data-answer="correct" data-feedback="Correct. It limits reported sources to evidence that actually reached the prompt.">It cites evidence actually shown</button>
+        <button type="button" data-answer="incorrect" data-feedback="Not quite. It is specifically designed to avoid citing dropped evidence.">It lists every retrieved hit</button>
+        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
+      </div>
+      <div class="lesson-quiz" data-quiz>
+        <p><strong>If `/api/v1/search` doesn't turn up `PR-QA-MRD-009`, which family of functions should you dig into first?</strong></p>
+        <p class="zh">如果 `/api/v1/search` 里找不到 `PR-QA-MRD-009`，你该先查哪一组函数？</p>
+        <button type="button" data-answer="correct" data-feedback="Correct. Start with the retrieval functions and their inputs/results.">`search_*()`</button>
+        <button type="button" data-answer="incorrect" data-feedback="Not first. Prompt generation happens after retrieval.">`build_prompt()`</button>
+        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Mission connection</h2>
+      <p>For an auditor or QA professional, an answer is only as trustworthy as the path you can explain behind it. That's exactly why a simple call map pays off when something breaks: it tells you where to look first — the index, the context budget, the citation logic, or the model's output.</p>
+      <p class="zh">对审计员或 QA 从业者来说，一个答案可不可信，就看你能不能讲清楚它是怎么来的。有了一张简单的调用地图，出问题时你就知道该往哪查——是索引、上下文预算、引用逻辑，还是模型输出本身。</p>
+    </section>
+
+    <section>
+      <h2>Next action</h2>
+      <p>Fill in all six blanks in the data-flow table. Then answer this in a single sentence:</p>
+      <p class="lesson-callout"><strong>Why might a source show up in the raw retrieval results but never make it into the final API citations?</strong></p>
+      <p class="zh callout"><strong>为什么一个来源会出现在原始检索结果里，却没有出现在最终 API 返回的引用中？</strong></p>
+      <p><strong>Ask me follow-up questions</strong> about anything — any function, any stage — that's still fuzzy. Once you've filled in the six blanks and answered the final question, Lesson 2 is done — move on to whichever lesson you want next.</p>
+      <p class="zh"><strong>哪个函数、哪个阶段没搞懂，随时问我。</strong> 等你填完六个空格、答完最后一个问题，第 2 课就算完成了——接下来想上哪一课都可以。</p>
+    </section>
+</section>
+<section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0001-from-question-to-cited-answer.html">← 上一课</a><a class="btn btn-ghost" href="../reference/request-path-cheatsheet.html">参考资料</a><a href="0003-build-a-trustworthy-evaluation-set.html">下一课 →</a></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><div class="footer-meta"><p><strong>沈毅</strong> — 资深全栈与 AI 解决方案开发者</p><p class="mono">巴黎 • 新加坡 • 上海 — FR · ZH · EN</p><p>© <span data-year>2026</span> 沈毅. 版权所有。</p></div></div></footer>
+<script src="../../../../assets/js/main.js" defer></script>
+<script src="../../../../assets/js/lesson.js" defer></script>
+</body>
+</html>
+
+

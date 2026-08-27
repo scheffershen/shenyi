@@ -130,7 +130,7 @@
 
   <url>
     <loc>https://shenyi.dev/ai-lab/rag-formation/</loc>
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/"/>
@@ -140,7 +140,7 @@
   </url>
   <url>
     <loc>https://shenyi.dev/fr/ai-lab/rag-formation/</loc>
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/"/>
@@ -150,7 +150,7 @@
   </url>
   <url>
     <loc>https://shenyi.dev/zh/ai-lab/rag-formation/</loc>
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/"/>
@@ -159,6 +159,533 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/"/>
   </url>
 
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0001-from-question-to-cited-answer.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/lessons/0002-trace-one-question.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0002-trace-one-question.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0002-trace-one-question.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0002-trace-one-question.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0002-trace-one-question.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0002-trace-one-question.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0002-trace-one-question.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0002-trace-one-question.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0002-trace-one-question.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0002-trace-one-question.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0002-trace-one-question.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0002-trace-one-question.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0002-trace-one-question.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0002-trace-one-question.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0002-trace-one-question.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/lessons/0005-semantic-keyword-and-hybrid-retrieval.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0005-semantic-keyword-and-hybrid-retrieval.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0005-semantic-keyword-and-hybrid-retrieval.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0005-semantic-keyword-and-hybrid-retrieval.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0005-semantic-keyword-and-hybrid-retrieval.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0005-semantic-keyword-and-hybrid-retrieval.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0005-semantic-keyword-and-hybrid-retrieval.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0005-semantic-keyword-and-hybrid-retrieval.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0005-semantic-keyword-and-hybrid-retrieval.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0005-semantic-keyword-and-hybrid-retrieval.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0005-semantic-keyword-and-hybrid-retrieval.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0005-semantic-keyword-and-hybrid-retrieval.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0005-semantic-keyword-and-hybrid-retrieval.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0005-semantic-keyword-and-hybrid-retrieval.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0005-semantic-keyword-and-hybrid-retrieval.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0006-chunking-and-document-structure.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0007-metadata-filters-and-access-boundaries.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/lessons/0010-prompts-that-answer-only-from-evidence.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0010-prompts-that-answer-only-from-evidence.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0010-prompts-that-answer-only-from-evidence.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0010-prompts-that-answer-only-from-evidence.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0010-prompts-that-answer-only-from-evidence.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0010-prompts-that-answer-only-from-evidence.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0010-prompts-that-answer-only-from-evidence.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0010-prompts-that-answer-only-from-evidence.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0010-prompts-that-answer-only-from-evidence.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0010-prompts-that-answer-only-from-evidence.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0010-prompts-that-answer-only-from-evidence.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0010-prompts-that-answer-only-from-evidence.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0010-prompts-that-answer-only-from-evidence.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0010-prompts-that-answer-only-from-evidence.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0010-prompts-that-answer-only-from-evidence.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/lessons/0016-pilot-review-and-30-day-implementation-plan.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0016-pilot-review-and-30-day-implementation-plan.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0016-pilot-review-and-30-day-implementation-plan.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0016-pilot-review-and-30-day-implementation-plan.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0016-pilot-review-and-30-day-implementation-plan.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0016-pilot-review-and-30-day-implementation-plan.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0016-pilot-review-and-30-day-implementation-plan.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0016-pilot-review-and-30-day-implementation-plan.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0016-pilot-review-and-30-day-implementation-plan.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0016-pilot-review-and-30-day-implementation-plan.html"/>
+  </url>
+
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0016-pilot-review-and-30-day-implementation-plan.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0016-pilot-review-and-30-day-implementation-plan.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0016-pilot-review-and-30-day-implementation-plan.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0016-pilot-review-and-30-day-implementation-plan.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0016-pilot-review-and-30-day-implementation-plan.html"/>
+  </url>
   <url>
     <loc>https://shenyi.dev/privacy/</loc>
     <lastmod>2026-08-12</lastmod>
@@ -190,4 +717,514 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/privacy/"/>
   </url>
 
++  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/reference/baseline-evaluation-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/baseline-evaluation-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/baseline-evaluation-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/baseline-evaluation-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/baseline-evaluation-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/reference/baseline-evaluation-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/baseline-evaluation-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/baseline-evaluation-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/baseline-evaluation-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/baseline-evaluation-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/reference/baseline-evaluation-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/baseline-evaluation-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/baseline-evaluation-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/baseline-evaluation-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/baseline-evaluation-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/reference/chunking-and-document-structure-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/chunking-and-document-structure-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/chunking-and-document-structure-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/chunking-and-document-structure-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/chunking-and-document-structure-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/reference/chunking-and-document-structure-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/chunking-and-document-structure-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/chunking-and-document-structure-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/chunking-and-document-structure-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/chunking-and-document-structure-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/reference/chunking-and-document-structure-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/chunking-and-document-structure-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/chunking-and-document-structure-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/chunking-and-document-structure-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/chunking-and-document-structure-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/reference/citation-design-and-source-fidelity-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/citation-design-and-source-fidelity-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/citation-design-and-source-fidelity-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/citation-design-and-source-fidelity-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/citation-design-and-source-fidelity-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/reference/citation-design-and-source-fidelity-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/citation-design-and-source-fidelity-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/citation-design-and-source-fidelity-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/citation-design-and-source-fidelity-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/citation-design-and-source-fidelity-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/reference/citation-design-and-source-fidelity-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/citation-design-and-source-fidelity-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/citation-design-and-source-fidelity-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/citation-design-and-source-fidelity-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/citation-design-and-source-fidelity-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/reference/evaluation-set-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/evaluation-set-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/evaluation-set-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/evaluation-set-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/evaluation-set-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/reference/evaluation-set-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/evaluation-set-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/evaluation-set-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/evaluation-set-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/evaluation-set-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/reference/evaluation-set-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/evaluation-set-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/evaluation-set-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/evaluation-set-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/evaluation-set-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/reference/failure-isolation-and-graceful-degradation-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/failure-isolation-and-graceful-degradation-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/failure-isolation-and-graceful-degradation-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/failure-isolation-and-graceful-degradation-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/failure-isolation-and-graceful-degradation-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/reference/failure-isolation-and-graceful-degradation-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/failure-isolation-and-graceful-degradation-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/failure-isolation-and-graceful-degradation-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/failure-isolation-and-graceful-degradation-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/failure-isolation-and-graceful-degradation-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/reference/failure-isolation-and-graceful-degradation-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/failure-isolation-and-graceful-degradation-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/failure-isolation-and-graceful-degradation-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/failure-isolation-and-graceful-degradation-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/failure-isolation-and-graceful-degradation-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/reference/glossary-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/glossary-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/glossary-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/glossary-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/glossary-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/reference/glossary-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/glossary-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/glossary-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/glossary-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/glossary-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/reference/glossary-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/glossary-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/glossary-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/glossary-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/glossary-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/reference/metadata-filters-and-access-boundaries-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/metadata-filters-and-access-boundaries-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/metadata-filters-and-access-boundaries-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/metadata-filters-and-access-boundaries-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/metadata-filters-and-access-boundaries-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/reference/metadata-filters-and-access-boundaries-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/metadata-filters-and-access-boundaries-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/metadata-filters-and-access-boundaries-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/metadata-filters-and-access-boundaries-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/metadata-filters-and-access-boundaries-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/reference/metadata-filters-and-access-boundaries-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/metadata-filters-and-access-boundaries-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/metadata-filters-and-access-boundaries-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/metadata-filters-and-access-boundaries-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/metadata-filters-and-access-boundaries-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/reference/pilot-review-and-30-day-implementation-plan-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/pilot-review-and-30-day-implementation-plan-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/pilot-review-and-30-day-implementation-plan-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/pilot-review-and-30-day-implementation-plan-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/pilot-review-and-30-day-implementation-plan-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/reference/pilot-review-and-30-day-implementation-plan-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/pilot-review-and-30-day-implementation-plan-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/pilot-review-and-30-day-implementation-plan-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/pilot-review-and-30-day-implementation-plan-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/pilot-review-and-30-day-implementation-plan-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/reference/pilot-review-and-30-day-implementation-plan-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/pilot-review-and-30-day-implementation-plan-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/pilot-review-and-30-day-implementation-plan-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/pilot-review-and-30-day-implementation-plan-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/pilot-review-and-30-day-implementation-plan-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/reference/prompts-that-answer-only-from-evidence-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/prompts-that-answer-only-from-evidence-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/prompts-that-answer-only-from-evidence-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/prompts-that-answer-only-from-evidence-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/prompts-that-answer-only-from-evidence-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/reference/prompts-that-answer-only-from-evidence-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/prompts-that-answer-only-from-evidence-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/prompts-that-answer-only-from-evidence-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/prompts-that-answer-only-from-evidence-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/prompts-that-answer-only-from-evidence-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/reference/prompts-that-answer-only-from-evidence-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/prompts-that-answer-only-from-evidence-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/prompts-that-answer-only-from-evidence-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/prompts-that-answer-only-from-evidence-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/prompts-that-answer-only-from-evidence-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/reference/query-handling-and-reranking-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/query-handling-and-reranking-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/query-handling-and-reranking-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/query-handling-and-reranking-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/query-handling-and-reranking-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/reference/query-handling-and-reranking-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/query-handling-and-reranking-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/query-handling-and-reranking-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/query-handling-and-reranking-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/query-handling-and-reranking-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/reference/query-handling-and-reranking-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/query-handling-and-reranking-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/query-handling-and-reranking-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/query-handling-and-reranking-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/query-handling-and-reranking-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/reference/rag-quality-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/rag-quality-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/rag-quality-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/rag-quality-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/rag-quality-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/reference/rag-quality-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/rag-quality-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/rag-quality-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/rag-quality-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/rag-quality-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/reference/rag-quality-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/rag-quality-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/rag-quality-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/rag-quality-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/rag-quality-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/reference/refusal-uncertainty-and-hallucination-control-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/refusal-uncertainty-and-hallucination-control-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/refusal-uncertainty-and-hallucination-control-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/refusal-uncertainty-and-hallucination-control-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/refusal-uncertainty-and-hallucination-control-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/reference/refusal-uncertainty-and-hallucination-control-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/refusal-uncertainty-and-hallucination-control-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/refusal-uncertainty-and-hallucination-control-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/refusal-uncertainty-and-hallucination-control-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/refusal-uncertainty-and-hallucination-control-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/reference/refusal-uncertainty-and-hallucination-control-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/refusal-uncertainty-and-hallucination-control-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/refusal-uncertainty-and-hallucination-control-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/refusal-uncertainty-and-hallucination-control-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/refusal-uncertainty-and-hallucination-control-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/reference/request-path-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/request-path-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/request-path-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/request-path-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/request-path-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/reference/request-path-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/request-path-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/request-path-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/request-path-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/request-path-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/reference/request-path-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/request-path-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/request-path-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/request-path-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/request-path-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/reference/security-permissions-and-deployment-boundaries-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/security-permissions-and-deployment-boundaries-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/security-permissions-and-deployment-boundaries-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/security-permissions-and-deployment-boundaries-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/security-permissions-and-deployment-boundaries-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/reference/security-permissions-and-deployment-boundaries-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/security-permissions-and-deployment-boundaries-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/security-permissions-and-deployment-boundaries-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/security-permissions-and-deployment-boundaries-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/security-permissions-and-deployment-boundaries-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/reference/security-permissions-and-deployment-boundaries-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/security-permissions-and-deployment-boundaries-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/security-permissions-and-deployment-boundaries-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/security-permissions-and-deployment-boundaries-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/security-permissions-and-deployment-boundaries-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/ai-lab/rag-formation/reference/semantic-keyword-and-hybrid-retrieval-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/semantic-keyword-and-hybrid-retrieval-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/semantic-keyword-and-hybrid-retrieval-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/semantic-keyword-and-hybrid-retrieval-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/semantic-keyword-and-hybrid-retrieval-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/rag-formation/reference/semantic-keyword-and-hybrid-retrieval-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/semantic-keyword-and-hybrid-retrieval-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/semantic-keyword-and-hybrid-retrieval-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/semantic-keyword-and-hybrid-retrieval-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/semantic-keyword-and-hybrid-retrieval-cheatsheet.html"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/rag-formation/reference/semantic-keyword-and-hybrid-retrieval-cheatsheet.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/semantic-keyword-and-hybrid-retrieval-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/semantic-keyword-and-hybrid-retrieval-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/semantic-keyword-and-hybrid-retrieval-cheatsheet.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/reference/semantic-keyword-and-hybrid-retrieval-cheatsheet.html"/>
+  </url>
 </urlset>

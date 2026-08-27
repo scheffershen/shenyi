@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0YRBQKHLZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+  gtag('js', new Date());
+  gtag('config', 'G-S0YRBQKHLZ');
+</script>
+<title>Lesson · Establish the MVP baseline | RAG Formation</title>
+<meta name="author" content="SHEN YI">
+<meta name="description" content="Run a live evaluation and read the report as an engineer. A current baseline report with known failure cases.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html">
+<link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html">
+<link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html">
+<link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html">
+<link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="SHEN YI — Full-Stack &amp; AI Solutions Developer">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://shenyi.dev/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html">
+<meta property="og:title" content="Lesson · Establish the MVP baseline | RAG Formation">
+<meta property="og:description" content="Run a live evaluation and read the report as an engineer. A current baseline report with known failure cases.">
+<meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lesson · Establish the MVP baseline | RAG Formation">
+<meta name="twitter:description" content="Run a live evaluation and read the report as an engineer. A current baseline report with known failure cases.">
+<meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
+<link rel="icon" href="../../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+<script>document.documentElement.classList.add("js");</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Lesson · Establish the MVP baseline | RAG Formation", "description": "Run a live evaluation and read the report as an engineer. A current baseline report with known failure cases.", "url": "https://shenyi.dev/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html", "inLanguage": "en", "articleSection": "Foundations & measurement", "isPartOf": {"@type": "Course", "name": "RAG Formation", "url": "https://shenyi.dev/ai-lab/rag-formation/"}, "author": {"@type": "Person", "name": "SHEN YI", "url": "https://shenyi.dev/"}}</script>
+</head>
+<body class="ai-lab-page">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="header"><div class="wrap header-inner">
+  <a class="brand" href="../../../" aria-label="SHEN YI — home"><span class="brand-mark" aria-hidden="true">YS</span><span class="brand-text"><span class="brand-name">SHEN YI</span><span class="brand-role">Full-Stack &amp; AI</span></span></a>
+  <p class="hubs-badge"><span class="dot" aria-hidden="true"></span>Paris • Singapore • Shanghai</p>
+  <nav class="nav-desktop" aria-label="Lesson navigation"><ul><li><a href="../../">AI Lab</a></li><li><a href="../">Course roadmap</a></li><li><a href="#main" aria-current="page">Lesson</a></li></ul></nav>
+  <div class="lang"><button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu"><span aria-hidden="true">🇬🇧</span><span>EN</span><span class="lang-caret" aria-hidden="true">⌄</span><span class="sr-only">Change language</span></button><div class="lang-menu" id="lang-menu" role="menu"><a href="../../../ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html" hreflang="en" lang="en" aria-current="true" role="menuitem">English</a><a href="../../../fr/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html" hreflang="fr" lang="fr" role="menuitem">Français</a><a href="../../../zh/ai-lab/rag-formation/lessons/0004-establish-the-mvp-baseline.html" hreflang="zh" lang="zh-CN" role="menuitem">中文</a></div></div>
+</div></header>
+<main id="main">
+  <section class="hero wrap"><div class="hero-grid"><div>
+    <p class="eyebrow">RAG Formation · Lesson · Foundations &amp; measurement</p>
+    <h1>Establish the MVP baseline</h1>
+    <p class="ai-lab-hero-note">Run a live evaluation and read its report like an engineer, not a marketer.</p>
+    <div class="ai-lab-cta"><a class="btn btn-primary" href="../">Course roadmap <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="../../">AI Lab</a></div>
+  </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="Lesson · Establish the MVP baseline | RAG Formation"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">lesson --status</span></span>
+<span class="row"><span class="t-key">▸ course </span><span class="t-val">RAG Formation</span></span>
+<span class="row"><span class="t-key">▸ lesson </span><span class="t-num">04</span> <span class="t-val">/ 16</span></span>
+<span class="row"><span class="t-key">▸ phase </span><span class="t-val">Foundations &amp; measurement</span></span>
+<span class="row"><span class="t-key">▸ status </span><span class="t-num">In development</span></span>
+<span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
+  <section class="section wrap lesson-content" id="lesson-content">
+<div class="section-head"><p class="eyebrow">Standalone lesson</p><h2 class="section-title">Learn the full lesson and test your understanding here.</h2><p class="section-sub">RAG Formation remains in development. This page contains the complete lesson content, local reference material, and instant browser exercises.</p></div>
+<section class="card accent">
+      <h2>Today’s tangible win</h2>
+      <p>By the end of today you'll have a fresh, live baseline for the sanitized Meridian Labs system — and you'll know exactly what it proves, and just as importantly, what it doesn't.</p>
+      <p class="zh"><strong>本课的具体收获：</strong> 学完这节课，你会拿到脱敏版 Meridian Labs 系统一份全新的实时基线——而且能准确说清它证明了什么，更重要的是，它没能证明什么。</p>
+    </section>
+
+    <section>
+      <h2>1 · Safety first: use the isolated demo</h2>
+      <p>Run every command from the demo directory — not from `api`:</p>
+      <pre><code>cd demo</code></pre>
+      <p>The demo stack is fully isolated: its own service names, ports, collections, workspaces, and data directories. It only reads the demo configuration and the one demo API key file. Never print or open the secret environment files.</p>
+      <p class="zh">所有命令都要在演示目录里跑，别跑到 `api` 去了。演示环境是完全独立的一套：服务名、端口、集合、工作区、数据目录全都单独一份，只读取演示专用的配置和那一个演示 API key 文件。密钥相关的环境文件，千万别打印出来，也别随便打开。</p>
+      <p>Before you start, double-check:</p>
+      <ul>
+        <li>Docker is running.</li>
+        <li>The demo API key file exists and actually has a key in it.</li>
+        <li>Port `8000` isn't already taken by the production project.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>2 · Run the baseline recipe</h2>
+      <p>Start with the offline checks:</p>
+      <pre><code>python3 eval.py verify
+python3 test_scoring.py</code></pre>
+      <p>Bring up the isolated stack:</p>
+      <pre><code>python3 setup_demo.py up</code></pre>
+      <p>Check the status any time with:</p>
+      <pre><code>python3 setup_demo.py status</code></pre>
+      <p>Now index the synthetic corpus:</p>
+      <pre><code>python3 setup_demo.py ingest</code></pre>
+      <p>Ingestion isn't instant — the graph and summary indexes both call the LLM, so budget real time for it. If the corpus is already indexed and you want to keep it that way, use the documented options carefully. Don't casually blow away production data.</p>
+      <p class="zh">索引这一步不会很快——图索引和摘要索引都要调用 LLM，得留够时间。如果语料库已经建好索引、你也想保留它，那就仔细看文档里的选项再操作，千万别手一滑把生产数据重建了。</p>
+    </section>
+
+    <section>
+      <h2>3 · Measure retrieval before answers</h2>
+      <p>Run the retrieval-only evaluation first — it skips the LLM judge entirely:</p>
+      <pre><code>python3 eval.py run \
+  --mode retrieval \
+  --workspace meridian_demo \
+  --tag lesson-4-retrieval</code></pre>
+      <p>This shows you exactly what each index is pulling its weight on:</p>
+      <ul>
+        <li>Vector only</li>
+        <li>Vector plus full-text</li>
+        <li>Vector plus full-text plus summary</li>
+        <li>All indexes, including approximate graph matching</li>
+      </ul>
+      <p class="zh">先只测检索这一步——不走 LLM 评审，也就不花那份钱。这一步能让你清楚看到每个索引各自扛了多少活。</p>
+    </section>
+
+    <section>
+      <h2>4 · Measure generated answers</h2>
+      <p>Next, run the answer evaluation:</p>
+      <pre><code>python3 eval.py run \
+  --mode answer \
+  --workspace meridian_demo \
+  --tag lesson-4-answer</code></pre>
+      <p>This run hits `/api/v1/qa`, checks the citations and required keywords, and lets a judge model sort each answer into `correct`, `partial`, or `incorrect`. It also tracks refusals and latency along the way.</p>
+      <p class="zh">这一步会调用 `/api/v1/qa`，核对引用和必需关键词，再交给评审模型把每个答案判成 `correct`、`partial` 或 `incorrect` 三档，顺带把拒答率和延迟也一并测出来。</p>
+      <p>Doing this for the first time? Limit the sample size:</p>
+      <pre><code>python3 eval.py run \
+  --mode both \
+  --workspace meridian_demo \
+  --limit 10 \
+  --tag lesson-4-smoke</code></pre>
+    </section>
+
+    <section>
+      <h2>5 · Read the report like an engineer</h2>
+      <p>Reports land here:</p>
+      <pre><code>demo/reports/</code></pre>
+      <p>Never quote a number without its definition attached. Write down:</p>
+      <table>
+        <thead><tr><th>Metric</th><th>Your value</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>Retrieval union</td><td>_____</td><td>All expected sources found across the combined indexes</td></tr>
+          <tr><td>Strict accuracy</td><td>_____</td><td>Judge verdict is `correct`</td></tr>
+          <tr><td>Source hit rate</td><td>_____</td><td>Every expected source cited in the final answer</td></tr>
+          <tr><td>Refusal accuracy</td><td>_____</td><td>Unanswerable questions correctly declined</td></tr>
+          <tr><td>Hallucination rate</td><td>_____</td><td>Unanswerable questions answered anyway</td></tr>
+          <tr><td>Latency p50 / p95</td><td>_____</td><td>Typical and slow-tail response time</td></tr>
+        </tbody>
+      </table>
+      <p class="zh">光甩一个数字出来、不说清楚它的定义，没有意义。把这几项都记下来：检索覆盖率、严格准确率、来源命中率、拒答准确率、幻觉率，还有 p50/p95 延迟。</p>
+    </section>
+
+    <section>
+      <h2>6 · Practice: baseline or overclaim?</h2>
+      <div class="lesson-quiz" data-quiz>
+        <p><strong>Statement A:</strong> “On the 65-question Meridian Labs eval set, using `gpt-4o-mini`, topk 5, in this workspace, strict answer accuracy came out to 70%.” Does that count as a solid baseline statement?</p>
+        <p class="zh">“在 65 个问题的 Meridian Labs 评估集上，用 `gpt-4o-mini`、topk 5、当前这个工作区跑出来，严格答案准确率是 70%。”这句话算得上是一个站得住脚的基线陈述吗？</p>
+        <button type="button" data-answer="correct" data-feedback="Right — it locks down the corpus, the configuration, and the metric definition.">Yes</button>
+        <button type="button" data-answer="incorrect" data-feedback="Not quite — those exact conditions and metric definition are what make it reproducible.">No</button>
+        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
+      </div>
+      <div class="lesson-quiz" data-quiz>
+        <p><strong>Statement B:</strong> “The chatbot is 70% accurate.” Would that fly in a technical report?</p>
+        <p class="zh">“这个聊天机器人准确率是 70%。”写进技术报告里，这句话够格吗？</p>
+        <button type="button" data-answer="correct" data-feedback="Correct — it hides the dataset, the metric, the model, the configuration, and how refusals get handled.">No</button>
+        <button type="button" data-answer="incorrect" data-feedback="Not enough — a number only means something when it’s tied to a reproducible setup.">Yes</button>
+        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
+      </div>
+      <div class="lesson-quiz" data-quiz>
+        <p><strong>Statement C:</strong> Retrieval union is high, but strict answer accuracy is low. Where do you look next?</p>
+        <p class="zh">检索覆盖率很高，但严格答案准确率却很低，这时候你该去查哪里？</p>
+        <button type="button" data-answer="correct" data-feedback="Correct — the sources are already getting through, so look at context assembly, prompting, and generation.">Generation path</button>
+        <button type="button" data-answer="incorrect" data-feedback="Not first — retrieval is already doing its job and bringing back the expected sources.">Ingestion only</button>
+        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Mission connection</h2>
+      <p>A QA or regulatory team can't do anything with a number they can't interpret or reproduce. A baseline is what keeps a prototype honest — it lays bare what's working, what isn't, and whether your next change actually moved the needle.</p>
+      <p class="zh">QA 或法规团队拿到一个既解释不了、也复现不了的数字，其实什么都做不了。基线的作用就是让原型保持诚实——它把现在的优势、现在的短板都摆在台面上，也能告诉你下一次改动到底有没有真的起作用。</p>
+    </section>
+
+    <section>
+      <h2>Next action</h2>
+      <p>At minimum, run both the retrieval evaluation and the answer evaluation. Then send me:</p>
+      <ol>
+        <li>Both report tags.</li>
+        <li>The retrieval union percentage.</li>
+        <li>Strict answer accuracy.</li>
+        <li>Source hit rate.</li>
+        <li>Refusal accuracy and hallucination rate.</li>
+        <li>One failure you want to dig into first, along with its judge reason.</li>
+      </ol>
+      <p class="zh"><strong>下一步：</strong> 至少把检索评估和答案评估都跑一遍，然后把两个报告标签、几项关键指标，还有一个你最想优先排查的失败案例，发给我。</p>
+      <p><strong>Ask follow-up questions</strong> anytime Docker, ingestion, the judge, or a metric doesn't make sense to you. I'll help you make sense of the live numbers before we call Lesson 4 done.</p>
+      <p class="zh"><strong>如果 Docker、索引、评审模型，或者任何一个指标你没弄明白，随时问我，不用自己瞎猜。</strong> 在我们把第 4 课标记完成之前，我会帮你一起把这份实时结果看懂。</p>
+    </section>
+</section>
+<section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0003-build-a-trustworthy-evaluation-set.html">← Previous lesson</a><a class="btn btn-ghost" href="../reference/baseline-evaluation-cheatsheet.html">Reference sheet</a><a href="0005-semantic-keyword-and-hybrid-retrieval.html">Next lesson →</a></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><div class="footer-meta"><p><strong>SHEN YI</strong> — Senior Full-Stack &amp; AI Solutions Developer</p><p class="mono">Paris • Singapore • Shanghai — FR · ZH · EN</p><p>© <span data-year>2026</span> SHEN YI. All rights reserved.</p></div></div></footer>
+<script src="../../../assets/js/main.js" defer></script>
+<script src="../../../assets/js/lesson.js" defer></script>
+</body>
+</html>
+

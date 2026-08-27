@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0YRBQKHLZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+  gtag('js', new Date());
+  gtag('config', 'G-S0YRBQKHLZ');
+</script>
+<title>第 14 课 · 延迟、成本与可观测性 | RAG Formation</title>
+<meta name="author" content="沈毅">
+<meta name="description" content="在回答质量与响应时间、Token 成本、图调用和运维可见性之间取得平衡。 一份 MVP 性能预算与遥测检查清单。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html">
+<link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html">
+<link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html">
+<link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html">
+<link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="沈毅 — 资深全栈与 AI 解决方案开发者">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html">
+<meta property="og:title" content="第 14 课 · 延迟、成本与可观测性 | RAG Formation">
+<meta property="og:description" content="在回答质量与响应时间、Token 成本、图调用和运维可见性之间取得平衡。 一份 MVP 性能预算与遥测检查清单。">
+<meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="第 14 课 · 延迟、成本与可观测性 | RAG Formation">
+<meta name="twitter:description" content="在回答质量与响应时间、Token 成本、图调用和运维可见性之间取得平衡。 一份 MVP 性能预算与遥测检查清单。">
+<meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
+<link rel="icon" href="../../../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../../assets/css/style.css">
+<script>document.documentElement.classList.add("js");</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "第 14 课 · 延迟、成本与可观测性 | RAG Formation", "description": "在回答质量与响应时间、Token 成本、图调用和运维可见性之间取得平衡。 一份 MVP 性能预算与遥测检查清单。", "url": "https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html", "inLanguage": "zh-CN", "articleSection": "可靠性与产品就绪", "isPartOf": {"@type": "Course", "name": "RAG Formation", "url": "https://shenyi.dev/zh/ai-lab/rag-formation/"}, "author": {"@type": "Person", "name": "沈毅", "url": "https://shenyi.dev/"}}</script>
+</head>
+<body class="ai-lab-page">
+<a class="skip-link" href="#main">跳到主要内容</a>
+<header class="header"><div class="wrap header-inner">
+  <a class="brand" href="../../../../" aria-label="沈毅 — 首页"><span class="brand-mark" aria-hidden="true">YS</span><span class="brand-text"><span class="brand-name">沈毅</span><span class="brand-role">全栈与 AI</span></span></a>
+  <p class="hubs-badge"><span class="dot" aria-hidden="true"></span>巴黎 • 新加坡 • 上海</p>
+  <nav class="nav-desktop" aria-label="课程导航"><ul><li><a href="../../">AI 工程实验室</a></li><li><a href="../">课程路线图</a></li><li><a href="#main" aria-current="page">第 14 课</a></li></ul></nav>
+  <div class="lang"><button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu"><span aria-hidden="true">🇨🇳</span><span>ZH</span><span class="lang-caret" aria-hidden="true">⌄</span><span class="sr-only">切换语言</span></button><div class="lang-menu" id="lang-menu" role="menu"><a href="../../../../ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html" hreflang="en" lang="en" role="menuitem">English</a><a href="../../../../fr/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html" hreflang="fr" lang="fr" role="menuitem">Français</a><a href="../../../../zh/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability.html" hreflang="zh" lang="zh-CN" aria-current="true" role="menuitem">中文</a></div></div>
+</div></header>
+<main id="main">
+  <section class="hero wrap"><div class="hero-grid"><div>
+    <p class="eyebrow">RAG Formation · 第 14 课 · 可靠性与产品就绪</p>
+    <h1>延迟、成本与可观测性</h1>
+    <p class="ai-lab-hero-note">在回答质量、响应时间、Token 成本、图调用和运维可见性之间取得平衡。</p>
+    <div class="ai-lab-cta"><a class="btn btn-primary" href="../">课程路线图 <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="../../">AI 工程实验室</a></div>
+  </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="第 14 课 · 延迟、成本与可观测性 | RAG Formation"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">lesson --status</span></span>
+<span class="row"><span class="t-key">▸ course </span><span class="t-val">RAG Formation</span></span>
+<span class="row"><span class="t-key">▸ lesson </span><span class="t-num">14</span> <span class="t-val">/ 16</span></span>
+<span class="row"><span class="t-key">▸ phase </span><span class="t-val">可靠性与产品就绪</span></span>
+<span class="row"><span class="t-key">▸ status </span><span class="t-num">开发中</span></span>
+<span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
+  <section class="section wrap lesson-content" id="lesson-content">
+<div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
+<section class="card accent"><h2>Today’s tangible win</h2><p>By the end of this lesson: an MVP performance budget plus a telemetry checklist, with every line tagged measured or assumed.</p><p class="zh"><strong>本课的具体收获：</strong> 一份 MVP 性能预算，加一份遥测检查表，每一条都标清楚是“实测”还是“假设”。</p></section>
+<section><h2>1 · The skill</h2><p>Pull up a report and pin down which budgets — latency, backend calls, context size, model calls — are actually measured, and which ones you’re just assuming.</p><ul><li><strong>p50 and p95:</strong> your median response time and your slow-tail response time. Track both — a snappy average can hide a handful of requests that crawl.</li><li><strong>Cost drivers:</strong> embedding calls, graph LLM calls, answer generation, judge calls, and how much context you’re stuffing in.</li><li><strong>Observability:</strong> structured traces, metrics, and logs detailed enough to explain what happened — without leaking secrets or document contents.</li></ul><p><a href="https://opentelemetry.io/docs/" target="_blank" rel="noreferrer">Primary reading: OpenTelemetry — Documentation</a></p><p class="zh">p50 和 p95：一个是中位数延迟，一个是慢尾延迟，两个都要看——平均值好看，不代表没有一小撮请求慢得让人抓狂。成本主要来自：嵌入调用、图谱 LLM 调用、答案生成、评审调用，还有你塞进去的上下文大小。可观测性指的是结构化的追踪、指标和日志，要能说清楚发生了什么，同时不泄露密钥或文档内容。</p></section>
+<section><h2>2 · Run the evidence loop</h2><pre><code>cd demo
+python3 eval.py run --mode retrieval --workspace meridian_demo --tag lesson-14-latency</code></pre><p>Capture p50/p95 (or per-question latency), result counts, and context size — and never log secrets or raw sensitive content.</p><p class="lesson-callout">Remember: a good-looking average latency can hide a slow tail bad enough to sink a pilot.</p><p class="zh">把命令、配置、结果和失败案例都记下来；但一次实验跑出来的数字，不代表系统从此就稳了，结论别下得太满。</p></section>
+<section><h2>3 · Decision worksheet</h2><div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Baseline evidence</th><th>One hypothesis/change</th><th>Metric</th><th>Regression check</th><th>Bounded conclusion</th></tr></thead><tbody><tr><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody></table></div><p class="zh">把这几栏填上：基线证据、一个假设/改动、指标、回归检查，还有一个有边界的结论。</p></section>
+<section><h2>4 · Retrieval practice</h2><div class="lesson-quiz" data-quiz><p><strong>Question:</strong> Your median looks great, but p95 is dragging. What do you actually report?</p><button type="button" data-answer="correct" data-feedback="Right — the tail is what your slowest real users actually experience.">Both values</button><button type="button" data-answer="incorrect" data-feedback="Not enough — an average can paper over real operational pain.">Mean only</button><p class="lesson-feedback" data-feedback aria-live="polite"></p><p class="zh">用证据来决定下一步，别让一个听起来对的选项，替你完成了本该动手做的验证。</p></div></section>
+<section class="card"><h2>Mission connection</h2><p>A pilot team doesn’t just need correct answers — they need to know the system won’t bankrupt them, won’t make them wait, and won’t turn into a black box the moment quality slips.</p><p class="zh">试点团队光知道答案对不对还不够——他们还得清楚这套系统烧不烧得起钱、够不够快，万一效果变差了，能不能查得出原因来。</p></section>
+<section><h2>5 · Deliverable and next action</h2><ol><li>Save the command output or the report itself.</li><li>Fill out the decision worksheet.</li><li>Write down one failure case and one next thing to verify.</li></ol><p>The deliverable: an MVP performance budget and telemetry checklist, each item tagged measured or assumed.</p><p class="zh">交付物：保存好证据、填完工作表、记录一个失败案例和下一步要验证的东西。</p><p><strong>Next:</strong> Lesson 15 — Security, permissions, and deployment boundaries.</p><p><strong>Ask me follow-up questions</strong> about the evidence, the metric, the failure case, or what you’d try next. I’m your instructor for this course.</p></section>
+</section>
+<section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0013-failure-isolation-and-graceful-degradation.html">← 上一课</a><a class="btn btn-ghost" href="../reference/latency-cost-and-observability-cheatsheet.html">参考资料</a><a href="0015-security-permissions-and-deployment-boundaries.html">下一课 →</a></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><div class="footer-meta"><p><strong>沈毅</strong> — 资深全栈与 AI 解决方案开发者</p><p class="mono">巴黎 • 新加坡 • 上海 — FR · ZH · EN</p><p>© <span data-year>2026</span> 沈毅. 版权所有。</p></div></div></footer>
+<script src="../../../../assets/js/main.js" defer></script>
+<script src="../../../../assets/js/lesson.js" defer></script>
+</body>
+</html>
+
+

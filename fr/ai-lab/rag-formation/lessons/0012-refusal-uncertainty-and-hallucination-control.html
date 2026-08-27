@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0YRBQKHLZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+  gtag('js', new Date());
+  gtag('config', 'G-S0YRBQKHLZ');
+</script>
+<title>Leçon · Refus, incertitude et maîtrise des hallucinations | RAG Formation</title>
+<meta name="author" content="Yi SHEN">
+<meta name="description" content="Construire un comportement adapté aux situations QA, réglementaires et d’audit lorsque le corpus ne contient pas la réponse. Une politique de refus et des cas de test de sécurité.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html">
+<link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html">
+<link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html">
+<link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html">
+<link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Yi SHEN — Développeur senior full-stack et solutions IA">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:url" content="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html">
+<meta property="og:title" content="Leçon · Refus, incertitude et maîtrise des hallucinations | RAG Formation">
+<meta property="og:description" content="Construire un comportement adapté aux situations QA, réglementaires et d’audit lorsque le corpus ne contient pas la réponse. Une politique de refus et des cas de test de sécurité.">
+<meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Leçon · Refus, incertitude et maîtrise des hallucinations | RAG Formation">
+<meta name="twitter:description" content="Construire un comportement adapté aux situations QA, réglementaires et d’audit lorsque le corpus ne contient pas la réponse. Une politique de refus et des cas de test de sécurité.">
+<meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
+<link rel="icon" href="../../../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../../assets/css/style.css">
+<script>document.documentElement.classList.add("js");</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Leçon · Refus, incertitude et maîtrise des hallucinations | RAG Formation", "description": "Construire un comportement adapté aux situations QA, réglementaires et d’audit lorsque le corpus ne contient pas la réponse. Une politique de refus et des cas de test de sécurité.", "url": "https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html", "inLanguage": "fr", "articleSection": "Génération de réponses étayées", "isPartOf": {"@type": "Course", "name": "RAG Formation", "url": "https://shenyi.dev/fr/ai-lab/rag-formation/"}, "author": {"@type": "Person", "name": "Yi SHEN", "url": "https://shenyi.dev/"}}</script>
+</head>
+<body class="ai-lab-page">
+<a class="skip-link" href="#main">Aller au contenu principal</a>
+<header class="header"><div class="wrap header-inner">
+  <a class="brand" href="../../../../" aria-label="Yi SHEN — accueil"><span class="brand-mark" aria-hidden="true">YS</span><span class="brand-text"><span class="brand-name">Yi SHEN</span><span class="brand-role">Full-stack &amp; solutions IA</span></span></a>
+  <p class="hubs-badge"><span class="dot" aria-hidden="true"></span>Paris • Singapour • Shanghai</p>
+  <nav class="nav-desktop" aria-label="Navigation de la leçon"><ul><li><a href="../../">Laboratoire d’ingénierie IA</a></li><li><a href="../">Feuille de route</a></li><li><a href="#main" aria-current="page">Leçon</a></li></ul></nav>
+  <div class="lang"><button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu"><span aria-hidden="true">🇫🇷</span><span>FR</span><span class="lang-caret" aria-hidden="true">⌄</span><span class="sr-only">Changer de langue</span></button><div class="lang-menu" id="lang-menu" role="menu"><a href="../../../../ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html" hreflang="en" lang="en" role="menuitem">English</a><a href="../../../../fr/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html" hreflang="fr" lang="fr" aria-current="true" role="menuitem">Français</a><a href="../../../../zh/ai-lab/rag-formation/lessons/0012-refusal-uncertainty-and-hallucination-control.html" hreflang="zh" lang="zh-CN" role="menuitem">中文</a></div></div>
+</div></header>
+<main id="main">
+  <section class="hero wrap"><div class="hero-grid"><div>
+    <p class="eyebrow">RAG Formation · Leçon · Génération de réponses étayées</p>
+    <h1>Refus, incertitude et maîtrise des hallucinations</h1>
+    <p class="ai-lab-hero-note">Définir un comportement sûr lorsque le corpus ne contient pas la réponse attendue par la QA, la conformité ou l’audit.</p>
+    <div class="ai-lab-cta"><a class="btn btn-primary" href="../">Feuille de route <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="../../">Laboratoire d’ingénierie IA</a></div>
+  </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="Leçon · Refus, incertitude et maîtrise des hallucinations | RAG Formation"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">lesson --status</span></span>
+<span class="row"><span class="t-key">▸ course </span><span class="t-val">RAG Formation</span></span>
+<span class="row"><span class="t-key">▸ lesson </span><span class="t-num">12</span> <span class="t-val">/ 16</span></span>
+<span class="row"><span class="t-key">▸ phase </span><span class="t-val">Génération de réponses étayées</span></span>
+<span class="row"><span class="t-key">▸ status </span><span class="t-num">En cours de développement</span></span>
+<span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
+  <section class="section wrap lesson-content" id="lesson-content">
+<div class="section-head"><p class="eyebrow">Leçon autonome</p><h2 class="section-title">Apprenez la leçon complète et vérifiez votre compréhension ici.</h2><p class="section-sub">RAG Formation reste en développement. Cette page contient le contenu complet, les références locales et des exercices immédiats dans le navigateur.</p></div>
+<section class="card accent"><h2>Today’s tangible win</h2><p>By the end, you’ll have a refusal policy — with test cases covering no evidence, partial evidence, conflicting evidence, and ambiguous questions.</p><p class="zh"><strong>本课的具体收获：</strong> 写出一份拒答策略，配上四类测试用例——没有证据、证据不全、证据打架、问题本身模糊。</p></section>
+<section><h2>1 · The skill</h2><p>Take the six unanswerable eval questions and sort each response into one of three buckets: safe refusal, unsafe hedge, or outright hallucination.</p><ul><li><strong>Refusal:</strong> Says plainly that the indexed evidence doesn’t establish the fact being asked for.</li><li><strong>Uncertainty:</strong> Spells out — carefully — what the evidence does support, and what’s still an open question.</li><li><strong>Hallucination:</strong> A real, substantive claim that the allowed evidence just doesn’t back up.</li></ul><p><a href="https://platform.openai.com/docs/guides/evaluation-best-practices" target="_blank" rel="noreferrer">Primary reading: OpenAI — Evaluation Best Practices</a></p><p class="zh">拒答：直接说清楚——已索引的证据撑不起这个事实。不确定性：把证据能说明什么、还有哪些说不准，交代得明明白白。幻觉：证据根本不够，却还是抛出了一个实打实的结论。</p></section>
+<section><h2>2 · Run the evidence loop</h2><pre><code>cd demo
+python3 eval.py run --mode answer --workspace meridian_demo --category unanswerable --tag lesson-12-refusal</code></pre><p>Track refusal accuracy and hallucination rate as two separate numbers, and grab one example answer that crossed the line.</p><p class="lesson-callout">Careful: a smooth, partial answer can still be a hallucination — the moment it slips in one unsupported claim that actually matters.</p><p class="zh">把命令、配置、结果、失败样本都存下来；但别因为跑了一次就敢说这套系统已经靠谱了。</p></section>
+<section><h2>3 · Decision worksheet</h2><div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Baseline evidence</th><th>One hypothesis/change</th><th>Metric</th><th>Regression check</th><th>Bounded conclusion</th></tr></thead><tbody><tr><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody></table></div><p class="zh">把这几栏填满：基线证据、一个假设或改动、指标、回归检查，以及一个有边界的结论。</p></section>
+<section><h2>4 · Retrieval practice</h2><div class="lesson-quiz" data-quiz><p><strong>Question:</strong> Your evidence only covers part of what’s being asked. What’s the safe move?</p><button type="button" data-answer="correct" data-feedback="Correct. Answer the supported part and identify exactly what is not established.">Name what’s missing</button><button type="button" data-answer="incorrect" data-feedback="Unsafe. A plausible completion is still unsupported.">Guess the rest</button><p class="lesson-feedback" data-feedback aria-live="polite"></p><p class="zh">该怎么答，看证据说了算；别被选项的措辞牵着走，那不代表真的验证过。</p></div></section>
+<section class="card"><h2>Mission connection</h2><p>In QA, audit, and regulatory work, a plain ‘I can’t confirm that from the indexed documents’ beats a confident-sounding answer that’s just made up.</p><p class="zh">在 QA、审计、法规这些场景里，老老实实说一句“这个我从已索引的文件里确认不了”，永远比一个说得漂亮却是编出来的答案更安全。</p></section>
+<section><h2>5 · Deliverable and next action</h2><ol><li>Save the command output, or a report of it.</li><li>Fill out the decision worksheet.</li><li>Write down one failure case and one thing to verify next.</li></ol><p>By the end, you’ll have a refusal policy — with test cases covering no evidence, partial evidence, conflicting evidence, and ambiguous questions.</p><p class="zh">交付物：保存好证据、填完工作表、记下一个失败案例和下一步要验证什么。</p><p><strong>Next:</strong> Lesson 13 — Failure isolation and graceful degradation.</p><p><strong>Got questions? Ask me</strong> — about the evidence, the metric, the failure case, or whatever you want to try next. I’m your instructor for this course.</p></section>
+</section>
+<section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0011-citation-design-and-source-fidelity.html">← Leçon précédente</a><a class="btn btn-ghost" href="../reference/refusal-uncertainty-and-hallucination-control-cheatsheet.html">Fiche de référence</a><a href="0013-failure-isolation-and-graceful-degradation.html">Leçon suivante →</a></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><div class="footer-meta"><p><strong>Yi SHEN</strong> — Développeur senior full-stack et solutions IA</p><p class="mono">Paris • Singapour • Shanghai — FR · ZH · EN</p><p>© <span data-year>2026</span> Yi SHEN. Tous droits réservés.</p></div></div></footer>
+<script src="../../../../assets/js/main.js" defer></script>
+<script src="../../../../assets/js/lesson.js" defer></script>
+</body>
+</html>
+
+

@@ -3,7 +3,7 @@
 (function () {
   function initializeQuiz(quiz) {
     var options = Array.prototype.slice.call(quiz.querySelectorAll("button[data-answer]"));
-    var feedback = quiz.querySelector("[data-feedback]");
+    var feedback = quiz.querySelector(".lesson-feedback[data-feedback]");
 
     if (!feedback || options.length < 2) {
       return;

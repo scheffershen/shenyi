@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0YRBQKHLZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+  gtag('js', new Date());
+  gtag('config', 'G-S0YRBQKHLZ');
+</script>
+<title>Lesson · Citation design and source fidelity | RAG Formation</title>
+<meta name="author" content="SHEN YI">
+<meta name="description" content="Make citations useful, stable, and tied to evidence actually shown to the model. A citation contract for the MVP.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html">
+<link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html">
+<link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html">
+<link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html">
+<link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="SHEN YI — Full-Stack &amp; AI Solutions Developer">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://shenyi.dev/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html">
+<meta property="og:title" content="Lesson · Citation design and source fidelity | RAG Formation">
+<meta property="og:description" content="Make citations useful, stable, and tied to evidence actually shown to the model. A citation contract for the MVP.">
+<meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lesson · Citation design and source fidelity | RAG Formation">
+<meta name="twitter:description" content="Make citations useful, stable, and tied to evidence actually shown to the model. A citation contract for the MVP.">
+<meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
+<link rel="icon" href="../../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+<script>document.documentElement.classList.add("js");</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Lesson · Citation design and source fidelity | RAG Formation", "description": "Make citations useful, stable, and tied to evidence actually shown to the model. A citation contract for the MVP.", "url": "https://shenyi.dev/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html", "inLanguage": "en", "articleSection": "Grounded answer generation", "isPartOf": {"@type": "Course", "name": "RAG Formation", "url": "https://shenyi.dev/ai-lab/rag-formation/"}, "author": {"@type": "Person", "name": "SHEN YI", "url": "https://shenyi.dev/"}}</script>
+</head>
+<body class="ai-lab-page">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="header"><div class="wrap header-inner">
+  <a class="brand" href="../../../" aria-label="SHEN YI — home"><span class="brand-mark" aria-hidden="true">YS</span><span class="brand-text"><span class="brand-name">SHEN YI</span><span class="brand-role">Full-Stack &amp; AI</span></span></a>
+  <p class="hubs-badge"><span class="dot" aria-hidden="true"></span>Paris • Singapore • Shanghai</p>
+  <nav class="nav-desktop" aria-label="Lesson navigation"><ul><li><a href="../../">AI Lab</a></li><li><a href="../">Course roadmap</a></li><li><a href="#main" aria-current="page">Lesson</a></li></ul></nav>
+  <div class="lang"><button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu"><span aria-hidden="true">🇬🇧</span><span>EN</span><span class="lang-caret" aria-hidden="true">⌄</span><span class="sr-only">Change language</span></button><div class="lang-menu" id="lang-menu" role="menu"><a href="../../../ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html" hreflang="en" lang="en" aria-current="true" role="menuitem">English</a><a href="../../../fr/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html" hreflang="fr" lang="fr" role="menuitem">Français</a><a href="../../../zh/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity.html" hreflang="zh" lang="zh-CN" role="menuitem">中文</a></div></div>
+</div></header>
+<main id="main">
+  <section class="hero wrap"><div class="hero-grid"><div>
+    <p class="eyebrow">RAG Formation · Lesson · Grounded answer generation</p>
+    <h1>Citation design and source fidelity</h1>
+    <p class="ai-lab-hero-note">Build citations that are stable, useful, and tied directly to the evidence behind the answer.</p>
+    <div class="ai-lab-cta"><a class="btn btn-primary" href="../">Course roadmap <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="../../">AI Lab</a></div>
+  </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="Lesson · Citation design and source fidelity | RAG Formation"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">lesson --status</span></span>
+<span class="row"><span class="t-key">▸ course </span><span class="t-val">RAG Formation</span></span>
+<span class="row"><span class="t-key">▸ lesson </span><span class="t-num">11</span> <span class="t-val">/ 16</span></span>
+<span class="row"><span class="t-key">▸ phase </span><span class="t-val">Grounded answer generation</span></span>
+<span class="row"><span class="t-key">▸ status </span><span class="t-num">In development</span></span>
+<span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
+  <section class="section wrap lesson-content" id="lesson-content">
+<div class="section-head"><p class="eyebrow">Standalone lesson</p><h2 class="section-title">Learn the full lesson and test your understanding here.</h2><p class="section-sub">RAG Formation remains in development. This page contains the complete lesson content, local reference material, and instant browser exercises.</p></div>
+<section class="card accent"><h2>Today’s tangible win</h2><p>By the end of this lesson: a citation contract that nails down document identity, chunk/page identity, claim mapping, and deduplication rules.</p><p class="zh"><strong>本课的具体收获：</strong> 写一份引用契约，讲清楚文档身份、片段/页码身份、主张映射和去重规则。</p></section>
+<section><h2>1 · The skill</h2><p>Pick one of q28, q30, q46, or q63 and audit it — trace every material claim in the answer back to the source that actually backs it up.</p><ul><li><strong>Citation fidelity:</strong> the source you cited actually contains or backs up the claim, not just something adjacent to it.</li><li><strong>Citation completeness:</strong> every material claim has a solid source behind it — this matters even more once an answer chains several hops together.</li><li><strong>Citation identity:</strong> a stable document and chunk reference a user can actually look up and reproduce.</li></ul><p><a href="https://docs.anthropic.com/en/docs/build-with-claude/search-results" target="_blank" rel="noreferrer">Primary reading: Anthropic — Search Results with Citations</a></p><p class="zh">引用忠实度：你引用的来源得真的包含或支持这条主张，不是随便挂个相关文档凑数。引用完整性：每一个重要主张都要有站得住脚的来源撑着，答案要是跨了好几跳推理，这一条更不能少。引用身份：给用户一个稳定、可查、可复现的文档和片段编号。</p></section>
+<section><h2>2 · Run the evidence loop</h2><pre><code>cd demo
+python3 eval.py run --mode answer --workspace meridian_demo --tag lesson-11-citations</code></pre><p>Log missing, extra, and misleading citations as their own category — don’t fold them into whether the answer itself was correct.</p><p class="lesson-callout">A filename isn’t a faithful citation if the document behind it never actually backed the claim you showed the user.</p><p class="zh">把跑过的命令、用的配置、拿到的结果和踩过的坑都记下来；千万别拿一次实验的结果，就断言整个系统已经靠谱了。</p></section>
+<section><h2>3 · Decision worksheet</h2><div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Baseline evidence</th><th>One hypothesis/change</th><th>Metric</th><th>Regression check</th><th>Bounded conclusion</th></tr></thead><tbody><tr><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody></table></div><p class="zh">把这几项填清楚：基线证据、一个假设/改动、指标、回归检查、有边界的结论。</p></section>
+<section><h2>4 · Retrieval practice</h2><div class="lesson-quiz" data-quiz><p><strong>Question:</strong> The answer clearly leans on two sources, but only one shows up in the citations. What do you check first?</p><button type="button" data-answer="correct" data-feedback="Correct. First map each claim to evidence; adding an unrelated source is not fidelity.">Claim mapping</button><button type="button" data-answer="incorrect" data-feedback="Not enough. Citation count is not citation support.">Add source</button><p class="lesson-feedback" data-feedback aria-live="polite"></p><p class="zh">靠证据判断该怎么走，别让选项写得漂亮就当成验证过了。</p></div></section>
+<section class="card"><h2>Mission connection</h2><p>For a regulated chatbot, citations aren’t decoration — they’re the bridge between an answer and the controlled evidence a QA reviewer or auditor can go check for themselves.</p><p class="zh">对受监管的聊天机器人来说，引用从来不是装饰——它是答案和证据之间的那座桥，QA 和审计员靠它去核实。</p></section>
+<section><h2>5 · Deliverable and next action</h2><ol><li>Save the command output or write up a short report.</li><li>Fill out the decision worksheet.</li><li>Write down one failure case and the next thing you’ll verify.</li></ol><p>The deliverable: a citation contract that nails down document identity, chunk/page identity, claim mapping, and deduplication rules.</p><p class="zh">交付物：把证据保存好，填完工作表，写下一个失败案例和下一步要验证的东西。</p><p><strong>Next:</strong> Lesson 12 — Refusal, uncertainty, and hallucination control.</p><p><strong>Ask me anything</strong> about the evidence, the metric, the failure case, or what to try next — that’s what I’m here for in this course.</p></section>
+</section>
+<section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0010-prompts-that-answer-only-from-evidence.html">← Previous lesson</a><a class="btn btn-ghost" href="../reference/citation-design-and-source-fidelity-cheatsheet.html">Reference sheet</a><a href="0012-refusal-uncertainty-and-hallucination-control.html">Next lesson →</a></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><div class="footer-meta"><p><strong>SHEN YI</strong> — Senior Full-Stack &amp; AI Solutions Developer</p><p class="mono">Paris • Singapore • Shanghai — FR · ZH · EN</p><p>© <span data-year>2026</span> SHEN YI. All rights reserved.</p></div></div></footer>
+<script src="../../../assets/js/main.js" defer></script>
+<script src="../../../assets/js/lesson.js" defer></script>
+</body>
+</html>
+

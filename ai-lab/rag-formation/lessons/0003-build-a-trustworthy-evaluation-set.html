@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0YRBQKHLZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+  gtag('js', new Date());
+  gtag('config', 'G-S0YRBQKHLZ');
+</script>
+<title>Lesson · Build a trustworthy evaluation set | RAG Formation</title>
+<meta name="author" content="SHEN YI">
+<meta name="description" content="Understand ground truth, answerable versus unanswerable questions, expected sources, and required facts. An evaluation-set design checklist.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html">
+<link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html">
+<link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html">
+<link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html">
+<link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="SHEN YI — Full-Stack &amp; AI Solutions Developer">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://shenyi.dev/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html">
+<meta property="og:title" content="Lesson · Build a trustworthy evaluation set | RAG Formation">
+<meta property="og:description" content="Understand ground truth, answerable versus unanswerable questions, expected sources, and required facts. An evaluation-set design checklist.">
+<meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lesson · Build a trustworthy evaluation set | RAG Formation">
+<meta name="twitter:description" content="Understand ground truth, answerable versus unanswerable questions, expected sources, and required facts. An evaluation-set design checklist.">
+<meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
+<link rel="icon" href="../../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+<script>document.documentElement.classList.add("js");</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Lesson · Build a trustworthy evaluation set | RAG Formation", "description": "Understand ground truth, answerable versus unanswerable questions, expected sources, and required facts. An evaluation-set design checklist.", "url": "https://shenyi.dev/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html", "inLanguage": "en", "articleSection": "Foundations & measurement", "isPartOf": {"@type": "Course", "name": "RAG Formation", "url": "https://shenyi.dev/ai-lab/rag-formation/"}, "author": {"@type": "Person", "name": "SHEN YI", "url": "https://shenyi.dev/"}}</script>
+</head>
+<body class="ai-lab-page">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="header"><div class="wrap header-inner">
+  <a class="brand" href="../../../" aria-label="SHEN YI — home"><span class="brand-mark" aria-hidden="true">YS</span><span class="brand-text"><span class="brand-name">SHEN YI</span><span class="brand-role">Full-Stack &amp; AI</span></span></a>
+  <p class="hubs-badge"><span class="dot" aria-hidden="true"></span>Paris • Singapore • Shanghai</p>
+  <nav class="nav-desktop" aria-label="Lesson navigation"><ul><li><a href="../../">AI Lab</a></li><li><a href="../">Course roadmap</a></li><li><a href="#main" aria-current="page">Lesson</a></li></ul></nav>
+  <div class="lang"><button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu"><span aria-hidden="true">🇬🇧</span><span>EN</span><span class="lang-caret" aria-hidden="true">⌄</span><span class="sr-only">Change language</span></button><div class="lang-menu" id="lang-menu" role="menu"><a href="../../../ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html" hreflang="en" lang="en" aria-current="true" role="menuitem">English</a><a href="../../../fr/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html" hreflang="fr" lang="fr" role="menuitem">Français</a><a href="../../../zh/ai-lab/rag-formation/lessons/0003-build-a-trustworthy-evaluation-set.html" hreflang="zh" lang="zh-CN" role="menuitem">中文</a></div></div>
+</div></header>
+<main id="main">
+  <section class="hero wrap"><div class="hero-grid"><div>
+    <p class="eyebrow">RAG Formation · Lesson · Foundations &amp; measurement</p>
+    <h1>Build a trustworthy evaluation set</h1>
+    <p class="ai-lab-hero-note">Turn expectations about quality into explicit, testable ground truth.</p>
+    <div class="ai-lab-cta"><a class="btn btn-primary" href="../">Course roadmap <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="../../">AI Lab</a></div>
+  </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="Lesson · Build a trustworthy evaluation set | RAG Formation"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">lesson --status</span></span>
+<span class="row"><span class="t-key">▸ course </span><span class="t-val">RAG Formation</span></span>
+<span class="row"><span class="t-key">▸ lesson </span><span class="t-num">03</span> <span class="t-val">/ 16</span></span>
+<span class="row"><span class="t-key">▸ phase </span><span class="t-val">Foundations &amp; measurement</span></span>
+<span class="row"><span class="t-key">▸ status </span><span class="t-num">In development</span></span>
+<span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
+  <section class="section wrap lesson-content" id="lesson-content">
+<div class="section-head"><p class="eyebrow">Standalone lesson</p><h2 class="section-title">Learn the full lesson and test your understanding here.</h2><p class="section-sub">RAG Formation remains in development. This page contains the complete lesson content, local reference material, and instant browser exercises.</p></div>
+<section class="card accent">
+      <h2>Today’s tangible win</h2>
+      <p>By the end, you can pick apart a single evaluation question and say exactly why its ground truth holds up—or what’s wrong with it if it doesn’t.</p>
+      <p class="zh"><strong>本课的具体收获：</strong> 挑一道评估题，你就能说清楚它的参考答案靠不靠谱——靠谱在哪，或者哪里容易把人带偏。</p>
+    </section>
+
+    <section>
+      <h2>1 · An evaluation is a contract</h2>
+      <p>An evaluation question isn’t just something a user might type. It’s a contract between the product team and whatever’s doing the scoring:</p>
+      <div class="card">
+        <p><strong>Question:</strong> what the user asks</p>
+        <p><strong>Expected sources:</strong> which documents must support the answer</p>
+        <p><strong>Required facts / <code>must_include</code>:</strong> the high-signal facts a correct answer must contain</p>
+        <p><strong>Expected answer:</strong> the reference meaning used by the judge</p>
+        <p><strong>Expected refusal / <code>expect_refusal</code>:</strong> whether the system should decline because the corpus has no answer</p>
+      </div>
+      <p class="zh"><strong>评估问题是一份契约：</strong> 用户问题、预期来源、必需事实、参考答案，以及系统是否应该拒答。</p>
+      <p>Skip that contract, and your score can look perfectly rigorous while quietly measuring the wrong thing entirely.</p>
+      <p class="zh">少了这份契约，分数看着挺“科学”，实际衡量的却不是产品真正承诺要做到的事。</p>
+      <p><a href="https://platform.openai.com/docs/guides/evaluation-best-practices" target="_blank" rel="noreferrer">Primary reading: OpenAI’s Evaluation Best Practices</a>—pay attention to why nondeterministic AI systems need structured evals in the first place.</p>
+    </section>
+
+    <section>
+      <h2>2 · Read the demo set</h2>
+      <p>Open up:</p>
+      <pre><code>demo/eval_set.yaml</code></pre>
+      <p>This demo set packs 65 questions across 25 synthetic documents, split like this:</p>
+      <ul>
+        <li>35 factual questions</li>
+        <li>7 reference-lookup questions</li>
+        <li>9 multi-hop questions</li>
+        <li>5 cross-lingual questions</li>
+        <li>3 acronym questions</li>
+        <li>6 unanswerable questions</li>
+      </ul>
+      <p class="zh">这套演示评估集一共 65 道题，覆盖 25 份虚构文档：包括事实类、文档编号查找、多跳推理、跨语言、缩略词，还有故意设置的不可回答题。</p>
+      <p>That mix isn’t arbitrary. A chatbot can breeze through ordinary semantic questions and still choke on exact SOP identifiers, multi-document reasoning, or knowing when to say no.</p>
+      <p class="zh">这种搭配不是随便凑的。聊天机器人可能在普通语义问题上答得很漂亮，一碰到精确的 SOP 编号、需要跨文档推理，或者该拒答的时候，就露馅了。</p>
+    </section>
+
+    <section>
+      <h2>3 · Why retrieval matching uses metadata only</h2>
+      <p>Take q30:</p>
+      <div class="card">
+        <p><strong>Expected sources:</strong> `PR-QA-MRD-001`, `PR-QA-MRD-009`</p>
+        <p><strong>Required fact:</strong> `90 jours`</p>
+      </div>
+      <p>Here’s the trap: documents in this corpus cross-reference each other. A chunk from `PR-QA-MRD-001` might mention `PR-QA-MRD-009` right in its body text. Search that whole chunk blindly, and the scorer could wrongly credit `PR-QA-MRD-009` as retrieved when it never actually showed up.</p>
+      <p class="zh">这里有个坑：语料库里的文档会互相引用。`PR-QA-MRD-001` 的某个文本块，正文里可能就提到了 `PR-QA-MRD-009`。要是评分器把整段正文都拿去搜，就很容易误判——以为 `PR-QA-MRD-009` 真的被检索出来了，其实它根本没出现。</p>
+      <p>That’s exactly why `eval.py` only trusts source metadata—fields like `source`, `document_name`, and `filename`—instead of handing out credit just because an identifier shows up somewhere in the body text.</p>
+      <p class="zh">所以 `eval.py` 只认 `source`、`document_name`、`filename` 这些来源元数据，而不会因为正文里随便出现一个编号，就给检索算分。</p>
+    </section>
+
+    <section>
+      <h2>4 · Answerable versus unanswerable</h2>
+      <p>Those six unanswerable questions aren’t sloppy test design—they’re safety checks. Each one asks a simple thing: does the system know where its own knowledge ends?</p>
+      <p class="zh">这六道不可回答的题，不是出题出岔了，而是专门用来做安全测试的——看系统知不知道自己的知识边界在哪。</p>
+      <table>
+        <thead><tr><th>Question type</th><th>Expected source</th><th>Expected behavior</th></tr></thead>
+        <tbody>
+          <tr><td>Answerable</td><td>One or more documents</td><td>Answer the requested fact and cite the sources</td></tr>
+          <tr><td>Unanswerable</td><td>None</td><td>Decline or state that the indexed data does not contain the answer</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>5 · Practice: trust the question or reject it?</h2>
+      <div class="lesson-quiz" data-quiz>
+        <p><strong>Case A:</strong> `expect_sources` names `PR-QA-MRD-009`, but no such file exists anywhere in the corpus. Does this question still count as valid?</p>
+        <p class="zh">`expect_sources` 里写着 `PR-QA-MRD-009`，可语料库里根本没有这份文件。这道题还能算数吗？</p>
+        <button type="button" data-answer="correct" data-feedback="Correct. The ground truth is broken and must be fixed before measuring the system.">Reject it</button>
+        <button type="button" data-answer="incorrect" data-feedback="Not safe. A missing expected source makes the score meaningless.">Keep it</button>
+        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
+      </div>
+      <div class="lesson-quiz" data-quiz>
+        <p><strong>Case B:</strong> The expected document ID only shows up inside another document’s body text, nowhere else. Does retrieval still deserve credit?</p>
+        <p class="zh">预期的文档编号只出现在另一份文档的正文里，别处都没有。检索这时候该不该算对？</p>
+        <button type="button" data-answer="correct" data-feedback="Correct. Body-text cross-references can create false positives.">No</button>
+        <button type="button" data-answer="incorrect" data-feedback="Not quite. The scorer should require source metadata to identify the document.">Yes</button>
+        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
+      </div>
+      <div class="lesson-quiz" data-quiz>
+        <p><strong>Case C:</strong> A question has no expected source at all and is flagged `expect_refusal: true`. What’s the right move for a good chatbot?</p>
+        <p class="zh">一道题没有任何预期来源，还标了 `expect_refusal: true`。这时候，靠谱的聊天机器人该怎么办？</p>
+        <button type="button" data-answer="correct" data-feedback="Correct. It should decline rather than invent an answer.">Refuse</button>
+        <button type="button" data-answer="incorrect" data-feedback="Not according to this ground truth. A confident answer is a hallucination.">Guess</button>
+        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section>
+      <h2>6 · Your evaluation-set review</h2>
+      <p>Pick one question from each category in `eval_set.yaml` and write down:</p>
+      <ol>
+        <li>Is the question answerable at all?</li>
+        <li>Which source document(s) actually support it?</li>
+        <li>What fact has to show up in a correct answer?</li>
+        <li>Could a cross-reference trick the scorer into a false credit?</li>
+        <li>What does a safe failure look like here?</li>
+      </ol>
+      <p class="zh">从 `eval_set.yaml` 每个类别里各挑一道题，然后记下来：这道题到底能不能回答、该由哪些文档支撑、正确答案里必须出现哪个事实、交叉引用会不会骗到错误加分，还有安全的失败方式应该长什么样。</p>
+    </section>
+
+    <section class="card">
+      <h2>Mission connection</h2>
+      <p>In SOP, QA, regulatory, supplier, and audit use cases, the evaluation set isn’t just a testing tool—it’s part of the product’s safety boundary. It’s what defines “supported,” “correct,” and “unknown” in the first place.</p>
+      <p class="zh">在 SOP、QA、法规、供应商、审计这些场景里，评估集不只是用来测试的，它本身就是产品安全边界的一部分——“有依据”“正确”“未知”这些词到底是什么意思，全靠它来定义。</p>
+    </section>
+
+    <section>
+      <h2>Next action</h2>
+      <p>Run the offline consistency check one more time:</p>
+      <pre><code>cd demo
+python3 eval.py verify</code></pre>
+      <p>Then pick one question from each of the six categories and write up a short review. Send me your answers—especially one case where metadata-only matching saves you from a false retrieval credit.</p>
+      <p class="zh"><strong>下一步：</strong> 六个类别各挑一道题，写份简短的检查报告发给我——特别是举一个例子，说明“只靠元数据匹配”是怎么挡住一次错误加分的。</p>
+      <p><strong>Got questions about ground truth, scoring, or any of these categories? Ask me.</strong> Once your review is in, I’ll mark Lesson 3 complete.</p>
+      <p class="zh"><strong>参考答案、评分逻辑，或者任何一个评估类别，有疑问尽管问我。</strong> 你交完检查报告，我就把 Lesson 3 标记为完成。</p>
+    </section>
+</section>
+<section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0002-trace-one-question.html">← Previous lesson</a><a class="btn btn-ghost" href="../reference/evaluation-set-cheatsheet.html">Reference sheet</a><a href="0004-establish-the-mvp-baseline.html">Next lesson →</a></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><div class="footer-meta"><p><strong>SHEN YI</strong> — Senior Full-Stack &amp; AI Solutions Developer</p><p class="mono">Paris • Singapore • Shanghai — FR · ZH · EN</p><p>© <span data-year>2026</span> SHEN YI. All rights reserved.</p></div></div></footer>
+<script src="../../../assets/js/main.js" defer></script>
+<script src="../../../assets/js/lesson.js" defer></script>
+</body>
+</html>
+

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0YRBQKHLZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+  gtag('js', new Date());
+  gtag('config', 'G-S0YRBQKHLZ');
+</script>
+<title>第 9 课 · 上下文组装与证据预算 | RAG Formation</title>
+<meta name="author" content="沈毅">
+<meta name="description" content="了解检索结果如何转化为模型上下文，以及截断操作如何导致证据丢失。 一张上下文组装图与证据预算建议。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html">
+<link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html">
+<link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html">
+<link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html">
+<link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="沈毅 — 资深全栈与 AI 解决方案开发者">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html">
+<meta property="og:title" content="第 9 课 · 上下文组装与证据预算 | RAG Formation">
+<meta property="og:description" content="了解检索结果如何转化为模型上下文，以及截断操作如何导致证据丢失。 一张上下文组装图与证据预算建议。">
+<meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="第 9 课 · 上下文组装与证据预算 | RAG Formation">
+<meta name="twitter:description" content="了解检索结果如何转化为模型上下文，以及截断操作如何导致证据丢失。 一张上下文组装图与证据预算建议。">
+<meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
+<link rel="icon" href="../../../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../../assets/css/style.css">
+<script>document.documentElement.classList.add("js");</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "第 9 课 · 上下文组装与证据预算 | RAG Formation", "description": "了解检索结果如何转化为模型上下文，以及截断操作如何导致证据丢失。 一张上下文组装图与证据预算建议。", "url": "https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html", "inLanguage": "zh-CN", "articleSection": "有据的回答生成", "isPartOf": {"@type": "Course", "name": "RAG Formation", "url": "https://shenyi.dev/zh/ai-lab/rag-formation/"}, "author": {"@type": "Person", "name": "沈毅", "url": "https://shenyi.dev/"}}</script>
+</head>
+<body class="ai-lab-page">
+<a class="skip-link" href="#main">跳到主要内容</a>
+<header class="header"><div class="wrap header-inner">
+  <a class="brand" href="../../../../" aria-label="沈毅 — 首页"><span class="brand-mark" aria-hidden="true">YS</span><span class="brand-text"><span class="brand-name">沈毅</span><span class="brand-role">全栈与 AI</span></span></a>
+  <p class="hubs-badge"><span class="dot" aria-hidden="true"></span>巴黎 • 新加坡 • 上海</p>
+  <nav class="nav-desktop" aria-label="课程导航"><ul><li><a href="../../">AI 工程实验室</a></li><li><a href="../">课程路线图</a></li><li><a href="#main" aria-current="page">第 9 课</a></li></ul></nav>
+  <div class="lang"><button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu"><span aria-hidden="true">🇨🇳</span><span>ZH</span><span class="lang-caret" aria-hidden="true">⌄</span><span class="sr-only">切换语言</span></button><div class="lang-menu" id="lang-menu" role="menu"><a href="../../../../ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html" hreflang="en" lang="en" role="menuitem">English</a><a href="../../../../fr/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html" hreflang="fr" lang="fr" role="menuitem">Français</a><a href="../../../../zh/ai-lab/rag-formation/lessons/0009-context-assembly-and-evidence-budgets.html" hreflang="zh" lang="zh-CN" aria-current="true" role="menuitem">中文</a></div></div>
+</div></header>
+<main id="main">
+  <section class="hero wrap"><div class="hero-grid"><div>
+    <p class="eyebrow">RAG Formation · 第 9 课 · 有据的回答生成</p>
+    <h1>上下文组装与证据预算</h1>
+    <p class="ai-lab-hero-note">理解检索结果如何成为模型上下文，以及截断如何删除关键证据。</p>
+    <div class="ai-lab-cta"><a class="btn btn-primary" href="../">课程路线图 <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="../../">AI 工程实验室</a></div>
+  </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="第 9 课 · 上下文组装与证据预算 | RAG Formation"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">lesson --status</span></span>
+<span class="row"><span class="t-key">▸ course </span><span class="t-val">RAG Formation</span></span>
+<span class="row"><span class="t-key">▸ lesson </span><span class="t-num">09</span> <span class="t-val">/ 16</span></span>
+<span class="row"><span class="t-key">▸ phase </span><span class="t-val">有据的回答生成</span></span>
+<span class="row"><span class="t-key">▸ status </span><span class="t-num">开发中</span></span>
+<span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
+  <section class="section wrap lesson-content" id="lesson-content">
+<div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
+<section class="card accent"><h2>Today’s tangible win</h2><p>One evidence-survival map for a multi-hop answer, plus a bounded, defensible context-budget recommendation.</p><p class="zh"><strong>本课的具体收获：</strong> 画一份多跳问题的证据存活地图，再给出一条站得住脚、有边界的上下文预算建议。</p></section>
+<section><h2>1 · The skill</h2><p>Take q30 or q63 and follow it end to end—from the sources retrieval dug up, through context assembly, all the way to the prompt budget.</p><ul><li><strong>Context assembly:</strong> the step that turns backend results into the actual text the answering model reads.</li><li><strong>Evidence budget:</strong> the ceiling on how much context you can afford, set by character count, tokens, latency, or cost.</li><li><strong>Source survival:</strong> whether the evidence an answer actually needs is still standing after formatting and truncation have had their say.</li></ul><p><a href="https://www.anthropic.com/news/contextual-retrieval" target="_blank" rel="noreferrer">Primary reading: Anthropic — Contextual Retrieval</a></p><p class="zh">上下文组装：把后端检索到的结果，变成真正喂给回答模型看的那段文字。证据预算：你能负担得起的上下文上限，由字符数、token 数、延迟或成本说了算。来源存活率：格式化、截断这些操作做完之后，某条证据是不是还留在最终拼出来的上下文里。</p></section>
+<section><h2>2 · Run the evidence loop</h2><pre><code>cd demo
+python3 eval.py run --mode answer --workspace meridian_demo --category multi_hop --tag lesson-09-context</code></pre><p>For every source, note its order, its formatted size, and whether it actually makes it past the context budget.</p><p class="lesson-callout">If truncation cuts a source before generation, the model never sees it—finding it during retrieval doesn’t count for anything.</p><p class="zh">把命令、配置、结果和失败案例都记下来；别拿一次实验的结果，就断定整个系统已经靠谱了。</p></section>
+<section><h2>3 · Decision worksheet</h2><div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Baseline evidence</th><th>One hypothesis/change</th><th>Metric</th><th>Regression check</th><th>Bounded conclusion</th></tr></thead><tbody><tr><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody></table></div><p class="zh">照着填：基线证据、一个假设/改动、指标、回归检查、有边界的结论。</p></section>
+<section><h2>4 · Retrieval practice</h2><div class="lesson-quiz" data-quiz><p><strong>Question:</strong> Retrieval pulled in every source you expected, but one gets truncated before generation even starts. Where did this actually break?</p><button type="button" data-answer="correct" data-feedback="Right call. Retrieval did its job fine; the evidence got dropped during context assembly.">Context budget</button><button type="button" data-answer="incorrect" data-feedback="Not quite. The source was found first, then lost later, in context assembly.">Search index</button><p class="lesson-feedback" data-feedback aria-live="polite"></p><p class="zh">下一步怎么走，让证据说了算；别让选项本身的措辞，替你做了验证。</p></div></section>
+<section class="card"><h2>Mission connection</h2><p>A system can’t cite evidence the model never saw. This is exactly where solid retrieval quietly turns into a partial answer, or a hallucinated one.</p><p class="zh">模型压根没看到的证据，系统没法引用。检索明明做对了，答案却可能就在上下文组装这一步，悄悄变成半吊子回答，甚至是幻觉。</p></section>
+<section><h2>5 · Deliverable and next action</h2><ol><li>Save the command output, or a summary report.</li><li>Fill in the decision worksheet.</li><li>Write down one failure case and what you’ll check next.</li></ol><p>One evidence-survival map for a multi-hop answer, plus a bounded, defensible context-budget recommendation.</p><p class="zh">交付物：留存证据、填完工作表、记下一个失败案例和下一步要验证的点。</p><p><strong>Next:</strong> Lesson 10 — Prompts that answer only from evidence.</p><p><strong>Ask me follow-up questions</strong> about the evidence, the metric, the failure case, or whatever you want to try next. I’m your teacher for this course.</p></section>
+</section>
+<section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0008-query-handling-and-reranking.html">← 上一课</a><a class="btn btn-ghost" href="../reference/context-assembly-and-evidence-budgets-cheatsheet.html">参考资料</a><a href="0010-prompts-that-answer-only-from-evidence.html">下一课 →</a></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><div class="footer-meta"><p><strong>沈毅</strong> — 资深全栈与 AI 解决方案开发者</p><p class="mono">巴黎 • 新加坡 • 上海 — FR · ZH · EN</p><p>© <span data-year>2026</span> 沈毅. 版权所有。</p></div></div></footer>
+<script src="../../../../assets/js/main.js" defer></script>
+<script src="../../../../assets/js/lesson.js" defer></script>
+</body>
+</html>
+
+

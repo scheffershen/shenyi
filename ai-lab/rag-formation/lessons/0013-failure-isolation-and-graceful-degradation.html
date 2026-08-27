@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0YRBQKHLZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+  gtag('js', new Date());
+  gtag('config', 'G-S0YRBQKHLZ');
+</script>
+<title>Lesson · Failure isolation and graceful degradation | RAG Formation</title>
+<meta name="author" content="SHEN YI">
+<meta name="description" content="Understand what should happen when a retrieval backend, embedding service, or LLM fails. A dependency failure matrix.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html">
+<link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html">
+<link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html">
+<link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html">
+<link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="SHEN YI — Full-Stack &amp; AI Solutions Developer">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://shenyi.dev/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html">
+<meta property="og:title" content="Lesson · Failure isolation and graceful degradation | RAG Formation">
+<meta property="og:description" content="Understand what should happen when a retrieval backend, embedding service, or LLM fails. A dependency failure matrix.">
+<meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lesson · Failure isolation and graceful degradation | RAG Formation">
+<meta name="twitter:description" content="Understand what should happen when a retrieval backend, embedding service, or LLM fails. A dependency failure matrix.">
+<meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
+<link rel="icon" href="../../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+<script>document.documentElement.classList.add("js");</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Lesson · Failure isolation and graceful degradation | RAG Formation", "description": "Understand what should happen when a retrieval backend, embedding service, or LLM fails. A dependency failure matrix.", "url": "https://shenyi.dev/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html", "inLanguage": "en", "articleSection": "Reliability & product readiness", "isPartOf": {"@type": "Course", "name": "RAG Formation", "url": "https://shenyi.dev/ai-lab/rag-formation/"}, "author": {"@type": "Person", "name": "SHEN YI", "url": "https://shenyi.dev/"}}</script>
+</head>
+<body class="ai-lab-page">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="header"><div class="wrap header-inner">
+  <a class="brand" href="../../../" aria-label="SHEN YI — home"><span class="brand-mark" aria-hidden="true">YS</span><span class="brand-text"><span class="brand-name">SHEN YI</span><span class="brand-role">Full-Stack &amp; AI</span></span></a>
+  <p class="hubs-badge"><span class="dot" aria-hidden="true"></span>Paris • Singapore • Shanghai</p>
+  <nav class="nav-desktop" aria-label="Lesson navigation"><ul><li><a href="../../">AI Lab</a></li><li><a href="../">Course roadmap</a></li><li><a href="#main" aria-current="page">Lesson</a></li></ul></nav>
+  <div class="lang"><button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu"><span aria-hidden="true">🇬🇧</span><span>EN</span><span class="lang-caret" aria-hidden="true">⌄</span><span class="sr-only">Change language</span></button><div class="lang-menu" id="lang-menu" role="menu"><a href="../../../ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html" hreflang="en" lang="en" aria-current="true" role="menuitem">English</a><a href="../../../fr/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html" hreflang="fr" lang="fr" role="menuitem">Français</a><a href="../../../zh/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation.html" hreflang="zh" lang="zh-CN" role="menuitem">中文</a></div></div>
+</div></header>
+<main id="main">
+  <section class="hero wrap"><div class="hero-grid"><div>
+    <p class="eyebrow">RAG Formation · Lesson · Reliability &amp; product readiness</p>
+    <h1>Failure isolation and graceful degradation</h1>
+    <p class="ai-lab-hero-note">Decide what the system should do when Qdrant, Meilisearch, LightRAG, embeddings, or the LLM fails.</p>
+    <div class="ai-lab-cta"><a class="btn btn-primary" href="../">Course roadmap <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="../../">AI Lab</a></div>
+  </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="Lesson · Failure isolation and graceful degradation | RAG Formation"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">lesson --status</span></span>
+<span class="row"><span class="t-key">▸ course </span><span class="t-val">RAG Formation</span></span>
+<span class="row"><span class="t-key">▸ lesson </span><span class="t-num">13</span> <span class="t-val">/ 16</span></span>
+<span class="row"><span class="t-key">▸ phase </span><span class="t-val">Reliability &amp; product readiness</span></span>
+<span class="row"><span class="t-key">▸ status </span><span class="t-num">In development</span></span>
+<span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
+  <section class="section wrap lesson-content" id="lesson-content">
+<div class="section-head"><p class="eyebrow">Standalone lesson</p><h2 class="section-title">Learn the full lesson and test your understanding here.</h2><p class="section-sub">RAG Formation remains in development. This page contains the complete lesson content, local reference material, and instant browser exercises.</p></div>
+<section class="card accent"><h2>Today’s tangible win</h2><p>By the end of this lesson you’ll have a dependency failure matrix — one that draws a clean line between “safe to serve partially” and “must refuse outright.”</p><p class="zh"><strong>本课的具体收获：</strong> 一张依赖故障矩阵，清楚区分哪些情况可以“打折但安全地提供服务”，哪些情况必须“直接拒绝”。</p></section>
+<section><h2>1 · The skill</h2><p>Map out a failure matrix for Qdrant, Meilisearch, graph retrieval, embeddings, the completion call, and Redis.</p><ul><li><strong>Failure isolation:</strong> Stop one broken dependency from corrupting the whole request — or from getting quietly swept under the rug.</li><li><strong>Graceful degradation:</strong> When it’s safe, hand back a result that’s honestly labeled as limited — vector-only search, say, instead of pretending you still have full hybrid coverage.</li><li><strong>Fail closed:</strong> Say no outright when the missing piece means you can’t trust the evidence, or can’t verify who’s asking.</li></ul><p><a href="https://12factor.net/" target="_blank" rel="noreferrer">Primary reading: Twelve-Factor App — Disposability and Dependencies</a></p><p class="zh">故障隔离：别让某个依赖挂了就拖累整个请求，更不能把问题悄悄藏起来装没事。优雅降级：在确保安全的前提下，老实交代这是个打了折扣的结果——比如只用向量检索，而不是装作还有完整的混合检索能力。拒绝关闭：一旦缺失的依赖会让证据不可信、或者身份验证做不了，就干脆拒绝回答，别硬凑答案。</p></section>
+<section><h2>2 · Run the evidence loop</h2><pre><code>cd demo
+python3 setup_demo.py status</code></pre><p>For every dependency, write down what the failure looks like, the safe fallback, what gets blocked, the message the user sees, and the metric to watch.</p><p class="lesson-callout">An answer that still looks perfectly normal after you’ve lost the evidence behind it isn’t graceful degradation — it’s just unsafe.</p><p class="zh">把用到的命令、配置、跑出来的结果，还有踩过的坑都记下来；千万别拿一次实验的结果，就断言系统已经稳了。</p></section>
+<section><h2>3 · Decision worksheet</h2><div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Baseline evidence</th><th>One hypothesis/change</th><th>Metric</th><th>Regression check</th><th>Bounded conclusion</th></tr></thead><tbody><tr><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody></table></div><p class="zh">把基线证据、一个假设/改动、指标、回归检查，以及一个有边界的结论，都填进去。</p></section>
+<section><h2>4 · Retrieval practice</h2><div class="lesson-quiz" data-quiz><p><strong>Question:</strong> The LLM just went down. What’s the safe response?</p><button type="button" data-answer="correct" data-feedback="Correct — with no generation service running, there’s no way to produce a grounded answer.">Report outage</button><button type="button" data-answer="incorrect" data-feedback="Unsafe — a fallback should never invent an answer just to look responsive.">Invent answer</button><p class="lesson-feedback" data-feedback aria-live="polite"></p><p class="zh">用证据来判断下一步该怎么做，别让选项的措辞替你做了验证。</p></div></section>
+<section class="card"><h2>Mission connection</h2><p>Things break in production — that part’s not up for debate. What separates a reliable chatbot is whether it owns up to it: staying honest about reduced capability instead of quietly handing back an answer that looks fine but has nothing solid behind it.</p><p class="zh">线上出故障是迟早的事，这点没什么好争的。真正体现可靠性的，是聊天机器人在能力下降时敢不敢说实话——而不是悄悄端出一个看着挺正常、实际却毫无依据的答案。</p></section>
+<section><h2>5 · Deliverable and next action</h2><ol><li>Save the command output, or a short write-up of it.</li><li>Fill out the decision worksheet.</li><li>Write down one failure case and the next check you’d run.</li></ol><p>A dependency failure matrix that draws a clean line between safe partial service and fail-closed behavior.</p><p class="zh">交付物：把证据保存好、填完工作表，再记录一个失败案例和下一步要验证的东西。</p><p><strong>Next:</strong> Lesson 14 — Latency, cost, and observability.</p><p><strong>Ask me follow-up questions</strong> about the evidence, the metric, the failure case, or what to try next — I’m your instructor for this course.</p></section>
+</section>
+<section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0012-refusal-uncertainty-and-hallucination-control.html">← Previous lesson</a><a class="btn btn-ghost" href="../reference/failure-isolation-and-graceful-degradation-cheatsheet.html">Reference sheet</a><a href="0014-latency-cost-and-observability.html">Next lesson →</a></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><div class="footer-meta"><p><strong>SHEN YI</strong> — Senior Full-Stack &amp; AI Solutions Developer</p><p class="mono">Paris • Singapore • Shanghai — FR · ZH · EN</p><p>© <span data-year>2026</span> SHEN YI. All rights reserved.</p></div></div></footer>
+<script src="../../../assets/js/main.js" defer></script>
+<script src="../../../assets/js/lesson.js" defer></script>
+</body>
+</html>
+

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S0YRBQKHLZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+  gtag('js', new Date());
+  gtag('config', 'G-S0YRBQKHLZ');
+</script>
+<title>Leçon · Traitement des requêtes et reranking | RAG Formation</title>
+<meta name="author" content="Yi SHEN">
+<meta name="description" content="Améliorer les requêtes difficiles sans dissimuler les échecs de recherche avec un top-k plus grand. Un petit plan d’expérience de recherche avec une hypothèse mesurable.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html">
+<link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html">
+<link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html">
+<link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html">
+<link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Yi SHEN — Développeur senior full-stack et solutions IA">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:url" content="https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html">
+<meta property="og:title" content="Leçon · Traitement des requêtes et reranking | RAG Formation">
+<meta property="og:description" content="Améliorer les requêtes difficiles sans dissimuler les échecs de recherche avec un top-k plus grand. Un petit plan d’expérience de recherche avec une hypothèse mesurable.">
+<meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Leçon · Traitement des requêtes et reranking | RAG Formation">
+<meta name="twitter:description" content="Améliorer les requêtes difficiles sans dissimuler les échecs de recherche avec un top-k plus grand. Un petit plan d’expérience de recherche avec une hypothèse mesurable.">
+<meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
+<link rel="icon" href="../../../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../../assets/css/style.css">
+<script>document.documentElement.classList.add("js");</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Leçon · Traitement des requêtes et reranking | RAG Formation", "description": "Améliorer les requêtes difficiles sans dissimuler les échecs de recherche avec un top-k plus grand. Un petit plan d’expérience de recherche avec une hypothèse mesurable.", "url": "https://shenyi.dev/fr/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html", "inLanguage": "fr", "articleSection": "Ingénierie de la recherche", "isPartOf": {"@type": "Course", "name": "RAG Formation", "url": "https://shenyi.dev/fr/ai-lab/rag-formation/"}, "author": {"@type": "Person", "name": "Yi SHEN", "url": "https://shenyi.dev/"}}</script>
+</head>
+<body class="ai-lab-page">
+<a class="skip-link" href="#main">Aller au contenu principal</a>
+<header class="header"><div class="wrap header-inner">
+  <a class="brand" href="../../../../" aria-label="Yi SHEN — accueil"><span class="brand-mark" aria-hidden="true">YS</span><span class="brand-text"><span class="brand-name">Yi SHEN</span><span class="brand-role">Full-stack &amp; solutions IA</span></span></a>
+  <p class="hubs-badge"><span class="dot" aria-hidden="true"></span>Paris • Singapour • Shanghai</p>
+  <nav class="nav-desktop" aria-label="Navigation de la leçon"><ul><li><a href="../../">Laboratoire d’ingénierie IA</a></li><li><a href="../">Feuille de route</a></li><li><a href="#main" aria-current="page">Leçon</a></li></ul></nav>
+  <div class="lang"><button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu"><span aria-hidden="true">🇫🇷</span><span>FR</span><span class="lang-caret" aria-hidden="true">⌄</span><span class="sr-only">Changer de langue</span></button><div class="lang-menu" id="lang-menu" role="menu"><a href="../../../../ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html" hreflang="en" lang="en" role="menuitem">English</a><a href="../../../../fr/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html" hreflang="fr" lang="fr" aria-current="true" role="menuitem">Français</a><a href="../../../../zh/ai-lab/rag-formation/lessons/0008-query-handling-and-reranking.html" hreflang="zh" lang="zh-CN" role="menuitem">中文</a></div></div>
+</div></header>
+<main id="main">
+  <section class="hero wrap"><div class="hero-grid"><div>
+    <p class="eyebrow">RAG Formation · Leçon · Ingénierie de la recherche</p>
+    <h1>Traitement des requêtes et reranking</h1>
+    <p class="ai-lab-hero-note">Améliorer les requêtes difficiles sans masquer les échecs de recherche derrière un top-k plus élevé.</p>
+    <div class="ai-lab-cta"><a class="btn btn-primary" href="../">Feuille de route <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="../../">Laboratoire d’ingénierie IA</a></div>
+  </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="Leçon · Traitement des requêtes et reranking | RAG Formation"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">lesson --status</span></span>
+<span class="row"><span class="t-key">▸ course </span><span class="t-val">RAG Formation</span></span>
+<span class="row"><span class="t-key">▸ lesson </span><span class="t-num">08</span> <span class="t-val">/ 16</span></span>
+<span class="row"><span class="t-key">▸ phase </span><span class="t-val">Ingénierie de la recherche</span></span>
+<span class="row"><span class="t-key">▸ status </span><span class="t-num">En cours de développement</span></span>
+<span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
+  <section class="section wrap lesson-content" id="lesson-content">
+<div class="section-head"><p class="eyebrow">Leçon autonome</p><h2 class="section-title">Apprenez la leçon complète et vérifiez votre compréhension ici.</h2><p class="section-sub">RAG Formation reste en développement. Cette page contient le contenu complet, les références locales et des exercices immédiats dans le navigateur.</p></div>
+<section class="card accent"><h2>Today’s tangible win</h2><p>One falsifiable retrieval experiment card: hypothesis, metric, baseline, regression check, stop condition — all spelled out.</p><p class="zh"><strong>今天的实际产出：</strong> 一张经得起证伪的检索实验卡——假设、指标、基线、回归检查、终止条件，一样不落。</p></section>
+<section><h2>1 · The skill</h2><p>Pick one of q24, q46, q52, or q63 and write a single hypothesis about query normalization or reranking that could fix it.</p><ul><li><strong>Query normalization:</strong> Turn one user question into several searchable forms — the raw question itself, any document IDs buried in it, acronyms spelled out, or terms translated.</li><li><strong>Reranking:</strong> Retrieval gives you a rough first pass; reranking reorders those candidates with stronger signals — an exact identifier match, metadata, a cross-encoder.</li><li><strong>Deduplication:</strong> Collapse repeated chunks from the same document, so your evidence budget goes toward independent support, not the same point twice.</li></ul><p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/learning-to-rank.html" target="_blank" rel="noreferrer">Primary reading: Elasticsearch — Learning to Rank</a></p><p class="zh">查询归一化，是把用户的一句话变成好几种能检索的形式：原话、从里面抠出来的文档编号、还原后的缩写、翻译过的说法。重排序，是把检索给的粗略候选结果，用更硬的信号——精确编号命中、元数据、交叉编码器——重新排一遍序。去重也不能少：把同一篇文档里重复的片段合并掉，别让证据预算被同一句话占掉好几个名额。</p></section>
+<section><h2>2 · Run the evidence loop</h2><pre><code>cd demo
+python3 eval.py run --mode retrieval --workspace meridian_demo --category reference_lookup --tag lesson-08-baseline</code></pre><p>Write down what source you expected to see, whether the baseline actually surfaced it, the one query variant you tried, and how that same metric moved afterward.</p><p class="lesson-callout">Cranking up top-k just buries a retrieval failure under more noise — it doesn’t tell you what actually went wrong.</p><p class="zh">把预期命中的来源、基线到底有没有命中、你改的那一种查询写法，还有改动后同一个指标的变化，统统记下来。把 top-k 调大只是让检索失败埋进更多噪声里，说明不了问题出在哪——更不能拿一次实验的结果，就断定整个系统已经靠谱了。</p></section>
+<section><h2>3 · Decision worksheet</h2><div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Baseline evidence</th><th>One hypothesis/change</th><th>Metric</th><th>Regression check</th><th>Bounded conclusion</th></tr></thead><tbody><tr><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody></table></div><p class="zh">把表填完：基线证据是什么、你做了哪一个假设/改动、盯哪个指标、回归检查的结果如何，最后给一个有边界、不夸大的结论。</p></section>
+<section><h2>4 · Retrieval practice</h2><div class="lesson-quiz" data-quiz><p><strong>Question:</strong> q24 has an exact procedure ID sitting right in it. What’s the first thing worth testing?</p><button type="button" data-answer="correct" data-feedback="Correct. Test a literal identifier lookup before widening the candidate set.">Extract ID</button><button type="button" data-answer="incorrect" data-feedback="Not first. More candidates do not prove the ID was handled.">Raise top-k</button><p class="lesson-feedback" data-feedback aria-live="polite"></p><p class="zh">该先测哪一步，看证据，别被选项的措辞带偏——真正验证过才算数。</p></div></section>
+<section class="card"><h2>Mission connection</h2><p>The baseline already tells the story: retrieval union is high, but multi-hop answers are still weak. A tightly controlled query experiment can target that exact failure mode — no need to touch the rest of the pipeline.</p><p class="zh">基线数据已经把话说清楚了：检索并集命中率不低，可多跳问题的答案准确率还是上不去。做一次受控的查询实验，就能精准打到这个失败点，不用把整条流水线都动一遍。</p></section>
+<section><h2>5 · Deliverable and next action</h2><ol><li>Keep a copy of the command output or the report.</li><li>Fill out the decision worksheet.</li><li>Write down one failure case and what you’ll verify next.</li></ol><p>One falsifiable retrieval experiment card: hypothesis, metric, baseline, regression check, stop condition — all spelled out.</p><p class="zh">交付物：留好证据、填完工作表，再写清楚一个失败案例和下一步要验证的东西。</p><p><strong>Next:</strong> Lesson 9 — Context assembly and evidence budgets.</p><p><strong>Ask me follow-up questions</strong> about the evidence, the metric, the failure case, or whatever you want to try next. I’m your teacher for this course — ask away.</p></section>
+</section>
+<section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0007-metadata-filters-and-access-boundaries.html">← Leçon précédente</a><a class="btn btn-ghost" href="../reference/query-handling-and-reranking-cheatsheet.html">Fiche de référence</a><a href="0009-context-assembly-and-evidence-budgets.html">Leçon suivante →</a></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><div class="footer-meta"><p><strong>Yi SHEN</strong> — Développeur senior full-stack et solutions IA</p><p class="mono">Paris • Singapour • Shanghai — FR · ZH · EN</p><p>© <span data-year>2026</span> Yi SHEN. Tous droits réservés.</p></div></div></footer>
+<script src="../../../../assets/js/main.js" defer></script>
+<script src="../../../../assets/js/lesson.js" defer></script>
+</body>
+</html>
+
+
