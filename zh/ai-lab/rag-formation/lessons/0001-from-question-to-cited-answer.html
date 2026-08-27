@@ -62,112 +62,92 @@
 <span class="row"><span class="t-key">▸ phase </span><span class="t-val">基础与衡量</span></span>
 <span class="row"><span class="t-key">▸ status </span><span class="t-num">开发中</span></span>
 <span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
-  <section class="section wrap lesson-content" id="lesson-content">
-<div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
+<section class="section wrap lesson-content" id="lesson-content">
+  <div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
 <section class="card accent">
-      <h2>Today’s tangible win</h2>
-      <p>By the end of this lesson, you’ll be able to look at a chatbot’s answer and pinpoint whether it broke at <strong>retrieval</strong> or at <strong>generation</strong> — and that one distinction decides what you fix next.</p>
-      <p class="zh"><strong>本课的实际收获：</strong> 看到一个答案出了问题，你能马上判断是<strong>检索</strong>没找对证据，还是<strong>生成</strong>环节没写好——这个判断决定了接下来该动哪里。</p>
-    </section>
-
-    <section>
-      <h2>1 · RAG in one sentence</h2>
-      <p><strong>Retrieval-augmented generation (RAG)</strong> works like this: the moment someone asks a question, the system pulls relevant company evidence, drops it into the model’s context, and asks the model to answer based on what’s actually there.</p>
-      <p class="zh"><strong>检索增强生成（RAG）</strong>说白了就是：用户一提问，系统立刻从公司知识库里挑出相关证据，塞进模型的上下文，再让模型照着这些证据给出有依据的答案。</p>
-      <p>That’s very different from permanently teaching the model your SOPs — it only ever sees the evidence handed to it for this one request. Which means the chatbot can already have failed before the model writes a single word: it might grab the wrong document, the wrong chunk, or nothing useful at all.</p>
-      <p class="zh">这跟把所有 SOP 永久“教”给模型完全是两回事——模型每次看到的，只是为这一次请求挑出来的证据。也就是说，聊天机器人可能在模型动笔之前就已经出错了：检索错了文档、切错了文本块，或者压根没捞到有用的证据。</p>
-      <p class="lesson-callout">In a regulated, audited environment, “sounds plausible” doesn’t count as quality. An answer only counts if it’s backed by the right evidence — and cites it.</p>
-      <p class="zh callout">在受监管、要接受审计的场景里，“听起来靠谱”从来不是质量标准。答案必须有正确的证据撑腰，而且要标出处。</p>
-      <p><a href="https://platform.openai.com/docs/guides/optimizing-llm-accuracy" target="_blank" rel="noreferrer">Primary reading: OpenAI’s Optimizing LLM Accuracy guide</a> — for now, just read the RAG section.</p>
-    </section>
-
-    <section>
-      <h2>2 · Your actual system</h2>
-      <p>Your demo harness at <code>demo</code> is our safe sandbox: 25 fictional Meridian Labs documents and 65 questions, six of which the system should flat-out refuse to answer.</p>
-      <div class="card">
-        <p><strong>Question</strong><br>“Quel est le délai de clôture d’un plan d’action pour une non-conformité majeure ?”</p>
-        <p class="flow"><strong>1. Retrieve</strong> → Qdrant semantic chunks + Qdrant summaries + Meilisearch keyword hits + LightRAG context</p>
-        <p><strong>2. Assemble</strong> → `qa_service.py` combines and truncates the evidence</p>
-        <p><strong>3. Generate</strong> → a completion model writes the answer from the assembled context</p>
-        <p><strong>4. Cite</strong> → sources are extracted from the context items actually shown to the model</p>
-        <p><strong>5. Evaluate</strong> → `demo/eval.py` separately scores retrieval, answer correctness, citations, refusals, hallucinations, and latency</p>
-      </div>
-      <p>That separation is the whole foundation of this course — the demo report isn’t just a percentage score, it tells you exactly <em>where</em> the system is weak.</p>
-      <p class="zh">这种分层思维是整门课程的地基——演示报告可不只是给一个百分比，它会告诉你系统到底<strong>薄弱在哪个环节</strong>。</p>
-    </section>
-
-    <section>
-      <h2>3 · Diagnose before changing code</h2>
-      <table>
-        <thead><tr><th>Observation</th><th>Likely layer</th><th>First place to inspect</th></tr></thead>
-        <tbody>
-          <tr><td>Expected document absent from `/api/v1/search`</td><td>Retrieval</td><td>Index, chunking, query form, thresholds, ranking</td></tr>
-          <tr><td>Expected document retrieved, but not cited</td><td>Context/citation assembly</td><td>Context truncation and source extraction</td></tr>
-          <tr><td>Document cited, answer omits a required fact</td><td>Generation</td><td>Prompt, context organization, model behavior</td></tr>
-          <tr><td>Unanswerable question receives a confident answer</td><td>Grounding/safety</td><td>Refusal instruction, evidence threshold, eval set</td></tr>
-          <tr><td>Correct answer but slow response</td><td>Operations</td><td>Backend latency, graph calls, context size, concurrency</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section>
-      <h2>4 · Practice: retrieve or generate?</h2>
-      <div class="lesson-quiz" data-quiz>
-        <p><strong>Scenario A:</strong> The answer says “24 hours” — but `/api/v1/search` never returned `PR-QA-MRD-009` in the results. What failed first?</p>
-        <p class="zh">答案说是“24 小时”——可 `/api/v1/search` 根本没返回 `PR-QA-MRD-009`。先出问题的是哪一层？</p>
-        <button type="button" data-answer="correct" data-feedback="Correct. The answer may be a lucky or hallucinated guess, but the first proven failure is retrieval.">Retrieval</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not first. Since the expected document was not returned, diagnose retrieval before generation.">Generation</button>
-        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
-      </div>
-      <div class="lesson-quiz" data-quiz>
-        <p><strong>Scenario B:</strong> `PR-QA-MRD-009` is right there in the search results, but the answer says “60 days” while the evidence clearly says “45 days.” What broke?</p>
-        <p class="zh">`PR-QA-MRD-009` 明明就在搜索结果里，但答案说“60 天”，证据写的却是“45 天”。这是哪里出了问题？</p>
-        <button type="button" data-answer="incorrect" data-feedback="Not primarily. The needed evidence was retrieved, so inspect context assembly and generation.">Retrieval</button>
-        <button type="button" data-answer="correct" data-feedback="Correct. The evidence was available; the system failed to use it faithfully.">Generation</button>
-        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
-      </div>
-      <div class="lesson-quiz" data-quiz>
-        <p><strong>Scenario C:</strong> A question with no real answer gets a detailed, confident reply — and no source in sight. Which metric should catch this?</p>
-        <p class="zh">一个本来答不了的问题，系统却给出一段详细又自信的回答，还没标来源。哪个指标应该揪出这个问题？</p>
-        <button type="button" data-answer="correct" data-feedback="Correct. Refusal accuracy should fall and hallucination rate should rise.">Grounding/safety</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not the main signal. Citation coverage may also be poor, but refusal and hallucination metrics target this failure.">Operations</button>
-        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
-      </div>
-    </section>
-
-    <section>
-      <h2>5 · Your prototype success contract</h2>
-      <p class="zh">你的原型成功标准：继续做实验之前，先用自己的话把下面这五个目标写清楚。</p>
-      <p>Before you run another experiment, write these five targets down in your own words:</p>
-      <ol>
-        <li>Which question categories absolutely have to work first?</li>
-        <li>What accuracy bar does the first MVP need to clear?</li>
-        <li>What’s the minimum acceptable source hit rate?</li>
-        <li>What hallucination rate is a dealbreaker?</li>
-        <li>What response time will a real employee actually tolerate?</li>
-      </ol>
-      <p>Don’t just copy the historical `demo-fixed` numbers and call them your targets. They’re a baseline for discussion, not proof the current system is production-ready.</p>
-      <p class="zh">别直接把历史报告 `demo-fixed` 里的数字照搬当成自己的目标。那些数字只是拿来讨论的基线，不代表现在的系统已经能上生产。</p>
-    </section>
-
-    <section class="card">
-      <h2>Mission connection</h2>
-      <p>Your users are QA teams, regulators, suppliers, auditors — people who don’t care how eloquent an answer sounds. They care whether it checks out against the right SOP, policy, or questionnaire. That’s why our first engineering habit is this:</p>
-      <p><strong>When an answer is wrong, check the retrieved evidence before you touch the prompt.</strong></p>
-      <p class="zh"><strong>答案出错时，先查检索出来的证据，别急着改提示词。</strong></p>
-    </section>
-
-    <section>
-      <h2>Next action</h2>
-      <p class="zh"><strong>下一步：</strong> 在脱敏的演示环境里跑一遍离线检查，然后去看评估报告。</p>
-      <p>Stick to the sanitized demo and run these offline checks:</p>
-      <pre><code>cd demo
+  <h2>本课的具体收获</h2>
+  <p>学完本课后，看到一个聊天机器人的答案，你就能判断问题究竟出在<strong>检索</strong>还是<strong>生成</strong>，而这个区分决定了下一步该修哪里。</p>
+</section>
+<section>
+  <h2>1 · 用一句话理解 RAG</h2>
+  <p><strong>检索增强生成（RAG）</strong>的工作方式是：用户一提问，系统就从公司知识库中找出相关证据，放进模型的上下文，然后要求模型只依据眼前的内容回答。</p>
+  <p>这和把公司的 SOP 永久教给模型完全不同——模型每次只会看到为当前请求交给它的证据。因此，模型还没写下第一个字，聊天机器人就可能已经失败：它可能取错文档、取错文本块，或者什么有用的内容都没找到。</p>
+  <p class="lesson-callout">在受监管、需要审计的环境里，“听起来合理”不算质量。只有得到正确证据支持并且标明来源的答案，才算合格。</p>
+  <p><a href="https://platform.openai.com/docs/guides/optimizing-llm-accuracy" target="_blank" rel="noreferrer">主要阅读：OpenAI《优化 LLM 准确性》指南</a>——现在先阅读其中关于 RAG 的部分。</p>
+</section>
+<section>
+  <h2>2 · 你的实际系统</h2>
+  <p>你的 <code>demo</code> 演示程序是我们的安全沙盒：里面有 25 份 Meridian Labs 虚构文档和 65 道问题，其中 6 道问题系统应该明确拒答。</p>
+  <div class="card">
+    <p><strong>问题</strong><br>“重大不符合项的行动计划关闭期限是多少？”</p>
+    <p class="flow"><strong>1. 检索</strong> → Qdrant 语义文本块 + Qdrant 摘要 + Meilisearch 关键词命中 + LightRAG 上下文</p>
+    <p><strong>2. 组装</strong> → <code>qa_service.py</code> 合并并截断证据</p>
+    <p><strong>3. 生成</strong> → 完成模型根据组装后的上下文写出答案</p>
+    <p><strong>4. 引用</strong> → 从实际展示给模型的上下文条目中提取来源</p>
+    <p><strong>5. 评估</strong> → <code>demo/eval.py</code> 分别评估检索、答案正确性、引用、拒答、幻觉和延迟</p>
+  </div>
+  <p>这种分层正是本课程的基础——演示报告不只是一个百分比，它会准确告诉你系统<strong>薄弱在哪个环节</strong>。</p>
+</section>
+<section>
+  <h2>3 · 改代码前先诊断</h2>
+  <table>
+    <thead><tr><th>观察结果</th><th>可能层级</th><th>首先检查</th></tr></thead>
+    <tbody>
+      <tr><td>预期文档未出现在 <code>/api/v1/search</code></td><td>检索</td><td>索引、分块、查询形式、阈值、排序</td></tr>
+      <tr><td>预期文档已检索到，但没有被引用</td><td>上下文/引用组装</td><td>上下文截断和来源提取</td></tr>
+      <tr><td>文档已被引用，但答案遗漏了必需事实</td><td>生成</td><td>提示词、上下文组织、模型行为</td></tr>
+      <tr><td>不可回答的问题得到自信的答案</td><td>有据性/安全</td><td>拒答指令、证据阈值、评估集</td></tr>
+      <tr><td>答案正确，但响应很慢</td><td>运维</td><td>后端延迟、图谱调用、上下文大小、并发</td></tr>
+    </tbody>
+  </table>
+</section>
+<section>
+  <h2>4 · 练习：问题出在检索还是生成？</h2>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>场景 A：</strong>答案说是“24 小时”——但 <code>/api/v1/search</code> 的结果里根本没有 <code>PR-QA-MRD-009</code>。首先失败的是哪一层？</p>
+<button type="button" data-answer="correct" data-feedback="正确。答案可能只是碰巧猜中或产生了幻觉，但已被证明的第一个失败点是检索。">检索</button>
+<button type="button" data-answer="incorrect" data-feedback="不是这里。预期文档没有返回时，应先诊断检索，再诊断生成。">生成</button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>场景 B：</strong><code>PR-QA-MRD-009</code> 明明出现在搜索结果里，但答案说“60 天”，证据明确写的是“45 天”。哪里出错了？</p>
+<button type="button" data-answer="incorrect" data-feedback="不是主要问题。所需证据已经检索到，应继续检查上下文组装和生成。">检索</button>
+<button type="button" data-answer="correct" data-feedback="正确。证据已经可用，但系统没有忠实地使用它。">生成</button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>场景 C：</strong>一个没有真实答案的问题得到了一段详细、自信的回复，而且没有来源。哪个指标应该发现它？</p>
+<button type="button" data-answer="correct" data-feedback="正确。拒答准确率应该下降，幻觉率应该上升。">有据性/安全</button>
+<button type="button" data-answer="incorrect" data-feedback="不是主要信号。引用覆盖率可能也很差，但拒答和幻觉指标才直接针对这个失败。">运维</button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+</section>
+<section>
+  <h2>5 · 原型成功标准</h2>
+  <p>在开始下一次实验之前，用自己的话写下这五个目标：</p>
+  <ol>
+    <li>哪些问题类别必须首先做好？</li>
+    <li>第一个 MVP 需要达到什么准确率门槛？</li>
+    <li>最低可接受的来源命中率是多少？</li>
+    <li>什么样的幻觉率是不可接受的？</li>
+    <li>真实员工能够接受的响应时间是多少？</li>
+  </ol>
+  <p>不要直接复制历史报告 <code>demo-fixed</code> 中的数字，把它们当成自己的目标。那些数字只是讨论用的基线，并不能证明当前系统已经可以上线生产。</p>
+</section>
+<section class="card">
+  <h2>企业场景连接</h2>
+  <p>你的用户可能是 QA 团队、监管人员、供应商和审计员——他们不在乎答案听起来多么流畅，只在乎它是否能与正确的 SOP、政策或问卷核对上。因此，我们的第一条工程习惯是：</p>
+  <p><strong>答案出错时，先检查检索到的证据，再去动提示词。</strong></p>
+</section>
+<section>
+  <h2>下一步行动</h2>
+  <p>坚持使用脱敏演示环境，运行下面的离线检查：</p>
+  <pre><code>cd demo
 python eval.py verify
 python test_scoring.py</code></pre>
-      <p>Then open the existing report, <span>demo-fixed.md</span>, and find two failures: one where retrieval worked but the answer still came out partial or wrong, and one where a source never got retrieved at all.</p>
-      <p><strong>Ask me follow-up questions</strong> about anything that’s still fuzzy — a term, a metric, a failure case. Next lesson, we trace one question all the way through the real code and evaluation harness.</p>
-      <p class="zh"><strong>如果哪个术语、指标或失败案例还没弄懂，尽管接着问我。</strong> 下一课，我们会拿一个真实问题，顺着实际代码和评估工具走一遍完整流程。</p>
-    </section>
+  <p>然后打开现有报告 <span>demo-fixed.md</span>，找出两个失败案例：一个是检索成功但答案仍然不完整或错误，另一个是来源根本没有被检索到。</p>
+  <p><strong>如果还有任何术语、指标或失败案例没弄清楚，尽管继续问我。</strong> 下一课，我们会沿着真实代码和评估工具，完整追踪一个问题。</p>
+</section>
 </section>
 <section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="../">← 课程路线图</a><a class="btn btn-ghost" href="../reference/rag-quality-cheatsheet.html">参考资料</a><a href="0002-trace-one-question.html">下一课 →</a></div></section>
 </main>
@@ -176,5 +156,11 @@ python test_scoring.py</code></pre>
 <script src="../../../../assets/js/lesson.js" defer></script>
 </body>
 </html>
+
+
+
+
+
+
 
 

@@ -62,16 +62,62 @@
 <span class="row"><span class="t-key">▸ phase </span><span class="t-val">可靠性与产品就绪</span></span>
 <span class="row"><span class="t-key">▸ status </span><span class="t-num">开发中</span></span>
 <span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
-  <section class="section wrap lesson-content" id="lesson-content">
-<div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
-<section class="card accent"><h2>Today’s tangible win</h2><p>A lightweight MVP checklist of threats and permissions, with one negative test proving each boundary actually holds.</p><p class="zh"><strong>本课的具体收获：</strong> 做一份 MVP 级别的威胁与权限清单，每条边界都配一个负向测试，证明它真的挡得住。</p></section>
-<section><h2>1 · The skill</h2><p>Walk the demo boundary, how environment variables get loaded, your CORS and logging assumptions, and run one negative access test — all without opening a single secrets file.</p><ul><li><strong>Least privilege:</strong> Users, services, tools — each one gets only the access it actually needs.</li><li><strong>Data boundary:</strong> A real, technical wall between demo, staging, and production — covering both the data and the credentials that unlock it.</li><li><strong>Prompt/data injection:</strong> Untrusted document or user content trying to hijack system behavior or leak information it should not.</li></ul><p><a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank" rel="noreferrer">Primary reading: OWASP — Top 10 for Large Language Model Applications</a></p><p class="zh">最小权限，说白了就是用户、服务、工具，谁都只给刚好够用的权限。数据边界，是演示、预发布、生产这几个环境之间，数据和凭证都要有真正的技术隔离，不能只靠自觉。提示词/数据注入，指的是那些不受信任的文档或用户输入，想方设法改变系统行为，或者把不该露的信息套出来。</p></section>
-<section><h2>2 · Run the evidence loop</h2><pre><code>cd demo
-python3 setup_demo.py ingest --dry-run</code></pre><p>For each boundary, write down what is protecting it right now, a safe command that proves it, and where the enforcement gap is.</p><p class="lesson-callout">It does not matter how accurate the answer is — if it exposes a restricted document or a secret, that is a failure.</p><p class="zh">把用到的命令、配置、跑出来的结果和失败的案例都记下来；千万别拿一次实验的结果，就断言整个系统已经靠谱。</p></section>
-<section><h2>3 · Decision worksheet</h2><div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Baseline evidence</th><th>One hypothesis/change</th><th>Metric</th><th>Regression check</th><th>Bounded conclusion</th></tr></thead><tbody><tr><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody></table></div><p class="zh">把这几栏填完：基线证据、一个假设或改动、要看的指标、回归检查，还有一个有边界、不夸大的结论。</p></section>
-<section><h2>4 · Retrieval practice</h2><div class="lesson-quiz" data-quiz><p><strong>Question:</strong> A secret never makes it into Git, but it still gets printed in a debug log. Is that boundary safe?</p><button type="button" data-answer="correct" data-feedback="Correct. Secret handling covers everything the app outputs at runtime, not just what is tracked in Git.">Still leaking</button><button type="button" data-answer="incorrect" data-feedback="Not safe. Keeping a file out of Git says nothing about what the code prints at runtime.">Looks safe</button><p class="lesson-feedback" data-feedback aria-live="polite"></p><p class="zh">该往下走哪一步，靠证据说话，别让选项的措辞代替了真正的验证。</p></div></section>
-<section class="card"><h2>Mission connection</h2><p>A company chatbot fails the moment it exposes a client document, a production key, or a restricted procedure — even if every word of the answer is factually correct.</p><p class="zh">哪怕答案本身完全正确，只要泄露了客户文件、生产密钥，或者受限的操作流程，这个企业聊天机器人就是不合格的。</p></section>
-<section><h2>5 · Deliverable and next action</h2><ol><li>Save the command output, or the report.</li><li>Fill in the decision worksheet.</li><li>Write down one failure case, and the next verification to run.</li></ol><p>A lightweight MVP checklist of threats and permissions, with one negative test proving each boundary actually holds.</p><p class="zh">交付物：把证据存好，工作表填完，再记一个失败案例和下一步要跑的验证。</p><p><strong>Next:</strong> Lesson 16 — Pilot review and 30-day implementation plan.</p><p><strong>Ask me follow-up questions</strong> about the evidence, the metric, the failure case, or what to try next — I am your teacher for this course.</p></section>
+<section class="section wrap lesson-content" id="lesson-content">
+  <div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
+<section class="card accent">
+  <h2>本课的具体收获</h2>
+  <p>你会有一张轻量的 MVP 威胁与权限清单，并为每条边界设计一个证明它确实有效的负向测试。</p>
+</section>
+<section>
+  <h2>1 · 核心技能</h2>
+  <p>检查演示环境边界、环境变量的加载方式、CORS 和日志假设，然后运行一次负向访问测试——整个过程不打开任何密钥文件。</p>
+  <ul>
+    <li><strong>最小权限：</strong>用户、服务和工具各自只获得实际需要的访问权限。</li>
+    <li><strong>数据边界：</strong>在演示、预发布和生产之间建立真实的技术隔离，同时隔离数据和解锁数据所需的凭证。</li>
+    <li><strong>提示词/数据注入：</strong>不受信任的文档或用户内容试图劫持系统行为，或泄露本不该泄露的信息。</li>
+  </ul>
+  <p><a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank" rel="noreferrer">主要阅读：OWASP《大语言模型应用十大风险》</a></p>
+</section>
+<section>
+  <h2>2 · 运行证据闭环</h2>
+  <pre><code>cd demo
+python3 setup_demo.py ingest --dry-run</code></pre>
+  <p>对每条边界写下目前保护它的机制、一条能够证明它的安全命令，以及强制执行方面还缺在哪里。</p>
+  <p class="lesson-callout">答案有多准确并不重要——只要暴露了受限文档或密钥，就是一次失败。</p>
+</section>
+<section>
+  <h2>3 · 决策工作表</h2>
+  <div class="lesson-table-scroll">
+    <table class="lesson-comparison-table">
+      <thead><tr><th>基线证据</th><th>一个假设/改动</th><th>指标</th><th>回归检查</th><th>有边界的结论</th></tr></thead>
+      <tbody><tr><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody>
+    </table>
+  </div>
+</section>
+<section>
+  <h2>4 · 检索练习</h2>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>问题：</strong>一个密钥没有进入 Git，却被打印到了调试日志中。这样的边界安全吗？</p>
+<button type="button" data-answer="correct" data-feedback="正确。密钥处理覆盖应用运行时输出的所有内容，而不仅是 Git 跟踪的文件。">仍然泄露</button>
+<button type="button" data-answer="incorrect" data-feedback="不安全。不把文件放进 Git，并不能说明代码运行时不会打印它。">看似安全</button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+</section>
+<section class="card">
+  <h2>企业场景连接</h2>
+  <p>企业聊天机器人一旦暴露客户文档、生产密钥或受限程序，就已经失败，即使答案中的每一个字在事实上都正确。</p>
+</section>
+<section>
+  <h2>5 · 交付物与下一步</h2>
+  <ol>
+    <li>保存命令输出或报告。</li>
+    <li>填写决策工作表。</li>
+    <li>写下一个失败案例，以及下一项要运行的验证。</li>
+  </ol>
+  <p>交付物是一张轻量的 MVP 威胁与权限清单，并为每条边界配一个证明其有效的负向测试。</p>
+  <p><strong>下一步：</strong>第 16 课将讲试点评审和 30 天实施计划。</p>
+  <p><strong>如果对证据、指标、失败案例或下一步尝试有疑问，尽管继续问我。</strong> 这门课我就是你的老师。</p>
+</section>
 </section>
 <section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0014-latency-cost-and-observability.html">← 上一课</a><a class="btn btn-ghost" href="../reference/security-permissions-and-deployment-boundaries-cheatsheet.html">参考资料</a><a href="0016-pilot-review-and-30-day-implementation-plan.html">下一课 →</a></div></section>
 </main>
@@ -80,5 +126,11 @@ python3 setup_demo.py ingest --dry-run</code></pre><p>For each boundary, write d
 <script src="../../../../assets/js/lesson.js" defer></script>
 </body>
 </html>
+
+
+
+
+
+
 
 

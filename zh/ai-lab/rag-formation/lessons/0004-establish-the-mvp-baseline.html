@@ -62,142 +62,112 @@
 <span class="row"><span class="t-key">▸ phase </span><span class="t-val">基础与衡量</span></span>
 <span class="row"><span class="t-key">▸ status </span><span class="t-num">开发中</span></span>
 <span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
-  <section class="section wrap lesson-content" id="lesson-content">
-<div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
+<section class="section wrap lesson-content" id="lesson-content">
+  <div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
 <section class="card accent">
-      <h2>Today’s tangible win</h2>
-      <p>By the end of today you'll have a fresh, live baseline for the sanitized Meridian Labs system — and you'll know exactly what it proves, and just as importantly, what it doesn't.</p>
-      <p class="zh"><strong>本课的具体收获：</strong> 学完这节课，你会拿到脱敏版 Meridian Labs 系统一份全新的实时基线——而且能准确说清它证明了什么，更重要的是，它没能证明什么。</p>
-    </section>
-
-    <section>
-      <h2>1 · Safety first: use the isolated demo</h2>
-      <p>Run every command from the demo directory — not from `api`:</p>
-      <pre><code>cd demo</code></pre>
-      <p>The demo stack is fully isolated: its own service names, ports, collections, workspaces, and data directories. It only reads the demo configuration and the one demo API key file. Never print or open the secret environment files.</p>
-      <p class="zh">所有命令都要在演示目录里跑，别跑到 `api` 去了。演示环境是完全独立的一套：服务名、端口、集合、工作区、数据目录全都单独一份，只读取演示专用的配置和那一个演示 API key 文件。密钥相关的环境文件，千万别打印出来，也别随便打开。</p>
-      <p>Before you start, double-check:</p>
-      <ul>
-        <li>Docker is running.</li>
-        <li>The demo API key file exists and actually has a key in it.</li>
-        <li>Port `8000` isn't already taken by the production project.</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>2 · Run the baseline recipe</h2>
-      <p>Start with the offline checks:</p>
-      <pre><code>python3 eval.py verify
+  <h2>本课的具体收获</h2>
+  <p>学完今天的内容，你会拿到一份脱敏 Meridian Labs 系统全新的实时基线，也能准确说清它证明了什么，以及同样重要的——它没有证明什么。</p>
+</section>
+<section>
+  <h2>1 · 安全第一：使用隔离演示环境</h2>
+  <p>所有命令都要从演示目录运行，不要从 <code>api</code> 目录运行：</p>
+  <pre><code>cd demo</code></pre>
+  <p>演示堆栈完全隔离：服务名、端口、集合、工作区和数据目录各自独立。它只读取演示配置和一个演示 API key 文件。永远不要打印或打开保存密钥的环境文件。</p>
+  <p>开始之前，再确认以下事项：</p>
+  <ul>
+    <li>Docker 正在运行。</li>
+    <li>演示 API key 文件存在，并且确实包含密钥。</li>
+    <li>端口 <code>8000</code> 没有被生产项目占用。</li>
+  </ul>
+</section>
+<section>
+  <h2>2 · 运行基线流程</h2>
+  <p>先运行离线检查：</p>
+  <pre><code>python3 eval.py verify
 python3 test_scoring.py</code></pre>
-      <p>Bring up the isolated stack:</p>
-      <pre><code>python3 setup_demo.py up</code></pre>
-      <p>Check the status any time with:</p>
-      <pre><code>python3 setup_demo.py status</code></pre>
-      <p>Now index the synthetic corpus:</p>
-      <pre><code>python3 setup_demo.py ingest</code></pre>
-      <p>Ingestion isn't instant — the graph and summary indexes both call the LLM, so budget real time for it. If the corpus is already indexed and you want to keep it that way, use the documented options carefully. Don't casually blow away production data.</p>
-      <p class="zh">索引这一步不会很快——图索引和摘要索引都要调用 LLM，得留够时间。如果语料库已经建好索引、你也想保留它，那就仔细看文档里的选项再操作，千万别手一滑把生产数据重建了。</p>
-    </section>
-
-    <section>
-      <h2>3 · Measure retrieval before answers</h2>
-      <p>Run the retrieval-only evaluation first — it skips the LLM judge entirely:</p>
-      <pre><code>python3 eval.py run \
-  --mode retrieval \
-  --workspace meridian_demo \
-  --tag lesson-4-retrieval</code></pre>
-      <p>This shows you exactly what each index is pulling its weight on:</p>
-      <ul>
-        <li>Vector only</li>
-        <li>Vector plus full-text</li>
-        <li>Vector plus full-text plus summary</li>
-        <li>All indexes, including approximate graph matching</li>
-      </ul>
-      <p class="zh">先只测检索这一步——不走 LLM 评审，也就不花那份钱。这一步能让你清楚看到每个索引各自扛了多少活。</p>
-    </section>
-
-    <section>
-      <h2>4 · Measure generated answers</h2>
-      <p>Next, run the answer evaluation:</p>
-      <pre><code>python3 eval.py run \
-  --mode answer \
-  --workspace meridian_demo \
-  --tag lesson-4-answer</code></pre>
-      <p>This run hits `/api/v1/qa`, checks the citations and required keywords, and lets a judge model sort each answer into `correct`, `partial`, or `incorrect`. It also tracks refusals and latency along the way.</p>
-      <p class="zh">这一步会调用 `/api/v1/qa`，核对引用和必需关键词，再交给评审模型把每个答案判成 `correct`、`partial` 或 `incorrect` 三档，顺带把拒答率和延迟也一并测出来。</p>
-      <p>Doing this for the first time? Limit the sample size:</p>
-      <pre><code>python3 eval.py run \
-  --mode both \
-  --workspace meridian_demo \
-  --limit 10 \
-  --tag lesson-4-smoke</code></pre>
-    </section>
-
-    <section>
-      <h2>5 · Read the report like an engineer</h2>
-      <p>Reports land here:</p>
-      <pre><code>demo/reports/</code></pre>
-      <p>Never quote a number without its definition attached. Write down:</p>
-      <table>
-        <thead><tr><th>Metric</th><th>Your value</th><th>Meaning</th></tr></thead>
-        <tbody>
-          <tr><td>Retrieval union</td><td>_____</td><td>All expected sources found across the combined indexes</td></tr>
-          <tr><td>Strict accuracy</td><td>_____</td><td>Judge verdict is `correct`</td></tr>
-          <tr><td>Source hit rate</td><td>_____</td><td>Every expected source cited in the final answer</td></tr>
-          <tr><td>Refusal accuracy</td><td>_____</td><td>Unanswerable questions correctly declined</td></tr>
-          <tr><td>Hallucination rate</td><td>_____</td><td>Unanswerable questions answered anyway</td></tr>
-          <tr><td>Latency p50 / p95</td><td>_____</td><td>Typical and slow-tail response time</td></tr>
-        </tbody>
-      </table>
-      <p class="zh">光甩一个数字出来、不说清楚它的定义，没有意义。把这几项都记下来：检索覆盖率、严格准确率、来源命中率、拒答准确率、幻觉率，还有 p50/p95 延迟。</p>
-    </section>
-
-    <section>
-      <h2>6 · Practice: baseline or overclaim?</h2>
-      <div class="lesson-quiz" data-quiz>
-        <p><strong>Statement A:</strong> “On the 65-question Meridian Labs eval set, using `gpt-4o-mini`, topk 5, in this workspace, strict answer accuracy came out to 70%.” Does that count as a solid baseline statement?</p>
-        <p class="zh">“在 65 个问题的 Meridian Labs 评估集上，用 `gpt-4o-mini`、topk 5、当前这个工作区跑出来，严格答案准确率是 70%。”这句话算得上是一个站得住脚的基线陈述吗？</p>
-        <button type="button" data-answer="correct" data-feedback="Right — it locks down the corpus, the configuration, and the metric definition.">Yes</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not quite — those exact conditions and metric definition are what make it reproducible.">No</button>
-        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
-      </div>
-      <div class="lesson-quiz" data-quiz>
-        <p><strong>Statement B:</strong> “The chatbot is 70% accurate.” Would that fly in a technical report?</p>
-        <p class="zh">“这个聊天机器人准确率是 70%。”写进技术报告里，这句话够格吗？</p>
-        <button type="button" data-answer="correct" data-feedback="Correct — it hides the dataset, the metric, the model, the configuration, and how refusals get handled.">No</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not enough — a number only means something when it’s tied to a reproducible setup.">Yes</button>
-        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
-      </div>
-      <div class="lesson-quiz" data-quiz>
-        <p><strong>Statement C:</strong> Retrieval union is high, but strict answer accuracy is low. Where do you look next?</p>
-        <p class="zh">检索覆盖率很高，但严格答案准确率却很低，这时候你该去查哪里？</p>
-        <button type="button" data-answer="correct" data-feedback="Correct — the sources are already getting through, so look at context assembly, prompting, and generation.">Generation path</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not first — retrieval is already doing its job and bringing back the expected sources.">Ingestion only</button>
-        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Mission connection</h2>
-      <p>A QA or regulatory team can't do anything with a number they can't interpret or reproduce. A baseline is what keeps a prototype honest — it lays bare what's working, what isn't, and whether your next change actually moved the needle.</p>
-      <p class="zh">QA 或法规团队拿到一个既解释不了、也复现不了的数字，其实什么都做不了。基线的作用就是让原型保持诚实——它把现在的优势、现在的短板都摆在台面上，也能告诉你下一次改动到底有没有真的起作用。</p>
-    </section>
-
-    <section>
-      <h2>Next action</h2>
-      <p>At minimum, run both the retrieval evaluation and the answer evaluation. Then send me:</p>
-      <ol>
-        <li>Both report tags.</li>
-        <li>The retrieval union percentage.</li>
-        <li>Strict answer accuracy.</li>
-        <li>Source hit rate.</li>
-        <li>Refusal accuracy and hallucination rate.</li>
-        <li>One failure you want to dig into first, along with its judge reason.</li>
-      </ol>
-      <p class="zh"><strong>下一步：</strong> 至少把检索评估和答案评估都跑一遍，然后把两个报告标签、几项关键指标，还有一个你最想优先排查的失败案例，发给我。</p>
-      <p><strong>Ask follow-up questions</strong> anytime Docker, ingestion, the judge, or a metric doesn't make sense to you. I'll help you make sense of the live numbers before we call Lesson 4 done.</p>
-      <p class="zh"><strong>如果 Docker、索引、评审模型，或者任何一个指标你没弄明白，随时问我，不用自己瞎猜。</strong> 在我们把第 4 课标记完成之前，我会帮你一起把这份实时结果看懂。</p>
-    </section>
+  <p>启动隔离堆栈：</p>
+  <pre><code>python3 setup_demo.py up</code></pre>
+  <p>随时可以这样检查状态：</p>
+  <pre><code>python3 setup_demo.py status</code></pre>
+  <p>现在为合成语料建立索引：</p>
+  <pre><code>python3 setup_demo.py ingest</code></pre>
+  <p>导入不会立即完成——图谱索引和摘要索引都要调用 LLM，所以要留出实际运行时间。如果语料库已经建立索引并且你想保留它，请谨慎使用文档中说明的选项。不要随意清除生产数据。</p>
+</section>
+<section>
+  <h2>3 · 先测检索，再测答案</h2>
+  <p>先运行只检索的评估——它完全跳过 LLM 评审：</p>
+  <pre><code>python3 eval.py run   --mode retrieval   --workspace meridian_demo   --tag lesson-4-retrieval</code></pre>
+  <p>你会准确看到每个索引在哪些方面发挥作用：</p>
+  <ul>
+    <li>仅向量检索</li>
+    <li>向量检索加全文检索</li>
+    <li>向量检索加全文检索加摘要</li>
+    <li>所有索引，包括近似图谱匹配</li>
+  </ul>
+</section>
+<section>
+  <h2>4 · 测量生成答案</h2>
+  <p>接下来运行答案评估：</p>
+  <pre><code>python3 eval.py run   --mode answer   --workspace meridian_demo   --tag lesson-4-answer</code></pre>
+  <p>这次运行会调用 <code>/api/v1/qa</code>，检查引用和必需关键词，并让评审模型把每个答案分为 <code>correct</code>、<code>partial</code> 或 <code>incorrect</code>。同时还会记录拒答和延迟。</p>
+  <p>第一次运行时，可以限制样本数量：</p>
+  <pre><code>python3 eval.py run   --mode both   --workspace meridian_demo   --limit 10   --tag lesson-4-smoke</code></pre>
+</section>
+<section>
+  <h2>5 · 像工程师一样阅读报告</h2>
+  <p>报告位于：</p>
+  <pre><code>demo/reports/</code></pre>
+  <p>不要脱离定义引用任何数字。记录下面这些内容：</p>
+  <table>
+    <thead><tr><th>指标</th><th>你的数值</th><th>含义</th></tr></thead>
+    <tbody>
+      <tr><td>检索并集</td><td>_____</td><td>在合并后的索引中找到的全部预期来源</td></tr>
+      <tr><td>严格准确率</td><td>_____</td><td>评审结果为 <code>correct</code></td></tr>
+      <tr><td>来源命中率</td><td>_____</td><td>最终答案引用了每一个预期来源</td></tr>
+      <tr><td>拒答准确率</td><td>_____</td><td>不可回答问题被正确拒答</td></tr>
+      <tr><td>幻觉率</td><td>_____</td><td>不可回答问题仍然得到答案</td></tr>
+      <tr><td>延迟 p50 / p95</td><td>_____</td><td>典型响应时间和慢尾响应时间</td></tr>
+    </tbody>
+  </table>
+</section>
+<section>
+  <h2>6 · 练习：基线还是过度宣称？</h2>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>陈述 A：</strong>“在 65 道题的 Meridian Labs 评估集上，使用 <code>gpt-4o-mini</code>、topk 5，并在当前工作区运行，严格答案准确率是 70%。”这算是一条扎实的基线陈述吗？</p>
+<button type="button" data-answer="correct" data-feedback="正确。它锁定了语料库、配置和指标定义。">是</button>
+<button type="button" data-answer="incorrect" data-feedback="不完全正确。正是这些具体条件和指标定义让结果可复现。">否</button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>陈述 B：</strong>“这个聊天机器人准确率是 70%。”这句话可以写进技术报告吗？</p>
+<button type="button" data-answer="correct" data-feedback="正确。它隐藏了数据集、指标、模型、配置以及拒答的处理方式。">否</button>
+<button type="button" data-answer="incorrect" data-feedback="不够充分。一个数字只有绑定到可复现的运行设置时才有意义。">是</button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>陈述 C：</strong>检索并集很高，但严格答案准确率很低。下一步应该查哪里？</p>
+<button type="button" data-answer="correct" data-feedback="正确。来源已经成功通过检索，应继续检查上下文组装、提示词和生成。">生成路径</button>
+<button type="button" data-answer="incorrect" data-feedback="不是第一步。检索已经完成了自己的工作，并返回了预期来源。">仅检查导入</button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+</section>
+<section class="card">
+  <h2>企业场景连接</h2>
+  <p>QA 或法规团队无法使用一个既不能解释又不能复现的数字。基线让原型保持诚实：它揭示哪些地方有效、哪些地方无效，也能说明下一次改动是否真的产生了影响。</p>
+</section>
+<section>
+  <h2>下一步行动</h2>
+  <p>至少同时运行检索评估和答案评估，然后发给我：</p>
+  <ol>
+    <li>两份报告的标签。</li>
+    <li>检索并集百分比。</li>
+    <li>严格答案准确率。</li>
+    <li>来源命中率。</li>
+    <li>拒答准确率和幻觉率。</li>
+    <li>一个你想优先深入排查的失败案例，以及评审理由。</li>
+  </ol>
+  <p><strong>如果 Docker、导入、评审器或某个指标让你困惑，随时提问。</strong> 在我们把第 4 课标记完成前，我会帮你理解实时数据。</p>
+</section>
 </section>
 <section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0003-build-a-trustworthy-evaluation-set.html">← 上一课</a><a class="btn btn-ghost" href="../reference/baseline-evaluation-cheatsheet.html">参考资料</a><a href="0005-semantic-keyword-and-hybrid-retrieval.html">下一课 →</a></div></section>
 </main>
@@ -206,5 +176,10 @@ python3 test_scoring.py</code></pre>
 <script src="../../../../assets/js/lesson.js" defer></script>
 </body>
 </html>
+
+
+
+
+
 
 

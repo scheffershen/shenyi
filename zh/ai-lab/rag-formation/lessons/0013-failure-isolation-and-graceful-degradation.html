@@ -62,16 +62,62 @@
 <span class="row"><span class="t-key">▸ phase </span><span class="t-val">可靠性与产品就绪</span></span>
 <span class="row"><span class="t-key">▸ status </span><span class="t-num">开发中</span></span>
 <span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
-  <section class="section wrap lesson-content" id="lesson-content">
-<div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
-<section class="card accent"><h2>Today’s tangible win</h2><p>By the end of this lesson you’ll have a dependency failure matrix — one that draws a clean line between “safe to serve partially” and “must refuse outright.”</p><p class="zh"><strong>本课的具体收获：</strong> 一张依赖故障矩阵，清楚区分哪些情况可以“打折但安全地提供服务”，哪些情况必须“直接拒绝”。</p></section>
-<section><h2>1 · The skill</h2><p>Map out a failure matrix for Qdrant, Meilisearch, graph retrieval, embeddings, the completion call, and Redis.</p><ul><li><strong>Failure isolation:</strong> Stop one broken dependency from corrupting the whole request — or from getting quietly swept under the rug.</li><li><strong>Graceful degradation:</strong> When it’s safe, hand back a result that’s honestly labeled as limited — vector-only search, say, instead of pretending you still have full hybrid coverage.</li><li><strong>Fail closed:</strong> Say no outright when the missing piece means you can’t trust the evidence, or can’t verify who’s asking.</li></ul><p><a href="https://12factor.net/" target="_blank" rel="noreferrer">Primary reading: Twelve-Factor App — Disposability and Dependencies</a></p><p class="zh">故障隔离：别让某个依赖挂了就拖累整个请求，更不能把问题悄悄藏起来装没事。优雅降级：在确保安全的前提下，老实交代这是个打了折扣的结果——比如只用向量检索，而不是装作还有完整的混合检索能力。拒绝关闭：一旦缺失的依赖会让证据不可信、或者身份验证做不了，就干脆拒绝回答，别硬凑答案。</p></section>
-<section><h2>2 · Run the evidence loop</h2><pre><code>cd demo
-python3 setup_demo.py status</code></pre><p>For every dependency, write down what the failure looks like, the safe fallback, what gets blocked, the message the user sees, and the metric to watch.</p><p class="lesson-callout">An answer that still looks perfectly normal after you’ve lost the evidence behind it isn’t graceful degradation — it’s just unsafe.</p><p class="zh">把用到的命令、配置、跑出来的结果，还有踩过的坑都记下来；千万别拿一次实验的结果，就断言系统已经稳了。</p></section>
-<section><h2>3 · Decision worksheet</h2><div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Baseline evidence</th><th>One hypothesis/change</th><th>Metric</th><th>Regression check</th><th>Bounded conclusion</th></tr></thead><tbody><tr><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody></table></div><p class="zh">把基线证据、一个假设/改动、指标、回归检查，以及一个有边界的结论，都填进去。</p></section>
-<section><h2>4 · Retrieval practice</h2><div class="lesson-quiz" data-quiz><p><strong>Question:</strong> The LLM just went down. What’s the safe response?</p><button type="button" data-answer="correct" data-feedback="Correct — with no generation service running, there’s no way to produce a grounded answer.">Report outage</button><button type="button" data-answer="incorrect" data-feedback="Unsafe — a fallback should never invent an answer just to look responsive.">Invent answer</button><p class="lesson-feedback" data-feedback aria-live="polite"></p><p class="zh">用证据来判断下一步该怎么做，别让选项的措辞替你做了验证。</p></div></section>
-<section class="card"><h2>Mission connection</h2><p>Things break in production — that part’s not up for debate. What separates a reliable chatbot is whether it owns up to it: staying honest about reduced capability instead of quietly handing back an answer that looks fine but has nothing solid behind it.</p><p class="zh">线上出故障是迟早的事，这点没什么好争的。真正体现可靠性的，是聊天机器人在能力下降时敢不敢说实话——而不是悄悄端出一个看着挺正常、实际却毫无依据的答案。</p></section>
-<section><h2>5 · Deliverable and next action</h2><ol><li>Save the command output, or a short write-up of it.</li><li>Fill out the decision worksheet.</li><li>Write down one failure case and the next check you’d run.</li></ol><p>A dependency failure matrix that draws a clean line between safe partial service and fail-closed behavior.</p><p class="zh">交付物：把证据保存好、填完工作表，再记录一个失败案例和下一步要验证的东西。</p><p><strong>Next:</strong> Lesson 14 — Latency, cost, and observability.</p><p><strong>Ask me follow-up questions</strong> about the evidence, the metric, the failure case, or what to try next — I’m your instructor for this course.</p></section>
+<section class="section wrap lesson-content" id="lesson-content">
+  <div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
+<section class="card accent">
+  <h2>本课的具体收获</h2>
+  <p>学完本课，你会有一张依赖故障矩阵，清楚划分哪些情况可以“安全地部分提供服务”，哪些情况必须直接拒答。</p>
+</section>
+<section>
+  <h2>1 · 核心技能</h2>
+  <p>为 Qdrant、Meilisearch、图谱检索、嵌入、完成调用和 Redis 画出一张故障矩阵。</p>
+  <ul>
+    <li><strong>故障隔离：</strong>阻止一个损坏的依赖污染整个请求，也不能把问题悄悄掩盖起来。</li>
+    <li><strong>优雅降级：</strong>在安全的情况下，返回一个诚实标注为受限的结果，例如只使用向量检索，而不是假装仍然拥有完整的混合覆盖。</li>
+    <li><strong>拒绝关闭：</strong>当缺失的部分意味着证据不可信，或无法验证提问者身份时，直接拒绝，而不是勉强回答。</li>
+  </ul>
+  <p><a href="https://12factor.net/" target="_blank" rel="noreferrer">主要阅读：十二要素应用《可处置性与依赖》</a></p>
+</section>
+<section>
+  <h2>2 · 运行证据闭环</h2>
+  <pre><code>cd demo
+python3 setup_demo.py status</code></pre>
+  <p>对每个依赖写下：故障表现、安全的备用方案、会被阻止的内容、用户看到的消息，以及需要观察的指标。</p>
+  <p class="lesson-callout">当证据已经丢失后，如果答案看起来仍然完全正常，那不是优雅降级，而是不安全。</p>
+</section>
+<section>
+  <h2>3 · 决策工作表</h2>
+  <div class="lesson-table-scroll">
+    <table class="lesson-comparison-table">
+      <thead><tr><th>基线证据</th><th>一个假设/改动</th><th>指标</th><th>回归检查</th><th>有边界的结论</th></tr></thead>
+      <tbody><tr><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody>
+    </table>
+  </div>
+</section>
+<section>
+  <h2>4 · 检索练习</h2>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>问题：</strong>LLM 刚刚不可用。安全的响应是什么？</p>
+<button type="button" data-answer="correct" data-feedback="正确。没有生成服务运行，就无法产生有依据的答案。">报告服务中断</button>
+<button type="button" data-answer="incorrect" data-feedback="不安全。备用方案绝不能为了看起来有响应就编造答案。">编造答案</button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+</section>
+<section class="card">
+  <h2>企业场景连接</h2>
+  <p>生产环境发生故障是事实。可靠的聊天机器人与其他系统的区别，在于它是否诚实承认能力下降，而不是悄悄返回一个看似正常、实际上没有可靠依据的答案。</p>
+</section>
+<section>
+  <h2>5 · 交付物与下一步</h2>
+  <ol>
+    <li>保存命令输出或简短说明。</li>
+    <li>填写决策工作表。</li>
+    <li>写下一个失败案例，以及下一步要运行的检查。</li>
+  </ol>
+  <p>交付物是一张依赖故障矩阵，清楚划分安全的部分服务和拒绝关闭的行为。</p>
+  <p><strong>下一步：</strong>第 14 课将讲延迟、成本和可观测性。</p>
+  <p><strong>如果对证据、指标、失败案例或下一步尝试有疑问，尽管继续问我。</strong> 这门课我就是你的老师。</p>
+</section>
 </section>
 <section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0012-refusal-uncertainty-and-hallucination-control.html">← 上一课</a><a class="btn btn-ghost" href="../reference/failure-isolation-and-graceful-degradation-cheatsheet.html">参考资料</a><a href="0014-latency-cost-and-observability.html">下一课 →</a></div></section>
 </main>
@@ -80,5 +126,11 @@ python3 setup_demo.py status</code></pre><p>For every dependency, write down wha
 <script src="../../../../assets/js/lesson.js" defer></script>
 </body>
 </html>
+
+
+
+
+
+
 
 

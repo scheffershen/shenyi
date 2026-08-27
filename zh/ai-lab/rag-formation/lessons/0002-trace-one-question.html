@@ -62,144 +62,109 @@
 <span class="row"><span class="t-key">▸ phase </span><span class="t-val">基础与衡量</span></span>
 <span class="row"><span class="t-key">▸ status </span><span class="t-num">开发中</span></span>
 <span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
-  <section class="section wrap lesson-content" id="lesson-content">
-<div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
+<section class="section wrap lesson-content" id="lesson-content">
+  <div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
 <section class="card accent">
-      <h2>Today’s tangible win</h2>
-      <p>By the end of this lesson, you'll be able to point at the exact file and function behind every stage of a single `/api/v1/qa` request.</p>
-      <p class="zh"><strong>本课的具体收获：</strong> 学完之后，你能准确说出 `/api/v1/qa` 请求走到每个阶段时，究竟是哪个文件、哪个函数在处理。</p>
-    </section>
-
-    <section>
-      <h2>1 · The question we're tracing</h2>
-      <div class="card">
-        <p><strong>Question:</strong><br>“Quel est le délai de clôture d'un plan d'action pour une non-conformité majeure ?”</p>
-        <p class="zh"><strong>问题：</strong>“重大不符合项的行动计划关闭期限是多少？”</p>
-        <p><strong>Expected source:</strong> `PR-QA-MRD-009`</p>
-        <p><strong>Expected fact:</strong> `45 jours`</p>
-        <p class="zh"><strong>预期来源：</strong> `PR-QA-MRD-009`；<strong>预期事实：</strong> `45 天`。</p>
-      </div>
-      <p>We're not going to read every file top to bottom. Instead, we'll follow the request from the outside in, and only stop to look at the functions it actually touches.</p>
-      <p class="zh">我们不打算把所有文件从头看到尾，而是顺着请求从外到内一路跟下去，只在它真正调用到的函数那里停下来细看。</p>
-    </section>
-
-    <section>
-      <h2>2 · The call chain</h2>
-      <div class="card">
-        <p><strong>Client</strong></p>
-        <p>↓ `POST /api/v1/qa`</p>
-        <p><strong>`routes/qa.py` → `ask_question(request)`</strong></p>
-        <p>↓ delegates</p>
-        <p><strong>`qa_service.py` → `answer_question_internal(request)`</strong></p>
-        <p>↓ runs four retrieval paths</p>
-        <p><strong>`search_qdrant()` · `search_meilisearch()` · `query_lightrag_context()`</strong></p>
-        <p>↓ assembles evidence (Which function decides which source items survived?)</p>
-        <p><strong>`utils.build_context()`</strong></p>
-        <p>↓ derives citations (Which function converts surviving items into citations?)</p>
-        <p><strong>`utils.sources_from_items()`</strong></p>
-        <p>↓ builds prompt and generates</p>
-        <p><strong>`utils.build_prompt()` → `completion.generate()`</strong></p>
-        <p>↓ returns</p>
-        <p><strong>`models.AnswerResponse`</strong></p>
-      </div>
-      <p class="zh"><strong>调用链：</strong> 请求从客户端发出后，依次经过路由、QA 服务、四条检索路径、上下文组装、引用提取、提示词构造，最终由模型生成答案并返回响应。</p>
-      <p>Keep the <a href="../reference/request-path-cheatsheet.html">request-path cheat sheet</a> open in another tab while you work through this.</p>
-    </section>
-
-    <section>
-      <h2>3 · What each stage actually does</h2>
-      <table>
-        <thead><tr><th>Stage</th><th>Current implementation</th><th>Why it matters</th></tr></thead>
-        <tbody>
-          <tr><td>Route</td><td><code>routes/qa.py</code> validates the incoming request with Pydantic, then hands off.</td><td>Routes stay thin on purpose; the real logic lives elsewhere.</td></tr>
-          <tr><td>Orchestrate</td><td><code>qa_service.py</code> checks the services are up, cleans up the question, reads backend config, and kicks off retrieval.</td><td>It's the coordinator for the whole request, and the best place to start an end-to-end trace.</td></tr>
-          <tr><td>Retrieve</td><td>Qdrant hands back semantic chunks and summaries, Meilisearch returns keyword matches, and LightRAG supplies graph context.</td><td>If evidence is missing, check retrieval before you blame the prompt.</td></tr>
-          <tr><td>Assemble</td><td><code>build_context()</code> splits the budget fairly across channels and drops whole items rather than truncating them.</td><td>Whatever doesn't survive this stage, the model never gets to see.</td></tr>
-          <tr><td>Cite</td><td><code>sources_from_items()</code> only looks at the items that actually made it into the prompt.</td><td>A citation should never point to evidence the model never saw.</td></tr>
-          <tr><td>Generate</td><td><code>build_prompt()</code> instructs the model to stick to the given context and refuse anything unsupported; the completion service then writes the answer.</td><td>Even evidence that's right there can still get skipped, muddled, or contradicted.</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section>
-      <h2>4 · Reconstruct the call chain — from memory</h2>
-      <p>Close the call-chain diagram in section 2. Without scrolling back to
-      it, fill in this table for the question we're tracing — recall beats
-      re-reading for making this stick:</p>
-      <p class="zh">把第 2 步的调用链图关掉，不要往回翻，凭记忆填下面这张表——靠回忆比重新看一遍更能记住。</p>
-      <table>
-        <thead><tr><th>Stage</th><th>Function</th></tr></thead>
-        <tbody>
-          <tr><td>Route</td><td>__________</td></tr>
-          <tr><td>Orchestrate</td><td>__________</td></tr>
-          <tr><td>Retrieve (three functions)</td><td>__________</td></tr>
-          <tr><td>Assemble (decides what survives)</td><td>__________</td></tr>
-          <tr><td>Cite (never cites dropped evidence)</td><td>__________</td></tr>
-          <tr><td>Generate</td><td>__________</td></tr>
-        </tbody>
-      </table>
-      <p>Check yourself against section 2. Anything you couldn't recall is
-      exactly what to re-read before moving on — that gap is the point of
-      doing it this way round.</p>
-      <p class="zh">对照第 2 步检查答案。想不起来的地方，正是你该回去重看的地方——这正是"先凭记忆再核对"这个练习方式的意义所在。</p>
-    </section>
-
-    <section>
-      <h2>5 · Verify against the running system</h2>
-      <p>The call chain lives in <code>api/</code>, which isn't part of this
-      free course — but the <em>running</em> API is, via the demo stack. Ask
-      it the traced question directly and confirm your trace against the
-      real response, with <code>demo/setup_demo.py up</code> running:</p>
-      <pre><code>curl -s -X POST http://localhost:8000/api/v1/qa \
-  -H "Content-Type: application/json" \
-  -d "{\"question\": \"Quel est le délai de clôture d'un plan d'action pour une non-conformité majeure ?\", \"workspace\": \"meridian_demo\"}"</code></pre>
-      <p>In the JSON response: <code>sources</code> should include
-      <code>PR-QA-MRD-009</code>, and <code>answer</code> should state
-      <code>45 jours</code>. If either is missing, you've just found a real
-      failure to diagnose with the trace you built in section 4 — was it a
-      retrieval miss or a generation miss?</p>
-      <p class="zh">调用链的代码在 <code>api/</code> 里，不属于这门免费课程——但通过 demo 环境跑起来的 API 本身是免费的。在 <code>demo/setup_demo.py up</code> 运行的情况下，直接向它提问，用真实返回结果核对你的推理。返回的 JSON 里，<code>sources</code> 应包含 <code>PR-QA-MRD-009</code>，<code>answer</code> 应提到 <code>45 jours</code>。少了任何一个，你就发现了一个真实的失败案例——该用第 4 步整理出的调用链去排查：到底是检索没找到，还是生成环节漏答了？</p>
-    </section>
-
-    <section>
-      <h2>6 · Check your reconstruction</h2>
-      <div class="lesson-quiz" data-quiz>
-        <p><strong>So — which function actually does the final context assembly?</strong></p>
-        <p class="zh">最终的上下文组装，到底是哪个函数在做？</p>
-        <button type="button" data-answer="correct" data-feedback="Correct. build_context() chooses what reaches the model.">`build_context()`</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not quite. search_qdrant() retrieves one channel; context assembly happens later.">`search_qdrant()`</button>
-        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
-      </div>
-      <div class="lesson-quiz" data-quiz>
-        <p><strong>Why does `sources_from_items(context_items)` matter so much?</strong></p>
-        <p class="zh">`sources_from_items(context_items)` 这一步，为什么这么关键？</p>
-        <button type="button" data-answer="correct" data-feedback="Correct. It limits reported sources to evidence that actually reached the prompt.">It cites evidence actually shown</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not quite. It is specifically designed to avoid citing dropped evidence.">It lists every retrieved hit</button>
-        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
-      </div>
-      <div class="lesson-quiz" data-quiz>
-        <p><strong>If `/api/v1/search` doesn't turn up `PR-QA-MRD-009`, which family of functions should you dig into first?</strong></p>
-        <p class="zh">如果 `/api/v1/search` 里找不到 `PR-QA-MRD-009`，你该先查哪一组函数？</p>
-        <button type="button" data-answer="correct" data-feedback="Correct. Start with the retrieval functions and their inputs/results.">`search_*()`</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not first. Prompt generation happens after retrieval.">`build_prompt()`</button>
-        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Mission connection</h2>
-      <p>For an auditor or QA professional, an answer is only as trustworthy as the path you can explain behind it. That's exactly why a simple call map pays off when something breaks: it tells you where to look first — the index, the context budget, the citation logic, or the model's output.</p>
-      <p class="zh">对审计员或 QA 从业者来说，一个答案可不可信，就看你能不能讲清楚它是怎么来的。有了一张简单的调用地图，出问题时你就知道该往哪查——是索引、上下文预算、引用逻辑，还是模型输出本身。</p>
-    </section>
-
-    <section>
-      <h2>Next action</h2>
-      <p>Fill in all six blanks in the data-flow table. Then answer this in a single sentence:</p>
-      <p class="lesson-callout"><strong>Why might a source show up in the raw retrieval results but never make it into the final API citations?</strong></p>
-      <p class="zh callout"><strong>为什么一个来源会出现在原始检索结果里，却没有出现在最终 API 返回的引用中？</strong></p>
-      <p><strong>Ask me follow-up questions</strong> about anything — any function, any stage — that's still fuzzy. Once you've filled in the six blanks and answered the final question, Lesson 2 is done — move on to whichever lesson you want next.</p>
-      <p class="zh"><strong>哪个函数、哪个阶段没搞懂，随时问我。</strong> 等你填完六个空格、答完最后一个问题，第 2 课就算完成了——接下来想上哪一课都可以。</p>
-    </section>
+  <h2>本课的具体收获</h2>
+  <p>学完之后，你能准确指出一个 <code>/api/v1/qa</code> 请求在每个阶段背后对应的文件和函数。</p>
+</section>
+<section>
+  <h2>1 · 要追踪的问题</h2>
+  <div class="card">
+    <p><strong>问题：</strong><br>“重大不符合项的行动计划关闭期限是多少？”</p>
+    <p><strong>预期来源：</strong> <code>PR-QA-MRD-009</code></p>
+    <p><strong>预期事实：</strong> <code>45 天</code></p>
+  </div>
+  <p>我们不会把每个文件从头读到尾，而是从外向内跟踪请求，只在它真正调用到的函数处停下来细看。</p>
+</section>
+<section>
+  <h2>2 · 调用链</h2>
+  <div class="card">
+    <p><strong>客户端</strong></p>
+    <p>↓ <code>POST /api/v1/qa</code></p>
+    <p><strong><code>routes/qa.py</code> → <code>ask_question(request)</code></strong></p>
+    <p>↓ 委托处理</p>
+    <p><strong><code>qa_service.py</code> → <code>answer_question_internal(request)</code></strong></p>
+    <p>↓ 运行四条检索路径</p>
+    <p><strong><code>search_qdrant()</code> · <code>search_meilisearch()</code> · <code>query_lightrag_context()</code></strong></p>
+    <p>↓ 组装证据（哪个函数决定哪些来源条目保留下来？）</p>
+    <p><strong><code>utils.build_context()</code></strong></p>
+    <p>↓ 推导引用（哪个函数把保留下来的条目转换成引用？）</p>
+    <p><strong><code>utils.sources_from_items()</code></strong></p>
+    <p>↓ 构造提示词并生成</p>
+    <p><strong><code>utils.build_prompt()</code> → <code>completion.generate()</code></strong></p>
+    <p>↓ 返回</p>
+    <p><strong><code>models.AnswerResponse</code></strong></p>
+  </div>
+  <p>处理过程中，可以在另一个标签页打开<a href="../reference/request-path-cheatsheet.html">请求路径速查表</a>。</p>
+</section>
+<section>
+  <h2>3 · 每个阶段到底做什么</h2>
+  <table>
+    <thead><tr><th>阶段</th><th>当前实现</th><th>为什么重要</th></tr></thead>
+    <tbody>
+      <tr><td>路由</td><td><code>routes/qa.py</code> 使用 Pydantic 校验请求，然后把请求交出去。</td><td>路由有意保持轻薄；真正的逻辑在其他位置。</td></tr>
+      <tr><td>编排</td><td><code>qa_service.py</code> 检查服务是否启动，清理问题，读取后端配置，然后启动检索。</td><td>它是整个请求的协调器，也是开始端到端追踪的最佳位置。</td></tr>
+      <tr><td>检索</td><td>Qdrant 返回语义文本块和摘要，Meilisearch 返回关键词命中，LightRAG 提供图谱上下文。</td><td>如果证据缺失，先检查检索，不要先责怪提示词。</td></tr>
+      <tr><td>组装</td><td><code>build_context()</code> 在各通道之间公平分配预算，并删除完整条目，而不是把条目截断。</td><td>没有在这个阶段保留下来的内容，模型根本看不到。</td></tr>
+      <tr><td>引用</td><td><code>sources_from_items()</code> 只查看真正进入提示词的条目。</td><td>引用不应该指向模型从未看到的证据。</td></tr>
+      <tr><td>生成</td><td><code>build_prompt()</code> 指示模型只使用给定上下文，并拒绝没有证据支持的内容；完成服务随后写出答案。</td><td>即使证据就在眼前，也可能被跳过、混淆或否定。</td></tr>
+    </tbody>
+  </table>
+</section>
+<section>
+  <h2>4 · 凭记忆重建调用链</h2>
+  <p>关闭第 2 步的调用链图，不要往回滚动，为正在追踪的问题填写下面这张表——通过回忆来练习，比重新阅读更容易记住：</p>
+  <table>
+    <thead><tr><th>阶段</th><th>函数</th></tr></thead>
+    <tbody>
+      <tr><td>路由</td><td>__________</td></tr>
+      <tr><td>编排</td><td>__________</td></tr>
+      <tr><td>检索（三个函数）</td><td>__________</td></tr>
+      <tr><td>组装（决定哪些内容保留）</td><td>__________</td></tr>
+      <tr><td>引用（绝不引用被丢弃的证据）</td><td>__________</td></tr>
+      <tr><td>生成</td><td>__________</td></tr>
+    </tbody>
+  </table>
+  <p>对照第 2 步检查自己。想不起来的内容，正是你在继续前应该重读的地方——这个缺口就是这样练习的意义。</p>
+</section>
+<section>
+  <h2>5 · 对照运行中的系统验证</h2>
+  <p>调用链位于 <code>api/</code> 中，这部分不属于本免费课程；但通过演示堆栈运行的 API 可以使用。启动 <code>demo/setup_demo.py up</code> 后，直接向它提问，并用真实响应核对你的追踪结果：</p>
+  <pre><code>curl -s -X POST http://localhost:8000/api/v1/qa   -H "Content-Type: application/json"   -d "{"question": "Quel est le délai de clôture d'un plan d'action pour une non-conformité majeure ?", "workspace": "meridian_demo"}"</code></pre>
+  <p>在 JSON 响应中，<code>sources</code> 应包含 <code>PR-QA-MRD-009</code>，<code>answer</code> 应写出 <code>45 jours</code>。如果缺少任何一项，你就找到了一个可以用第 4 步调用链诊断的真实失败：到底是检索遗漏，还是生成遗漏？</p>
+</section>
+<section>
+  <h2>6 · 检查你的重建结果</h2>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>那么，最终的上下文组装究竟由哪个函数完成？</strong></p>
+<button type="button" data-answer="correct" data-feedback="正确。<code>build_context()</code> 决定哪些内容能到达模型。"><code>build_context()</code></button>
+<button type="button" data-answer="incorrect" data-feedback="不完全正确。<code>search_qdrant()</code> 只负责一条检索通道；上下文组装发生在后面。"><code>search_qdrant()</code></button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>为什么 <code>sources_from_items(context_items)</code> 如此重要？</strong></p>
+<button type="button" data-answer="correct" data-feedback="正确。它把报告的来源限制为真正进入提示词的证据。">它引用实际展示给模型的证据</button>
+<button type="button" data-answer="incorrect" data-feedback="不正确。它的目的正是避免引用已经被丢弃的证据。">它列出所有检索命中</button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>如果 <code>/api/v1/search</code> 没有返回 <code>PR-QA-MRD-009</code>，应先检查哪一组函数？</strong></p>
+<button type="button" data-answer="correct" data-feedback="正确。先检查检索函数以及它们接收的输入和返回结果。"><code>search_*()</code></button>
+<button type="button" data-answer="incorrect" data-feedback="不是第一步。提示词生成发生在检索之后。"><code>build_prompt()</code></button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+</section>
+<section class="card">
+  <h2>企业场景连接</h2>
+  <p>对审计员或 QA 专业人员来说，一个答案是否可信，取决于你能否解释它背后的路径。因此，系统出问题时，一张简单的调用地图非常有用：它告诉你先查索引、上下文预算、引用逻辑，还是模型输出。</p>
+</section>
+<section>
+  <h2>下一步行动</h2>
+  <p>填写数据流表格中的六个空格，然后用一句话回答：</p>
+  <p class="lesson-callout"><strong>为什么一个来源会出现在原始检索结果中，却没有进入最终 API 引用？</strong></p>
+  <p><strong>任何函数或阶段还有不清楚的地方，都可以继续问我。</strong> 填完六个空格并回答最后一个问题后，第 2 课就完成了——接下来可以按自己的需要选择课程。</p>
+</section>
 </section>
 <section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0001-from-question-to-cited-answer.html">← 上一课</a><a class="btn btn-ghost" href="../reference/request-path-cheatsheet.html">参考资料</a><a href="0003-build-a-trustworthy-evaluation-set.html">下一课 →</a></div></section>
 </main>
@@ -208,5 +173,11 @@
 <script src="../../../../assets/js/lesson.js" defer></script>
 </body>
 </html>
+
+
+
+
+
+
 
 

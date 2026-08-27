@@ -62,16 +62,62 @@
 <span class="row"><span class="t-key">▸ phase </span><span class="t-val">有据的回答生成</span></span>
 <span class="row"><span class="t-key">▸ status </span><span class="t-num">开发中</span></span>
 <span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
-  <section class="section wrap lesson-content" id="lesson-content">
-<div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
-<section class="card accent"><h2>Today’s tangible win</h2><p>By the end, you’ll have a refusal policy — with test cases covering no evidence, partial evidence, conflicting evidence, and ambiguous questions.</p><p class="zh"><strong>本课的具体收获：</strong> 写出一份拒答策略，配上四类测试用例——没有证据、证据不全、证据打架、问题本身模糊。</p></section>
-<section><h2>1 · The skill</h2><p>Take the six unanswerable eval questions and sort each response into one of three buckets: safe refusal, unsafe hedge, or outright hallucination.</p><ul><li><strong>Refusal:</strong> Says plainly that the indexed evidence doesn’t establish the fact being asked for.</li><li><strong>Uncertainty:</strong> Spells out — carefully — what the evidence does support, and what’s still an open question.</li><li><strong>Hallucination:</strong> A real, substantive claim that the allowed evidence just doesn’t back up.</li></ul><p><a href="https://platform.openai.com/docs/guides/evaluation-best-practices" target="_blank" rel="noreferrer">Primary reading: OpenAI — Evaluation Best Practices</a></p><p class="zh">拒答：直接说清楚——已索引的证据撑不起这个事实。不确定性：把证据能说明什么、还有哪些说不准，交代得明明白白。幻觉：证据根本不够，却还是抛出了一个实打实的结论。</p></section>
-<section><h2>2 · Run the evidence loop</h2><pre><code>cd demo
-python3 eval.py run --mode answer --workspace meridian_demo --category unanswerable --tag lesson-12-refusal</code></pre><p>Track refusal accuracy and hallucination rate as two separate numbers, and grab one example answer that crossed the line.</p><p class="lesson-callout">Careful: a smooth, partial answer can still be a hallucination — the moment it slips in one unsupported claim that actually matters.</p><p class="zh">把命令、配置、结果、失败样本都存下来；但别因为跑了一次就敢说这套系统已经靠谱了。</p></section>
-<section><h2>3 · Decision worksheet</h2><div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Baseline evidence</th><th>One hypothesis/change</th><th>Metric</th><th>Regression check</th><th>Bounded conclusion</th></tr></thead><tbody><tr><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody></table></div><p class="zh">把这几栏填满：基线证据、一个假设或改动、指标、回归检查，以及一个有边界的结论。</p></section>
-<section><h2>4 · Retrieval practice</h2><div class="lesson-quiz" data-quiz><p><strong>Question:</strong> Your evidence only covers part of what’s being asked. What’s the safe move?</p><button type="button" data-answer="correct" data-feedback="Correct. Answer the supported part and identify exactly what is not established.">Name what’s missing</button><button type="button" data-answer="incorrect" data-feedback="Unsafe. A plausible completion is still unsupported.">Guess the rest</button><p class="lesson-feedback" data-feedback aria-live="polite"></p><p class="zh">该怎么答，看证据说了算；别被选项的措辞牵着走，那不代表真的验证过。</p></div></section>
-<section class="card"><h2>Mission connection</h2><p>In QA, audit, and regulatory work, a plain ‘I can’t confirm that from the indexed documents’ beats a confident-sounding answer that’s just made up.</p><p class="zh">在 QA、审计、法规这些场景里，老老实实说一句“这个我从已索引的文件里确认不了”，永远比一个说得漂亮却是编出来的答案更安全。</p></section>
-<section><h2>5 · Deliverable and next action</h2><ol><li>Save the command output, or a report of it.</li><li>Fill out the decision worksheet.</li><li>Write down one failure case and one thing to verify next.</li></ol><p>By the end, you’ll have a refusal policy — with test cases covering no evidence, partial evidence, conflicting evidence, and ambiguous questions.</p><p class="zh">交付物：保存好证据、填完工作表、记下一个失败案例和下一步要验证什么。</p><p><strong>Next:</strong> Lesson 13 — Failure isolation and graceful degradation.</p><p><strong>Got questions? Ask me</strong> — about the evidence, the metric, the failure case, or whatever you want to try next. I’m your instructor for this course.</p></section>
+<section class="section wrap lesson-content" id="lesson-content">
+  <div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
+<section class="card accent">
+  <h2>本课的具体收获</h2>
+  <p>你会制定一份拒答策略，并用测试用例覆盖没有证据、证据不完整、证据冲突和问题含义模糊等情况。</p>
+</section>
+<section>
+  <h2>1 · 核心技能</h2>
+  <p>拿六道不可回答的评估题，把每个响应分到三个类别之一：安全拒答、不安全的含糊回应，或直接幻觉。</p>
+  <ul>
+    <li><strong>拒答：</strong>明确说明已索引的证据无法证明被询问的事实。</li>
+    <li><strong>不确定性：</strong>谨慎说明证据支持什么，以及哪些问题仍未解决。</li>
+    <li><strong>幻觉：</strong>提出了一个实质性主张，但允许使用的证据并不支持它。</li>
+  </ul>
+  <p><a href="https://platform.openai.com/docs/guides/evaluation-best-practices" target="_blank" rel="noreferrer">主要阅读：OpenAI《评估最佳实践》</a></p>
+</section>
+<section>
+  <h2>2 · 运行证据闭环</h2>
+  <pre><code>cd demo
+python3 eval.py run --mode answer --workspace meridian_demo --category unanswerable --tag lesson-12-refusal</code></pre>
+  <p>把拒答准确率和幻觉率作为两个独立数字跟踪，并找出一个越过安全边界的答案作为例子。</p>
+  <p class="lesson-callout">注意：一段流畅的部分答案仍然可能是幻觉——只要其中混入了一条重要但没有证据支持的主张。</p>
+</section>
+<section>
+  <h2>3 · 决策工作表</h2>
+  <div class="lesson-table-scroll">
+    <table class="lesson-comparison-table">
+      <thead><tr><th>基线证据</th><th>一个假设/改动</th><th>指标</th><th>回归检查</th><th>有边界的结论</th></tr></thead>
+      <tbody><tr><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody>
+    </table>
+  </div>
+</section>
+<section>
+  <h2>4 · 检索练习</h2>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>问题：</strong>你的证据只覆盖了问题的一部分。安全的做法是什么？</p>
+<button type="button" data-answer="correct" data-feedback="正确。回答证据支持的部分，并明确指出哪些内容尚未得到证明。">指出缺失内容</button>
+<button type="button" data-answer="incorrect" data-feedback="不安全。看似合理的补全仍然没有证据支持。">猜测其余内容</button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+</section>
+<section class="card">
+  <h2>企业场景连接</h2>
+  <p>在 QA、审计和法规工作中，直接说“我无法从已索引的文档确认这一点”，比给出一个听起来自信却是编造的答案更可靠。</p>
+</section>
+<section>
+  <h2>5 · 交付物与下一步</h2>
+  <ol>
+    <li>保存命令输出或报告。</li>
+    <li>填写决策工作表。</li>
+    <li>写下一个失败案例，以及下一步要验证的一件事。</li>
+  </ol>
+  <p>交付物是一份拒答策略，并配有覆盖无证据、部分证据、冲突证据和模糊问题的测试用例。</p>
+  <p><strong>下一步：</strong>第 13 课将讲故障隔离和优雅降级。</p>
+  <p><strong>对证据、指标、失败案例或下一步尝试有疑问，尽管继续问我。</strong> 这门课我就是你的老师。</p>
+</section>
 </section>
 <section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0011-citation-design-and-source-fidelity.html">← 上一课</a><a class="btn btn-ghost" href="../reference/refusal-uncertainty-and-hallucination-control-cheatsheet.html">参考资料</a><a href="0013-failure-isolation-and-graceful-degradation.html">下一课 →</a></div></section>
 </main>
@@ -80,5 +126,10 @@ python3 eval.py run --mode answer --workspace meridian_demo --category unanswera
 <script src="../../../../assets/js/lesson.js" defer></script>
 </body>
 </html>
+
+
+
+
+
 
 

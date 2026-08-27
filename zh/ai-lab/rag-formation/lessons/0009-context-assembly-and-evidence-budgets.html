@@ -62,16 +62,62 @@
 <span class="row"><span class="t-key">▸ phase </span><span class="t-val">有据的回答生成</span></span>
 <span class="row"><span class="t-key">▸ status </span><span class="t-num">开发中</span></span>
 <span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
-  <section class="section wrap lesson-content" id="lesson-content">
-<div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
-<section class="card accent"><h2>Today’s tangible win</h2><p>One evidence-survival map for a multi-hop answer, plus a bounded, defensible context-budget recommendation.</p><p class="zh"><strong>本课的具体收获：</strong> 画一份多跳问题的证据存活地图，再给出一条站得住脚、有边界的上下文预算建议。</p></section>
-<section><h2>1 · The skill</h2><p>Take q30 or q63 and follow it end to end—from the sources retrieval dug up, through context assembly, all the way to the prompt budget.</p><ul><li><strong>Context assembly:</strong> the step that turns backend results into the actual text the answering model reads.</li><li><strong>Evidence budget:</strong> the ceiling on how much context you can afford, set by character count, tokens, latency, or cost.</li><li><strong>Source survival:</strong> whether the evidence an answer actually needs is still standing after formatting and truncation have had their say.</li></ul><p><a href="https://www.anthropic.com/news/contextual-retrieval" target="_blank" rel="noreferrer">Primary reading: Anthropic — Contextual Retrieval</a></p><p class="zh">上下文组装：把后端检索到的结果，变成真正喂给回答模型看的那段文字。证据预算：你能负担得起的上下文上限，由字符数、token 数、延迟或成本说了算。来源存活率：格式化、截断这些操作做完之后，某条证据是不是还留在最终拼出来的上下文里。</p></section>
-<section><h2>2 · Run the evidence loop</h2><pre><code>cd demo
-python3 eval.py run --mode answer --workspace meridian_demo --category multi_hop --tag lesson-09-context</code></pre><p>For every source, note its order, its formatted size, and whether it actually makes it past the context budget.</p><p class="lesson-callout">If truncation cuts a source before generation, the model never sees it—finding it during retrieval doesn’t count for anything.</p><p class="zh">把命令、配置、结果和失败案例都记下来；别拿一次实验的结果，就断定整个系统已经靠谱了。</p></section>
-<section><h2>3 · Decision worksheet</h2><div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Baseline evidence</th><th>One hypothesis/change</th><th>Metric</th><th>Regression check</th><th>Bounded conclusion</th></tr></thead><tbody><tr><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody></table></div><p class="zh">照着填：基线证据、一个假设/改动、指标、回归检查、有边界的结论。</p></section>
-<section><h2>4 · Retrieval practice</h2><div class="lesson-quiz" data-quiz><p><strong>Question:</strong> Retrieval pulled in every source you expected, but one gets truncated before generation even starts. Where did this actually break?</p><button type="button" data-answer="correct" data-feedback="Right call. Retrieval did its job fine; the evidence got dropped during context assembly.">Context budget</button><button type="button" data-answer="incorrect" data-feedback="Not quite. The source was found first, then lost later, in context assembly.">Search index</button><p class="lesson-feedback" data-feedback aria-live="polite"></p><p class="zh">下一步怎么走，让证据说了算；别让选项本身的措辞，替你做了验证。</p></div></section>
-<section class="card"><h2>Mission connection</h2><p>A system can’t cite evidence the model never saw. This is exactly where solid retrieval quietly turns into a partial answer, or a hallucinated one.</p><p class="zh">模型压根没看到的证据，系统没法引用。检索明明做对了，答案却可能就在上下文组装这一步，悄悄变成半吊子回答，甚至是幻觉。</p></section>
-<section><h2>5 · Deliverable and next action</h2><ol><li>Save the command output, or a summary report.</li><li>Fill in the decision worksheet.</li><li>Write down one failure case and what you’ll check next.</li></ol><p>One evidence-survival map for a multi-hop answer, plus a bounded, defensible context-budget recommendation.</p><p class="zh">交付物：留存证据、填完工作表、记下一个失败案例和下一步要验证的点。</p><p><strong>Next:</strong> Lesson 10 — Prompts that answer only from evidence.</p><p><strong>Ask me follow-up questions</strong> about the evidence, the metric, the failure case, or whatever you want to try next. I’m your teacher for this course.</p></section>
+<section class="section wrap lesson-content" id="lesson-content">
+  <div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
+<section class="card accent">
+  <h2>本课的具体收获</h2>
+  <p>你会为一个多跳答案画出证据存活图，并提出一条有边界、站得住脚的上下文预算建议。</p>
+</section>
+<section>
+  <h2>1 · 核心技能</h2>
+  <p>选择 q30 或 q63，从检索找到的来源开始，一路跟踪到上下文组装，直到最终的提示词预算。</p>
+  <ul>
+    <li><strong>上下文组装：</strong>把后端结果转换成回答模型实际读取的文本。</li>
+    <li><strong>证据预算：</strong>你能负担的上下文上限，由字符数、token 数、延迟或成本决定。</li>
+    <li><strong>来源存活：</strong>格式化和截断完成后，答案真正需要的证据是否仍然保留。</li>
+  </ul>
+  <p><a href="https://www.anthropic.com/news/contextual-retrieval" target="_blank" rel="noreferrer">主要阅读：Anthropic《上下文检索》</a></p>
+</section>
+<section>
+  <h2>2 · 运行证据闭环</h2>
+  <pre><code>cd demo
+python3 eval.py run --mode answer --workspace meridian_demo --category multi_hop --tag lesson-09-context</code></pre>
+  <p>对每个来源记录它的顺序、格式化后的大小，以及它是否真的通过了上下文预算。</p>
+  <p class="lesson-callout">如果来源在生成前被截断，模型就永远看不到它——检索阶段找到它并不算完成任务。</p>
+</section>
+<section>
+  <h2>3 · 决策工作表</h2>
+  <div class="lesson-table-scroll">
+    <table class="lesson-comparison-table">
+      <thead><tr><th>基线证据</th><th>一个假设/改动</th><th>指标</th><th>回归检查</th><th>有边界的结论</th></tr></thead>
+      <tbody><tr><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody>
+    </table>
+  </div>
+</section>
+<section>
+  <h2>4 · 检索练习</h2>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>问题：</strong>检索找到了你预期的所有来源，但其中一份在生成开始前被截断。实际失败发生在哪里？</p>
+<button type="button" data-answer="correct" data-feedback="正确。检索本身完成了工作，证据是在上下文组装阶段被丢弃的。">上下文预算</button>
+<button type="button" data-answer="incorrect" data-feedback="不完全正确。来源先被找到，之后才在上下文组装阶段丢失。">搜索索引</button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+</section>
+<section class="card">
+  <h2>企业场景连接</h2>
+  <p>模型从未看到的证据，系统就无法引用。这正是可靠检索如何悄悄变成不完整答案，甚至变成幻觉的地方。</p>
+</section>
+<section>
+  <h2>5 · 交付物与下一步</h2>
+  <ol>
+    <li>保存命令输出或汇总报告。</li>
+    <li>填写决策工作表。</li>
+    <li>写下一个失败案例，以及下一步要检查的内容。</li>
+  </ol>
+  <p>交付物是一张多跳答案的证据存活图，以及一条有边界、可辩护的上下文预算建议。</p>
+  <p><strong>下一步：</strong>第 10 课将讲如何让提示词只依据证据回答。</p>
+  <p><strong>如果对证据、指标、失败案例或下一步实验有疑问，尽管继续问我。</strong> 这门课我就是你的老师。</p>
+</section>
 </section>
 <section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0008-query-handling-and-reranking.html">← 上一课</a><a class="btn btn-ghost" href="../reference/context-assembly-and-evidence-budgets-cheatsheet.html">参考资料</a><a href="0010-prompts-that-answer-only-from-evidence.html">下一课 →</a></div></section>
 </main>
@@ -80,5 +126,11 @@ python3 eval.py run --mode answer --workspace meridian_demo --category multi_hop
 <script src="../../../../assets/js/lesson.js" defer></script>
 </body>
 </html>
+
+
+
+
+
+
 
 

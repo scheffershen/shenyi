@@ -62,16 +62,62 @@
 <span class="row"><span class="t-key">▸ phase </span><span class="t-val">有据的回答生成</span></span>
 <span class="row"><span class="t-key">▸ status </span><span class="t-num">开发中</span></span>
 <span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
-  <section class="section wrap lesson-content" id="lesson-content">
-<div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
-<section class="card accent"><h2>Today’s tangible win</h2><p>One versioned prompt rule that spells out how to use evidence, handle missing facts, cite sources, and know when to refuse.</p><p class="zh"><strong>本课的具体收获：</strong> 写出一条带版本号的提示词规则，把怎么用证据、事实缺了怎么办、怎么引用、什么时候该拒答都说清楚。</p></section>
-<section><h2>1 · The skill</h2><p>Take one wrong or half-right answer from Lesson 4, hold it against the current prompt, and write down exactly one rule that would have fixed it.</p><ul><li><strong>Grounded generation:</strong> the model answers from the evidence you gave it, not from whatever it already “knows.”</li><li><strong>Instruction hierarchy:</strong> your system and developer rules decide what the model is allowed to do when evidence is thin or contradictory.</li><li><strong>Prompt contract:</strong> a testable spec for answer format, when to refuse, how to cite, and how to handle conflicting evidence.</li></ul><p><a href="https://platform.openai.com/docs/guides/optimizing-llm-accuracy" target="_blank" rel="noreferrer">Primary reading: OpenAI — Optimizing LLM Accuracy</a></p><p class="zh">有据生成：模型只能顺着你给的证据往下答，不能夹带自己脑子里的“通用知识”。指令层级：证据不全或互相打架时，模型能做什么、不能做什么，得由系统规则和开发者规则说了算。提示词契约：把回答格式、什么时候该拒答、怎么引用、遇到证据冲突怎么处理，都写成能拿去测试的具体条款。</p></section>
-<section><h2>2 · Run the evidence loop</h2><pre><code>cd demo
-python3 eval.py run --mode answer --workspace meridian_demo --limit 10 --tag lesson-10-prompt-baseline</code></pre><p>Pick one failure and write down: what evidence was actually available, what unsafe thing the model did with it, the instruction you’d add to stop it, and which eval category to rerun.</p><p class="lesson-callout">A prompt can’t conjure up a source that was never retrieved — check retrieval and context before you go blaming generation.</p><p class="zh">把命令、配置、结果和失败案例都记下来——但别拿一次实验的结果，就断言整个系统已经靠谱了。</p></section>
-<section><h2>3 · Decision worksheet</h2><div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Baseline evidence</th><th>One hypothesis/change</th><th>Metric</th><th>Regression check</th><th>Bounded conclusion</th></tr></thead><tbody><tr><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody></table></div><p class="zh">把这几项填清楚：基线证据、一个假设或改动、要看的指标、回归检查，还有一个有边界、不夸大的结论。</p></section>
-<section><h2>4 · Retrieval practice</h2><div class="lesson-quiz" data-quiz><p><strong>Question:</strong> The corpus doesn’t have the fact you need. What should a properly grounded prompt force the model to do?</p><button type="button" data-answer="correct" data-feedback="Right — it names exactly what isn’t backed by evidence, and refuses to fill the gap with a guess.">Flag it as unknown</button><button type="button" data-answer="incorrect" data-feedback="Not safe — the model’s general knowledge isn’t the same thing as verified evidence.">Guess anyway</button><p class="lesson-feedback" data-feedback aria-live="polite"></p><p class="zh">该怎么答，看证据说了算；别让选项写得好听就当成验证过了。</p></div></section>
-<section class="card"><h2>Mission connection</h2><p>QA and regulatory readers need answers short enough to actually audit. The prompt should spell out the safe behavior in explicit, measurable terms — not leave it to the model to figure out on its own.</p><p class="zh">QA 和法规同事要的是能审得了的简短回答。提示词得把安全行为写得明明白白、能量化检查，而不是指望模型自己悟出来。</p></section>
-<section><h2>5 · Deliverable and next action</h2><ol><li>Save the command output or the report.</li><li>Fill in the decision worksheet.</li><li>Write down one failure case and the next check you’ll run.</li></ol><p>One versioned prompt rule, covering evidence use, missing facts, citations, and when to refuse.</p><p class="zh">交付物：保存好证据、填完工作表、记录一个失败案例和接下来要做的验证。</p><p><strong>Next:</strong> Lesson 11 — Citation design and source fidelity.</p><p><strong>Got follow-up questions?</strong> Ask me about the evidence, the metric, the failure case, or what to try next — I’m teaching this course.</p></section>
+<section class="section wrap lesson-content" id="lesson-content">
+  <div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
+<section class="card accent">
+  <h2>本课的具体收获</h2>
+  <p>你会写出一条带版本号的提示词规则，把如何使用证据、处理缺失事实、引用来源和决定何时拒答都说清楚。</p>
+</section>
+<section>
+  <h2>1 · 核心技能</h2>
+  <p>拿第 4 课中的一个错误或半正确答案，对照当前提示词，准确写下一条本来可以修复它的规则。</p>
+  <ul>
+    <li><strong>有据生成：</strong>模型根据你提供的证据回答，而不是凭它原本“知道”的内容回答。</li>
+    <li><strong>指令层级：</strong>当证据稀少或相互矛盾时，系统规则和开发者规则决定模型可以做什么。</li>
+    <li><strong>提示词契约：</strong>一份可测试的规范，规定答案格式、何时拒答、如何引用，以及如何处理冲突证据。</li>
+  </ul>
+  <p><a href="https://platform.openai.com/docs/guides/optimizing-llm-accuracy" target="_blank" rel="noreferrer">主要阅读：OpenAI《优化 LLM 准确性》</a></p>
+</section>
+<section>
+  <h2>2 · 运行证据闭环</h2>
+  <pre><code>cd demo
+python3 eval.py run --mode answer --workspace meridian_demo --limit 10 --tag lesson-10-prompt-baseline</code></pre>
+  <p>选择一个失败案例并写下：实际有哪些证据可用，模型对证据做了什么不安全的事情，你会添加哪条指令来阻止它，以及应该重新运行哪个评估类别。</p>
+  <p class="lesson-callout">提示词不能凭空创造从未检索到的来源——在责怪生成之前，先检查检索和上下文。</p>
+</section>
+<section>
+  <h2>3 · 决策工作表</h2>
+  <div class="lesson-table-scroll">
+    <table class="lesson-comparison-table">
+      <thead><tr><th>基线证据</th><th>一个假设/改动</th><th>指标</th><th>回归检查</th><th>有边界的结论</th></tr></thead>
+      <tbody><tr><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody>
+    </table>
+  </div>
+</section>
+<section>
+  <h2>4 · 检索练习</h2>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>问题：</strong>语料库中没有你需要的事实。有据提示词应该强制模型做什么？</p>
+<button type="button" data-answer="correct" data-feedback="正确。它会明确指出证据没有支持的内容，并拒绝用猜测填补空白。">标记为未知</button>
+<button type="button" data-answer="incorrect" data-feedback="不安全。模型的通用知识不等于经过验证的证据。">继续猜测</button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+</section>
+<section class="card">
+  <h2>企业场景连接</h2>
+  <p>QA 和法规读者需要短到可以真正审计的答案。提示词应该用明确、可测量的方式写出安全行为，而不是把判断留给模型自己猜。</p>
+</section>
+<section>
+  <h2>5 · 交付物与下一步</h2>
+  <ol>
+    <li>保存命令输出或报告。</li>
+    <li>填写决策工作表。</li>
+    <li>写下一个失败案例，以及下一步要运行的检查。</li>
+  </ol>
+  <p>交付物是一条带版本号的提示词规则，覆盖证据使用、缺失事实、引用和拒答时机。</p>
+  <p><strong>下一步：</strong>第 11 课将讲引用设计和来源忠实度。</p>
+  <p><strong>如果对证据、指标、失败案例或下一步尝试有疑问，尽管继续问我。</strong> 这门课我就是你的老师。</p>
+</section>
 </section>
 <section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0009-context-assembly-and-evidence-budgets.html">← 上一课</a><a class="btn btn-ghost" href="../reference/prompts-that-answer-only-from-evidence-cheatsheet.html">参考资料</a><a href="0011-citation-design-and-source-fidelity.html">下一课 →</a></div></section>
 </main>
@@ -80,5 +126,11 @@ python3 eval.py run --mode answer --workspace meridian_demo --limit 10 --tag les
 <script src="../../../../assets/js/lesson.js" defer></script>
 </body>
 </html>
+
+
+
+
+
+
 
 

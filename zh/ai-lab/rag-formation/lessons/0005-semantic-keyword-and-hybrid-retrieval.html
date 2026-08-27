@@ -62,97 +62,90 @@
 <span class="row"><span class="t-key">▸ phase </span><span class="t-val">检索工程</span></span>
 <span class="row"><span class="t-key">▸ status </span><span class="t-num">开发中</span></span>
 <span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
-  <section class="section wrap lesson-content" id="lesson-content">
-<div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
+<section class="section wrap lesson-content" id="lesson-content">
+  <div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
 <section class="card accent">
-      <h2>Today’s tangible win</h2>
-      <p>By the end of this lesson, you will have filled in a question-by-question comparison table and picked one retrieval improvement the evidence actually supports.</p>
-      <p class="zh"><strong>本课的具体收获：</strong> 填完一张逐题对比表，并选出一个真正有证据支持的检索改进点。</p>
-    </section>
-
-    <section>
-      <h2>1 · The smallest useful model</h2>
-      <ul>
-        <li><strong>Vector search:</strong> Works off embedding similarity, so it catches meaning and paraphrases rather than exact words. How well it holds up across languages depends on the embedding model — do not assume, measure it.</li>
-        <li><strong>Full-text search:</strong> Matches the literal string — identifiers, names, acronyms, numbers. When exact spelling is what carries the meaning, this is what saves you.</li>
-        <li><strong>Cumulative union:</strong> For this experiment, a source counts as found the moment it turns up in either the vector results or the full-text results. That tells you about retrieval contribution — nothing about whether the eventual answer is correct.</li>
-        <li><strong>Hybrid retrieval:</strong> A production hybrid path might fuse or rerank both signals together. Here we start with the simpler vector-plus-full-text union, so each one's contribution stays visible.</li>
-      </ul>
-      <p><a href="https://qdrant.tech/documentation/search/text-search/hybrid-search" target="_blank" rel="noreferrer">Primary reading: Qdrant Hybrid Search</a> — pay attention to how it combines multiple search representations, and why that combination needs to be evaluated rather than just assumed to work.</p>
-      <p class="zh">这节课我们先只测“向量结果 ∪ 全文结果”覆盖了多少来源——来源被检索到，不等于答案就是对的，这两件事别混在一起。</p>
-    </section>
-
-    <section>
-      <h2>2 · Run one controlled experiment</h2>
-      <p>Reuse the same isolated demo and evaluation set from Lesson 4. Retrieval mode hits <code>/api/v1/search</code> directly with no LLM judge in the loop, which is what keeps this a clean read on retrieval by itself.</p>
-      <pre><code>cd demo
+  <h2>本课的具体收获</h2>
+  <p>学完本课，你会填完一张逐题对比表，并选出一个真正得到证据支持的检索改进方案。</p>
+</section>
+<section>
+  <h2>1 · 最小的实用模型</h2>
+  <ul>
+    <li><strong>向量检索：</strong>依靠嵌入相似度工作，因此能捕捉含义和改写表达，而不是只匹配完全相同的词。它跨语言的表现取决于嵌入模型——不要假设，应该实际测量。</li>
+    <li><strong>全文检索：</strong>匹配字面字符串，包括编号、名称、缩略词和数字。当精确拼写承载了关键含义时，全文检索就能发挥作用。</li>
+    <li><strong>累计并集：</strong>在这个实验中，只要来源出现在向量结果或全文结果中，就算被找到。这能说明检索贡献，但不能说明最终答案是否正确。</li>
+    <li><strong>混合检索：</strong>生产环境的混合路径可能会把两种信号融合或重新排序。这里先从更简单的“向量 + 全文”并集开始，让每种方法的贡献保持可见。</li>
+  </ul>
+  <p><a href="https://qdrant.tech/documentation/search/text-search/hybrid-search" target="_blank" rel="noreferrer">主要阅读：Qdrant《混合检索》</a>——注意它如何组合多种搜索表示，以及为什么这种组合需要评估，不能想当然地认为一定有效。</p>
+</section>
+<section>
+  <h2>2 · 运行一次受控实验</h2>
+  <p>复用第 4 课使用的同一套隔离演示环境和评估集。检索模式会直接调用 <code>/api/v1/search</code>，整个过程不经过 LLM 评审，因此可以单独观察检索本身。</p>
+  <pre><code>cd demo
 python3 eval.py verify
 python3 eval.py run --mode retrieval --workspace meridian_demo --tag lesson-05-experiment</code></pre>
-      <p>This gives you two files: an aggregate report, and a per-question JSON report.</p>
-      <pre><code>reports/lesson-05-experiment.md
+  <p>这会生成两个文件：一份汇总报告和一份逐题 JSON 报告。</p>
+  <pre><code>reports/lesson-05-experiment.md
 reports/lesson-05-experiment.json</code></pre>
-      <p>For each question you are checking, look at:</p>
-      <ul>
-        <li><code>results[].retrieval.indexes.vector.all</code></li>
-        <li><code>results[].retrieval.indexes.fulltext.all</code></li>
-        <li><code>results[].retrieval.cumulative["vector+fulltext"].all</code></li>
-      </ul>
-      <p class="lesson-callout">Judge a hit by source metadata, not by text matching — a document ID that merely shows up inside another document’s body text does not count as a retrieval hit.</p>
-      <p class="zh">判断文档有没有被检索到，看的是来源元数据，不是文字匹配。某个编号只是碰巧出现在另一份文档正文里，不能算这份文档被检索到了。</p>
-    </section>
-
-    <section>
-      <h2>3 · Fill the comparison table</h2>
-      <p>Fill the three result columns with <code>all</code>, <code>partial</code>, or <code>miss</code> — use <code>partial</code> when a multi-document question only turns up some of its expected sources. Then, for each row, add one line of interpretation and one specific next step.</p>
-      <div class="lesson-table-scroll">
-        <table class="lesson-comparison-table">
-          <thead><tr><th>Question ID</th><th>Query type</th><th>Expected source</th><th>Vector result</th><th>Full-text result</th><th>Cumulative union</th><th>Interpretation</th><th>Next action</th></tr></thead>
-          <tbody><tr><td>q21</td><td>Reference lookup</td><td>PR-QA-MRD-010</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q24</td><td>Reference lookup / revision</td><td>PR-QA-MRD-009</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q32</td><td>Cross-lingual factual</td><td>PR-EXM-MRD-003</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q46</td><td>Literal factual</td><td>PR-ACH-MRD-007</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q63</td><td>Multi-hop</td><td>PR-CLI-MRD-013 + PR-QA-MRD-009</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody>
-        </table>
-      </div>
-      <p class="zh">三个结果栏分别填 <code>all</code>、<code>partial</code> 或 <code>miss</code>；多文档问题只找到部分来源时，就填 <code>partial</code>。每一行再补一句解释，加一个具体的下一步。</p>
-    </section>
-
-    <section>
-      <h2>4 · Interpret before changing code</h2>
-      <div class="lesson-quiz" data-quiz>
-        <p><strong>Case A:</strong> For q21, vector comes back <code>miss</code>, full-text comes back <code>all</code>, and the cumulative union is <code>all</code>. What does that actually justify?</p>
-        <button type="button" data-answer="correct" data-feedback="Correct — add exact-reference extraction or boosting, then rerun retrieval.">Lexical fix</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not quite — the evidence points to exact-reference handling instead.">Chunk rewrite</button>
-        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
-      </div>
-      <div class="lesson-quiz" data-quiz>
-        <p><strong>Case B:</strong> Vector and full-text both land on <code>all</code>, so the union isn't adding a new source here. What's the honest read?</p>
-        <button type="button" data-answer="correct" data-feedback="Correct — full-text is not adding any retrieval coverage on this row.">Duplicate</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not quite — the union did not pick up a new source here.">Improvement</button>
-        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
-      </div>
-      <div class="lesson-quiz" data-quiz>
-        <p><strong>Case C:</strong> q63's cumulative result is <code>all</code>, yet the final answer is still wrong. Where do you look next?</p>
-        <button type="button" data-answer="correct" data-feedback="Correct — the right sources got through, so look at context assembly and generation next.">Generation</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not the first stop — retrieval already found every expected source.">Ingestion</button>
-        <p class="lesson-feedback" data-feedback aria-live="polite"></p>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Mission connection</h2>
-      <p>A chatbot for a regulated company has to nail both ends — a precisely worded procedure lookup and a policy question phrased the way a real person would ask it. This table is what turns that reliability goal into an actual, traceable retrieval decision.</p>
-      <p class="zh">这正是我们要做的事：无论是员工、QA、法规、供应商还是审计人员来提问，机器人给出的答案都要可验证、可引用，并且清楚自己的边界在哪里。</p>
-    </section>
-
-    <section>
-      <h2>5 · Deliverable and next action</h2>
-      <ol>
-        <li>Fill in all five rows of the comparison table.</li>
-        <li>Write one paragraph: which signal added a source, for which type of query, and what's the evidence for that?</li>
-        <li>Pick one next action, and name the metric you'll rerun to check it worked.</li>
-      </ol>
-      <p><strong>Next:</strong> Lesson 6 — Chunking and document structure. Hang onto this table — it's your retrieval baseline for the chunking and query-handling experiments still to come.</p>
-      <p class="zh"><strong>下一步：</strong> 把五行对比表填完，写一条有证据支撑的检索结论，再定一个带明确指标的后续实验。</p>
-      <p><strong>Ask me anything</strong> about the report fields, metadata matching, query categories, or any row that isn't clicking for you. I'm your teacher for this course — that's exactly what I'm here for.</p>
-      <p class="zh"><strong>报告字段、元数据匹配、问题类别，或者哪一行看不懂，随时问我——这门课我就是负责给你答疑解惑的。</strong></p>
-    </section>
+  <p>对于正在检查的每道题，查看：</p>
+  <ul>
+    <li><code>results[].retrieval.indexes.vector.all</code></li>
+    <li><code>results[].retrieval.indexes.fulltext.all</code></li>
+    <li><code>results[].retrieval.cumulative["vector+fulltext"].all</code></li>
+  </ul>
+  <p class="lesson-callout">根据来源元数据判断是否命中，不要根据文本匹配判断——某个文档编号只是出现在另一份文档的正文里，并不代表该文档被检索到了。</p>
+</section>
+<section>
+  <h2>3 · 填写对比表</h2>
+  <p>在三个结果栏中填写 <code>all</code>、<code>partial</code> 或 <code>miss</code>。当多文档问题只找到部分预期来源时，填写 <code>partial</code>。然后为每一行写一句解释，并给出一个具体的下一步。</p>
+  <div class="lesson-table-scroll">
+    <table class="lesson-comparison-table">
+      <thead><tr><th>问题编号</th><th>查询类型</th><th>预期来源</th><th>向量结果</th><th>全文结果</th><th>累计并集</th><th>解释</th><th>下一步行动</th></tr></thead>
+      <tbody>
+        <tr><td>q21</td><td>参考文档查找</td><td>PR-QA-MRD-010</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+        <tr><td>q24</td><td>参考文档查找 / 版本修订</td><td>PR-QA-MRD-009</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+        <tr><td>q32</td><td>跨语言事实问题</td><td>PR-EXM-MRD-003</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+        <tr><td>q46</td><td>字面事实问题</td><td>PR-ACH-MRD-007</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+        <tr><td>q63</td><td>多跳问题</td><td>PR-CLI-MRD-013 + PR-QA-MRD-009</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section>
+  <h2>4 · 改代码前先解读结果</h2>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>案例 A：</strong>对于 q21，向量结果是 <code>miss</code>，全文结果是 <code>all</code>，累计并集也是 <code>all</code>。这实际支持什么结论？</p>
+<button type="button" data-answer="correct" data-feedback="正确。可以加入精确引用提取或提升，然后重新运行检索。">词法修复</button>
+<button type="button" data-answer="incorrect" data-feedback="不完全正确。证据指向的是精确引用的处理问题。">重写分块</button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>案例 B：</strong>向量检索和全文检索都得到 <code>all</code>，所以并集没有增加新的来源。诚实的解读是什么？</p>
+<button type="button" data-answer="correct" data-feedback="正确。这个结果表明全文检索没有在这一行增加检索覆盖。">重复</button>
+<button type="button" data-answer="incorrect" data-feedback="不正确。这里的并集并没有找到新的来源。">改进</button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>案例 C：</strong>q63 的累计结果是 <code>all</code>，但最终答案仍然错误。下一步应该查哪里？</p>
+<button type="button" data-answer="correct" data-feedback="正确。正确来源已经通过检索，下一步应检查上下文组装和生成。">生成</button>
+<button type="button" data-answer="incorrect" data-feedback="不是第一步。检索已经找到了所有预期来源。">数据导入</button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+</section>
+<section class="card">
+  <h2>企业场景连接</h2>
+  <p>受监管公司的聊天机器人必须同时做好两件事：准确处理措辞精确的程序查找，也要能理解真实用户表达的政策问题。这张表把“可靠”这个目标变成了可追踪的检索决策。</p>
+</section>
+<section>
+  <h2>5 · 交付物与下一步</h2>
+  <ol>
+    <li>填完对比表中的五行。</li>
+    <li>写一段话：哪种信号为哪类查询增加了来源，证据是什么？</li>
+    <li>选择一个下一步行动，并写出要重新运行的指标，以检查行动是否有效。</li>
+  </ol>
+  <p><strong>下一步：</strong>第 6 课将讲分块和文档结构。保留这张表——它是后续分块与查询处理实验的检索基线。</p>
+  <p><strong>报告字段、元数据匹配、查询类别，或者哪一行看不懂，随时问我。</strong> 这门课程中我就是你的老师，这正是我在这里的原因。</p>
+</section>
 </section>
 <section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0004-establish-the-mvp-baseline.html">← 上一课</a><a class="btn btn-ghost" href="../reference/semantic-keyword-and-hybrid-retrieval-cheatsheet.html">参考资料</a><a href="0006-chunking-and-document-structure.html">下一课 →</a></div></section>
 </main>
@@ -161,5 +154,10 @@ reports/lesson-05-experiment.json</code></pre>
 <script src="../../../../assets/js/lesson.js" defer></script>
 </body>
 </html>
+
+
+
+
+
 
 

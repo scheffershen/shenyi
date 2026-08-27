@@ -62,17 +62,69 @@
 <span class="row"><span class="t-key">▸ phase </span><span class="t-val">检索工程</span></span>
 <span class="row"><span class="t-key">▸ status </span><span class="t-num">开发中</span></span>
 <span class="row"><span class="t-ok">● build → measure → learn</span></span></code></pre></div></div></section>
-  <section class="section wrap lesson-content" id="lesson-content">
-<div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
-<section class="card accent"><h2>Today’s tangible win</h2><p>By the end you’ll have a current-vs-proposed access matrix on paper — one that doesn’t pretend the demo already knows how to authorize roles, because it doesn’t.</p><p class="zh"><strong>本课的具体收获：</strong> 做出一张“现状 / 待实现”的访问矩阵，而不会把元数据误当成已经生效的权限控制。</p></section>
-<section><h2>1 · What exists today</h2><p>Right now, ingestion tags every document with a reference, company, department, and document type. Handy for filtering — but none of that is a user permission.</p><p><a href="https://qdrant.tech/documentation/search/filtering" target="_blank" rel="noreferrer">Primary reading: Qdrant — Filtering</a></p><pre><code>cd demo
-python3 metadata_lab.py --output-dir reports/lesson-07-inventory</code></pre><p>When it’s done, open <code>lesson-07-metadata-inventory.md</code>. The whole thing runs offline — it just reads the synthetic corpus definition, never calls an API, and never touches an index.</p><p class="zh">现在的导入流程会给每份文档打上编号、公司、部门、文档类型这些标签，方便筛选，但跟“谁能看什么”是两回事。跑完脚本后打开 lesson-07-metadata-inventory.md 看看——整个过程都是离线的，只读取合成语料的定义，不调用任何 API，也不会碰索引。</p></section>
-<section><h2>2 · Build the access matrix</h2><div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Role</th><th>Allowed department / type</th><th>Status</th><th>Evidence or gap</th></tr></thead><tbody><tr><td>Employee</td><td>Own department procedures</td><td>Proposed</td><td>Department metadata is already there, but nothing filters by the user’s own department yet.</td></tr><tr><td>Supplier</td><td>Approved supplier-facing documents</td><td>Proposed</td><td>The demo inventory has no supplier role, and no field marking a document as supplier-facing.</td></tr><tr><td>QA</td><td>Quality procedures and records</td><td>Metadata available</td><td>Department and type can describe the scope, but real authorization still has to be enforced server-side.</td></tr><tr><td>Auditor</td><td>Read-only approved scope</td><td>Proposed</td><td>Current metadata doesn’t represent a read-only role or an audit scope at all.</td></tr></tbody></table></div><p class="zh">针对员工、供应商、QA、审计员这四个角色，把允许范围、状态、证据或缺口都填清楚。状态一栏只能三选一：已实现、元数据可用、拟议——千万别把“元数据可用”偷换成“已授权”，这是两码事。</p></section>
-<section><h2>3 · Negative-access practice</h2><div class="lesson-quiz" data-quiz><p><strong>Case A:</strong> The prompt says “only answer HR questions.” Retrieval doesn’t care — it still pulls from every document. What’s missing?</p><button type="button" data-answer="correct" data-feedback="Correct. The backend needs a server-side filter before retrieval.">Server filter</button><button type="button" data-answer="incorrect" data-feedback="Not enough. A prompt cannot prevent an ineligible document entering retrieval.">Better prompt</button><p class="lesson-feedback" data-feedback aria-live="polite"></p><p class="zh">案例 A：提示词说“只回答 HR 问题”，可检索环节根本不认这句话，照样把所有文档都捞出来。真正缺的是服务端的过滤，光靠提示词是管不住的。</p></div>
-<div class="lesson-quiz" data-quiz><p><strong>Case B:</strong> A document carries department metadata, but the user has no department attribute at all. What status is honest here?</p><button type="button" data-answer="correct" data-feedback="Correct. The field exists, but a user-to-filter rule has not been enforced.">Metadata ready</button><button type="button" data-answer="incorrect" data-feedback="Not yet. Metadata alone does not grant or deny access.">Access enforced</button><p class="lesson-feedback" data-feedback aria-live="polite"></p><p class="zh">案例 B：文档标了部门，用户却压根没有部门这个属性——老实说，这种情况只能算“元数据可用”，可不能说成“访问控制已经生效”。</p></div>
-<div class="lesson-quiz" data-quiz><p><strong>Case C:</strong> A supplier has no business seeing a QA procedure. What does the negative test actually need to prove?</p><button type="button" data-answer="correct" data-feedback="Correct. The procedure must be absent from retrieval results before an answer is generated.">No retrieval</button><button type="button" data-answer="incorrect" data-feedback="Unsafe. Refusal after retrieval can still expose source content or metadata.">Late refusal</button><p class="lesson-feedback" data-feedback aria-live="polite"></p><p class="zh">案例 C：负向测试要证明的是，那份 QA 程序在生成答案之前，压根就没出现在检索结果里——不是靠事后拒答来补救。</p></div></section>
-<section class="card"><h2>Mission connection</h2><p>An answer can be word-for-word correct and still be a problem — if it came from a document the user had no business seeing. For a company chatbot, “reliable” isn’t just about getting the facts right; it includes never crossing that line.</p><p class="zh">哪怕答案在事实上完全正确，只要它来自用户本来无权访问的文件，这个答案就是不安全的。对企业聊天机器人来说，“可靠”这两个字本身就包含了不能越界访问。</p></section>
-<section><h2>4 · Deliverable</h2><ol><li>Save the metadata inventory report.</li><li>Fill in the four-role matrix, one status per row.</li><li>Write one negative-retrieval test you’d add before shipping this.</li></ol><p class="zh">交付物：保存元数据清单报告；填好四角色矩阵；再写一条上线前必须通过的负向检索测试。</p><p><strong>Next:</strong> Lesson 8 — Query handling and reranking.</p><p><strong>Ask me anything</strong> about a metadata field, role, filter, or negative test — I’m your teacher for this course.</p></section>
+<section class="section wrap lesson-content" id="lesson-content">
+  <div class="section-head"><p class="eyebrow">独立课程</p><h2 class="section-title">在这里学习完整课程并检验你的理解。</h2><p class="section-sub">RAG Formation 仍在开发中。本页包含完整课程内容、本地参考资料和可直接在浏览器中完成的即时练习。</p></div>
+<section class="card accent">
+  <h2>本课的具体收获</h2>
+  <p>学完本课，你会在纸上做出一张“现状 / 待实现”的访问矩阵，而不会假装演示环境已经懂得如何授权角色。</p>
+</section>
+<section>
+  <h2>1 · 当前已有能力</h2>
+  <p>目前，导入流程会给每份文档加上编号、公司、部门和文档类型标签。这些标签便于筛选，但其中任何一个都不是用户权限。</p>
+  <p><a href="https://qdrant.tech/documentation/search/filtering" target="_blank" rel="noreferrer">主要阅读：Qdrant《过滤》</a></p>
+  <pre><code>cd demo
+python3 metadata_lab.py --output-dir reports/lesson-07-inventory</code></pre>
+  <p>完成后，打开 <code>lesson-07-metadata-inventory.md</code>。整个过程离线运行，只读取合成语料定义，不调用 API，也不会接触索引。</p>
+</section>
+<section>
+  <h2>2 · 建立访问矩阵</h2>
+  <div class="lesson-table-scroll">
+    <table class="lesson-comparison-table">
+      <thead><tr><th>角色</th><th>允许的部门 / 类型</th><th>状态</th><th>证据或缺口</th></tr></thead>
+      <tbody>
+        <tr><td>员工</td><td>所属部门的程序</td><td>拟议</td><td>部门元数据已经存在，但还没有任何规则按用户所属部门过滤。</td></tr>
+        <tr><td>供应商</td><td>已批准的供应商文档</td><td>拟议</td><td>演示清单没有供应商角色，也没有标记文档是否面向供应商。</td></tr>
+        <tr><td>QA</td><td>质量程序和记录</td><td>元数据可用</td><td>部门和类型可以描述范围，但真正的授权仍必须在服务端强制执行。</td></tr>
+        <tr><td>审计员</td><td>只读的已批准范围</td><td>拟议</td><td>当前元数据完全没有表达只读角色或审计范围。</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section>
+  <h2>3 · 负向访问练习</h2>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>案例 A：</strong>提示词说“只回答 HR 问题”，但检索并不在意，仍然会从所有文档中取内容。缺少的是什么？</p>
+<button type="button" data-answer="correct" data-feedback="正确。检索前，后端需要应用服务端过滤器。">服务端过滤</button>
+<button type="button" data-answer="incorrect" data-feedback="不够充分。提示词不能阻止无权文档进入检索结果。">改进提示词</button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>案例 B：</strong>文档带有部门元数据，但用户完全没有部门属性。这里诚实的状态是什么？</p>
+<button type="button" data-answer="correct" data-feedback="正确。字段存在，但还没有执行用户到过滤器的授权规则。">元数据可用</button>
+<button type="button" data-answer="incorrect" data-feedback="还不能这样说。只有元数据本身并不会授予或拒绝访问。">访问控制已生效</button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+  <div class="lesson-quiz" data-quiz>
+<p><strong>案例 C：</strong>供应商没有理由查看 QA 程序。负向测试实际需要证明什么？</p>
+<button type="button" data-answer="correct" data-feedback="正确。生成答案之前，这份程序就必须不出现在检索结果中。">不进入检索</button>
+<button type="button" data-answer="incorrect" data-feedback="不安全。检索后才拒答，仍可能暴露来源内容或元数据。">事后拒答</button>
+<p class="lesson-feedback" data-feedback aria-live="polite"></p>
+</div>
+</section>
+<section class="card">
+  <h2>企业场景连接</h2>
+  <p>一个答案即使逐字正确，只要来自用户无权查看的文档，就仍然是问题。对企业聊天机器人来说，“可靠”不仅是事实正确，还包括永远不越过这条边界。</p>
+</section>
+<section>
+  <h2>4 · 交付物</h2>
+  <ol>
+    <li>保存元数据清单报告。</li>
+    <li>填写四角色矩阵，每行写一个状态。</li>
+    <li>写出一条上线前必须加入的负向检索测试。</li>
+  </ol>
+  <p><strong>下一步：</strong>第 8 课将讲查询处理和重排序。</p>
+  <p><strong>如果对某个元数据字段、角色、过滤器或负向测试有疑问，尽管问我。</strong> 这门课我就是你的老师。</p>
+</section>
 </section>
 <section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0006-chunking-and-document-structure.html">← 上一课</a><a class="btn btn-ghost" href="../reference/metadata-filters-and-access-boundaries-cheatsheet.html">参考资料</a><a href="0008-query-handling-and-reranking.html">下一课 →</a></div></section>
 </main>
@@ -81,5 +133,11 @@ python3 metadata_lab.py --output-dir reports/lesson-07-inventory</code></pre><p>
 <script src="../../../../assets/js/lesson.js" defer></script>
 </body>
 </html>
+
+
+
+
+
+
 
 
