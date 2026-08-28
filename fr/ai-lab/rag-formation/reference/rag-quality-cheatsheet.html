@@ -58,49 +58,44 @@
 <section class="section wrap lesson-content" id="reference-content">
 <div class="section-head"><p class="eyebrow">Fiche de référence</p><h2 class="section-title">Fiche qualité RAG QA</h2><p class="section-sub">Le cours guidé RAG Formation reste en développement ; cette fiche est disponible pour un apprentissage autonome.</p></div>
 <section class="card accent">
-      <h2>The pipeline</h2>
-      <p><strong>Question → retrieve evidence → assemble context → generate answer → cite sources → evaluate.</strong></p>
-      <p class="zh"><strong>问题 → 检索证据 → 组装上下文 → 生成答案 → 引用来源 → 评估。</strong></p>
-      <p>When an answer goes wrong, ask one question first: <em>Was the evidence missing, or was it there but used incorrectly?</em></p>
-      <p class="zh">答案出错时，首先要问：<em>证据缺失了，还是证据存在但没有被正确使用？</em></p>
+      <h2>Le pipeline</h2>
+      <p><strong>Question → récupérer les preuves → assembler le contexte → générer la réponse → citer les sources → évaluer.</strong></p>
+      <p>Lorsqu’une réponse est incorrecte, posez d’abord une question : <em>Les preuves manquaient-elles, ou étaient-elles présentes mais mal utilisées ?</em></p>
     </section>
 
     <section>
-      <h2>Two quality layers</h2>
-      <p class="zh">两个质量层次</p>
+      <h2>Deux niveaux de qualité</h2>
       <table>
-        <thead><tr><th>Layer</th><th>Question</th><th>Demo signal</th></tr></thead>
+        <thead><tr><th>Niveau</th><th>Question</th><th>Signal de démonstration</th></tr></thead>
         <tbody>
-          <tr><td>Retrieval</td><td>Did the system return every expected source?</td><td>Retrieval union / per-index hit rates</td></tr>
-          <tr><td>Generation</td><td>Did the answer state the requested fact without contradiction?</td><td>Strict and lenient judge accuracy</td></tr>
-          <tr><td>Grounding</td><td>Did it cite the documents supporting the answer?</td><td>Source hit rate</td></tr>
-          <tr><td>Safety</td><td>Did it refuse questions absent from the corpus?</td><td>Refusal accuracy and hallucination rate</td></tr>
-          <tr><td>Operations</td><td>Can users get answers quickly and consistently?</td><td>Latency p50 / p95 and API errors</td></tr>
+          <tr><td>Récupération</td><td>Le système a-t-il renvoyé chaque source attendue ?</td><td>Union de récupération / taux de hit par index</td></tr>
+          <tr><td>Génération</td><td>La réponse a-t-elle énoncé le fait demandé sans contradiction ?</td><td>Précision stricte et tolérante du juge</td></tr>
+          <tr><td>Ancrage</td><td>A-t-il cité les documents qui étayent la réponse ?</td><td>Taux de sources retrouvées</td></tr>
+          <tr><td>Sécurité</td><td>A-t-il refusé les questions absentes du corpus ?</td><td>Précision des refus et taux d’hallucination</td></tr>
+          <tr><td>Exploitation</td><td>Les utilisateurs peuvent-ils obtenir des réponses rapidement et de façon constante ?</td><td>Latence p50 / p95 et erreurs API</td></tr>
         </tbody>
       </table>
     </section>
 
     <section>
-      <h2>How to read the current demo</h2>
-      <p class="zh">正确理解当前演示系统的指标</p>
+      <h2>Comment lire la démonstration actuelle</h2>
       <ul>
-        <li><strong>Strict accuracy:</strong> count only a judge verdict of <code>correct</code>. Use this as the headline number.</li>
-        <li><strong>Lenient accuracy:</strong> count <code>correct + partial</code>. It helps with diagnosis, but it does not replace strict accuracy.</li>
-        <li><strong>Source hit rate:</strong> check that the final answer cites every expected source document.</li>
-        <li><strong>Refusal accuracy:</strong> check that the system correctly declines questions it cannot answer.</li>
-        <li><strong>Hallucination rate:</strong> count how often the system answers an unanswerable question anyway.</li>
+        <li><strong>Précision stricte :</strong> ne compter qu’un verdict du juge égal à <code>correct</code>. Utilisez-le comme chiffre principal.</li>
+        <li><strong>Précision tolérante :</strong> compter <code>correct + partial</code>. Elle aide au diagnostic, mais ne remplace pas la précision stricte.</li>
+        <li><strong>Taux de sources retrouvées :</strong> vérifier que la réponse finale cite chaque document source attendu.</li>
+        <li><strong>Précision des refus :</strong> vérifier que le système refuse correctement les questions auxquelles il ne peut pas répondre.</li>
+        <li><strong>Taux d’hallucination :</strong> compter la fréquence à laquelle le système répond malgré tout à une question sans réponse possible.</li>
       </ul>
     </section>
 
     <section class="grid-2">
-      <div class="card"><h3>Retrieval failure</h3><p>The right document never makes it into the answer prompt. Look at chunking, metadata, query handling, hybrid retrieval, filters, and ranking.</p><p class="zh">正确的文档没有进入答案提示词。改进分块、元数据、查询处理、混合检索、过滤器或排序。</p></div>
-      <div class="card"><h3>Generation failure</h3><p>The right evidence is there, but the answer leaves it out, mixes it up, or contradicts it. Look at context assembly, instructions, answer structure, and model choice.</p><p class="zh">正确的证据已经存在，但答案遗漏、混淆或违背了证据。改进上下文组装、指令、答案结构或模型选择。</p></div>
+      <div class="card"><h3>Échec de récupération</h3><p>Le bon document n’arrive jamais dans le prompt de réponse. Examinez le découpage, les métadonnées, le traitement des requêtes, la récupération hybride, les filtres et le classement.</p></div>
+      <div class="card"><h3>Échec de génération</h3><p>Les bonnes preuves sont présentes, mais la réponse les omet, les mélange ou les contredit. Examinez l’assemblage du contexte, les instructions, la structure de réponse et le choix du modèle.</p></div>
     </section>
 
     <section>
-      <h2>Course rule</h2>
-      <p>Do not call a prompt improvement a success because of one impressive answer. Run the evaluation harness, inspect the failures, and compare the same metrics with the previous run.</p>
-      <p class="zh"><strong>课程规则：</strong> 不要因为一个令人印象深刻的答案，就声称提示词改进有效。应该运行评估工具、检查失败案例，并把相同指标与上一次运行进行比较。</p>
+      <h2>Règle du cours</h2>
+      <p>Ne considérez pas une amélioration du prompt comme une réussite à cause d’une seule réponse impressionnante. Exécutez le harnais d’évaluation, inspectez les échecs et comparez les mêmes indicateurs à l’exécution précédente.</p>
     </section>
 <section class="lesson-reference-nav"><p><strong>Pour continuer :</strong> <a href="../lessons/0001-from-question-to-cited-answer.html">Ouvrir la leçon autonome correspondante</a> · <a href="../">Feuille de route</a></p></section>
 </section>

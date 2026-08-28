@@ -58,49 +58,45 @@
 <section class="section wrap lesson-content" id="reference-content">
 <div class="section-head"><p class="eyebrow">Fiche de référence</p><h2 class="section-title">Jeux d’évaluation RAG fiables</h2><p class="section-sub">Le cours guidé RAG Formation reste en développement ; cette fiche est disponible pour un apprentissage autonome.</p></div>
 <section class="card accent">
-      <h2>The evaluation tuple / 评估五元组</h2>
-      <p><strong>Question + category + expected sources + required facts + expected behavior</strong></p>
-      <p class="zh"><strong>问题 + 类别 + 预期来源 + 必需事实 + 预期行为</strong></p>
-      <p>For an answerable question, the system should give a correct answer grounded in the evidence. For an unanswerable question, it should refuse.</p>
-      <p class="zh">对于可回答问题，预期行为是正确且有依据的答案；对于不可回答问题，预期行为是拒答。</p>
+      <h2>Le tuple d’évaluation</h2>
+      <p><strong>Question + catégorie + sources attendues + faits requis + comportement attendu</strong></p>
+      <p>Pour une question à laquelle il est possible de répondre, le système doit fournir une réponse correcte étayée par les preuves. Pour une question sans réponse possible, il doit refuser.</p>
     </section>
 
     <section>
-      <h2>What a good set tests</h2>
+      <h2>Ce qu’un bon jeu d’évaluation teste</h2>
       <table>
-        <thead><tr><th>Dimension</th><th>Why it matters</th><th>Meridian demo</th></tr></thead>
+        <thead><tr><th>Dimension</th><th>Pourquoi c’est important</th><th>Démonstration Meridian</th></tr></thead>
         <tbody>
-          <tr><td>Factual lookup</td><td>Find a precise number, name, date, or requirement.</td><td>35 questions</td></tr>
-          <tr><td>Reference lookup</td><td>Find the exact SOP or document identifier.</td><td>7 questions</td></tr>
-          <tr><td>Multi-hop</td><td>Pull together evidence from more than one document.</td><td>9 questions</td></tr>
-          <tr><td>Cross-lingual</td><td>Match a question with a source written in another language.</td><td>5 questions</td></tr>
-          <tr><td>Acronym</td><td>Resolve domain terms and abbreviations.</td><td>3 questions</td></tr>
-          <tr><td>Unanswerable</td><td>Measure whether the system refuses instead of rewarding a hallucination.</td><td>6 questions</td></tr>
+          <tr><td>Recherche factuelle</td><td>Trouver un nombre, un nom, une date ou une exigence précise.</td><td>35 questions</td></tr>
+          <tr><td>Recherche par référence</td><td>Trouver l’identifiant exact du SOP ou du document.</td><td>7 questions</td></tr>
+          <tr><td>Multi-étapes</td><td>Rassembler des preuves provenant de plusieurs documents.</td><td>9 questions</td></tr>
+          <tr><td>Multilingue</td><td>Associer une question à une source rédigée dans une autre langue.</td><td>5 questions</td></tr>
+          <tr><td>Acronyme</td><td>Résoudre des termes et abréviations du domaine.</td><td>3 questions</td></tr>
+          <tr><td>Sans réponse</td><td>Mesurer si le système refuse au lieu de récompenser une hallucination.</td><td>6 questions</td></tr>
         </tbody>
       </table>
     </section>
 
     <section>
-      <h2>Ground truth rules</h2>
+      <h2>Règles de vérité terrain</h2>
       <ol>
-        <li>Every expected source must be present in the corpus.</li>
-        <li>Every required fact must appear literally in an expected source.</li>
-        <li>An unanswerable question must have neither an expected source nor a required fact.</li>
-        <li>Match retrieved sources by metadata, not by arbitrary text in a chunk.</li>
-        <li>Keep the evaluation set unchanged while comparing system changes.</li>
+        <li>Chaque source attendue doit être présente dans le corpus.</li>
+        <li>Chaque fait requis doit apparaître littéralement dans une source attendue.</li>
+        <li>Une question sans réponse possible ne doit avoir ni source attendue ni fait requis.</li>
+        <li>Apparier les sources récupérées par leurs métadonnées, et non par du texte arbitraire dans un fragment.</li>
+        <li>Conserver le jeu d’évaluation inchangé lors de la comparaison des modifications du système.</li>
       </ol>
-      <p class="zh">基本规则：预期来源必须存在；必需事实必须出现在来源中；不可回答问题不能有来源或必需事实；检索匹配应使用元数据而不是任意正文；比较系统改动时保持评估集稳定。</p>
     </section>
 
     <section class="grid-2">
-      <div class="card"><h3>Bad measurement</h3><p>Count a vector result as a hit just because its chunk text mentions the expected document ID.</p><p class="zh">因为向量结果的正文提到了预期文档编号，就把它算作检索成功。</p></div>
-      <div class="card"><h3>Better measurement</h3><p>Count it as a hit only when the source metadata identifies the expected document.</p><p class="zh">只有当结果的来源元数据标识了预期文档时，才算检索成功。</p></div>
+      <div class="card"><h3>Mesure incorrecte</h3><p>Compter un résultat vectoriel comme un hit uniquement parce que le texte de son fragment mentionne l’identifiant du document attendu.</p></div>
+      <div class="card"><h3>Meilleure mesure</h3><p>Ne compter un hit que lorsque les métadonnées de la source identifient le document attendu.</p></div>
     </section>
 
     <section>
-      <h2>Trust boundary</h2>
-      <p>An evaluation harness can be wrong and still print a confident-looking percentage. Test the scorer itself with accents, multi-source questions, body-text cross-references, missing citations, and refusals.</p>
-      <p class="zh">评估工具可能是错误的，却仍然输出看似自信的百分比。因此要测试评分器本身：重音符号、多来源问题、正文交叉引用、缺失引用和拒答。</p>
+      <h2>Périmètre de confiance</h2>
+      <p>Un harnais d’évaluation peut être erroné tout en affichant un pourcentage d’apparence convaincante. Testez le scoreur lui-même avec des accents, des questions multi-sources, des renvois croisés dans le texte, des citations manquantes et des refus.</p>
     </section>
 <section class="lesson-reference-nav"><p><strong>Pour continuer :</strong> <a href="../lessons/0003-build-a-trustworthy-evaluation-set.html">Ouvrir la leçon autonome correspondante</a> · <a href="../">Feuille de route</a></p></section>
 </section>

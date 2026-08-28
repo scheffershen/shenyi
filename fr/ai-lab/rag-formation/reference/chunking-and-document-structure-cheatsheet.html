@@ -58,60 +58,55 @@
 <section class="section wrap lesson-content" id="reference-content">
 <div class="section-head"><p class="eyebrow">Fiche de référence</p><h2 class="section-title">Découpage et structure des documents</h2><p class="section-sub">Le cours guidé RAG Formation reste en développement ; cette fiche est disponible pour un apprentissage autonome.</p></div>
 <section class="card accent">
-      <h2>One-line rule</h2>
-      <p><strong>Change one window setting, measure whether the fact and source identity stay together, then test the hypothesis with a separate live retrieval evaluation.</strong></p>
-      <p class="zh"><strong>一句话规则：</strong>一次只改一个窗口参数，测量“事实与来源身份是否同在”，再用独立的线上检索评估验证假设。</p>
+      <h2>Règle en une ligne</h2>
+      <p><strong>Modifiez un seul paramètre de fenêtre, mesurez si le fait et l’identité de la source restent ensemble, puis testez l’hypothèse avec une évaluation de récupération en ligne indépendante.</strong></p>
     </section>
 
     <section>
-      <h2>Glossary</h2>
-      <div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Term</th><th>Meaning</th><th>中文</th></tr></thead><tbody>
-        <tr><td><strong>Source window</strong></td><td>A repeatable, bounded slice of synthetic Markdown used in the offline lab.</td><td>源窗口：用于离线实验的、可重复生成的合成 Markdown 片段。</td></tr>
-        <tr><td><strong>Chunk size</strong></td><td>The maximum number of characters allowed in one source window.</td><td>窗口大小：一个源窗口允许的最大字符数。</td></tr>
-        <tr><td><strong>Overlap</strong></td><td>Characters copied from the end of one window into the next.</td><td>重叠：从前一窗口末尾复制到下一窗口的字符。</td></tr>
-        <tr><td><strong>Co-location</strong></td><td>The expected reference and every required fact term appear in the same window.</td><td>同位：预期文档编号和所有必需事实词同时出现在同一窗口。</td></tr>
-        <tr><td><strong>Proxy metric</strong></td><td>A directional signal—not a live retrieval or answer-quality result.</td><td>代理指标：方向性证据，不是线上检索或答案质量结果。</td></tr>
+      <h2>Glossaire</h2>
+      <div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Terme</th><th>Signification</th></tr></thead><tbody>
+        <tr><td><strong>Fenêtre source (Source window)</strong></td><td>Découpage borné et reproductible de Markdown synthétique utilisé dans le laboratoire hors ligne.</td></tr>
+        <tr><td><strong>Taille des fragments (Chunk size)</strong></td><td>Nombre maximal de caractères autorisé dans une fenêtre source.</td></tr>
+        <tr><td><strong>Chevauchement (Overlap)</strong></td><td>Caractères copiés de la fin d’une fenêtre vers la suivante.</td></tr>
+        <tr><td><strong>Co-localisation (Co-location)</strong></td><td>La référence attendue et chaque terme factuel requis apparaissent dans la même fenêtre.</td></tr>
+        <tr><td><strong>Indicateur proxy (Proxy metric)</strong></td><td>Signal directionnel, et non résultat de récupération en ligne ou de qualité de réponse.</td></tr>
       </tbody></table></div>
     </section>
 
     <section>
-      <h2>Controlled experiment card</h2>
-      <div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Step</th><th>Do</th><th>Don't claim</th></tr></thead><tbody>
-        <tr><td>Baseline</td><td>Run q24 with 280 characters and 40 characters of overlap.</td><td>That this is the best production setting.</td></tr>
-        <tr><td>One change</td><td>Keep the overlap at 40 and rerun q24 with 420 characters.</td><td>That several changes caused the result.</td></tr>
-        <tr><td>Measure</td><td>Compare the co-location count/rate and the readable window text.</td><td>That the live index has improved.</td></tr>
-        <tr><td>Verify</td><td>Reindex the isolated demo, then run the retrieval evaluation again.</td><td>That a source-window proxy can replace evaluation.</td></tr>
+      <h2>Fiche d’expérimentation contrôlée</h2>
+      <div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Étape</th><th>À faire</th><th>Ne pas affirmer</th></tr></thead><tbody>
+        <tr><td>Référence</td><td>Exécuter q24 avec 280 caractères et 40 caractères de chevauchement.</td><td>Qu’il s’agit du meilleur réglage pour la production.</td></tr>
+        <tr><td>Une modification</td><td>Conserver le chevauchement à 40 et relancer q24 avec 420 caractères.</td><td>Que plusieurs modifications ont causé le résultat.</td></tr>
+        <tr><td>Mesurer</td><td>Comparer le nombre/taux de co-localisation et le texte lisible des fenêtres.</td><td>Que l’index en ligne s’est amélioré.</td></tr>
+        <tr><td>Vérifier</td><td>Réindexer la démonstration isolée, puis relancer l’évaluation de récupération.</td><td>Qu’un proxy de fenêtre source peut remplacer l’évaluation.</td></tr>
       </tbody></table></div>
-      <p class="zh">实验卡：先在 280/40 下建立基线；只把窗口改为 420；比较同位数量/比例和窗口文本；最后在隔离演示环境中重新索引并重跑检索评估。</p>
     </section>
 
     <section>
-      <h2>Question map</h2>
-      <div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Question</th><th>Why it is useful</th><th>Source(s)</th></tr></thead><tbody>
-        <tr><td>q24</td><td>Checks whether a revised deadline stays linked to the current procedure identity.</td><td>PR-QA-MRD-009</td></tr>
-        <tr><td>q30</td><td>Shows that one window may still not contain enough for an answer that needs two sources.</td><td>PR-QA-MRD-001 + PR-QA-MRD-009</td></tr>
-        <tr><td>q52</td><td>Checks a short factual answer against the continuity-plan identity.</td><td>PR-EXM-MRD-014</td></tr>
+      <h2>Carte des questions</h2>
+      <div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Question</th><th>Utilité</th><th>Source(s)</th></tr></thead><tbody>
+        <tr><td>q24</td><td>Vérifie qu’une échéance révisée reste liée à l’identité de la procédure actuelle.</td><td>PR-QA-MRD-009</td></tr>
+        <tr><td>q30</td><td>Montre qu’une seule fenêtre peut encore être insuffisante pour une réponse qui nécessite deux sources.</td><td>PR-QA-MRD-001 + PR-QA-MRD-009</td></tr>
+        <tr><td>q52</td><td>Vérifie une réponse factuelle courte par rapport à l’identité du plan de continuité.</td><td>PR-EXM-MRD-014</td></tr>
       </tbody></table></div>
-      <p class="zh">问题地图：q24 检查修订期限与当前程序身份；q30 说明多来源答案不能只看一个窗口；q52 检查简短事实是否仍与连续性计划身份相连。</p>
     </section>
 
     <section>
-      <h2>Commands and conclusion frame</h2>
+      <h2>Commandes et modèle de conclusion</h2>
       <pre><code>cd demo
 python3 chunk_lab.py --question q24 --window-chars 280 --overlap-chars 40 --output-dir reports/lesson-06-baseline
 python3 chunk_lab.py --question q24 --window-chars 420 --overlap-chars 40 --output-dir reports/lesson-06-larger-window</code></pre>
-      <p><strong>Conclusion frame:</strong> “With ___ characters and ___ overlap, ___ of ___ windows kept the required fact and source identity together. This supports the hypothesis that ___. It does not prove live retrieval quality; next, I would reindex and run the retrieval evaluation again.”</p>
-      <p class="zh"><strong>结论句式：</strong>“当窗口为 ___ 字符、重叠为 ___ 字符时，___ / ___ 个窗口同时包含必需事实和来源身份。这支持 ___ 的假设；它不能证明线上检索质量。下一步是在隔离环境中重新索引并重跑检索评估。”</p>
+      <p><strong>Modèle de conclusion :</strong> « Avec ___ caractères et ___ de chevauchement, ___ fenêtres sur ___ ont conservé ensemble le fait requis et l’identité de la source. Cela étaye l’hypothèse que ___. Cela ne prouve pas la qualité de la récupération en ligne ; ensuite, je réindexerais et relancerais l’évaluation de récupération. »</p>
     </section>
 
     <section>
-      <h2>Local pointers</h2>
+      <h2>Pointeurs locaux</h2>
       <ul>
         <li><code>demo/chunk_lab.py</code></li>
         <li><code>demo/eval_set.yaml</code></li>
         <li><code>demo/corpus/md/</code></li>
       </ul>
-      <p class="zh">本地入口：源窗口工具、评估集和合成 Markdown 语料目录。</p>
     </section>
 <section class="lesson-reference-nav"><p><strong>Pour continuer :</strong> <a href="../lessons/0006-chunking-and-document-structure.html">Ouvrir la leçon autonome correspondante</a> · <a href="../">Feuille de route</a></p></section>
 </section>

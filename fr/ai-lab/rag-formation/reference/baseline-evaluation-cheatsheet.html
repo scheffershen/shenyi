@@ -58,48 +58,45 @@
 <section class="section wrap lesson-content" id="reference-content">
 <div class="section-head"><p class="eyebrow">Fiche de référence</p><h2 class="section-title">Exécuter et lire une base RAG</h2><p class="section-sub">Le cours guidé RAG Formation reste en développement ; cette fiche est disponible pour un apprentissage autonome.</p></div>
 <section class="card accent">
-      <h2>Baseline recipe / 基线流程</h2>
-      <p><strong>Verify → start isolated stack → ingest → retrieval run → answer run → inspect failures → save configuration.</strong></p>
-      <p class="zh"><strong>验证 → 启动隔离环境 → 索引 → 检索评估 → 答案评估 → 检查失败 → 保存配置。</strong></p>
+      <h2>Recette de référence</h2>
+      <p><strong>Vérifier → démarrer la pile isolée → ingérer → exécuter la récupération → exécuter l’évaluation des réponses → inspecter les échecs → enregistrer la configuration.</strong></p>
     </section>
 
     <section>
-      <h2>What to record</h2>
+      <h2>Éléments à consigner</h2>
       <table>
-        <thead><tr><th>Item</th><th>Why</th></tr></thead>
+        <thead><tr><th>Élément</th><th>Pourquoi</th></tr></thead>
         <tbody>
-          <tr><td>Tag</td><td>Labels the run, for example `lesson-4-baseline`.</td></tr>
-          <tr><td>Corpus and eval-set version</td><td>Stops you from comparing different test data as if it were the same.</td></tr>
-          <tr><td>Workspace and index names</td><td>Confirms that the run used the isolated demo data.</td></tr>
-          <tr><td>topk and thresholds</td><td>These retrieval settings affect the result.</td></tr>
-          <tr><td>Model and judge model</td><td>Changing either model can change the answer or the judge’s verdict.</td></tr>
-          <tr><td>Concurrency and timeout</td><td>These operational settings affect errors and latency.</td></tr>
+          <tr><td>Étiquette</td><td>Identifie l’exécution, par exemple `lesson-4-baseline`.</td></tr>
+          <tr><td>Version du corpus et du jeu d’évaluation</td><td>Évite de comparer des données de test différentes comme s’il s’agissait des mêmes données.</td></tr>
+          <tr><td>Noms de l’espace de travail et des index</td><td>Confirment que l’exécution a utilisé les données de démonstration isolées.</td></tr>
+          <tr><td>topk et seuils</td><td>Ces paramètres de récupération influencent le résultat.</td></tr>
+          <tr><td>Modèle et modèle de jugement</td><td>Changer l’un ou l’autre peut modifier la réponse ou le verdict du juge.</td></tr>
+          <tr><td>Concurrence et délai d’attente</td><td>Ces paramètres opérationnels influencent les erreurs et la latence.</td></tr>
         </tbody>
       </table>
     </section>
 
     <section>
-      <h2>Metrics to read separately</h2>
+      <h2>Indicateurs à lire séparément</h2>
       <ul>
-        <li><strong>Retrieval union:</strong> did the combined indexes return every expected document?</li>
-        <li><strong>Strict accuracy:</strong> how many judged answers were completely correct?</li>
-        <li><strong>Source hit rate:</strong> did the final answer cite every expected source?</li>
-        <li><strong>Refusal accuracy:</strong> did the system decline every unanswerable question?</li>
-        <li><strong>Hallucination rate:</strong> how often did it answer a question the evidence could not support?</li>
-        <li><strong>Latency p50 / p95:</strong> the typical response time and the slow tail.</li>
+        <li><strong>Union de récupération :</strong> les index combinés ont-ils renvoyé chaque document attendu ?</li>
+        <li><strong>Précision stricte :</strong> combien de réponses évaluées étaient entièrement correctes ?</li>
+        <li><strong>Taux de sources retrouvées :</strong> la réponse finale a-t-elle cité chaque source attendue ?</li>
+        <li><strong>Précision des refus :</strong> le système a-t-il refusé chaque question sans réponse possible ?</li>
+        <li><strong>Taux d’hallucination :</strong> à quelle fréquence a-t-il répondu à une question que les preuves ne permettaient pas d’étayer ?</li>
+        <li><strong>Latence p50 / p95 :</strong> temps de réponse habituel et longue traîne lente.</li>
       </ul>
-      <p class="zh">必须分开阅读这些指标：检索覆盖、严格准确率、来源命中率、拒答准确率、幻觉率，以及 p50/p95 延迟。</p>
     </section>
 
     <section class="grid-2">
-      <div class="card"><h3>Good baseline statement</h3><p>“With this corpus, eval set, model, and configuration, the system achieved X.”</p><p class="zh">“在这份语料库、评估集、模型和配置下，系统达到 X。”</p></div>
-      <div class="card"><h3>Bad baseline statement</h3><p>“The chatbot is 90% accurate.”</p><p class="zh">“这个聊天机器人准确率是 90%。”</p></div>
+      <div class="card"><h3>Déclaration de référence correcte</h3><p>« Avec ce corpus, ce jeu d’évaluation, ce modèle et cette configuration, le système a obtenu X. »</p></div>
+      <div class="card"><h3>Déclaration de référence incorrecte</h3><p>« Le chatbot est précis à 90 %. »</p></div>
     </section>
 
     <section>
-      <h2>Failure reading rule</h2>
-      <p>For every failure, write down three things: the expected source, the actual source, and the judge’s reason. That turns a percentage into an engineering hypothesis.</p>
-      <p class="zh">对于每个失败，记录三件事：预期来源、实际来源和评审原因。这样才能把百分比转化为工程假设。</p>
+      <h2>Règle de lecture des échecs</h2>
+      <p>Pour chaque échec, notez trois éléments : la source attendue, la source réellement utilisée et la raison du juge. Cela transforme un pourcentage en hypothèse d’ingénierie.</p>
     </section>
 <section class="lesson-reference-nav"><p><strong>Pour continuer :</strong> <a href="../lessons/0004-establish-the-mvp-baseline.html">Ouvrir la leçon autonome correspondante</a> · <a href="../">Feuille de route</a></p></section>
 </section>
