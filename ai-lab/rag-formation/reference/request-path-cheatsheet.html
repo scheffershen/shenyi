@@ -64,13 +64,13 @@
 <section class="section wrap lesson-content" id="reference-content">
 <div class="section-head"><p class="eyebrow">Reference sheet</p><h2 class="section-title">One question through the RAG system</h2><p class="section-sub">The guided RAG Formation course remains in development; this reference is available for self-directed practice.</p></div>
 <section class="card accent">
-      <h2>Core path / 核心路径</h2>
+      <h2>Core path</h2>
       <p><strong>HTTP request → route → service → retrieve → assemble → cite → generate → response</strong></p>
-      <p class="zh"><strong>HTTP 请求 → 路由 → 服务 → 检索 → 组装上下文 → 引用 → 生成 → 响应</strong></p>
+      
     </section>
 
     <section>
-      <h2>Call map / 调用地图</h2>
+      <h2>Call map</h2>
       <table>
         <thead><tr><th>Stage</th><th>File / function</th><th>Responsibility</th></tr></thead>
         <tbody>
@@ -87,14 +87,14 @@
     </section>
 
     <section>
-      <h2>What to inspect when debugging / 调试时检查什么</h2>
+      <h2>What to inspect when debugging</h2>
       <ul>
         <li><strong>Before generation:</strong> check `/api/v1/search` and `context_items_included`.</li>
         <li><strong>At citation time:</strong> compare `sources` with the items that actually made it into the context.</li>
         <li><strong>After generation:</strong> compare the answer with both the evidence and the expected answer.</li>
         <li><strong>For latency:</strong> inspect all four retrieval calls—especially LightRAG—and the final completion call.</li>
       </ul>
-      <p class="zh">调试时不要只看最终答案。先检查检索结果、实际进入上下文的项目、引用来源，再检查生成答案。</p>
+      
     </section>
 
     

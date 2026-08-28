@@ -65,93 +65,86 @@
   <section class="section wrap lesson-content" id="lesson-content">
 <div class="section-head"><p class="eyebrow">Leçon autonome</p><h2 class="section-title">Apprenez la leçon complète et vérifiez votre compréhension ici.</h2><p class="section-sub">RAG Formation reste en développement. Cette page contient le contenu complet, les références locales et des exercices immédiats dans le navigateur.</p></div>
 <section class="card accent">
-      <h2>Today’s tangible win</h2>
-      <p>By the end of this lesson, you will have filled in a question-by-question comparison table and picked one retrieval improvement the evidence actually supports.</p>
-      <p class="zh"><strong>本课的具体收获：</strong> 填完一张逐题对比表，并选出一个真正有证据支持的检索改进点。</p>
+      <h2>Le gain concret de cette leçon</h2>
+      <p>À la fin de cette leçon, vous aurez complété un tableau comparatif question par question et choisi une amélioration de la récupération réellement étayée par les preuves.</p>
     </section>
 
     <section>
-      <h2>1 · The smallest useful model</h2>
+      <h2>1 · Le modèle minimal utile</h2>
       <ul>
-        <li><strong>Vector search:</strong> Works off embedding similarity, so it catches meaning and paraphrases rather than exact words. How well it holds up across languages depends on the embedding model — do not assume, measure it.</li>
-        <li><strong>Full-text search:</strong> Matches the literal string — identifiers, names, acronyms, numbers. When exact spelling is what carries the meaning, this is what saves you.</li>
-        <li><strong>Cumulative union:</strong> For this experiment, a source counts as found the moment it turns up in either the vector results or the full-text results. That tells you about retrieval contribution — nothing about whether the eventual answer is correct.</li>
-        <li><strong>Hybrid retrieval:</strong> A production hybrid path might fuse or rerank both signals together. Here we start with the simpler vector-plus-full-text union, so each one's contribution stays visible.</li>
+        <li><strong>Recherche vectorielle :</strong> elle repose sur la similarité des embeddings et détecte donc le sens et les paraphrases plutôt que les mots exacts. Sa robustesse entre les langues dépend du modèle d’embeddings — ne le supposez pas, mesurez-la.</li>
+        <li><strong>Recherche plein texte :</strong> elle fait correspondre la chaîne littérale — identifiants, noms, acronymes, nombres. Lorsque l’orthographe exacte porte le sens, c’est elle qui vous sauve.</li>
+        <li><strong>Union cumulative :</strong> pour cette expérience, une source est considérée comme trouvée dès qu’elle apparaît dans les résultats vectoriels ou plein texte. Cela mesure la contribution à la récupération, pas l’exactitude de la réponse finale.</li>
+        <li><strong>Récupération hybride :</strong> en production, une voie hybride peut fusionner ou réordonner ces deux signaux. Nous commençons ici par l’union plus simple du vecteur et du plein texte, afin que la contribution de chacun reste visible.</li>
       </ul>
-      <p><a href="https://qdrant.tech/documentation/search/text-search/hybrid-search" target="_blank" rel="noreferrer">Primary reading: Qdrant Hybrid Search</a> — pay attention to how it combines multiple search representations, and why that combination needs to be evaluated rather than just assumed to work.</p>
-      <p class="zh">这节课我们先只测“向量结果 ∪ 全文结果”覆盖了多少来源——来源被检索到，不等于答案就是对的，这两件事别混在一起。</p>
+      <p><a href="https://qdrant.tech/documentation/search/text-search/hybrid-search" target="_blank" rel="noreferrer">Lecture principale : recherche hybride de Qdrant</a> — observez comment elle combine plusieurs représentations de recherche et pourquoi cette combinaison doit être évaluée plutôt que supposée efficace.</p>
     </section>
 
     <section>
-      <h2>2 · Run one controlled experiment</h2>
-      <p>Reuse the same isolated demo and evaluation set from Lesson 4. Retrieval mode hits <code>/api/v1/search</code> directly with no LLM judge in the loop, which is what keeps this a clean read on retrieval by itself.</p>
+      <h2>2 · Exécuter une expérience contrôlée</h2>
+      <p>Réutilisez la même démonstration isolée et le même jeu d’évaluation que dans la leçon 4. Le mode récupération appelle directement <code>/api/v1/search</code>, sans évaluateur LLM dans la boucle, ce qui permet de mesurer proprement la récupération seule.</p>
       <pre><code>cd demo
 python3 eval.py verify
 python3 eval.py run --mode retrieval --workspace meridian_demo --tag lesson-05-experiment</code></pre>
-      <p>This gives you two files: an aggregate report, and a per-question JSON report.</p>
+      <p>Vous obtiendrez deux fichiers : un rapport agrégé et un rapport JSON question par question.</p>
       <pre><code>reports/lesson-05-experiment.md
 reports/lesson-05-experiment.json</code></pre>
-      <p>For each question you are checking, look at:</p>
+      <p>Pour chaque question examinée, regardez :</p>
       <ul>
         <li><code>results[].retrieval.indexes.vector.all</code></li>
         <li><code>results[].retrieval.indexes.fulltext.all</code></li>
         <li><code>results[].retrieval.cumulative["vector+fulltext"].all</code></li>
       </ul>
-      <p class="lesson-callout">Judge a hit by source metadata, not by text matching — a document ID that merely shows up inside another document’s body text does not count as a retrieval hit.</p>
-      <p class="zh">判断文档有没有被检索到，看的是来源元数据，不是文字匹配。某个编号只是碰巧出现在另一份文档正文里，不能算这份文档被检索到了。</p>
+      <p class="lesson-callout">Évaluez une correspondance à partir des métadonnées de source, et non d’une correspondance textuelle : un identifiant de document qui apparaît seulement dans le texte d’un autre document ne compte pas comme une récupération.</p>
     </section>
 
     <section>
-      <h2>3 · Fill the comparison table</h2>
-      <p>Fill the three result columns with <code>all</code>, <code>partial</code>, or <code>miss</code> — use <code>partial</code> when a multi-document question only turns up some of its expected sources. Then, for each row, add one line of interpretation and one specific next step.</p>
+      <h2>3 · Compléter le tableau comparatif</h2>
+      <p>Remplissez les trois colonnes de résultats avec <code>all</code>, <code>partial</code> ou <code>miss</code> — utilisez <code>partial</code> lorsqu’une question portant sur plusieurs documents ne fait apparaître qu’une partie des sources attendues. Ajoutez ensuite, pour chaque ligne, une interprétation et une prochaine étape précise.</p>
       <div class="lesson-table-scroll">
         <table class="lesson-comparison-table">
-          <thead><tr><th>Question ID</th><th>Query type</th><th>Expected source</th><th>Vector result</th><th>Full-text result</th><th>Cumulative union</th><th>Interpretation</th><th>Next action</th></tr></thead>
+          <thead><tr><th>ID de la question</th><th>Type de requête</th><th>Source attendue</th><th>Résultat vectoriel</th><th>Résultat plein texte</th><th>Union cumulative</th><th>Interprétation</th><th>Prochaine action</th></tr></thead>
           <tbody><tr><td>q21</td><td>Reference lookup</td><td>PR-QA-MRD-010</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q24</td><td>Reference lookup / revision</td><td>PR-QA-MRD-009</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q32</td><td>Cross-lingual factual</td><td>PR-EXM-MRD-003</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q46</td><td>Literal factual</td><td>PR-ACH-MRD-007</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q63</td><td>Multi-hop</td><td>PR-CLI-MRD-013 + PR-QA-MRD-009</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody>
         </table>
       </div>
-      <p class="zh">三个结果栏分别填 <code>all</code>、<code>partial</code> 或 <code>miss</code>；多文档问题只找到部分来源时，就填 <code>partial</code>。每一行再补一句解释，加一个具体的下一步。</p>
     </section>
 
     <section>
-      <h2>4 · Interpret before changing code</h2>
+      <h2>4 · Interpréter avant de modifier le code</h2>
       <div class="lesson-quiz" data-quiz>
-        <p><strong>Case A:</strong> For q21, vector comes back <code>miss</code>, full-text comes back <code>all</code>, and the cumulative union is <code>all</code>. What does that actually justify?</p>
-        <button type="button" data-answer="correct" data-feedback="Correct — add exact-reference extraction or boosting, then rerun retrieval.">Lexical fix</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not quite — the evidence points to exact-reference handling instead.">Chunk rewrite</button>
+        <p><strong>Cas A :</strong> Pour q21, le vecteur renvoie <code>miss</code>, le plein texte renvoie <code>all</code> et l’union cumulative vaut <code>all</code>. Que pouvez-vous réellement en conclure ?</p>
+        <button type="button" data-answer="correct" data-feedback="Correct : ajoutez une extraction ou une amplification des références exactes, puis relancez la récupération.">Correction lexicale</button>
+        <button type="button" data-answer="incorrect" data-feedback="Pas tout à fait : les preuves orientent plutôt vers la gestion des références exactes.">Réécriture des fragments</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
       </div>
       <div class="lesson-quiz" data-quiz>
-        <p><strong>Case B:</strong> Vector and full-text both land on <code>all</code>, so the union isn't adding a new source here. What's the honest read?</p>
-        <button type="button" data-answer="correct" data-feedback="Correct — full-text is not adding any retrieval coverage on this row.">Duplicate</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not quite — the union did not pick up a new source here.">Improvement</button>
+        <p><strong>Cas B :</strong> Le vecteur et le plein texte renvoient tous deux <code>all</code> ; l’union n’ajoute donc aucune nouvelle source ici. Quelle est l’interprétation honnête ?</p>
+        <button type="button" data-answer="correct" data-feedback="Correct : le plein texte n’ajoute aucune couverture de récupération sur cette ligne.">Doublon</button>
+        <button type="button" data-answer="incorrect" data-feedback="Pas tout à fait : l’union n’a trouvé aucune nouvelle source ici.">Amélioration</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
       </div>
       <div class="lesson-quiz" data-quiz>
-        <p><strong>Case C:</strong> q63's cumulative result is <code>all</code>, yet the final answer is still wrong. Where do you look next?</p>
-        <button type="button" data-answer="correct" data-feedback="Correct — the right sources got through, so look at context assembly and generation next.">Generation</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not the first stop — retrieval already found every expected source.">Ingestion</button>
+        <p><strong>Cas C :</strong> Le résultat cumulatif de q63 vaut <code>all</code>, mais la réponse finale reste erronée. Où chercher ensuite ?</p>
+        <button type="button" data-answer="correct" data-feedback="Correct : les bonnes sources sont passées ; examinez ensuite l’assemblage du contexte et la génération.">Génération</button>
+        <button type="button" data-answer="incorrect" data-feedback="Ce n’est pas le premier endroit à vérifier : la récupération a déjà trouvé toutes les sources attendues.">Ingestion</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
       </div>
     </section>
 
     <section class="card">
-      <h2>Mission connection</h2>
-      <p>A chatbot for a regulated company has to nail both ends — a precisely worded procedure lookup and a policy question phrased the way a real person would ask it. This table is what turns that reliability goal into an actual, traceable retrieval decision.</p>
-      <p class="zh">这正是我们要做的事：无论是员工、QA、法规、供应商还是审计人员来提问，机器人给出的答案都要可验证、可引用，并且清楚自己的边界在哪里。</p>
+      <h2>Lien avec la mission</h2>
+      <p>Un chatbot destiné à une entreprise réglementée doit réussir sur les deux tableaux : retrouver une procédure formulée avec précision et traiter une question de politique posée comme le ferait une personne réelle. Ce tableau transforme cet objectif de fiabilité en une décision de récupération concrète et traçable.</p>
     </section>
 
     <section>
-      <h2>5 · Deliverable and next action</h2>
+      <h2>5 · Livrable et prochaine action</h2>
       <ol>
-        <li>Fill in all five rows of the comparison table.</li>
-        <li>Write one paragraph: which signal added a source, for which type of query, and what's the evidence for that?</li>
-        <li>Pick one next action, and name the metric you'll rerun to check it worked.</li>
+        <li>Complétez les cinq lignes du tableau comparatif.</li>
+        <li>Rédigez un paragraphe : quel signal a ajouté une source, pour quel type de requête et quelles preuves l’établissent ?</li>
+        <li>Choisissez une prochaine action et nommez l’indicateur que vous relancerez pour vérifier son efficacité.</li>
       </ol>
-      <p><strong>Next:</strong> Lesson 6 — Chunking and document structure. Hang onto this table — it's your retrieval baseline for the chunking and query-handling experiments still to come.</p>
-      <p class="zh"><strong>下一步：</strong> 把五行对比表填完，写一条有证据支撑的检索结论，再定一个带明确指标的后续实验。</p>
-      <p><strong>Ask me anything</strong> about the report fields, metadata matching, query categories, or any row that isn't clicking for you. I'm your teacher for this course — that's exactly what I'm here for.</p>
-      <p class="zh"><strong>报告字段、元数据匹配、问题类别，或者哪一行看不懂，随时问我——这门课我就是负责给你答疑解惑的。</strong></p>
+      <p><strong>Prochaine étape :</strong> leçon 6 — segmentation et structure des documents. Conservez ce tableau : il constitue votre base de référence pour les prochaines expériences sur la segmentation et le traitement des requêtes.</p>
+      <p><strong>Posez-moi toutes vos questions</strong> sur les champs du rapport, la correspondance des métadonnées, les catégories de requêtes ou toute ligne qui vous semble obscure. Je suis votre enseignant pour cette formation : c’est précisément mon rôle.</p>
     </section>
 </section>
 <section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0004-establish-the-mvp-baseline.html">← Leçon précédente</a><a class="btn btn-ghost" href="../reference/semantic-keyword-and-hybrid-retrieval-cheatsheet.html">Fiche de référence</a><a href="0006-chunking-and-document-structure.html">Leçon suivante →</a></div></section>
@@ -161,5 +154,3 @@ reports/lesson-05-experiment.json</code></pre>
 <script src="../../../../assets/js/lesson.js" defer></script>
 </body>
 </html>
-
-

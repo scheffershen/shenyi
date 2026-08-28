@@ -58,60 +58,55 @@
 <section class="section wrap lesson-content" id="reference-content">
 <div class="section-head"><p class="eyebrow">参考资料</p><h2 class="section-title">文本分块与文档结构</h2><p class="section-sub">RAG Formation 课程仍在开发中；这份资料可用于自主学习和练习。</p></div>
 <section class="card accent">
-      <h2>One-line rule</h2>
-      <p><strong>Change one window setting, measure whether the fact and source identity stay together, then test the hypothesis with a separate live retrieval evaluation.</strong></p>
-      <p class="zh"><strong>一句话规则：</strong>一次只改一个窗口参数，测量“事实与来源身份是否同在”，再用独立的线上检索评估验证假设。</p>
+      <h2>一句话规则</h2>
+      <p><strong>一次只改一个窗口设置，测量事实与来源身份是否保持在一起，再用独立的线上检索评估来验证假设。</strong></p>
     </section>
 
     <section>
-      <h2>Glossary</h2>
-      <div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Term</th><th>Meaning</th><th>中文</th></tr></thead><tbody>
-        <tr><td><strong>Source window</strong></td><td>A repeatable, bounded slice of synthetic Markdown used in the offline lab.</td><td>源窗口：用于离线实验的、可重复生成的合成 Markdown 片段。</td></tr>
-        <tr><td><strong>Chunk size</strong></td><td>The maximum number of characters allowed in one source window.</td><td>窗口大小：一个源窗口允许的最大字符数。</td></tr>
-        <tr><td><strong>Overlap</strong></td><td>Characters copied from the end of one window into the next.</td><td>重叠：从前一窗口末尾复制到下一窗口的字符。</td></tr>
-        <tr><td><strong>Co-location</strong></td><td>The expected reference and every required fact term appear in the same window.</td><td>同位：预期文档编号和所有必需事实词同时出现在同一窗口。</td></tr>
-        <tr><td><strong>Proxy metric</strong></td><td>A directional signal—not a live retrieval or answer-quality result.</td><td>代理指标：方向性证据，不是线上检索或答案质量结果。</td></tr>
+      <h2>术语表</h2>
+      <div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>术语</th><th>含义</th></tr></thead><tbody>
+        <tr><td><strong>源窗口（Source window）</strong></td><td>离线实验中使用的、可重复且有边界的合成 Markdown 片段。</td></tr>
+        <tr><td><strong>分块大小（Chunk size）</strong></td><td>单个源窗口允许的最大字符数。</td></tr>
+        <tr><td><strong>重叠（Overlap）</strong></td><td>从一个窗口末尾复制到下一个窗口的字符。</td></tr>
+        <tr><td><strong>同位（Co-location）</strong></td><td>预期引用和所有必需事实词出现在同一个窗口中。</td></tr>
+        <tr><td><strong>代理指标（Proxy metric）</strong></td><td>一种方向性信号，不是线上检索或答案质量结果。</td></tr>
       </tbody></table></div>
     </section>
 
     <section>
-      <h2>Controlled experiment card</h2>
-      <div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Step</th><th>Do</th><th>Don't claim</th></tr></thead><tbody>
-        <tr><td>Baseline</td><td>Run q24 with 280 characters and 40 characters of overlap.</td><td>That this is the best production setting.</td></tr>
-        <tr><td>One change</td><td>Keep the overlap at 40 and rerun q24 with 420 characters.</td><td>That several changes caused the result.</td></tr>
-        <tr><td>Measure</td><td>Compare the co-location count/rate and the readable window text.</td><td>That the live index has improved.</td></tr>
-        <tr><td>Verify</td><td>Reindex the isolated demo, then run the retrieval evaluation again.</td><td>That a source-window proxy can replace evaluation.</td></tr>
+      <h2>受控实验卡片</h2>
+      <div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>步骤</th><th>执行</th><th>不要声称</th></tr></thead><tbody>
+        <tr><td>基线</td><td>使用 280 个字符和 40 个字符的重叠运行 q24。</td><td>这就是最佳生产设置。</td></tr>
+        <tr><td>单项改动</td><td>保持重叠为 40 个字符，使用 420 个字符重新运行 q24。</td><td>多个改动共同造成了这个结果。</td></tr>
+        <tr><td>测量</td><td>比较同位数量/比例以及可读的窗口文本。</td><td>线上索引已经改进。</td></tr>
+        <tr><td>验证</td><td>重新索引隔离的演示环境，然后再次运行检索评估。</td><td>源窗口代理指标可以替代评估。</td></tr>
       </tbody></table></div>
-      <p class="zh">实验卡：先在 280/40 下建立基线；只把窗口改为 420；比较同位数量/比例和窗口文本；最后在隔离演示环境中重新索引并重跑检索评估。</p>
     </section>
 
     <section>
-      <h2>Question map</h2>
-      <div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Question</th><th>Why it is useful</th><th>Source(s)</th></tr></thead><tbody>
-        <tr><td>q24</td><td>Checks whether a revised deadline stays linked to the current procedure identity.</td><td>PR-QA-MRD-009</td></tr>
-        <tr><td>q30</td><td>Shows that one window may still not contain enough for an answer that needs two sources.</td><td>PR-QA-MRD-001 + PR-QA-MRD-009</td></tr>
-        <tr><td>q52</td><td>Checks a short factual answer against the continuity-plan identity.</td><td>PR-EXM-MRD-014</td></tr>
+      <h2>问题地图</h2>
+      <div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>问题</th><th>用途</th><th>来源</th></tr></thead><tbody>
+        <tr><td>q24</td><td>检查修订后的截止期限是否仍与当前程序身份关联。</td><td>PR-QA-MRD-009</td></tr>
+        <tr><td>q30</td><td>说明需要两个来源的答案可能仍无法在一个窗口中获得足够信息。</td><td>PR-QA-MRD-001 + PR-QA-MRD-009</td></tr>
+        <tr><td>q52</td><td>根据连续性计划身份检查简短事实答案。</td><td>PR-EXM-MRD-014</td></tr>
       </tbody></table></div>
-      <p class="zh">问题地图：q24 检查修订期限与当前程序身份；q30 说明多来源答案不能只看一个窗口；q52 检查简短事实是否仍与连续性计划身份相连。</p>
     </section>
 
     <section>
-      <h2>Commands and conclusion frame</h2>
+      <h2>命令与结论模板</h2>
       <pre><code>cd demo
 python3 chunk_lab.py --question q24 --window-chars 280 --overlap-chars 40 --output-dir reports/lesson-06-baseline
 python3 chunk_lab.py --question q24 --window-chars 420 --overlap-chars 40 --output-dir reports/lesson-06-larger-window</code></pre>
-      <p><strong>Conclusion frame:</strong> “With ___ characters and ___ overlap, ___ of ___ windows kept the required fact and source identity together. This supports the hypothesis that ___. It does not prove live retrieval quality; next, I would reindex and run the retrieval evaluation again.”</p>
-      <p class="zh"><strong>结论句式：</strong>“当窗口为 ___ 字符、重叠为 ___ 字符时，___ / ___ 个窗口同时包含必需事实和来源身份。这支持 ___ 的假设；它不能证明线上检索质量。下一步是在隔离环境中重新索引并重跑检索评估。”</p>
+      <p><strong>结论模板：</strong>“当窗口为 ___ 个字符、重叠为 ___ 个字符时，___ / ___ 个窗口同时保留了必需事实和来源身份。这支持 ___ 的假设；它不能证明线上检索质量。下一步是在隔离环境中重新索引并再次运行检索评估。”</p>
     </section>
 
     <section>
-      <h2>Local pointers</h2>
+      <h2>本地入口</h2>
       <ul>
         <li><code>demo/chunk_lab.py</code></li>
         <li><code>demo/eval_set.yaml</code></li>
         <li><code>demo/corpus/md/</code></li>
       </ul>
-      <p class="zh">本地入口：源窗口工具、评估集和合成 Markdown 语料目录。</p>
     </section>
 <section class="lesson-reference-nav"><p><strong>继续学习：</strong> <a href="../lessons/0006-chunking-and-document-structure.html">打开对应的独立课程</a> · <a href="../">课程路线图</a></p></section>
 </section>

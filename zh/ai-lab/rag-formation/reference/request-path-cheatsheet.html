@@ -58,37 +58,36 @@
 <section class="section wrap lesson-content" id="reference-content">
 <div class="section-head"><p class="eyebrow">参考资料</p><h2 class="section-title">一个问题穿过 RAG 系统</h2><p class="section-sub">RAG Formation 课程仍在开发中；这份资料可用于自主学习和练习。</p></div>
 <section class="card accent">
-      <h2>Core path / 核心路径</h2>
-      <p><strong>HTTP request → route → service → retrieve → assemble → cite → generate → response</strong></p>
-      <p class="zh"><strong>HTTP 请求 → 路由 → 服务 → 检索 → 组装上下文 → 引用 → 生成 → 响应</strong></p>
+      <h2>核心路径</h2>
+      <p><strong>HTTP 请求 → 路由 → 服务 → 检索 → 组装上下文 → 引用 → 生成 → 响应</strong></p>
     </section>
 
     <section>
-      <h2>Call map / 调用地图</h2>
+      <h2>调用地图</h2>
       <table>
-        <thead><tr><th>Stage</th><th>File / function</th><th>Responsibility</th></tr></thead>
+        <thead><tr><th>阶段</th><th>文件 / 函数</th><th>职责</th></tr></thead>
         <tbody>
-          <tr><td>1. HTTP entry</td><td><code>routes/qa.py</code><br><code>ask_question()</code></td><td>Receives `QuestionRequest` and passes it to the QA service.</td></tr>
-          <tr><td>2. Orchestration</td><td><code>qa_service.py</code><br><code>answer_question_internal()</code></td><td>Checks the input, resolves services and configuration, and coordinates the request.</td></tr>
-          <tr><td>3. Retrieval</td><td><code>search.py</code></td><td>Searches Qdrant chunks, Qdrant summaries, Meilisearch, and LightRAG.</td></tr>
-          <tr><td>4. Context</td><td><code>utils.py</code><br><code>build_context()</code></td><td>Splits the budget across channels and keeps the items that reach the model.</td></tr>
-          <tr><td>5. Citations</td><td><code>utils.py</code><br><code>sources_from_items()</code></td><td>Builds the source list from evidence that survived context assembly.</td></tr>
-          <tr><td>6. Prompt</td><td><code>utils.py</code><br><code>build_prompt()</code></td><td>Tells the model to use the context, cite sources, and refuse unsupported answers.</td></tr>
-          <tr><td>7. Generation</td><td><code>qa_service.py</code><br><code>completion.generate()</code></td><td>Generates the final answer from the question and assembled context.</td></tr>
-          <tr><td>8. Response</td><td><code>models.py</code><br><code>AnswerResponse</code></td><td>Sends back the answer, sources, and diagnostic stats.</td></tr>
+          <tr><td>1. HTTP 入口</td><td><code>routes/qa.py</code><br><code>ask_question()</code></td><td>接收 `QuestionRequest` 并将其传递给 QA 服务。</td></tr>
+          <tr><td>2. 编排</td><td><code>qa_service.py</code><br><code>answer_question_internal()</code></td><td>检查输入，解析服务和配置，并协调请求。</td></tr>
+          <tr><td>3. 检索</td><td><code>search.py</code></td><td>搜索 Qdrant 片段、Qdrant 摘要、Meilisearch 和 LightRAG。</td></tr>
+          <tr><td>4. 上下文</td><td><code>utils.py</code><br><code>build_context()</code></td><td>在各渠道之间分配预算，并保留最终到达模型的项目。</td></tr>
+          <tr><td>5. 引用</td><td><code>utils.py</code><br><code>sources_from_items()</code></td><td>根据在上下文组装后仍然存活的证据构建来源列表。</td></tr>
+          <tr><td>6. 提示词</td><td><code>utils.py</code><br><code>build_prompt()</code></td><td>告诉模型使用上下文、引用来源，并拒绝没有证据支持的答案。</td></tr>
+          <tr><td>7. 生成</td><td><code>qa_service.py</code><br><code>completion.generate()</code></td><td>根据问题和组装后的上下文生成最终答案。</td></tr>
+          <tr><td>8. 响应</td><td><code>models.py</code><br><code>AnswerResponse</code></td><td>返回答案、来源和诊断统计。</td></tr>
         </tbody>
       </table>
     </section>
 
     <section>
-      <h2>What to inspect when debugging / 调试时检查什么</h2>
+      <h2>调试时检查什么</h2>
       <ul>
-        <li><strong>Before generation:</strong> check `/api/v1/search` and `context_items_included`.</li>
-        <li><strong>At citation time:</strong> compare `sources` with the items that actually made it into the context.</li>
-        <li><strong>After generation:</strong> compare the answer with both the evidence and the expected answer.</li>
-        <li><strong>For latency:</strong> inspect all four retrieval calls—especially LightRAG—and the final completion call.</li>
+        <li><strong>生成前：</strong>检查 `/api/v1/search` 和 `context_items_included`。</li>
+        <li><strong>引用时：</strong>将 `sources` 与实际进入上下文的项目进行比较。</li>
+        <li><strong>生成后：</strong>将答案同时与证据和预期答案进行比较。</li>
+        <li><strong>延迟方面：</strong>检查全部四个检索调用，尤其是 LightRAG，以及最后的完成调用。</li>
       </ul>
-      <p class="zh">调试时不要只看最终答案。先检查检索结果、实际进入上下文的项目、引用来源，再检查生成答案。</p>
+      <p>调试时不要只看最终答案。先检查检索结果、实际进入上下文的项目和引用来源，再检查生成的答案。</p>
     </section>
 <section class="lesson-reference-nav"><p><strong>继续学习：</strong> <a href="../lessons/0002-trace-one-question.html">打开对应的独立课程</a> · <a href="../">课程路线图</a></p></section>
 </section>

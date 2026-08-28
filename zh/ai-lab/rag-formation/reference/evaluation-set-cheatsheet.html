@@ -58,49 +58,45 @@
 <section class="section wrap lesson-content" id="reference-content">
 <div class="section-head"><p class="eyebrow">参考资料</p><h2 class="section-title">可信的 RAG 评估集</h2><p class="section-sub">RAG Formation 课程仍在开发中；这份资料可用于自主学习和练习。</p></div>
 <section class="card accent">
-      <h2>The evaluation tuple / 评估五元组</h2>
-      <p><strong>Question + category + expected sources + required facts + expected behavior</strong></p>
-      <p class="zh"><strong>问题 + 类别 + 预期来源 + 必需事实 + 预期行为</strong></p>
-      <p>For an answerable question, the system should give a correct answer grounded in the evidence. For an unanswerable question, it should refuse.</p>
-      <p class="zh">对于可回答问题，预期行为是正确且有依据的答案；对于不可回答问题，预期行为是拒答。</p>
+      <h2>评估五元组</h2>
+      <p><strong>问题 + 类别 + 预期来源 + 必需事实 + 预期行为</strong></p>
+      <p>对于可回答的问题，系统应给出有证据依据的正确答案；对于不可回答的问题，系统应拒答。</p>
     </section>
 
     <section>
-      <h2>What a good set tests</h2>
+      <h2>优质评估集测试什么</h2>
       <table>
-        <thead><tr><th>Dimension</th><th>Why it matters</th><th>Meridian demo</th></tr></thead>
+        <thead><tr><th>维度</th><th>重要性</th><th>Meridian 演示</th></tr></thead>
         <tbody>
-          <tr><td>Factual lookup</td><td>Find a precise number, name, date, or requirement.</td><td>35 questions</td></tr>
-          <tr><td>Reference lookup</td><td>Find the exact SOP or document identifier.</td><td>7 questions</td></tr>
-          <tr><td>Multi-hop</td><td>Pull together evidence from more than one document.</td><td>9 questions</td></tr>
-          <tr><td>Cross-lingual</td><td>Match a question with a source written in another language.</td><td>5 questions</td></tr>
-          <tr><td>Acronym</td><td>Resolve domain terms and abbreviations.</td><td>3 questions</td></tr>
-          <tr><td>Unanswerable</td><td>Measure whether the system refuses instead of rewarding a hallucination.</td><td>6 questions</td></tr>
+          <tr><td>事实查找</td><td>查找精确的数字、名称、日期或要求。</td><td>35 道题</td></tr>
+          <tr><td>引用查找</td><td>查找准确的 SOP 或文档编号。</td><td>7 道题</td></tr>
+          <tr><td>多跳</td><td>汇总来自多个文档的证据。</td><td>9 道题</td></tr>
+          <tr><td>跨语言</td><td>将问题与用另一种语言编写的来源匹配。</td><td>5 道题</td></tr>
+          <tr><td>缩略词</td><td>解析领域术语和缩写。</td><td>3 道题</td></tr>
+          <tr><td>不可回答</td><td>衡量系统是否拒答，而不是奖励幻觉。</td><td>6 道题</td></tr>
         </tbody>
       </table>
     </section>
 
     <section>
-      <h2>Ground truth rules</h2>
+      <h2>真实标准规则</h2>
       <ol>
-        <li>Every expected source must be present in the corpus.</li>
-        <li>Every required fact must appear literally in an expected source.</li>
-        <li>An unanswerable question must have neither an expected source nor a required fact.</li>
-        <li>Match retrieved sources by metadata, not by arbitrary text in a chunk.</li>
-        <li>Keep the evaluation set unchanged while comparing system changes.</li>
+        <li>每个预期来源都必须存在于语料库中。</li>
+        <li>每个必需事实都必须以原文形式出现在预期来源中。</li>
+        <li>不可回答的问题既不能有预期来源，也不能有必需事实。</li>
+        <li>根据元数据匹配检索来源，而不是根据片段中的任意文本匹配。</li>
+        <li>比较系统改动时，保持评估集不变。</li>
       </ol>
-      <p class="zh">基本规则：预期来源必须存在；必需事实必须出现在来源中；不可回答问题不能有来源或必需事实；检索匹配应使用元数据而不是任意正文；比较系统改动时保持评估集稳定。</p>
     </section>
 
     <section class="grid-2">
-      <div class="card"><h3>Bad measurement</h3><p>Count a vector result as a hit just because its chunk text mentions the expected document ID.</p><p class="zh">因为向量结果的正文提到了预期文档编号，就把它算作检索成功。</p></div>
-      <div class="card"><h3>Better measurement</h3><p>Count it as a hit only when the source metadata identifies the expected document.</p><p class="zh">只有当结果的来源元数据标识了预期文档时，才算检索成功。</p></div>
+      <div class="card"><h3>不合格的测量</h3><p>不能仅因为向量结果的片段文本提到了预期文档编号，就把它算作命中。</p></div>
+      <div class="card"><h3>更好的测量</h3><p>只有当来源元数据标识出预期文档时，才能将其算作命中。</p></div>
     </section>
 
     <section>
-      <h2>Trust boundary</h2>
-      <p>An evaluation harness can be wrong and still print a confident-looking percentage. Test the scorer itself with accents, multi-source questions, body-text cross-references, missing citations, and refusals.</p>
-      <p class="zh">评估工具可能是错误的，却仍然输出看似自信的百分比。因此要测试评分器本身：重音符号、多来源问题、正文交叉引用、缺失引用和拒答。</p>
+      <h2>信任边界</h2>
+      <p>评估工具即使存在错误，也可能输出看起来很有把握的百分比。因此要用重音符号、多来源问题、正文交叉引用、缺失引用和拒答来测试评分器本身。</p>
     </section>
 <section class="lesson-reference-nav"><p><strong>继续学习：</strong> <a href="../lessons/0003-build-a-trustworthy-evaluation-set.html">打开对应的独立课程</a> · <a href="../">课程路线图</a></p></section>
 </section>

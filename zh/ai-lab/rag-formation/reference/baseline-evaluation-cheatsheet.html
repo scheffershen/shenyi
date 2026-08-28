@@ -58,48 +58,45 @@
 <section class="section wrap lesson-content" id="reference-content">
 <div class="section-head"><p class="eyebrow">参考资料</p><h2 class="section-title">运行并阅读 RAG 基线</h2><p class="section-sub">RAG Formation 课程仍在开发中；这份资料可用于自主学习和练习。</p></div>
 <section class="card accent">
-      <h2>Baseline recipe / 基线流程</h2>
-      <p><strong>Verify → start isolated stack → ingest → retrieval run → answer run → inspect failures → save configuration.</strong></p>
-      <p class="zh"><strong>验证 → 启动隔离环境 → 索引 → 检索评估 → 答案评估 → 检查失败 → 保存配置。</strong></p>
+      <h2>基线流程</h2>
+      <p><strong>验证 → 启动隔离环境 → 索引 → 运行检索 → 运行答案评估 → 检查失败 → 保存配置。</strong></p>
     </section>
 
     <section>
-      <h2>What to record</h2>
+      <h2>记录哪些内容</h2>
       <table>
-        <thead><tr><th>Item</th><th>Why</th></tr></thead>
+        <thead><tr><th>项目</th><th>原因</th></tr></thead>
         <tbody>
-          <tr><td>Tag</td><td>Labels the run, for example `lesson-4-baseline`.</td></tr>
-          <tr><td>Corpus and eval-set version</td><td>Stops you from comparing different test data as if it were the same.</td></tr>
-          <tr><td>Workspace and index names</td><td>Confirms that the run used the isolated demo data.</td></tr>
-          <tr><td>topk and thresholds</td><td>These retrieval settings affect the result.</td></tr>
-          <tr><td>Model and judge model</td><td>Changing either model can change the answer or the judge’s verdict.</td></tr>
-          <tr><td>Concurrency and timeout</td><td>These operational settings affect errors and latency.</td></tr>
+          <tr><td>标签</td><td>标识本次运行，例如 `lesson-4-baseline`。</td></tr>
+          <tr><td>语料库与评估集版本</td><td>避免把不同的测试数据当作同一份数据进行比较。</td></tr>
+          <tr><td>工作区与索引名称</td><td>确认本次运行使用的是隔离的演示数据。</td></tr>
+          <tr><td>topk 与阈值</td><td>这些检索设置会影响结果。</td></tr>
+          <tr><td>模型与评审模型</td><td>任一模型发生变化，都可能改变答案或评审判定。</td></tr>
+          <tr><td>并发数与超时</td><td>这些运行设置会影响错误和延迟。</td></tr>
         </tbody>
       </table>
     </section>
 
     <section>
-      <h2>Metrics to read separately</h2>
+      <h2>分别阅读这些指标</h2>
       <ul>
-        <li><strong>Retrieval union:</strong> did the combined indexes return every expected document?</li>
-        <li><strong>Strict accuracy:</strong> how many judged answers were completely correct?</li>
-        <li><strong>Source hit rate:</strong> did the final answer cite every expected source?</li>
-        <li><strong>Refusal accuracy:</strong> did the system decline every unanswerable question?</li>
-        <li><strong>Hallucination rate:</strong> how often did it answer a question the evidence could not support?</li>
-        <li><strong>Latency p50 / p95:</strong> the typical response time and the slow tail.</li>
+        <li><strong>检索并集：</strong>组合索引是否返回了每个预期文档？</li>
+        <li><strong>严格准确率：</strong>经评审的答案中有多少完全正确？</li>
+        <li><strong>来源命中率：</strong>最终答案是否引用了每个预期来源？</li>
+        <li><strong>拒答准确率：</strong>系统是否拒绝了所有不可回答的问题？</li>
+        <li><strong>幻觉率：</strong>对于证据无法支持的问题，系统仍然作答的频率是多少？</li>
+        <li><strong>p50 / p95 延迟：</strong>典型响应时间与慢尾延迟。</li>
       </ul>
-      <p class="zh">必须分开阅读这些指标：检索覆盖、严格准确率、来源命中率、拒答准确率、幻觉率，以及 p50/p95 延迟。</p>
     </section>
 
     <section class="grid-2">
-      <div class="card"><h3>Good baseline statement</h3><p>“With this corpus, eval set, model, and configuration, the system achieved X.”</p><p class="zh">“在这份语料库、评估集、模型和配置下，系统达到 X。”</p></div>
-      <div class="card"><h3>Bad baseline statement</h3><p>“The chatbot is 90% accurate.”</p><p class="zh">“这个聊天机器人准确率是 90%。”</p></div>
+      <div class="card"><h3>良好的基线表述</h3><p>“在这份语料库、评估集、模型和配置下，系统达到 X。”</p></div>
+      <div class="card"><h3>不合格的基线表述</h3><p>“这个聊天机器人的准确率是 90%。”</p></div>
     </section>
 
     <section>
-      <h2>Failure reading rule</h2>
-      <p>For every failure, write down three things: the expected source, the actual source, and the judge’s reason. That turns a percentage into an engineering hypothesis.</p>
-      <p class="zh">对于每个失败，记录三件事：预期来源、实际来源和评审原因。这样才能把百分比转化为工程假设。</p>
+      <h2>失败分析规则</h2>
+      <p>对于每个失败，记录三件事：预期来源、实际来源和评审原因。这样才能把百分比转化为工程假设。</p>
     </section>
 <section class="lesson-reference-nav"><p><strong>继续学习：</strong> <a href="../lessons/0004-establish-the-mvp-baseline.html">打开对应的独立课程</a> · <a href="../">课程路线图</a></p></section>
 </section>

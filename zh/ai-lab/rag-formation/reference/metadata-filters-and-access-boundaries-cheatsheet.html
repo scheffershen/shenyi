@@ -57,11 +57,11 @@
 <span class="row"><span class="t-ok">● 学习 → 测试 → 验证</span></span></code></pre></div></div></section>
 <section class="section wrap lesson-content" id="reference-content">
 <div class="section-head"><p class="eyebrow">参考资料</p><h2 class="section-title">元数据、过滤器与访问边界</h2><p class="section-sub">RAG Formation 课程仍在开发中；这份资料可用于自主学习和练习。</p></div>
-<section class="card accent"><h2>One-line rule</h2><p><strong>A field becomes an access boundary only when the server applies it to the requesting user before retrieval.</strong></p><p class="zh"><strong>一句话规则：</strong>只有服务端在检索前把字段应用到请求用户身上，它才成为访问边界。</p></section>
-<section><h2>Status labels</h2><table><thead><tr><th>Status</th><th>Meaning</th><th>中文</th></tr></thead><tbody><tr><td>Implemented</td><td>Server code enforces the rule before retrieval.</td><td>服务端在检索前强制执行规则。</td></tr><tr><td>Metadata available</td><td>The document field exists, but there is no proven rule connecting the user to a filter.</td><td>文档字段存在，但尚无已验证的用户筛选规则。</td></tr><tr><td>Proposed</td><td>The rule still needs a field, policy, enforcement point, and negative test.</td><td>规则仍需要字段、策略、强制点和负向测试。</td></tr></tbody></table></section>
-<section><h2>Demo inventory</h2><p>The current demo ingestion provides the company, department, document type, and document reference. On its own, it does not provide a user role, user department, supplier scope, classification, or authorization policy.</p><p class="zh">当前演示导入提供公司、部门、文档类型和文档编号；它本身不提供用户角色、用户部门、供应商范围、密级或授权策略。</p></section>
-<section><h2>Negative test frame</h2><p><strong>Given</strong> a supplier identity and a QA-only procedure, <strong>when</strong> that identity runs a search, <strong>then</strong> the QA procedure should be missing from the retrieval results and blocked from answer generation.</p><p class="zh"><strong>负向测试：</strong>给定供应商身份和仅限 QA 的程序；当带该身份检索时；该程序必须不出现在检索结果中，也不能进入答案生成。</p></section>
-<section><h2>Local pointers</h2><ul><li><code>demo/metadata_lab.py</code></li><li><code>demo/setup_demo.py</code></li><li><code>reports/lesson-07-metadata-inventory.md</code></li></ul></section>
+<section class="card accent"><h2>一句话规则</h2><p><strong>只有当服务端在检索前将字段应用于发起请求的用户时，该字段才构成访问边界。</strong></p></section>
+<section><h2>状态标签</h2><table><thead><tr><th>状态</th><th>含义</th></tr></thead><tbody><tr><td>已实施</td><td>服务端代码在检索前强制执行该规则。</td></tr><tr><td>元数据可用</td><td>文档字段存在，但没有已验证的规则将用户与筛选器关联起来。</td></tr><tr><td>拟议</td><td>该规则仍需要字段、策略、执行点和负向测试。</td></tr></tbody></table></section>
+<section><h2>演示环境清单</h2><p>当前演示导入提供公司、部门、文档类型和文档编号。仅凭这些字段，它并不提供用户角色、用户部门、供应商范围、密级或授权策略。</p></section>
+<section><h2>负向测试模板</h2><p><strong>给定</strong>一个供应商身份和一份仅限 QA 使用的程序，<strong>当</strong>该身份执行搜索时，<strong>那么</strong>这份 QA 程序不应出现在检索结果中，也必须被阻止进入答案生成。</p></section>
+<section><h2>本地入口</h2><ul><li><code>demo/metadata_lab.py</code></li><li><code>demo/setup_demo.py</code></li><li><code>reports/lesson-07-metadata-inventory.md</code></li></ul></section>
 <section class="lesson-reference-nav"><p><strong>继续学习：</strong> <a href="../lessons/0007-metadata-filters-and-access-boundaries.html">打开对应的独立课程</a> · <a href="../">课程路线图</a></p></section>
 </section>
 </main>

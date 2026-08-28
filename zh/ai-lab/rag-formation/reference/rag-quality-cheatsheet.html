@@ -58,49 +58,44 @@
 <section class="section wrap lesson-content" id="reference-content">
 <div class="section-head"><p class="eyebrow">参考资料</p><h2 class="section-title">RAG QA 质量速查表</h2><p class="section-sub">RAG Formation 课程仍在开发中；这份资料可用于自主学习和练习。</p></div>
 <section class="card accent">
-      <h2>The pipeline</h2>
-      <p><strong>Question → retrieve evidence → assemble context → generate answer → cite sources → evaluate.</strong></p>
-      <p class="zh"><strong>问题 → 检索证据 → 组装上下文 → 生成答案 → 引用来源 → 评估。</strong></p>
-      <p>When an answer goes wrong, ask one question first: <em>Was the evidence missing, or was it there but used incorrectly?</em></p>
-      <p class="zh">答案出错时，首先要问：<em>证据缺失了，还是证据存在但没有被正确使用？</em></p>
+      <h2>处理流程</h2>
+      <p><strong>提出问题 → 检索证据 → 组装上下文 → 生成答案 → 引用来源 → 评估。</strong></p>
+      <p>答案出错时，首先要问：<em>证据缺失了，还是证据存在但没有被正确使用？</em></p>
     </section>
 
     <section>
-      <h2>Two quality layers</h2>
-      <p class="zh">两个质量层次</p>
+      <h2>两个质量层次</h2>
       <table>
-        <thead><tr><th>Layer</th><th>Question</th><th>Demo signal</th></tr></thead>
+        <thead><tr><th>层次</th><th>问题</th><th>演示信号</th></tr></thead>
         <tbody>
-          <tr><td>Retrieval</td><td>Did the system return every expected source?</td><td>Retrieval union / per-index hit rates</td></tr>
-          <tr><td>Generation</td><td>Did the answer state the requested fact without contradiction?</td><td>Strict and lenient judge accuracy</td></tr>
-          <tr><td>Grounding</td><td>Did it cite the documents supporting the answer?</td><td>Source hit rate</td></tr>
-          <tr><td>Safety</td><td>Did it refuse questions absent from the corpus?</td><td>Refusal accuracy and hallucination rate</td></tr>
-          <tr><td>Operations</td><td>Can users get answers quickly and consistently?</td><td>Latency p50 / p95 and API errors</td></tr>
+          <tr><td>检索</td><td>系统是否返回了每个预期来源？</td><td>检索并集 / 各索引命中率</td></tr>
+          <tr><td>生成</td><td>答案是否在不自相矛盾的情况下陈述了所请求的事实？</td><td>严格和宽松的评审准确率</td></tr>
+          <tr><td>依据</td><td>系统是否引用了支持答案的文档？</td><td>来源命中率</td></tr>
+          <tr><td>安全</td><td>系统是否拒绝了语料库中不存在答案的问题？</td><td>拒答准确率和幻觉率</td></tr>
+          <tr><td>运维</td><td>用户能否快速且稳定地获得答案？</td><td>p50 / p95 延迟和 API 错误</td></tr>
         </tbody>
       </table>
     </section>
 
     <section>
-      <h2>How to read the current demo</h2>
-      <p class="zh">正确理解当前演示系统的指标</p>
+      <h2>如何阅读当前演示系统</h2>
       <ul>
-        <li><strong>Strict accuracy:</strong> count only a judge verdict of <code>correct</code>. Use this as the headline number.</li>
-        <li><strong>Lenient accuracy:</strong> count <code>correct + partial</code>. It helps with diagnosis, but it does not replace strict accuracy.</li>
-        <li><strong>Source hit rate:</strong> check that the final answer cites every expected source document.</li>
-        <li><strong>Refusal accuracy:</strong> check that the system correctly declines questions it cannot answer.</li>
-        <li><strong>Hallucination rate:</strong> count how often the system answers an unanswerable question anyway.</li>
+        <li><strong>严格准确率：</strong>只统计评审结果为 <code>correct</code> 的答案，并将其作为主要指标。</li>
+        <li><strong>宽松准确率：</strong>统计 <code>correct + partial</code>。它有助于诊断，但不能替代严格准确率。</li>
+        <li><strong>来源命中率：</strong>检查最终答案是否引用了每个预期来源文档。</li>
+        <li><strong>拒答准确率：</strong>检查系统是否正确拒绝了无法回答的问题。</li>
+        <li><strong>幻觉率：</strong>统计系统仍然回答不可回答问题的频率。</li>
       </ul>
     </section>
 
     <section class="grid-2">
-      <div class="card"><h3>Retrieval failure</h3><p>The right document never makes it into the answer prompt. Look at chunking, metadata, query handling, hybrid retrieval, filters, and ranking.</p><p class="zh">正确的文档没有进入答案提示词。改进分块、元数据、查询处理、混合检索、过滤器或排序。</p></div>
-      <div class="card"><h3>Generation failure</h3><p>The right evidence is there, but the answer leaves it out, mixes it up, or contradicts it. Look at context assembly, instructions, answer structure, and model choice.</p><p class="zh">正确的证据已经存在，但答案遗漏、混淆或违背了证据。改进上下文组装、指令、答案结构或模型选择。</p></div>
+      <div class="card"><h3>检索失败</h3><p>正确的文档始终没有进入答案提示词。检查分块、元数据、查询处理、混合检索、过滤器和排序。</p></div>
+      <div class="card"><h3>生成失败</h3><p>正确的证据已经存在，但答案遗漏、混淆或违背了证据。检查上下文组装、指令、答案结构和模型选择。</p></div>
     </section>
 
     <section>
-      <h2>Course rule</h2>
-      <p>Do not call a prompt improvement a success because of one impressive answer. Run the evaluation harness, inspect the failures, and compare the same metrics with the previous run.</p>
-      <p class="zh"><strong>课程规则：</strong> 不要因为一个令人印象深刻的答案，就声称提示词改进有效。应该运行评估工具、检查失败案例，并把相同指标与上一次运行进行比较。</p>
+      <h2>课程规则</h2>
+      <p><strong>不要因为一个令人印象深刻的答案，就声称提示词改进有效。应该运行评估工具、检查失败案例，并把相同指标与上一次运行进行比较。</strong></p>
     </section>
 <section class="lesson-reference-nav"><p><strong>继续学习：</strong> <a href="../lessons/0001-from-question-to-cited-answer.html">打开对应的独立课程</a> · <a href="../">课程路线图</a></p></section>
 </section>

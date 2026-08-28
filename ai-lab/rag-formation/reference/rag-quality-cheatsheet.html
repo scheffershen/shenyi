@@ -66,14 +66,14 @@
 <section class="card accent">
       <h2>The pipeline</h2>
       <p><strong>Question → retrieve evidence → assemble context → generate answer → cite sources → evaluate.</strong></p>
-      <p class="zh"><strong>问题 → 检索证据 → 组装上下文 → 生成答案 → 引用来源 → 评估。</strong></p>
+      
       <p>When an answer goes wrong, ask one question first: <em>Was the evidence missing, or was it there but used incorrectly?</em></p>
-      <p class="zh">答案出错时，首先要问：<em>证据缺失了，还是证据存在但没有被正确使用？</em></p>
+      
     </section>
 
     <section>
       <h2>Two quality layers</h2>
-      <p class="zh">两个质量层次</p>
+      
       <table>
         <thead><tr><th>Layer</th><th>Question</th><th>Demo signal</th></tr></thead>
         <tbody>
@@ -88,7 +88,7 @@
 
     <section>
       <h2>How to read the current demo</h2>
-      <p class="zh">正确理解当前演示系统的指标</p>
+      
       <ul>
         <li><strong>Strict accuracy:</strong> count only a judge verdict of <code>correct</code>. Use this as the headline number.</li>
         <li><strong>Lenient accuracy:</strong> count <code>correct + partial</code>. It helps with diagnosis, but it does not replace strict accuracy.</li>
@@ -99,14 +99,14 @@
     </section>
 
     <section class="grid-2">
-      <div class="card"><h3>Retrieval failure</h3><p>The right document never makes it into the answer prompt. Look at chunking, metadata, query handling, hybrid retrieval, filters, and ranking.</p><p class="zh">正确的文档没有进入答案提示词。改进分块、元数据、查询处理、混合检索、过滤器或排序。</p></div>
-      <div class="card"><h3>Generation failure</h3><p>The right evidence is there, but the answer leaves it out, mixes it up, or contradicts it. Look at context assembly, instructions, answer structure, and model choice.</p><p class="zh">正确的证据已经存在，但答案遗漏、混淆或违背了证据。改进上下文组装、指令、答案结构或模型选择。</p></div>
+      <div class="card"><h3>Retrieval failure</h3><p>The right document never makes it into the answer prompt. Look at chunking, metadata, query handling, hybrid retrieval, filters, and ranking.</p></div>
+      <div class="card"><h3>Generation failure</h3><p>The right evidence is there, but the answer leaves it out, mixes it up, or contradicts it. Look at context assembly, instructions, answer structure, and model choice.</p></div>
     </section>
 
     <section>
       <h2>Course rule</h2>
       <p>Do not call a prompt improvement a success because of one impressive answer. Run the evaluation harness, inspect the failures, and compare the same metrics with the previous run.</p>
-      <p class="zh"><strong>课程规则：</strong> 不要因为一个令人印象深刻的答案，就声称提示词改进有效。应该运行评估工具、检查失败案例，并把相同指标与上一次运行进行比较。</p>
+      
     </section>
 
     

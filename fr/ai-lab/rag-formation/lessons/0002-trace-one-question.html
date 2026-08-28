@@ -65,140 +65,127 @@
   <section class="section wrap lesson-content" id="lesson-content">
 <div class="section-head"><p class="eyebrow">Leçon autonome</p><h2 class="section-title">Apprenez la leçon complète et vérifiez votre compréhension ici.</h2><p class="section-sub">RAG Formation reste en développement. Cette page contient le contenu complet, les références locales et des exercices immédiats dans le navigateur.</p></div>
 <section class="card accent">
-      <h2>Today’s tangible win</h2>
-      <p>By the end of this lesson, you'll be able to point at the exact file and function behind every stage of a single `/api/v1/qa` request.</p>
-      <p class="zh"><strong>本课的具体收获：</strong> 学完之后，你能准确说出 `/api/v1/qa` 请求走到每个阶段时，究竟是哪个文件、哪个函数在处理。</p>
+      <h2>Le gain concret de cette leçon</h2>
+      <p>À la fin de cette leçon, vous saurez identifier le fichier et la fonction exacts qui interviennent à chaque étape d’une requête `/api/v1/qa`.</p>
     </section>
 
     <section>
-      <h2>1 · The question we're tracing</h2>
+      <h2>1 · La question que nous suivons</h2>
       <div class="card">
         <p><strong>Question:</strong><br>“Quel est le délai de clôture d'un plan d'action pour une non-conformité majeure ?”</p>
-        <p class="zh"><strong>问题：</strong>“重大不符合项的行动计划关闭期限是多少？”</p>
-        <p><strong>Expected source:</strong> `PR-QA-MRD-009`</p>
-        <p><strong>Expected fact:</strong> `45 jours`</p>
-        <p class="zh"><strong>预期来源：</strong> `PR-QA-MRD-009`；<strong>预期事实：</strong> `45 天`。</p>
+        <p><strong>Source attendue :</strong> `PR-QA-MRD-009`</p>
+        <p><strong>Fait attendu :</strong> `45 jours`</p>
       </div>
-      <p>We're not going to read every file top to bottom. Instead, we'll follow the request from the outside in, and only stop to look at the functions it actually touches.</p>
-      <p class="zh">我们不打算把所有文件从头看到尾，而是顺着请求从外到内一路跟下去，只在它真正调用到的函数那里停下来细看。</p>
+      <p>Nous n’allons pas lire chaque fichier de bout en bout. Nous suivrons plutôt la requête de l’extérieur vers l’intérieur et nous arrêterons uniquement sur les fonctions qu’elle appelle réellement.</p>
     </section>
 
     <section>
-      <h2>2 · The call chain</h2>
+      <h2>2 · La chaîne d’appel</h2>
       <div class="card">
         <p><strong>Client</strong></p>
         <p>↓ `POST /api/v1/qa`</p>
         <p><strong>`routes/qa.py` → `ask_question(request)`</strong></p>
-        <p>↓ delegates</p>
+        <p>↓ délègue</p>
         <p><strong>`qa_service.py` → `answer_question_internal(request)`</strong></p>
-        <p>↓ runs four retrieval paths</p>
+        <p>↓ exécute quatre voies de récupération</p>
         <p><strong>`search_qdrant()` · `search_meilisearch()` · `query_lightrag_context()`</strong></p>
-        <p>↓ assembles evidence (Which function decides which source items survived?)</p>
+        <p>↓ assemble les éléments de preuve (quelle fonction décide quelles sources sont conservées ?)</p>
         <p><strong>`utils.build_context()`</strong></p>
-        <p>↓ derives citations (Which function converts surviving items into citations?)</p>
+        <p>↓ déduit les citations (quelle fonction transforme les éléments conservés en citations ?)</p>
         <p><strong>`utils.sources_from_items()`</strong></p>
-        <p>↓ builds prompt and generates</p>
+        <p>↓ construit le prompt et génère la réponse</p>
         <p><strong>`utils.build_prompt()` → `completion.generate()`</strong></p>
-        <p>↓ returns</p>
+        <p>↓ renvoie</p>
         <p><strong>`models.AnswerResponse`</strong></p>
       </div>
-      <p class="zh"><strong>调用链：</strong> 请求从客户端发出后，依次经过路由、QA 服务、四条检索路径、上下文组装、引用提取、提示词构造，最终由模型生成答案并返回响应。</p>
-      <p>Keep the <a href="../reference/request-path-cheatsheet.html">request-path cheat sheet</a> open in another tab while you work through this.</p>
+      <p>Gardez la <a href="../reference/request-path-cheatsheet.html">fiche de la chaîne de requête</a> ouverte dans un autre onglet pendant l’exercice.</p>
     </section>
 
     <section>
-      <h2>3 · What each stage actually does</h2>
+      <h2>3 · Le rôle réel de chaque étape</h2>
       <table>
-        <thead><tr><th>Stage</th><th>Current implementation</th><th>Why it matters</th></tr></thead>
+        <thead><tr><th>Étape</th><th>Implémentation actuelle</th><th>Pourquoi c’est important</th></tr></thead>
         <tbody>
-          <tr><td>Route</td><td><code>routes/qa.py</code> validates the incoming request with Pydantic, then hands off.</td><td>Routes stay thin on purpose; the real logic lives elsewhere.</td></tr>
-          <tr><td>Orchestrate</td><td><code>qa_service.py</code> checks the services are up, cleans up the question, reads backend config, and kicks off retrieval.</td><td>It's the coordinator for the whole request, and the best place to start an end-to-end trace.</td></tr>
-          <tr><td>Retrieve</td><td>Qdrant hands back semantic chunks and summaries, Meilisearch returns keyword matches, and LightRAG supplies graph context.</td><td>If evidence is missing, check retrieval before you blame the prompt.</td></tr>
-          <tr><td>Assemble</td><td><code>build_context()</code> splits the budget fairly across channels and drops whole items rather than truncating them.</td><td>Whatever doesn't survive this stage, the model never gets to see.</td></tr>
-          <tr><td>Cite</td><td><code>sources_from_items()</code> only looks at the items that actually made it into the prompt.</td><td>A citation should never point to evidence the model never saw.</td></tr>
-          <tr><td>Generate</td><td><code>build_prompt()</code> instructs the model to stick to the given context and refuse anything unsupported; the completion service then writes the answer.</td><td>Even evidence that's right there can still get skipped, muddled, or contradicted.</td></tr>
+          <tr><td>Route</td><td><code>routes/qa.py</code> valide la requête entrante avec Pydantic, puis la transmet.</td><td>Les routes restent volontairement minces ; la logique réelle se trouve ailleurs.</td></tr>
+          <tr><td>Orchestration</td><td><code>qa_service.py</code> vérifie que les services sont disponibles, nettoie la question, lit la configuration du backend et lance la récupération.</td><td>C’est le coordinateur de toute la requête et le meilleur point de départ pour un suivi de bout en bout.</td></tr>
+          <tr><td>Récupération</td><td>Qdrant renvoie des fragments et des résumés sémantiques, Meilisearch renvoie des correspondances par mots-clés et LightRAG fournit le contexte du graphe.</td><td>Si une preuve manque, vérifiez la récupération avant d’accuser le prompt.</td></tr>
+          <tr><td>Assemblage</td><td><code>build_context()</code> répartit équitablement le budget entre les canaux et supprime des éléments entiers plutôt que de les tronquer.</td><td>Tout ce qui ne survit pas à cette étape reste invisible pour le modèle.</td></tr>
+          <tr><td>Citation</td><td><code>sources_from_items()</code> examine uniquement les éléments effectivement intégrés au prompt.</td><td>Une citation ne doit jamais pointer vers une preuve que le modèle n’a pas vue.</td></tr>
+          <tr><td>Génération</td><td><code>build_prompt()</code> demande au modèle de rester dans le contexte fourni et de refuser ce qui n’est pas étayé ; le service de complétion rédige ensuite la réponse.</td><td>Même une preuve présente peut être ignorée, déformée ou contredite.</td></tr>
         </tbody>
       </table>
     </section>
 
     <section>
-      <h2>4 · Reconstruct the call chain — from memory</h2>
-      <p>Close the call-chain diagram in section 2. Without scrolling back to
-      it, fill in this table for the question we're tracing — recall beats
-      re-reading for making this stick:</p>
-      <p class="zh">把第 2 步的调用链图关掉，不要往回翻，凭记忆填下面这张表——靠回忆比重新看一遍更能记住。</p>
+      <h2>4 · Reconstituer la chaîne d’appel — de mémoire</h2>
+      <p>Fermez le schéma de la chaîne d’appel de la section 2. Sans revenir
+      en arrière, complétez ce tableau pour la question que nous suivons —
+      le rappel favorise davantage la mémorisation qu’une nouvelle lecture :</p>
       <table>
-        <thead><tr><th>Stage</th><th>Function</th></tr></thead>
+        <thead><tr><th>Étape</th><th>Fonction</th></tr></thead>
         <tbody>
           <tr><td>Route</td><td>__________</td></tr>
           <tr><td>Orchestrate</td><td>__________</td></tr>
-          <tr><td>Retrieve (three functions)</td><td>__________</td></tr>
-          <tr><td>Assemble (decides what survives)</td><td>__________</td></tr>
-          <tr><td>Cite (never cites dropped evidence)</td><td>__________</td></tr>
-          <tr><td>Generate</td><td>__________</td></tr>
+          <tr><td>Récupération (trois fonctions)</td><td>__________</td></tr>
+          <tr><td>Assemblage (décide ce qui est conservé)</td><td>__________</td></tr>
+          <tr><td>Citation (ne cite jamais une preuve supprimée)</td><td>__________</td></tr>
+          <tr><td>Génération</td><td>__________</td></tr>
         </tbody>
       </table>
-      <p>Check yourself against section 2. Anything you couldn't recall is
-      exactly what to re-read before moving on — that gap is the point of
-      doing it this way round.</p>
-      <p class="zh">对照第 2 步检查答案。想不起来的地方，正是你该回去重看的地方——这正是"先凭记忆再核对"这个练习方式的意义所在。</p>
+      <p>Vérifiez vos réponses avec la section 2. Tout ce dont vous ne vous
+      souveniez pas est précisément ce qu’il faut relire avant de continuer —
+      c’est tout l’intérêt de procéder dans cet ordre.</p>
     </section>
 
     <section>
-      <h2>5 · Verify against the running system</h2>
-      <p>The call chain lives in <code>api/</code>, which isn't part of this
-      free course — but the <em>running</em> API is, via the demo stack. Ask
-      it the traced question directly and confirm your trace against the
-      real response, with <code>demo/setup_demo.py up</code> running:</p>
+      <h2>5 · Vérifier avec le système en fonctionnement</h2>
+      <p>La chaîne d’appel se trouve dans <code>api/</code>, qui ne fait pas
+      partie de cette formation gratuite — mais l’API <em>en fonctionnement</em>
+      est accessible via la stack de démonstration. Posez-lui directement la
+      question suivie et comparez votre traçage à la réponse réelle, avec
+      <code>demo/setup_demo.py up</code> en cours d’exécution :</p>
       <pre><code>curl -s -X POST http://localhost:8000/api/v1/qa \
   -H "Content-Type: application/json" \
   -d "{\"question\": \"Quel est le délai de clôture d'un plan d'action pour une non-conformité majeure ?\", \"workspace\": \"meridian_demo\"}"</code></pre>
-      <p>In the JSON response: <code>sources</code> should include
-      <code>PR-QA-MRD-009</code>, and <code>answer</code> should state
-      <code>45 jours</code>. If either is missing, you've just found a real
-      failure to diagnose with the trace you built in section 4 — was it a
-      retrieval miss or a generation miss?</p>
-      <p class="zh">调用链的代码在 <code>api/</code> 里，不属于这门免费课程——但通过 demo 环境跑起来的 API 本身是免费的。在 <code>demo/setup_demo.py up</code> 运行的情况下，直接向它提问，用真实返回结果核对你的推理。返回的 JSON 里，<code>sources</code> 应包含 <code>PR-QA-MRD-009</code>，<code>answer</code> 应提到 <code>45 jours</code>。少了任何一个，你就发现了一个真实的失败案例——该用第 4 步整理出的调用链去排查：到底是检索没找到，还是生成环节漏答了？</p>
+      <p>Dans la réponse JSON, <code>sources</code> doit contenir
+      <code>PR-QA-MRD-009</code> et <code>answer</code> doit mentionner
+      <code>45 jours</code>. Si l’un des deux manque, vous venez de trouver
+      une véritable défaillance à diagnostiquer avec le traçage construit à la
+      section 4 — s’agit-il d’un échec de récupération ou de génération ?</p>
     </section>
 
     <section>
       <h2>6 · Check your reconstruction</h2>
       <div class="lesson-quiz" data-quiz>
-        <p><strong>So — which function actually does the final context assembly?</strong></p>
-        <p class="zh">最终的上下文组装，到底是哪个函数在做？</p>
-        <button type="button" data-answer="correct" data-feedback="Correct. build_context() chooses what reaches the model.">`build_context()`</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not quite. search_qdrant() retrieves one channel; context assembly happens later.">`search_qdrant()`</button>
+        <p><strong>Alors, quelle fonction réalise réellement l’assemblage final du contexte ?</strong></p>
+        <button type="button" data-answer="correct" data-feedback="Correct. build_context() détermine ce qui parvient au modèle.">`build_context()`</button>
+        <button type="button" data-answer="incorrect" data-feedback="Pas tout à fait. search_qdrant() récupère un canal ; l’assemblage du contexte intervient plus tard.">`search_qdrant()`</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
       </div>
       <div class="lesson-quiz" data-quiz>
-        <p><strong>Why does `sources_from_items(context_items)` matter so much?</strong></p>
-        <p class="zh">`sources_from_items(context_items)` 这一步，为什么这么关键？</p>
-        <button type="button" data-answer="correct" data-feedback="Correct. It limits reported sources to evidence that actually reached the prompt.">It cites evidence actually shown</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not quite. It is specifically designed to avoid citing dropped evidence.">It lists every retrieved hit</button>
+        <p><strong>Pourquoi `sources_from_items(context_items)` est-elle si importante ?</strong></p>
+        <button type="button" data-answer="correct" data-feedback="Correct. Elle limite les sources rapportées aux preuves qui sont effectivement parvenues au prompt.">Elle cite les preuves réellement présentées</button>
+        <button type="button" data-answer="incorrect" data-feedback="Pas tout à fait. Elle est précisément conçue pour éviter de citer des preuves supprimées.">Elle liste tous les résultats récupérés</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
       </div>
       <div class="lesson-quiz" data-quiz>
-        <p><strong>If `/api/v1/search` doesn't turn up `PR-QA-MRD-009`, which family of functions should you dig into first?</strong></p>
-        <p class="zh">如果 `/api/v1/search` 里找不到 `PR-QA-MRD-009`，你该先查哪一组函数？</p>
-        <button type="button" data-answer="correct" data-feedback="Correct. Start with the retrieval functions and their inputs/results.">`search_*()`</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not first. Prompt generation happens after retrieval.">`build_prompt()`</button>
+        <p><strong>Si `/api/v1/search` ne renvoie pas `PR-QA-MRD-009`, quelle famille de fonctions devez-vous examiner en premier ?</strong></p>
+        <button type="button" data-answer="correct" data-feedback="Correct. Commencez par les fonctions de récupération et leurs entrées/résultats.">`search_*()`</button>
+        <button type="button" data-answer="incorrect" data-feedback="Pas en premier. La génération du prompt intervient après la récupération.">`build_prompt()`</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
       </div>
     </section>
 
     <section class="card">
-      <h2>Mission connection</h2>
-      <p>For an auditor or QA professional, an answer is only as trustworthy as the path you can explain behind it. That's exactly why a simple call map pays off when something breaks: it tells you where to look first — the index, the context budget, the citation logic, or the model's output.</p>
-      <p class="zh">对审计员或 QA 从业者来说，一个答案可不可信，就看你能不能讲清楚它是怎么来的。有了一张简单的调用地图，出问题时你就知道该往哪查——是索引、上下文预算、引用逻辑，还是模型输出本身。</p>
+      <h2>Lien avec la mission</h2>
+      <p>Pour un auditeur ou un professionnel de la QA, la fiabilité d’une réponse dépend de la capacité à expliquer le chemin qui y a conduit. C’est précisément pourquoi une carte simple des appels est utile en cas de panne : elle indique où chercher en premier — l’index, le budget de contexte, la logique des citations ou la sortie du modèle.</p>
     </section>
 
     <section>
-      <h2>Next action</h2>
-      <p>Fill in all six blanks in the data-flow table. Then answer this in a single sentence:</p>
-      <p class="lesson-callout"><strong>Why might a source show up in the raw retrieval results but never make it into the final API citations?</strong></p>
-      <p class="zh callout"><strong>为什么一个来源会出现在原始检索结果里，却没有出现在最终 API 返回的引用中？</strong></p>
-      <p><strong>Ask me follow-up questions</strong> about anything — any function, any stage — that's still fuzzy. Once you've filled in the six blanks and answered the final question, Lesson 2 is done — move on to whichever lesson you want next.</p>
-      <p class="zh"><strong>哪个函数、哪个阶段没搞懂，随时问我。</strong> 等你填完六个空格、答完最后一个问题，第 2 课就算完成了——接下来想上哪一课都可以。</p>
+      <h2>Prochaine action</h2>
+      <p>Complétez les six cases vides du tableau du flux de données. Répondez ensuite en une seule phrase :</p>
+      <p class="lesson-callout"><strong>Pourquoi une source peut-elle apparaître dans les résultats bruts de récupération sans figurer dans les citations finales de l’API ?</strong></p>
+      <p><strong>Posez-moi vos questions</strong> sur tout ce qui reste flou — une fonction ou une étape. Une fois les six cases complétées et la dernière question résolue, la leçon 2 sera terminée : passez à la leçon suivante de votre choix.</p>
     </section>
 </section>
 <section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0001-from-question-to-cited-answer.html">← Leçon précédente</a><a class="btn btn-ghost" href="../reference/request-path-cheatsheet.html">Fiche de référence</a><a href="0003-build-a-trustworthy-evaluation-set.html">Leçon suivante →</a></div></section>
@@ -208,5 +195,3 @@
 <script src="../../../../assets/js/lesson.js" defer></script>
 </body>
 </html>
-
-

@@ -65,124 +65,109 @@
   <section class="section wrap lesson-content" id="lesson-content">
 <div class="section-head"><p class="eyebrow">Leçon autonome</p><h2 class="section-title">Apprenez la leçon complète et vérifiez votre compréhension ici.</h2><p class="section-sub">RAG Formation reste en développement. Cette page contient le contenu complet, les références locales et des exercices immédiats dans le navigateur.</p></div>
 <section class="card accent">
-      <h2>Today’s tangible win</h2>
-      <p>By the end, you can pick apart a single evaluation question and say exactly why its ground truth holds up—or what’s wrong with it if it doesn’t.</p>
-      <p class="zh"><strong>本课的具体收获：</strong> 挑一道评估题，你就能说清楚它的参考答案靠不靠谱——靠谱在哪，或者哪里容易把人带偏。</p>
+      <h2>Le gain concret de cette leçon</h2>
+      <p>À la fin de cette leçon, vous saurez analyser une question d’évaluation et expliquer précisément pourquoi sa vérité terrain est solide — ou ce qui ne va pas si elle ne l’est pas.</p>
     </section>
 
     <section>
-      <h2>1 · An evaluation is a contract</h2>
-      <p>An evaluation question isn’t just something a user might type. It’s a contract between the product team and whatever’s doing the scoring:</p>
+      <h2>1 · Une évaluation est un contrat</h2>
+      <p>Une question d’évaluation n’est pas seulement une phrase qu’un utilisateur pourrait saisir. C’est un contrat entre l’équipe produit et le système qui effectue la notation :</p>
       <div class="card">
-        <p><strong>Question:</strong> what the user asks</p>
-        <p><strong>Expected sources:</strong> which documents must support the answer</p>
-        <p><strong>Required facts / <code>must_include</code>:</strong> the high-signal facts a correct answer must contain</p>
-        <p><strong>Expected answer:</strong> the reference meaning used by the judge</p>
-        <p><strong>Expected refusal / <code>expect_refusal</code>:</strong> whether the system should decline because the corpus has no answer</p>
+        <p><strong>Question :</strong> ce que demande l’utilisateur</p>
+        <p><strong>Sources attendues :</strong> les documents qui doivent étayer la réponse</p>
+        <p><strong>Faits requis / <code>must_include</code> :</strong> les faits importants qu’une réponse correcte doit contenir</p>
+        <p><strong>Réponse attendue :</strong> le sens de référence utilisé par l’évaluateur</p>
+        <p><strong>Refus attendu / <code>expect_refusal</code> :</strong> si le système doit refuser parce que le corpus ne contient pas la réponse</p>
       </div>
-      <p class="zh"><strong>评估问题是一份契约：</strong> 用户问题、预期来源、必需事实、参考答案，以及系统是否应该拒答。</p>
-      <p>Skip that contract, and your score can look perfectly rigorous while quietly measuring the wrong thing entirely.</p>
-      <p class="zh">少了这份契约，分数看着挺“科学”，实际衡量的却不是产品真正承诺要做到的事。</p>
-      <p><a href="https://platform.openai.com/docs/guides/evaluation-best-practices" target="_blank" rel="noreferrer">Primary reading: OpenAI’s Evaluation Best Practices</a>—pay attention to why nondeterministic AI systems need structured evals in the first place.</p>
+      <p>Ignorez ce contrat et votre score pourra sembler parfaitement rigoureux tout en mesurant discrètement quelque chose de complètement différent.</p>
+      <p><a href="https://platform.openai.com/docs/guides/evaluation-best-practices" target="_blank" rel="noreferrer">Lecture principale : bonnes pratiques d’évaluation d’OpenAI</a> — observez pourquoi les systèmes d’IA non déterministes ont besoin d’évaluations structurées.</p>
     </section>
 
     <section>
-      <h2>2 · Read the demo set</h2>
-      <p>Open up:</p>
+      <h2>2 · Lire le jeu de démonstration</h2>
+      <p>Ouvrez :</p>
       <pre><code>demo/eval_set.yaml</code></pre>
-      <p>This demo set packs 65 questions across 25 synthetic documents, split like this:</p>
+      <p>Ce jeu de démonstration contient 65 questions réparties sur 25 documents synthétiques :</p>
       <ul>
-        <li>35 factual questions</li>
-        <li>7 reference-lookup questions</li>
-        <li>9 multi-hop questions</li>
-        <li>5 cross-lingual questions</li>
-        <li>3 acronym questions</li>
-        <li>6 unanswerable questions</li>
+        <li>35 questions factuelles</li>
+        <li>7 questions de recherche par référence</li>
+        <li>9 questions à raisonnement multi-étapes</li>
+        <li>5 questions multilingues</li>
+        <li>3 questions sur des acronymes</li>
+        <li>6 questions sans réponse possible</li>
       </ul>
-      <p class="zh">这套演示评估集一共 65 道题，覆盖 25 份虚构文档：包括事实类、文档编号查找、多跳推理、跨语言、缩略词，还有故意设置的不可回答题。</p>
-      <p>That mix isn’t arbitrary. A chatbot can breeze through ordinary semantic questions and still choke on exact SOP identifiers, multi-document reasoning, or knowing when to say no.</p>
-      <p class="zh">这种搭配不是随便凑的。聊天机器人可能在普通语义问题上答得很漂亮，一碰到精确的 SOP 编号、需要跨文档推理，或者该拒答的时候，就露馅了。</p>
+      <p>Cette composition n’est pas arbitraire. Un chatbot peut répondre sans difficulté à des questions sémantiques ordinaires tout en échouant sur des identifiants SOP exacts, le raisonnement entre plusieurs documents ou la capacité à savoir quand dire non.</p>
     </section>
 
     <section>
-      <h2>3 · Why retrieval matching uses metadata only</h2>
-      <p>Take q30:</p>
+      <h2>3 · Pourquoi la correspondance de récupération utilise uniquement les métadonnées</h2>
+      <p>Prenons q30 :</p>
       <div class="card">
-        <p><strong>Expected sources:</strong> `PR-QA-MRD-001`, `PR-QA-MRD-009`</p>
-        <p><strong>Required fact:</strong> `90 jours`</p>
+        <p><strong>Sources attendues :</strong> `PR-QA-MRD-001`, `PR-QA-MRD-009`</p>
+        <p><strong>Fait requis :</strong> `90 jours`</p>
       </div>
-      <p>Here’s the trap: documents in this corpus cross-reference each other. A chunk from `PR-QA-MRD-001` might mention `PR-QA-MRD-009` right in its body text. Search that whole chunk blindly, and the scorer could wrongly credit `PR-QA-MRD-009` as retrieved when it never actually showed up.</p>
-      <p class="zh">这里有个坑：语料库里的文档会互相引用。`PR-QA-MRD-001` 的某个文本块，正文里可能就提到了 `PR-QA-MRD-009`。要是评分器把整段正文都拿去搜，就很容易误判——以为 `PR-QA-MRD-009` 真的被检索出来了，其实它根本没出现。</p>
-      <p>That’s exactly why `eval.py` only trusts source metadata—fields like `source`, `document_name`, and `filename`—instead of handing out credit just because an identifier shows up somewhere in the body text.</p>
-      <p class="zh">所以 `eval.py` 只认 `source`、`document_name`、`filename` 这些来源元数据，而不会因为正文里随便出现一个编号，就给检索算分。</p>
+      <p>Voici le piège : les documents de ce corpus se renvoient les uns aux autres. Un fragment de `PR-QA-MRD-001` peut mentionner `PR-QA-MRD-009` dans son texte. Si vous recherchez aveuglément dans tout le fragment, l’évaluateur pourrait attribuer à tort la récupération de `PR-QA-MRD-009`, alors qu’il n’est jamais apparu comme source.</p>
+      <p>C’est précisément pourquoi `eval.py` ne fait confiance qu’aux métadonnées de source — des champs comme `source`, `document_name` et `filename` — au lieu d’accorder un point parce qu’un identifiant apparaît quelque part dans le texte.</p>
     </section>
 
     <section>
-      <h2>4 · Answerable versus unanswerable</h2>
-      <p>Those six unanswerable questions aren’t sloppy test design—they’re safety checks. Each one asks a simple thing: does the system know where its own knowledge ends?</p>
-      <p class="zh">这六道不可回答的题，不是出题出岔了，而是专门用来做安全测试的——看系统知不知道自己的知识边界在哪。</p>
+      <h2>4 · Questions traitables et questions sans réponse</h2>
+      <p>Ces six questions sans réponse possible ne sont pas dues à une conception négligente des tests : ce sont des contrôles de sécurité. Elles posent toutes la même question simple : le système sait-il où s’arrête sa propre connaissance ?</p>
       <table>
-        <thead><tr><th>Question type</th><th>Expected source</th><th>Expected behavior</th></tr></thead>
+        <thead><tr><th>Type de question</th><th>Source attendue</th><th>Comportement attendu</th></tr></thead>
         <tbody>
-          <tr><td>Answerable</td><td>One or more documents</td><td>Answer the requested fact and cite the sources</td></tr>
-          <tr><td>Unanswerable</td><td>None</td><td>Decline or state that the indexed data does not contain the answer</td></tr>
+          <tr><td>Traitables</td><td>Un ou plusieurs documents</td><td>Répondre au fait demandé et citer les sources</td></tr>
+          <tr><td>Sans réponse</td><td>Aucune</td><td>Refuser ou indiquer que les données indexées ne contiennent pas la réponse</td></tr>
         </tbody>
       </table>
     </section>
 
     <section>
-      <h2>5 · Practice: trust the question or reject it?</h2>
+      <h2>5 · Exercice : faire confiance à la question ou la rejeter ?</h2>
       <div class="lesson-quiz" data-quiz>
-        <p><strong>Case A:</strong> `expect_sources` names `PR-QA-MRD-009`, but no such file exists anywhere in the corpus. Does this question still count as valid?</p>
-        <p class="zh">`expect_sources` 里写着 `PR-QA-MRD-009`，可语料库里根本没有这份文件。这道题还能算数吗？</p>
-        <button type="button" data-answer="correct" data-feedback="Correct. The ground truth is broken and must be fixed before measuring the system.">Reject it</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not safe. A missing expected source makes the score meaningless.">Keep it</button>
+        <p><strong>Cas A :</strong> `expect_sources` nomme `PR-QA-MRD-009`, mais aucun fichier de ce nom n’existe dans le corpus. Cette question est-elle encore valide ?</p>
+        <button type="button" data-answer="correct" data-feedback="Correct. La vérité terrain est incorrecte et doit être corrigée avant de mesurer le système.">La rejeter</button>
+        <button type="button" data-answer="incorrect" data-feedback="Ce n’est pas sûr. L’absence de la source attendue rend le score dépourvu de sens.">La conserver</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
       </div>
       <div class="lesson-quiz" data-quiz>
-        <p><strong>Case B:</strong> The expected document ID only shows up inside another document’s body text, nowhere else. Does retrieval still deserve credit?</p>
-        <p class="zh">预期的文档编号只出现在另一份文档的正文里，别处都没有。检索这时候该不该算对？</p>
-        <button type="button" data-answer="correct" data-feedback="Correct. Body-text cross-references can create false positives.">No</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not quite. The scorer should require source metadata to identify the document.">Yes</button>
+        <p><strong>Cas B :</strong> L’identifiant du document attendu n’apparaît que dans le texte d’un autre document, nulle part ailleurs. La récupération mérite-t-elle tout de même le point ?</p>
+        <button type="button" data-answer="correct" data-feedback="Correct. Les renvois dans le texte peuvent créer de faux positifs.">Non</button>
+        <button type="button" data-answer="incorrect" data-feedback="Pas tout à fait. L’évaluateur doit exiger les métadonnées de source pour identifier le document.">Oui</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
       </div>
       <div class="lesson-quiz" data-quiz>
-        <p><strong>Case C:</strong> A question has no expected source at all and is flagged `expect_refusal: true`. What’s the right move for a good chatbot?</p>
-        <p class="zh">一道题没有任何预期来源，还标了 `expect_refusal: true`。这时候，靠谱的聊天机器人该怎么办？</p>
-        <button type="button" data-answer="correct" data-feedback="Correct. It should decline rather than invent an answer.">Refuse</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not according to this ground truth. A confident answer is a hallucination.">Guess</button>
+        <p><strong>Cas C :</strong> Une question n’a aucune source attendue et porte l’indicateur `expect_refusal: true`. Que doit faire un bon chatbot ?</p>
+        <button type="button" data-answer="correct" data-feedback="Correct. Il doit refuser plutôt que d’inventer une réponse.">Refuser</button>
+        <button type="button" data-answer="incorrect" data-feedback="Pas selon cette vérité terrain. Une réponse assurée serait une hallucination.">Deviner</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
       </div>
     </section>
 
     <section>
-      <h2>6 · Your evaluation-set review</h2>
-      <p>Pick one question from each category in `eval_set.yaml` and write down:</p>
+      <h2>6 · Votre revue du jeu d’évaluation</h2>
+      <p>Choisissez une question dans chaque catégorie de `eval_set.yaml` et notez :</p>
       <ol>
-        <li>Is the question answerable at all?</li>
-        <li>Which source document(s) actually support it?</li>
-        <li>What fact has to show up in a correct answer?</li>
-        <li>Could a cross-reference trick the scorer into a false credit?</li>
-        <li>What does a safe failure look like here?</li>
+        <li>La question peut-elle réellement recevoir une réponse ?</li>
+        <li>Quel(s) document(s) source l’étaye(nt) réellement ?</li>
+        <li>Quel fait doit apparaître dans une réponse correcte ?</li>
+        <li>Un renvoi croisé pourrait-il tromper l’évaluateur et produire un faux crédit ?</li>
+        <li>À quoi ressemble un échec sûr dans ce cas ?</li>
       </ol>
-      <p class="zh">从 `eval_set.yaml` 每个类别里各挑一道题，然后记下来：这道题到底能不能回答、该由哪些文档支撑、正确答案里必须出现哪个事实、交叉引用会不会骗到错误加分，还有安全的失败方式应该长什么样。</p>
     </section>
 
     <section class="card">
-      <h2>Mission connection</h2>
-      <p>In SOP, QA, regulatory, supplier, and audit use cases, the evaluation set isn’t just a testing tool—it’s part of the product’s safety boundary. It’s what defines “supported,” “correct,” and “unknown” in the first place.</p>
-      <p class="zh">在 SOP、QA、法规、供应商、审计这些场景里，评估集不只是用来测试的，它本身就是产品安全边界的一部分——“有依据”“正确”“未知”这些词到底是什么意思，全靠它来定义。</p>
+      <h2>Lien avec la mission</h2>
+      <p>Dans les cas d’usage SOP, QA, réglementaires, fournisseurs et audits, le jeu d’évaluation n’est pas seulement un outil de test : il fait partie de la limite de sécurité du produit. C’est lui qui définit les notions de « fondé », « correct » et « inconnu ».</p>
     </section>
 
     <section>
-      <h2>Next action</h2>
-      <p>Run the offline consistency check one more time:</p>
+      <h2>Prochaine action</h2>
+      <p>Exécutez une nouvelle fois la vérification de cohérence hors ligne :</p>
       <pre><code>cd demo
 python3 eval.py verify</code></pre>
-      <p>Then pick one question from each of the six categories and write up a short review. Send me your answers—especially one case where metadata-only matching saves you from a false retrieval credit.</p>
-      <p class="zh"><strong>下一步：</strong> 六个类别各挑一道题，写份简短的检查报告发给我——特别是举一个例子，说明“只靠元数据匹配”是怎么挡住一次错误加分的。</p>
-      <p><strong>Got questions about ground truth, scoring, or any of these categories? Ask me.</strong> Once your review is in, I’ll mark Lesson 3 complete.</p>
-      <p class="zh"><strong>参考答案、评分逻辑，或者任何一个评估类别，有疑问尽管问我。</strong> 你交完检查报告，我就把 Lesson 3 标记为完成。</p>
+      <p>Choisissez ensuite une question dans chacune des six catégories et rédigez une courte revue. Envoyez-moi vos réponses, notamment un cas où la correspondance fondée uniquement sur les métadonnées vous évite d’accorder à tort un crédit de récupération.</p>
+      <p><strong>Vous avez des questions sur la vérité terrain, la notation ou l’une de ces catégories ? Posez-les-moi.</strong> Une fois votre revue terminée, je marquerai la leçon 3 comme terminée.</p>
     </section>
 </section>
 <section class="section wrap lesson-reference-nav"><div class="ai-lab-cta"><a href="0002-trace-one-question.html">← Leçon précédente</a><a class="btn btn-ghost" href="../reference/evaluation-set-cheatsheet.html">Fiche de référence</a><a href="0004-establish-the-mvp-baseline.html">Leçon suivante →</a></div></section>
@@ -192,5 +177,3 @@ python3 eval.py verify</code></pre>
 <script src="../../../../assets/js/lesson.js" defer></script>
 </body>
 </html>
-
-

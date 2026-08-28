@@ -12,9 +12,9 @@
   gtag('js', new Date());
   gtag('config', 'G-S0YRBQKHLZ');
 </script>
-<title>参考资料 · 术语表 — EN / 中文 | RAG Formation</title>
+<title>参考资料 · 术语表 | RAG Formation</title>
 <meta name="author" content="沈毅">
-<meta name="description" content="RAG Formation 的独立参考资料：术语表 — EN / 中文。课程仍在开发中。">
+<meta name="description" content="RAG Formation 的独立中文参考资料：术语表。课程仍在开发中。">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/glossary-cheatsheet.html">
 <link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/glossary-cheatsheet.html">
@@ -25,11 +25,11 @@
 <meta property="og:site_name" content="SHEN YI — 全栈与 AI 解决方案开发者">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:url" content="https://shenyi.dev/zh/ai-lab/rag-formation/reference/glossary-cheatsheet.html">
-<meta property="og:title" content="参考资料 · 术语表 — EN / 中文 | RAG Formation">
+<meta property="og:title" content="参考资料 · 术语表 | RAG Formation">
 <meta property="og:description" content="RAG Formation 的独立参考资料。课程仍在开发中。">
 <meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="参考资料 · 术语表 — EN / 中文 | RAG Formation">
+<meta name="twitter:title" content="参考资料 · 术语表 | RAG Formation">
 <meta name="twitter:description" content="RAG Formation 的独立参考资料。课程仍在开发中。">
 <meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
 <link rel="icon" href="../../../../assets/img/favicon.svg" type="image/svg+xml">
@@ -47,7 +47,7 @@
 <main id="main">
 <section class="hero wrap"><div class="hero-grid"><div>
 <p class="eyebrow">RAG Formation · 参考资料</p>
-<h1>术语表 — EN / 中文</h1>
+<h1>术语表</h1>
 <p class="ai-lab-hero-note">在本网站学习和测试 RAG 质量的独立速查表。</p>
 <div class="ai-lab-cta"><a class="btn btn-primary" href="../">课程路线图 <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="../../">AI 工程实验室</a></div>
 </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="RAG Formation 参考资料"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">reference --status</span></span>
@@ -56,55 +56,52 @@
 <span class="row"><span class="t-key">▸ 状态 </span><span class="t-num">开发中</span></span>
 <span class="row"><span class="t-ok">● 学习 → 测试 → 验证</span></span></code></pre></div></div></section>
 <section class="section wrap lesson-content" id="reference-content">
-<div class="section-head"><p class="eyebrow">参考资料</p><h2 class="section-title">术语表 — EN / 中文</h2><p class="section-sub">RAG Formation 课程仍在开发中；这份资料可用于自主学习和练习。</p></div>
+<div class="section-head"><p class="eyebrow">参考资料</p><h2 class="section-title">术语表</h2><p class="section-sub">RAG Formation 课程仍在开发中；这份资料可用于自主学习和练习。</p></div>
 <section class="card accent">
-      <h2>Why this exists</h2>
-      <p>Terminology drift compounds: once a lesson translates "grounding" one way, every later lesson that reuses the concept either repeats the mistake or introduces a second, inconsistent translation. This page is the single source every lesson, cheatsheet, and animation must match. It is a living document — extend it before writing new Chinese content that introduces a term not yet listed here, rather than inventing wording ad hoc.</p>
-      <p class="zh">術語一旦在某一課翻譯定調，後面的課要嘛延用同一個（可能有問題的）譯法，要嘛另創一個不一致的版本，問題會越滾越大。這份表格是所有課程內容、速查表、動畫都必須對齊的唯一依據。它會持續擴充——遇到表格裡還沒收錄的新詞，應該先補進來，再寫進課程內容，而不是臨時自己翻。</p>
+      <h2>为什么需要这份表</h2>
+      <p>术语漂移会不断累积：一旦某一课以某种方式翻译“grounding”，后续复用这一概念的课程要么重复错误，要么引入第二种不一致的译法。本页是所有课程、速查表和动画必须统一遵循的单一来源。这是一份持续维护的文档——遇到尚未列出的术语，应先扩展术语表，再撰写新的中文内容，不要临时自行创造译法。</p>
     </section>
 
     <section>
-      <h2>Locked terms</h2>
-      <p class="zh">鎖定詞彙</p>
+      <h2>已锁定术语</h2>
       <table>
-        <thead><tr><th>English</th><th>中文</th><th>Definition</th></tr></thead>
+        <thead><tr><th>英文术语</th><th>中文术语</th><th>定义</th></tr></thead>
         <tbody>
           <tr>
             <td><strong>Chunking</strong></td>
             <td>分块</td>
-            <td>Splitting a source document into retrievable windows, with overlap to avoid cutting a fact away from its identifying context (see <a href="../lessons/0006-chunking-and-document-structure.html">Lesson 6</a>).</td>
+            <td>将来源文档拆分为可检索的窗口，并设置重叠，以避免事实与用于识别它的上下文被切开（见<a href="../lessons/0006-chunking-and-document-structure.html">第 6 课</a>）。</td>
           </tr>
           <tr>
             <td><strong>Reranking</strong></td>
             <td>重排序</td>
-            <td>Re-sorting a retriever's coarse candidate list using harder signals — exact-ID hits, metadata, cross-encoder scores (see <a href="../lessons/0008-query-handling-and-reranking.html">Lesson 8</a>).</td>
+            <td>使用更强的信号重新排序检索器生成的粗略候选列表，例如精确编号命中、元数据和交叉编码器分数（见<a href="../lessons/0008-query-handling-and-reranking.html">第 8 课</a>）。</td>
           </tr>
           <tr>
             <td><strong>Hallucination</strong></td>
             <td>幻觉</td>
-            <td>The system answers a question the corpus does not support, instead of refusing or saying it doesn't know (see <a href="../lessons/0012-refusal-uncertainty-and-hallucination-control.html">Lesson 12</a>).</td>
+            <td>语料库无法支持该问题时，系统没有拒答或说明自己不知道，反而给出了答案（见<a href="../lessons/0012-refusal-uncertainty-and-hallucination-control.html">第 12 课</a>）。</td>
           </tr>
           <tr>
             <td><strong>Grounding / grounded</strong></td>
             <td>有依据</td>
-            <td>An answer is grounded when every claim in it is backed by retrieved evidence the model actually saw (see <a href="../lessons/0001-from-question-to-cited-answer.html">Lesson 1</a>).</td>
+            <td>当答案中的每个主张都有模型实际看到的检索证据支持时，该答案就是有依据的（见<a href="../lessons/0001-from-question-to-cited-answer.html">第 1 课</a>）。</td>
           </tr>
           <tr>
             <td><strong>Refusal</strong></td>
             <td>拒答</td>
-            <td>The system declining to answer because the corpus lacks sufficient evidence, rather than guessing (see <a href="../lessons/0003-build-a-trustworthy-evaluation-set.html">Lesson 3</a>, <a href="../lessons/0012-refusal-uncertainty-and-hallucination-control.html">Lesson 12</a>).</td>
+            <td>由于语料库缺少足够证据，系统选择不回答，而不是猜测（见<a href="../lessons/0003-build-a-trustworthy-evaluation-set.html">第 3 课</a>和<a href="../lessons/0012-refusal-uncertainty-and-hallucination-control.html">第 12 课</a>）。</td>
           </tr>
         </tbody>
       </table>
     </section>
 
     <section>
-      <h2>Scope and status</h2>
-      <p class="zh">範圍與現狀</p>
+      <h2>范围与状态</h2>
       <ul>
-        <li>Sourced from current usage already committed across lessons 1, 3, 6, 8, and 12 — this page locks existing wording, it does not introduce new translations.</li>
-        <li>English/Chinese only. French is paused course-wide (see <code>rag-formation/CLAUDE.md</code> — "Sequencing"); a French column will be added when French rollout resumes.</li>
-        <li>Five terms today because these are the ones flagged as highest drift-risk (reused across many lessons, and now also baked into animation captions per <code>animations/ANIMATIONS-PLAN.md</code>). Extend this table — don't start a second glossary file — when another term shows the same reuse pattern.</li>
+        <li>来源于第 1、3、6、8 和 12 课中已经确定的当前用法——本页用于锁定现有措辞，不引入新的译法。</li>
+        <li>目前仅包含英文和中文。法语课程在整个课程范围内暂缓（见 <code>rag-formation/CLAUDE.md</code> 中的“Sequencing”）；法语版本恢复推进后再增加法语列。</li>
+        <li>目前列出五个术语，因为它们被标记为漂移风险最高（在多课中重复使用，并且根据 <code>animations/ANIMATIONS-PLAN.md</code> 也已用于动画字幕）。当另一个术语出现相同的复用模式时，请扩展此表，不要创建第二个术语表文件。</li>
       </ul>
     </section>
 <section class="lesson-reference-nav"><p><strong>继续学习：</strong> <a href="../lessons/0001-from-question-to-cited-answer.html">打开对应的独立课程</a> · <a href="../">课程路线图</a></p></section>

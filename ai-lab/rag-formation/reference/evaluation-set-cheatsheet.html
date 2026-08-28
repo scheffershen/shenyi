@@ -64,11 +64,11 @@
 <section class="section wrap lesson-content" id="reference-content">
 <div class="section-head"><p class="eyebrow">Reference sheet</p><h2 class="section-title">Trustworthy RAG evaluation sets</h2><p class="section-sub">The guided RAG Formation course remains in development; this reference is available for self-directed practice.</p></div>
 <section class="card accent">
-      <h2>The evaluation tuple / 评估五元组</h2>
+      <h2>The evaluation tuple</h2>
       <p><strong>Question + category + expected sources + required facts + expected behavior</strong></p>
-      <p class="zh"><strong>问题 + 类别 + 预期来源 + 必需事实 + 预期行为</strong></p>
+      
       <p>For an answerable question, the system should give a correct answer grounded in the evidence. For an unanswerable question, it should refuse.</p>
-      <p class="zh">对于可回答问题，预期行为是正确且有依据的答案；对于不可回答问题，预期行为是拒答。</p>
+      
     </section>
 
     <section>
@@ -95,18 +95,18 @@
         <li>Match retrieved sources by metadata, not by arbitrary text in a chunk.</li>
         <li>Keep the evaluation set unchanged while comparing system changes.</li>
       </ol>
-      <p class="zh">基本规则：预期来源必须存在；必需事实必须出现在来源中；不可回答问题不能有来源或必需事实；检索匹配应使用元数据而不是任意正文；比较系统改动时保持评估集稳定。</p>
+      
     </section>
 
     <section class="grid-2">
-      <div class="card"><h3>Bad measurement</h3><p>Count a vector result as a hit just because its chunk text mentions the expected document ID.</p><p class="zh">因为向量结果的正文提到了预期文档编号，就把它算作检索成功。</p></div>
-      <div class="card"><h3>Better measurement</h3><p>Count it as a hit only when the source metadata identifies the expected document.</p><p class="zh">只有当结果的来源元数据标识了预期文档时，才算检索成功。</p></div>
+      <div class="card"><h3>Bad measurement</h3><p>Count a vector result as a hit just because its chunk text mentions the expected document ID.</p></div>
+      <div class="card"><h3>Better measurement</h3><p>Count it as a hit only when the source metadata identifies the expected document.</p></div>
     </section>
 
     <section>
       <h2>Trust boundary</h2>
       <p>An evaluation harness can be wrong and still print a confident-looking percentage. Test the scorer itself with accents, multi-source questions, body-text cross-references, missing citations, and refusals.</p>
-      <p class="zh">评估工具可能是错误的，却仍然输出看似自信的百分比。因此要测试评分器本身：重音符号、多来源问题、正文交叉引用、缺失引用和拒答。</p>
+      
     </section>
 
     
