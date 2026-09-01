@@ -54,7 +54,7 @@
   <section class="hero wrap"><div class="hero-grid"><div>
     <p class="eyebrow">RAG Formation · Leçon · Ingénierie de la recherche</p>
     <h1>Recherche sémantique, recherche par mots-clés et recherche hybride</h1>
-    <p class="ai-lab-hero-note">Associer identifiants SOP, acronymes, noms, dates et concepts au signal de recherche capable de les retrouver.</p>
+    <p class="ai-lab-hero-note">Associer identifiants SOP, acronymes, noms, dates et concepts au signal de recherche capable de les retrouver — vectoriel, plein texte, résumé ou graphe.</p>
     <div class="ai-lab-cta"><a class="btn btn-primary" href="../">Feuille de route <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="../../">Laboratoire d’ingénierie IA</a></div>
   </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="Leçon · Recherche sémantique, recherche par mots-clés et recherche hybride | RAG Formation"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">lesson --status</span></span>
 <span class="row"><span class="t-key">▸ course </span><span class="t-val">RAG Formation</span></span>
@@ -81,8 +81,10 @@
       <ul>
         <li><strong>Recherche vectorielle :</strong> elle repose sur la similarité des embeddings et détecte donc le sens et les paraphrases plutôt que les mots exacts. Sa robustesse entre les langues dépend du modèle d’embeddings — ne le supposez pas, mesurez-la.</li>
         <li><strong>Recherche plein texte :</strong> elle fait correspondre la chaîne littérale — identifiants, noms, acronymes, nombres. Lorsque l’orthographe exacte porte le sens, c’est elle qui vous sauve.</li>
-        <li><strong>Union cumulative :</strong> pour cette expérience, une source est considérée comme trouvée dès qu’elle apparaît dans les résultats vectoriels ou plein texte. Cela mesure la contribution à la récupération, pas l’exactitude de la réponse finale.</li>
-        <li><strong>Récupération hybride :</strong> en production, une voie hybride peut fusionner ou réordonner ces deux signaux. Nous commençons ici par l’union plus simple du vecteur et du plein texte, afin que la contribution de chacun reste visible.</li>
+        <li><strong>Récupération de résumé :</strong> un index séparé contenant un résumé vectorisé par document entier, et non par fragment. Il répond à « de quoi parle ce document », lorsqu’un seul fragment d’environ 500 tokens est trop étroit pour représenter l’ensemble.</li>
+        <li><strong>Récupération par graphe :</strong> LightRAG extrait les entités et les relations du corpus au moment de l’indexation et parcourt ce graphe au moment de la requête. Ce n’est pas « une autre façon de trouver un fragment » — c’est le seul signal capable de relier des faits répartis dans différents fragments ou documents, ce que la recherche vectorielle et plein texte ne peuvent pas faire à elles seules.</li>
+        <li><strong>Union cumulative :</strong> pour cette expérience, une source est considérée comme trouvée dès qu’elle apparaît dans l’un des quatre signaux. Cela mesure la contribution à la récupération, pas l’exactitude de la réponse finale.</li>
+        <li><strong>Récupération hybride :</strong> dans ce système, « hybride » signifie que les quatre signaux s’exécutent en parallèle et que leurs résultats formatés sont concaténés — sans fusion ni réordonnancement. Il n’y a ni normalisation de score ni fusion de rang réciproque entre les signaux ; la seule véritable fusion se produit à l’intérieur de LightRAG lui-même, entre ses propres passes d’entités, de relations et de vecteurs. Un moteur de réordonnancement existe dans le code mais n’est pas branché sur la récupération en production — ne présumez pas qu’« hybride » implique davantage de sophistication que « parallèle et concaténé ».</li>
       </ul>
       <p><a href="https://qdrant.tech/documentation/search/text-search/hybrid-search" target="_blank" rel="noreferrer">Lecture principale : recherche hybride de Qdrant</a> — observez comment elle combine plusieurs représentations de recherche et pourquoi cette combinaison doit être évaluée plutôt que supposée efficace.</p>
     </section>
@@ -100,18 +102,23 @@ reports/lesson-05-experiment.json</code></pre>
       <ul>
         <li><code>results[].retrieval.indexes.vector.all</code></li>
         <li><code>results[].retrieval.indexes.fulltext.all</code></li>
+        <li><code>results[].retrieval.indexes.summary.all</code></li>
+        <li><code>results[].retrieval.indexes.graph.all</code></li>
         <li><code>results[].retrieval.cumulative["vector+fulltext"].all</code></li>
+        <li><code>results[].retrieval.cumulative["vector+fulltext+summary"].all</code></li>
+        <li><code>results[].retrieval.cumulative["vector+fulltext+summary+graph"].all</code></li>
       </ul>
       <p class="lesson-callout">Évaluez une correspondance à partir des métadonnées de source, et non d’une correspondance textuelle : un identifiant de document qui apparaît seulement dans le texte d’un autre document ne compte pas comme une récupération.</p>
+      <p class="lesson-callout">La colonne du graphe est approximative, et le rapport le précise lui-même : LightRAG renvoie une seule chaîne de contexte plate plutôt qu’une liste de documents, si bien qu’une référence compte comme un hit du graphe dès qu’elle apparaît n’importe où dans cette chaîne — ce qui peut provenir d’un renvoi croisé à l’intérieur d’un autre document. Considérez-le comme un signal réel, mais plus bruité. Il est rapporté séparément et n’est jamais fusionné silencieusement avec les trois autres.</p>
     </section>
 
     <section>
       <h2>3 · Compléter le tableau comparatif</h2>
-      <p>Remplissez les trois colonnes de résultats avec <code>all</code>, <code>partial</code> ou <code>miss</code> — utilisez <code>partial</code> lorsqu’une question portant sur plusieurs documents ne fait apparaître qu’une partie des sources attendues. Ajoutez ensuite, pour chaque ligne, une interprétation et une prochaine étape précise.</p>
+      <p>Remplissez les cinq colonnes de résultats avec <code>all</code>, <code>partial</code> ou <code>miss</code> — utilisez <code>partial</code> lorsqu’une question portant sur plusieurs documents ne fait apparaître qu’une partie des sources attendues. Ajoutez ensuite, pour chaque ligne, une interprétation et une prochaine étape précise.</p>
       <div class="lesson-table-scroll">
         <table class="lesson-comparison-table">
-          <thead><tr><th>ID de la question</th><th>Type de requête</th><th>Source attendue</th><th>Résultat vectoriel</th><th>Résultat plein texte</th><th>Union cumulative</th><th>Interprétation</th><th>Prochaine action</th></tr></thead>
-          <tbody><tr><td>q21</td><td>Reference lookup</td><td>PR-QA-MRD-010</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q24</td><td>Reference lookup / revision</td><td>PR-QA-MRD-009</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q32</td><td>Cross-lingual factual</td><td>PR-EXM-MRD-003</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q46</td><td>Literal factual</td><td>PR-ACH-MRD-007</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q63</td><td>Multi-hop</td><td>PR-CLI-MRD-013 + PR-QA-MRD-009</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody>
+          <thead><tr><th>ID de la question</th><th>Type de requête</th><th>Source attendue</th><th>Résultat vectoriel</th><th>Résultat plein texte</th><th>Résultat résumé</th><th>Résultat graphe</th><th>Union cumulative</th><th>Interprétation</th><th>Prochaine action</th></tr></thead>
+          <tbody><tr><td>q21</td><td>Reference lookup</td><td>PR-QA-MRD-010</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q24</td><td>Reference lookup / revision</td><td>PR-QA-MRD-009</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q32</td><td>Cross-lingual factual</td><td>PR-EXM-MRD-003</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q46</td><td>Literal factual</td><td>PR-ACH-MRD-007</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q63</td><td>Multi-hop</td><td>PR-CLI-MRD-013 + PR-QA-MRD-009</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody>
         </table>
       </div>
     </section>
@@ -131,9 +138,9 @@ reports/lesson-05-experiment.json</code></pre>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
       </div>
       <div class="lesson-quiz" data-quiz>
-        <p><strong>Cas C :</strong> Le résultat cumulatif de q63 vaut <code>all</code>, mais la réponse finale reste erronée. Où chercher ensuite ?</p>
-        <button type="button" data-answer="correct" data-feedback="Correct : les bonnes sources sont passées ; examinez ensuite l’assemblage du contexte et la génération.">Génération</button>
-        <button type="button" data-answer="incorrect" data-feedback="Ce n’est pas le premier endroit à vérifier : la récupération a déjà trouvé toutes les sources attendues.">Ingestion</button>
+        <p><strong>Cas C :</strong> Le résultat cumulatif <code>vector+fulltext</code> de q63 vaut <code>all</code>, mais la réponse finale reste erronée. Où chercher ensuite ?</p>
+        <button type="button" data-answer="correct" data-feedback="Correct : le vecteur et le plein texte ont déjà trouvé toutes les sources attendues ; examinez donc ensuite l’assemblage du contexte et la génération. Vérifiez aussi la colonne du graphe avant de clore cette ligne : si elle confirme indépendamment la même connexion, c’est une preuve corroborante que la génération disposait de ce dont elle avait besoin ; si le graphe revient vide ou partiel, notez-le comme une lacune de signal distincte, pas comme la cause racine de cette ligne.">Examiner la génération</button>
+        <button type="button" data-answer="incorrect" data-feedback="Ce n’est pas le premier endroit à vérifier : le vecteur et le plein texte ont déjà trouvé toutes les sources attendues ; le signal du graphe peut encore corroborer cela, mais l’ingestion n’est pas où se situe cet échec.">Examiner l’ingestion</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
       </div>
     </section>

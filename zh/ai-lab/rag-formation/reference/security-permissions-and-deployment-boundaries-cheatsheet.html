@@ -58,10 +58,15 @@
 <section class="section wrap lesson-content" id="reference-content">
 <div class="section-head"><p class="eyebrow">参考资料</p><h2 class="section-title">安全、权限与部署边界</h2><p class="section-sub">RAG Formation 课程仍在开发中；这份资料可用于自主学习和练习。</p></div>
 <section class="card accent"><h2>一句话规则</h2><p><strong>即使答案在事实层面正确，只要暴露了受限文档或密钥，仍然不可接受。</strong></p></section>
-<section><h2>核心术语</h2><table><thead><tr><th>术语</th><th>含义</th></tr></thead><tbody><tr><td><strong>最小权限（Least privilege）</strong></td><td>只向用户、服务和工具授予其所需的访问权限。</td></tr><tr><td><strong>数据边界（Data boundary）</strong></td><td>在演示、预发布和生产数据及凭据之间建立技术隔离。</td></tr><tr><td><strong>提示词/数据注入（Prompt/data injection）</strong></td><td>不受信任的文档或用户内容试图改变系统行为或暴露信息。</td></tr></tbody></table></section>
+<section><h2>核心术语</h2><table><thead><tr><th>术语</th><th>含义</th></tr></thead><tbody><tr><td><strong>最小权限（Least privilege）</strong></td><td>只向用户、服务和工具授予其所需的访问权限。</td></tr><tr><td><strong>数据边界（Data boundary）</strong></td><td>在演示、预发布和生产数据及凭据之间建立技术隔离。</td></tr><tr><td><strong>提示词/数据注入（Prompt/data injection）</strong></td><td>不受信任的文档或用户内容试图改变系统行为或暴露信息。</td></tr><tr><td><strong>按 workspace 隔离</strong></td><td><code>workspace</code> 确实隔离了 LightRAG 的图谱存储，但从未传到 Qdrant 或 Meilisearch——这两路完全忽略它。要用一次两次调用的实测来验证，不能靠假设。</td></tr><tr><td><strong>CORS</strong></td><td><code>api/app.py</code> 里设的是 <code>allow_origins=["*"]</code>——这是一个可以直接读到的事实，不是需要去验证的东西。</td></tr></tbody></table></section>
 <section><h2>证据卡</h2><table><thead><tr><th>事项</th><th>记录</th><th>不要声称</th></tr></thead><tbody><tr><td>基线</td><td>命令、配置和观测结果</td><td>基线就是目标。</td></tr><tr><td>改动</td><td>一个假设或决策</td><td>多个因素同时变化时，仍能确定是什么导致了结果。</td></tr><tr><td>指标</td><td>记录每个边界、当前控制措施、一条安全验证命令以及任何缺失的执行点。</td><td>一个指标就能说明质量的全部。</td></tr><tr><td>安全</td><td>一个失败案例和一个回归案例</td><td>流畅的回答就能证明系统可靠。</td></tr></tbody></table></section>
 <section><h2>本地命令</h2><pre><code>cd demo
-python3 setup_demo.py ingest --dry-run</code></pre><p><strong>产物：</strong> 一份 MVP 威胁与权限检查表，为每个边界附带一条负向验证。</p></section>
+python3 setup_demo.py ingest --dry-run
+# 然后，在技术栈启动之后（setup_demo.py up）：
+curl -s -X POST http://localhost:8000/api/v1/qa -H "Content-Type: application/json" \
+  -d '{"question": "...", "workspace": "meridian_demo"}'
+curl -s -X POST http://localhost:8000/api/v1/qa -H "Content-Type: application/json" \
+  -d '{"question": "...", "workspace": "not-a-real-workspace"}'</code></pre><p>对比两次调用的 <code>stats.graph_context_chars</code> 和 <code>sources</code>——图谱那一路应该有变化，向量/摘要/全文那三路应该完全不变。</p><p><strong>产物：</strong> 一份 MVP 威胁与权限检查表，为每个边界附带一条负向验证。</p></section>
 <section class="lesson-reference-nav"><p><strong>继续学习：</strong> <a href="../lessons/0015-security-permissions-and-deployment-boundaries.html">打开对应的独立课程</a> · <a href="../">课程路线图</a></p></section>
 </section>
 </main>

@@ -54,7 +54,7 @@
   <section class="hero wrap"><div class="hero-grid"><div>
     <p class="eyebrow">RAG Formation · Lesson · Retrieval engineering</p>
     <h1>Semantic search, keyword search, and hybrid retrieval</h1>
-    <p class="ai-lab-hero-note">Match SOP identifiers, acronyms, names, dates, and concepts to the retrieval signal that can find them.</p>
+    <p class="ai-lab-hero-note">Match SOP identifiers, acronyms, names, dates, and concepts to the retrieval signal that can find them — vector, full-text, summary, or graph.</p>
     <div class="ai-lab-cta"><a class="btn btn-primary" href="../">Course roadmap <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="../../">AI Lab</a></div>
   </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="Lesson · Semantic search, keyword search, and hybrid retrieval | RAG Formation"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">lesson --status</span></span>
 <span class="row"><span class="t-key">▸ course </span><span class="t-val">RAG Formation</span></span>
@@ -81,8 +81,10 @@
       <ul>
         <li><strong>Vector search:</strong> Works off embedding similarity, so it catches meaning and paraphrases rather than exact words. How well it holds up across languages depends on the embedding model — do not assume, measure it.</li>
         <li><strong>Full-text search:</strong> Matches the literal string — identifiers, names, acronyms, numbers. When exact spelling is what carries the meaning, this is what saves you.</li>
-        <li><strong>Cumulative union:</strong> For this experiment, a source counts as found the moment it turns up in either the vector results or the full-text results. That tells you about retrieval contribution — nothing about whether the eventual answer is correct.</li>
-        <li><strong>Hybrid retrieval:</strong> A production hybrid path might fuse or rerank both signals together. Here we start with the simpler vector-plus-full-text union, so each one's contribution stays visible.</li>
+        <li><strong>Summary retrieval:</strong> A separate index holding one embedded summary per whole document, not per chunk. It's built for "what is this document about," when a single ~500-token chunk is too narrow a unit to represent the whole thing.</li>
+        <li><strong>Graph retrieval:</strong> LightRAG extracts entities and relationships from the corpus at index time and traverses that graph at query time. It isn't "another way to find a chunk" — it's the one signal that can connect facts living in different chunks or documents, which vector and full-text search structurally cannot do on their own.</li>
+        <li><strong>Cumulative union:</strong> For this experiment, a source counts as found the moment it turns up in any of the four signals. That tells you about retrieval contribution — nothing about whether the eventual answer is correct.</li>
+        <li><strong>Hybrid retrieval:</strong> In this system, "hybrid" means running all four signals in parallel and concatenating their formatted results into the prompt — not fusing or reranking them. There's no score normalization or reciprocal rank fusion across signals; the only real fusion happens inside LightRAG itself, across its own entity, relationship, and vector passes. A rerank engine exists in the codebase but isn't wired into live retrieval — don't assume "hybrid" implies more sophistication than parallel-and-concatenate.</li>
       </ul>
       <p><a href="https://qdrant.tech/documentation/search/text-search/hybrid-search" target="_blank" rel="noreferrer">Primary reading: Qdrant Hybrid Search</a> — pay attention to how it combines multiple search representations, and why that combination needs to be evaluated rather than just assumed to work.</p>
       </section>
@@ -100,18 +102,23 @@ reports/lesson-05-experiment.json</code></pre>
       <ul>
         <li><code>results[].retrieval.indexes.vector.all</code></li>
         <li><code>results[].retrieval.indexes.fulltext.all</code></li>
+        <li><code>results[].retrieval.indexes.summary.all</code></li>
+        <li><code>results[].retrieval.indexes.graph.all</code></li>
         <li><code>results[].retrieval.cumulative["vector+fulltext"].all</code></li>
+        <li><code>results[].retrieval.cumulative["vector+fulltext+summary"].all</code></li>
+        <li><code>results[].retrieval.cumulative["vector+fulltext+summary+graph"].all</code></li>
       </ul>
       <p class="lesson-callout">Judge a hit by source metadata, not by text matching — a document ID that merely shows up inside another document’s body text does not count as a retrieval hit.</p>
+      <p class="lesson-callout">The graph column is approximate, and the report says so: LightRAG returns one flat context string rather than a list of documents, so a reference counts as a graph hit if it appears anywhere in that string — which could come from a cross-reference inside another document, not the target document itself. Treat it as a real but noisier signal. It's reported separately and never silently folded into the other three.</p>
       </section>
 
     <section>
       <h2>3 · Fill the comparison table</h2>
-      <p>Fill the three result columns with <code>all</code>, <code>partial</code>, or <code>miss</code> — use <code>partial</code> when a multi-document question only turns up some of its expected sources. Then, for each row, add one line of interpretation and one specific next step.</p>
+      <p>Fill the five result columns with <code>all</code>, <code>partial</code>, or <code>miss</code> — use <code>partial</code> when a multi-document question only turns up some of its expected sources. Then, for each row, add one line of interpretation and one specific next step.</p>
       <div class="lesson-table-scroll">
         <table class="lesson-comparison-table">
-          <thead><tr><th>Question ID</th><th>Query type</th><th>Expected source</th><th>Vector result</th><th>Full-text result</th><th>Cumulative union</th><th>Interpretation</th><th>Next action</th></tr></thead>
-          <tbody><tr><td>q21</td><td>Reference lookup</td><td>PR-QA-MRD-010</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q24</td><td>Reference lookup / revision</td><td>PR-QA-MRD-009</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q32</td><td>Cross-lingual factual</td><td>PR-EXM-MRD-003</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q46</td><td>Literal factual</td><td>PR-ACH-MRD-007</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q63</td><td>Multi-hop</td><td>PR-CLI-MRD-013 + PR-QA-MRD-009</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody>
+          <thead><tr><th>Question ID</th><th>Query type</th><th>Expected source</th><th>Vector result</th><th>Full-text result</th><th>Summary result</th><th>Graph result</th><th>Cumulative union</th><th>Interpretation</th><th>Next action</th></tr></thead>
+          <tbody><tr><td>q21</td><td>Reference lookup</td><td>PR-QA-MRD-010</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q24</td><td>Reference lookup / revision</td><td>PR-QA-MRD-009</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q32</td><td>Cross-lingual factual</td><td>PR-EXM-MRD-003</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q46</td><td>Literal factual</td><td>PR-ACH-MRD-007</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr><tr><td>q63</td><td>Multi-hop</td><td>PR-CLI-MRD-013 + PR-QA-MRD-009</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr></tbody>
         </table>
       </div>
       </section>
@@ -131,9 +138,9 @@ reports/lesson-05-experiment.json</code></pre>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
       </div>
       <div class="lesson-quiz" data-quiz>
-        <p><strong>Case C:</strong> q63's cumulative result is <code>all</code>, yet the final answer is still wrong. Where do you look next?</p>
-        <button type="button" data-answer="correct" data-feedback="Correct — the right sources got through, so look at context assembly and generation next.">Generation</button>
-        <button type="button" data-answer="incorrect" data-feedback="Not the first stop — retrieval already found every expected source.">Ingestion</button>
+        <p><strong>Case C:</strong> q63's <code>vector+fulltext</code> cumulative result is <code>all</code>, yet the final answer is still wrong. Where do you look next?</p>
+        <button type="button" data-answer="correct" data-feedback="Correct — vector and full-text already found every expected source, so look at context assembly and generation next. Check the graph column too before closing this row out: if it independently confirms the same connection, that is corroborating evidence generation had what it needed; if graph came back empty or partial, note that as a separate signal gap, not this row's root cause.">Look at generation</button>
+        <button type="button" data-answer="incorrect" data-feedback="Not the first stop — vector and full-text already found every expected source; the graph signal can still corroborate that, but ingestion is not where this failure lives.">Look at ingestion</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
       </div>
     </section>

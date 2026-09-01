@@ -100,7 +100,7 @@ python3 metadata_lab.py --output-dir reports/lesson-07-inventory</code></pre>
   <h2>3 · 负向访问练习</h2>
   <div class="lesson-quiz" data-quiz>
 <p><strong>案例 A：</strong>提示词说“只回答 HR 问题”，但检索并不在意，仍然会从所有文档中取内容。缺少的是什么？</p>
-<button type="button" data-answer="correct" data-feedback="正确。检索前，后端需要应用服务端过滤器。">服务端过滤</button>
+<button type="button" data-answer="correct" data-feedback="正确。检索前，后端需要应用服务端过滤器——而且必须独立接入全部四路检索（Qdrant 分块、Qdrant 摘要、Meilisearch、LightRAG），因为它们各自是独立的函数调用，中间没有共享的过滤层。某一路接了过滤、另一路忘了接，就是一次真实的跨租户泄露，不是假设。">服务端过滤</button>
 <button type="button" data-answer="incorrect" data-feedback="不够充分。提示词不能阻止无权文档进入检索结果。">改进提示词</button>
 <p class="lesson-feedback" data-feedback aria-live="polite"></p>
 </div>

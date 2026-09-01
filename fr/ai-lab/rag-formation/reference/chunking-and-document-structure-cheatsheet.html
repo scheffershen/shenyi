@@ -67,18 +67,19 @@
       <div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Terme</th><th>Signification</th></tr></thead><tbody>
         <tr><td><strong>Fenêtre source (Source window)</strong></td><td>Découpage borné et reproductible de Markdown synthétique utilisé dans le laboratoire hors ligne.</td></tr>
         <tr><td><strong>Taille des fragments (Chunk size)</strong></td><td>Nombre maximal de caractères autorisé dans une fenêtre source.</td></tr>
+        <tr><td><strong>Profil de taille de fragments (Chunk-size profile)</strong></td><td>Pas un réglage universel — Qdrant/Meilisearch indexent à environ 500 tokens, LightRAG utilise délibérément environ 1200 tokens pour une meilleure extraction d’entités. <code>--profile chunk</code>/<code>graph</code> approximent ces deux tailles en caractères.</td></tr>
         <tr><td><strong>Chevauchement (Overlap)</strong></td><td>Caractères copiés de la fin d’une fenêtre vers la suivante.</td></tr>
         <tr><td><strong>Co-localisation (Co-location)</strong></td><td>La référence attendue et chaque terme factuel requis apparaissent dans la même fenêtre.</td></tr>
-        <tr><td><strong>Indicateur proxy (Proxy metric)</strong></td><td>Signal directionnel, et non résultat de récupération en ligne ou de qualité de réponse.</td></tr>
+        <tr><td><strong>Indicateur proxy (Proxy metric)</strong></td><td>Signal directionnel, et non résultat de récupération en ligne ou de qualité de réponse. Le taux du profil graph paraît meilleur presque par construction, puisqu’une fenêtre suffisamment grande contient trivialement le document entier.</td></tr>
       </tbody></table></div>
     </section>
 
     <section>
       <h2>Fiche d’expérimentation contrôlée</h2>
       <div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Étape</th><th>À faire</th><th>Ne pas affirmer</th></tr></thead><tbody>
-        <tr><td>Référence</td><td>Exécuter q24 avec 280 caractères et 40 caractères de chevauchement.</td><td>Qu’il s’agit du meilleur réglage pour la production.</td></tr>
-        <tr><td>Une modification</td><td>Conserver le chevauchement à 40 et relancer q24 avec 420 caractères.</td><td>Que plusieurs modifications ont causé le résultat.</td></tr>
-        <tr><td>Mesurer</td><td>Comparer le nombre/taux de co-localisation et le texte lisible des fenêtres.</td><td>Que l’index en ligne s’est amélioré.</td></tr>
+        <tr><td>Référence</td><td>Exécuter q24 avec <code>--profile chunk</code> (~500 tokens, la taille Qdrant/Meilisearch).</td><td>Qu’il s’agit du meilleur réglage pour la production.</td></tr>
+        <tr><td>Une modification</td><td>Conserver le reste et relancer q24 avec <code>--profile graph</code> (~1200 tokens, la taille de LightRAG).</td><td>Que plusieurs modifications ont causé le résultat.</td></tr>
+        <tr><td>Mesurer</td><td>Comparer le nombre/taux de co-localisation et le texte lisible des fenêtres.</td><td>Que l’index en ligne s’est amélioré, ou que la fenêtre plus grande est simplement meilleure.</td></tr>
         <tr><td>Vérifier</td><td>Réindexer la démonstration isolée, puis relancer l’évaluation de récupération.</td><td>Qu’un proxy de fenêtre source peut remplacer l’évaluation.</td></tr>
       </tbody></table></div>
     </section>
@@ -95,9 +96,9 @@
     <section>
       <h2>Commandes et modèle de conclusion</h2>
       <pre><code>cd demo
-python3 chunk_lab.py --question q24 --window-chars 280 --overlap-chars 40 --output-dir reports/lesson-06-baseline
-python3 chunk_lab.py --question q24 --window-chars 420 --overlap-chars 40 --output-dir reports/lesson-06-larger-window</code></pre>
-      <p><strong>Modèle de conclusion :</strong> « Avec ___ caractères et ___ de chevauchement, ___ fenêtres sur ___ ont conservé ensemble le fait requis et l’identité de la source. Cela étaye l’hypothèse que ___. Cela ne prouve pas la qualité de la récupération en ligne ; ensuite, je réindexerais et relancerais l’évaluation de récupération. »</p>
+python3 chunk_lab.py --question q24 --profile chunk --output-dir reports/lesson-06-chunk-profile
+python3 chunk_lab.py --question q24 --profile graph --output-dir reports/lesson-06-graph-profile</code></pre>
+      <p><strong>Modèle de conclusion :</strong> « Avec le profil ___ (___ caractères, chevauchement de ___), ___ fenêtres sur ___ ont conservé ensemble le fait requis et l’identité de la source. Cela étaye l’hypothèse que ___. Cela ne prouve pas la qualité de la récupération en ligne, et cela ne signifie pas non plus que la fenêtre plus grande soit simplement meilleure ; ensuite, je pèserais cela face au coût réel d’extraction de LightRAG, puis je réindexerais et relancerais l’évaluation de récupération. »</p>
     </section>
 
     <section>

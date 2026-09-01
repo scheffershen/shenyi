@@ -74,18 +74,19 @@
       <div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody>
         <tr><td><strong>Source window</strong></td><td>A repeatable, bounded slice of synthetic Markdown used in the offline lab.</td></tr>
         <tr><td><strong>Chunk size</strong></td><td>The maximum number of characters allowed in one source window.</td></tr>
+        <tr><td><strong>Chunk-size profile</strong></td><td>Not one universal setting — Qdrant/Meilisearch index at ~500 tokens, LightRAG deliberately uses ~1200 for better entity extraction. <code>--profile chunk</code>/<code>graph</code> approximate the two in characters.</td></tr>
         <tr><td><strong>Overlap</strong></td><td>Characters copied from the end of one window into the next.</td></tr>
         <tr><td><strong>Co-location</strong></td><td>The expected reference and every required fact term appear in the same window.</td></tr>
-        <tr><td><strong>Proxy metric</strong></td><td>A directional signal—not a live retrieval or answer-quality result.</td></tr>
+        <tr><td><strong>Proxy metric</strong></td><td>A directional signal—not a live retrieval or answer-quality result. The graph profile's rate looks better almost by construction, since a big enough window trivially fits the whole document.</td></tr>
       </tbody></table></div>
     </section>
 
     <section>
       <h2>Controlled experiment card</h2>
       <div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>Step</th><th>Do</th><th>Don't claim</th></tr></thead><tbody>
-        <tr><td>Baseline</td><td>Run q24 with 280 characters and 40 characters of overlap.</td><td>That this is the best production setting.</td></tr>
-        <tr><td>One change</td><td>Keep the overlap at 40 and rerun q24 with 420 characters.</td><td>That several changes caused the result.</td></tr>
-        <tr><td>Measure</td><td>Compare the co-location count/rate and the readable window text.</td><td>That the live index has improved.</td></tr>
+        <tr><td>Baseline</td><td>Run q24 with <code>--profile chunk</code> (~500 tokens, the Qdrant/Meilisearch size).</td><td>That this is the best production setting.</td></tr>
+        <tr><td>One change</td><td>Keep everything else and rerun q24 with <code>--profile graph</code> (~1200 tokens, LightRAG's size).</td><td>That several changes caused the result.</td></tr>
+        <tr><td>Measure</td><td>Compare the co-location count/rate and the readable window text.</td><td>That the live index has improved, or that the bigger window is simply better.</td></tr>
         <tr><td>Verify</td><td>Reindex the isolated demo, then run the retrieval evaluation again.</td><td>That a source-window proxy can replace evaluation.</td></tr>
       </tbody></table></div>
       
@@ -104,9 +105,9 @@
     <section>
       <h2>Commands and conclusion frame</h2>
       <pre><code>cd demo
-python3 chunk_lab.py --question q24 --window-chars 280 --overlap-chars 40 --output-dir reports/lesson-06-baseline
-python3 chunk_lab.py --question q24 --window-chars 420 --overlap-chars 40 --output-dir reports/lesson-06-larger-window</code></pre>
-      <p><strong>Conclusion frame:</strong> “With ___ characters and ___ overlap, ___ of ___ windows kept the required fact and source identity together. This supports the hypothesis that ___. It does not prove live retrieval quality; next, I would reindex and run the retrieval evaluation again.”</p>
+python3 chunk_lab.py --question q24 --profile chunk --output-dir reports/lesson-06-chunk-profile
+python3 chunk_lab.py --question q24 --profile graph --output-dir reports/lesson-06-graph-profile</code></pre>
+      <p><strong>Conclusion frame:</strong> “With the ___ profile (___ characters, ___ overlap), ___ of ___ windows kept the required fact and source identity together. This supports the hypothesis that ___. It does not prove live retrieval quality, and it does not mean the bigger window is simply better; next, I would weigh that against LightRAG's real extraction cost and reindex-plus-retrieval check.”</p>
       
     </section>
 

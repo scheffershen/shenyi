@@ -79,6 +79,7 @@
   <ul>
     <li><strong>文本块/窗口：</strong>一段有明确边界的来源文本。处理得当时，它会把事实、标题和文档身份放在一起；处理不当时，它们就会被拆开。</li>
     <li><strong>重叠：</strong>跨过边界、重复到下一个窗口中的文本。它可以挽救跨越边界的事实，但重叠过多，最终只会得到近似重复的证据。</li>
+    <li><strong>分块大小是一个真实的设计选择，不是统一规格：</strong>Qdrant 和 Meilisearch 都以约 500 token 为单位建立索引，而 LightRAG 有意采用约 1200 token——更大的窗口能让它的实体抽取 LLM 在每次调用中获得更多上下文，也就是调用次数更少、成本更低，代价是实体边界更粗糙。不存在唯一“正确”的窗口大小；正确的大小取决于这个索引是用来做什么的。</li>
     <li><strong>证据与身份共现：</strong>本课使用的指标——一个来源窗口是否同时包含预期文档编号和所有必需事实词？</li>
     <li><strong>有边界的结论：</strong>来源窗口结果只能给出一个分块假设，不能更多。它不能证明线上索引检索或回答得更好。</li>
   </ul>
@@ -88,12 +89,12 @@
   <h2>2 · 运行一次受控的来源窗口实验</h2>
   <p>离线工具 <code>chunk_lab.py</code> 只读取两样东西：合成 Markdown 语料和 <code>eval_set.yaml</code>。它不会连接 Docker、读取密钥、调用 API，也不会重建索引。</p>
   <pre><code>cd demo
-python3 chunk_lab.py --question q24 --window-chars 280 --overlap-chars 40 --output-dir reports/lesson-06-baseline
-python3 chunk_lab.py --question q24 --window-chars 420 --overlap-chars 40 --output-dir reports/lesson-06-larger-window</code></pre>
-  <p>把重叠固定为 40 个字符——唯一改变的是窗口大小。然后比较以下报告文件：</p>
-  <pre><code>reports/lesson-06-baseline/lesson-06-q24-chunks.md
-reports/lesson-06-larger-window/lesson-06-q24-chunks.md</code></pre>
-  <p class="lesson-callout">这里的指标很简单：有多少个窗口、占多大比例，同时包含预期编号和每个 <code>must_include</code> 事实词。更高的数字可以支持分块假设，但它不是检索准确率。</p>
+python3 chunk_lab.py --question q24 --profile chunk --output-dir reports/lesson-06-chunk-profile
+python3 chunk_lab.py --question q24 --profile graph --output-dir reports/lesson-06-graph-profile</code></pre>
+  <p><code>--profile chunk</code> 和 <code>--profile graph</code> 是预设值，不是随意的数字——它们分别对应第 1 节里 Qdrant/Meilisearch 约 500 token、LightRAG 约 1200 token 的真实窗口大小，换算成了字符数。两种档位下重叠都固定为 200 个字符：唯一改变的是窗口大小。然后比较以下报告文件：</p>
+  <pre><code>reports/lesson-06-chunk-profile/lesson-06-q24-chunks.md
+reports/lesson-06-graph-profile/lesson-06-q24-chunks.md</code></pre>
+  <p class="lesson-callout">这里的指标很简单：有多少个窗口、占多大比例，同时包含预期编号和每个 <code>must_include</code> 事实词。更高的数字可以支持分块假设，但它不是检索准确率。别指望 graph 档位的比例几乎必然更好看——足够大的窗口本来就能装下整份文档，这正是你该在结论里点明的权衡，而不是当成一场胜利。</p>
 </section>
 <section>
   <h2>3 · 检查三种问题形态</h2>
@@ -115,13 +116,13 @@ reports/lesson-06-larger-window/lesson-06-q24-chunks.md</code></pre>
     <table class="lesson-comparison-table">
       <thead><tr><th>问题</th><th>配置</th><th>共现数量 / 比例</th><th>观察到的边界影响</th><th>回归或成本</th><th>有边界的结论</th></tr></thead>
       <tbody>
-        <tr><td>q24</td><td>280 / 40</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
-        <tr><td>q24</td><td>420 / 40</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+        <tr><td>q24</td><td>chunk 档位（约 500 token）</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+        <tr><td>q24</td><td>graph 档位（约 1200 token）</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
         <tr><td>q30 或 q52</td><td>选择一组受控对比</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
       </tbody>
     </table>
   </div>
-  <p>填写这个句式：<em>“窗口设为 ___ 个字符、重叠设为 ___ 个字符时，___ / ___ 个窗口把必需事实和来源身份放在了一起。这支持 ___ 这个假设，但不能证明线上检索质量。下一步，我会重新建立索引，再运行检索评估。”</em></p>
+  <p>填写这个句式：<em>“用 ___ 档位（___ 个字符、重叠 ___ 个字符）时，___ / ___ 个窗口把必需事实和来源身份放在了一起。这支持 ___ 这个假设，但不能证明线上检索质量，也不代表窗口越大越好。下一步，我会权衡这一点和 LightRAG 真实的抽取成本，再重新建立索引，运行检索评估。”</em></p>
 </section>
 <section>
   <h2>5 · 检索练习</h2>
@@ -138,7 +139,7 @@ reports/lesson-06-larger-window/lesson-06-q24-chunks.md</code></pre>
 <p class="lesson-feedback" data-feedback aria-live="polite"></p>
 </div>
   <div class="lesson-quiz" data-quiz>
-<p><strong>案例 C：</strong>更大的窗口让代理指标上升了。诚实的下一步是什么？</p>
+<p><strong>案例 C：</strong>从 chunk 档位切换到 graph 档位后，代理指标上升了。诚实的下一步是什么？</p>
 <button type="button" data-answer="correct" data-feedback="正确。在隔离环境中重新索引，然后用同一评估集测量检索。">重新测量指标</button>
 <button type="button" data-answer="incorrect" data-feedback="还不能。代理指标支持一个假设，但不能证明线上检索或答案质量。">直接认定因果</button>
 <p class="lesson-feedback" data-feedback aria-live="polite"></p>

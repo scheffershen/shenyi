@@ -81,6 +81,7 @@
       <ul>
         <li><strong>Fragment/fenêtre :</strong> une portion délimitée du texte source. Bien traitée, elle associe un fait à son titre et à l’identité du document. Mal traitée, elle les sépare.</li>
         <li><strong>Chevauchement :</strong> le texte répété au-delà de la limite dans la fenêtre suivante. Il peut préserver un fait situé à cheval sur une limite ; mais s’il est trop important, il ne produit que des preuves presque dupliquées.</li>
+        <li><strong>La taille des fragments est un vrai choix de conception, pas un réglage universel :</strong> Qdrant et Meilisearch indexent tous deux à environ 500 tokens par fragment, tandis que LightRAG utilise délibérément environ 1200 tokens — une fenêtre plus grande donne à son LLM d’extraction d’entités davantage de contexte par appel, ce qui signifie moins d’appels, moins coûteux, au prix de frontières d’entités plus grossières. Il n’existe pas une seule « bonne » taille de fenêtre ; la bonne taille dépend de l’usage de l’index.</li>
         <li><strong>Cospatialité de la preuve et de l’identité :</strong> l’indicateur utilisé dans cette leçon : une fenêtre source contient-elle à la fois la référence du document attendu et chacun des termes factuels requis ?</li>
         <li><strong>Conclusion délimitée :</strong> un résultat de fenêtre source fournit une hypothèse de segmentation, rien de plus. Il ne prouve pas que l’index actif récupère ou traite mieux les réponses.</li>
       </ul>
@@ -91,12 +92,12 @@
       <h2>2 · Exécuter une expérience contrôlée sur les fenêtres sources</h2>
       <p>L’outil hors ligne <code>chunk_lab.py</code> ne touche qu’à deux éléments : le corpus Markdown synthétique et <code>eval_set.yaml</code>. Il ne contacte jamais Docker, ne lit aucun secret, n’appelle pas l’API et ne réindexe rien.</p>
       <pre><code>cd demo
-python3 chunk_lab.py --question q24 --window-chars 280 --overlap-chars 40 --output-dir reports/lesson-06-baseline
-python3 chunk_lab.py --question q24 --window-chars 420 --overlap-chars 40 --output-dir reports/lesson-06-larger-window</code></pre>
-      <p>Maintenez le chevauchement à 40 caractères : la seule variable modifiée est la taille de la fenêtre. Comparez ensuite ces fichiers de rapport :</p>
-      <pre><code>reports/lesson-06-baseline/lesson-06-q24-chunks.md
-reports/lesson-06-larger-window/lesson-06-q24-chunks.md</code></pre>
-      <p class="lesson-callout">L’indicateur est simple : combien de fenêtres, et à quel taux, contiennent à la fois la référence attendue et chaque terme de <code>must_include</code> ? Un nombre plus élevé peut étayer une hypothèse de segmentation. Ce n’est pas la précision de la récupération.</p>
+python3 chunk_lab.py --question q24 --profile chunk --output-dir reports/lesson-06-chunk-profile
+python3 chunk_lab.py --question q24 --profile graph --output-dir reports/lesson-06-graph-profile</code></pre>
+      <p><code>--profile chunk</code> et <code>--profile graph</code> sont des préréglages, pas des chiffres arbitraires : ils correspondent aux tailles de fenêtre réelles d’environ 500 tokens (Qdrant/Meilisearch) et 1200 tokens (LightRAG) de la section 1, converties en caractères. Le chevauchement reste fixé à 200 caractères dans les deux cas : la seule variable modifiée est la taille de la fenêtre. Comparez ensuite ces fichiers de rapport :</p>
+      <pre><code>reports/lesson-06-chunk-profile/lesson-06-q24-chunks.md
+reports/lesson-06-graph-profile/lesson-06-q24-chunks.md</code></pre>
+      <p class="lesson-callout">L’indicateur est simple : combien de fenêtres, et à quel taux, contiennent à la fois la référence attendue et chaque terme de <code>must_include</code> ? Un nombre plus élevé peut étayer une hypothèse de segmentation. Ce n’est pas la précision de la récupération. Attendez-vous à ce que le taux du profil graph paraisse meilleur presque par construction — une fenêtre suffisamment grande contient trivialement le document entier, ce qui est précisément le compromis à nommer dans votre conclusion, pas à présenter comme une victoire.</p>
     </section>
 
     <section>
@@ -120,13 +121,13 @@ reports/lesson-06-larger-window/lesson-06-q24-chunks.md</code></pre>
         <table class="lesson-comparison-table">
           <thead><tr><th>Question</th><th>Configuration</th><th>Nombre/taux de cospatialité</th><th>Effet de limite observé</th><th>Régression ou coût</th><th>Conclusion délimitée</th></tr></thead>
           <tbody>
-            <tr><td>q24</td><td>280 / 40</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
-            <tr><td>q24</td><td>420 / 40</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+            <tr><td>q24</td><td>profil chunk (~500 tok)</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+            <tr><td>q24</td><td>profil graph (~1200 tok)</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
             <tr><td>q30 ou q52</td><td>Choisissez une paire contrôlée</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
           </tbody>
         </table>
       </div>
-      <p>Complétez ce modèle de phrase : <em>« Avec ___ caractères et un chevauchement de ___, ___ fenêtres sur ___ placent le fait requis et l’identité de la source au même endroit. Cela étaye l’hypothèse selon laquelle ___. Cela ne prouve pas la qualité de la récupération en production ; je réindexerais ensuite et relancerais l’évaluation de la récupération. »</em></p>
+      <p>Complétez ce modèle de phrase : <em>« Avec le profil ___ (___ caractères, chevauchement de ___), ___ fenêtres sur ___ placent le fait requis et l’identité de la source au même endroit. Cela étaye l’hypothèse selon laquelle ___. Cela ne prouve pas la qualité de la récupération en production, et cela ne signifie pas non plus que la fenêtre plus grande soit simplement meilleure ; je pèserais ensuite cela face au coût réel d’extraction de LightRAG, puis je réindexerais et relancerais l’évaluation de la récupération. »</em></p>
     </section>
 
     <section>
@@ -144,7 +145,7 @@ reports/lesson-06-larger-window/lesson-06-q24-chunks.md</code></pre>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
       </div>
       <div class="lesson-quiz" data-quiz>
-        <p><strong>Cas C :</strong> La fenêtre plus grande améliore l’indicateur indirect. Quelle est la prochaine étape honnête ?</p>
+        <p><strong>Cas C :</strong> Passer du profil chunk au profil graph améliore l’indicateur indirect. Quelle est la prochaine étape honnête ?</p>
         <button type="button" data-answer="correct" data-feedback="Correct. Réindexez dans l’environnement isolé, puis mesurez la récupération avec le même jeu d’évaluation.">Relancer l’indicateur</button>
         <button type="button" data-answer="incorrect" data-feedback="Pas encore. L’indicateur indirect étaye une hypothèse, mais ne prouve ni la récupération réelle ni la qualité des réponses.">Supposer la cause</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>

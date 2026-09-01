@@ -81,6 +81,7 @@
       <ul>
         <li><strong>Chunk/window:</strong> a bounded slice of source text. Handled well, it carries a fact together with its heading and document identity. Handled badly, it splits them apart.</li>
         <li><strong>Overlap:</strong> the text repeated across the boundary into the next window. It can rescue a fact that straddles a boundary — but push it too far and you just end up with near-duplicate evidence.</li>
+        <li><strong>Chunk size is a real design choice, not one universal setting:</strong> Qdrant and Meilisearch both index at ~500 tokens per chunk, while LightRAG deliberately indexes at ~1200 tokens — a bigger window gives its entity-extraction LLM more context per call, meaning fewer, cheaper calls at the cost of coarser entity boundaries. There's no single "right" window size; the right size depends on what the index is for.</li>
         <li><strong>Evidence-and-identity co-location:</strong> the metric this lesson runs on — does a source window hold both the expected document reference and every required fact term?</li>
         <li><strong>Bounded conclusion:</strong> a source-window result gives you a chunking hypothesis, nothing more. It doesn't prove the live index retrieves or answers any better.</li>
       </ul>
@@ -91,12 +92,12 @@
       <h2>2 · Run one controlled source-window experiment</h2>
       <p>The offline <code>chunk_lab.py</code> utility only touches two things: the synthetic Markdown corpus and <code>eval_set.yaml</code>. It never contacts Docker, reads a secret, calls the API, or reindexes anything.</p>
       <pre><code>cd demo
-python3 chunk_lab.py --question q24 --window-chars 280 --overlap-chars 40 --output-dir reports/lesson-06-baseline
-python3 chunk_lab.py --question q24 --window-chars 420 --overlap-chars 40 --output-dir reports/lesson-06-larger-window</code></pre>
-      <p>Hold overlap steady at 40 characters — the only thing you're changing is window size. Then compare these report files:</p>
-      <pre><code>reports/lesson-06-baseline/lesson-06-q24-chunks.md
-reports/lesson-06-larger-window/lesson-06-q24-chunks.md</code></pre>
-      <p class="lesson-callout">The metric here is simple: how many windows — and what rate — contain both the expected reference and every <code>must_include</code> term. A higher number can back up a chunking hypothesis. It is not retrieval accuracy.</p>
+python3 chunk_lab.py --question q24 --profile chunk --output-dir reports/lesson-06-chunk-profile
+python3 chunk_lab.py --question q24 --profile graph --output-dir reports/lesson-06-graph-profile</code></pre>
+      <p><code>--profile chunk</code> and <code>--profile graph</code> are presets, not arbitrary numbers — they map to the real ~500-token (Qdrant/Meilisearch) and ~1200-token (LightRAG) window sizes from Section 1, translated to characters. Overlap is held steady at 200 characters across both; the only thing you're changing is window size. Then compare these report files:</p>
+      <pre><code>reports/lesson-06-chunk-profile/lesson-06-q24-chunks.md
+reports/lesson-06-graph-profile/lesson-06-q24-chunks.md</code></pre>
+      <p class="lesson-callout">The metric here is simple: how many windows — and what rate — contain both the expected reference and every <code>must_include</code> term. A higher number can back up a chunking hypothesis. It is not retrieval accuracy. Expect the graph profile's rate to look better almost by construction — a big enough window trivially fits the whole document, which is exactly the tradeoff to name in your conclusion, not treat as a win.</p>
       </section>
 
     <section>
@@ -120,13 +121,13 @@ reports/lesson-06-larger-window/lesson-06-q24-chunks.md</code></pre>
         <table class="lesson-comparison-table">
           <thead><tr><th>Question</th><th>Configuration</th><th>Co-location count / rate</th><th>Observed boundary effect</th><th>Regression or cost</th><th>Bounded conclusion</th></tr></thead>
           <tbody>
-            <tr><td>q24</td><td>280 / 40</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
-            <tr><td>q24</td><td>420 / 40</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+            <tr><td>q24</td><td>chunk profile (~500 tok)</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+            <tr><td>q24</td><td>graph profile (~1200 tok)</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
             <tr><td>q30 or q52</td><td>Choose one controlled pair</td><td>_____</td><td>_____</td><td>_____</td><td>_____</td></tr>
           </tbody>
         </table>
       </div>
-      <p>Fill in this sentence frame: <em>“With ___ characters and ___ overlap, ___ of ___ windows put the required fact and the source identity in the same place. That supports the hypothesis that ___. It doesn't prove live retrieval quality — next I'd reindex and rerun the retrieval evaluation.”</em></p>
+      <p>Fill in this sentence frame: <em>“With the ___ profile (___ characters, ___ overlap), ___ of ___ windows put the required fact and the source identity in the same place. That supports the hypothesis that ___. It doesn't prove live retrieval quality, and it doesn't mean the bigger window is simply better — next I'd weigh that against LightRAG's real extraction cost and reindex-plus-retrieval check.”</em></p>
       </section>
 
     <section>
@@ -144,7 +145,7 @@ reports/lesson-06-larger-window/lesson-06-q24-chunks.md</code></pre>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>
         </div>
       <div class="lesson-quiz" data-quiz>
-        <p><strong>Case C:</strong> The bigger window pushes the proxy metric up. What's the honest next move?</p>
+        <p><strong>Case C:</strong> Switching from the chunk profile to the graph profile pushes the proxy metric up. What's the honest next move?</p>
         <button type="button" data-answer="correct" data-feedback="Correct. Reindex in the isolated environment, then measure retrieval with the same evaluation set.">Rerun metric</button>
         <button type="button" data-answer="incorrect" data-feedback="Not yet. The proxy supports a hypothesis but cannot prove live retrieval or answer quality.">Assume cause</button>
         <p class="lesson-feedback" data-feedback aria-live="polite"></p>

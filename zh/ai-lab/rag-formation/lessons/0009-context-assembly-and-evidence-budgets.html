@@ -78,9 +78,10 @@
   <h2>1 · 核心技能</h2>
   <p>选择 q30 或 q63，从检索找到的来源开始，一路跟踪到上下文组装，直到最终的提示词预算。</p>
   <ul>
-    <li><strong>上下文组装：</strong>把后端结果转换成回答模型实际读取的文本。</li>
+    <li><strong>上下文组装：</strong>把后端结果转换成回答模型实际读取的文本。在这套系统里，这一步分四路通道运行——摘要、向量、全文和图谱——每一路都通过一个最大最小公平分配算法拿到证据预算里自己的一份：不会有哪一路被压到零，而另一路还有富余。</li>
     <li><strong>证据预算：</strong>你能负担的上下文上限，由字符数、token 数、延迟或成本决定。</li>
-    <li><strong>来源存活：</strong>格式化和截断完成后，答案真正需要的证据是否仍然保留。</li>
+    <li><strong>来源存活：</strong>格式化和截断完成后，答案真正需要的证据是否仍然保留。描述旧做法的那段代码注释说得很直白：以前是固定顺序拼接，“决定谁能进上下文的是位置，不是相关性”——图谱这一块总是排在最后，所以永远是第一个被挤掉的。</li>
+    <li><strong>这跟第 5 到 8 课走的不是同一条路：</strong>那几课用的 <code>--mode retrieval</code> 调用的是 <code>/api/v1/search</code>，没有任何融合，只是纯拼接。这一课用的 <code>--mode answer</code> 调用的是 <code>/api/v1/qa</code>，才有真正按通道公平分配预算的逻辑。第 8 课学到的“没有融合”，不要搬到这一课来用——它在这里不适用。</li>
   </ul>
   <p><a href="https://www.anthropic.com/news/contextual-retrieval" target="_blank" rel="noreferrer">主要阅读：Anthropic《上下文检索》</a></p>
 </section>
@@ -88,8 +89,14 @@
   <h2>2 · 运行证据闭环</h2>
   <pre><code>cd demo
 python3 eval.py run --mode answer --workspace meridian_demo --category multi_hop --tag lesson-09-context</code></pre>
-  <p>对每个来源记录它的顺序、格式化后的大小，以及它是否真的通过了上下文预算。</p>
-  <p class="lesson-callout">如果来源在生成前被截断，模型就永远看不到它——检索阶段找到它并不算完成任务。</p>
+  <p>对每个来源，去看逐题报告里的这几个字段，不要靠猜测已经渲染好的答案：</p>
+  <ul>
+    <li><code>results[].answer.stats.context_chars_by_index</code>——每个通道（<code>summary</code>/<code>vector</code>/<code>fulltext</code>/<code>graph</code>）真正进入提示词的字符数。</li>
+    <li><code>results[].answer.stats.context_items_included</code> 和 <code>.context_items_dropped</code>——后者只有真被丢弃的内容才会出现，按通道分别列出。</li>
+    <li><code>results[].answer.stats.context_hard_truncated</code>——正常应该不存在，或者是 false；一旦是 true，说明公平分配的兜底逻辑不得不从字符串中间硬切，而这本该是设计上永远不会发生的情况。</li>
+    <li><code>results[].answer.sources</code> 和 <code>.source_hit.all</code>——真正存活下来的引用，以及它们是否覆盖了所有预期来源。</li>
+  </ul>
+  <p class="lesson-callout">如果来源在生成前被截断，模型就永远看不到它——检索阶段找到它并不算完成任务。多跳问题尤其要先看 <code>context_chars_by_index.graph</code>，再看 <code>graph</code> 有没有出现在 <code>context_items_dropped</code> 里——这能告诉你连接两个事实的证据到底有没有活着进入提示词，别急着断定是模型对已有证据推理得不好。</p>
 </section>
 <section>
   <h2>3 · 决策工作表</h2>
@@ -104,7 +111,7 @@ python3 eval.py run --mode answer --workspace meridian_demo --category multi_hop
   <h2>4 · 检索练习</h2>
   <div class="lesson-quiz" data-quiz>
 <p><strong>问题：</strong>检索找到了你预期的所有来源，但其中一份在生成开始前被截断。实际失败发生在哪里？</p>
-<button type="button" data-answer="correct" data-feedback="正确。检索本身完成了工作，证据是在上下文组装阶段被丢弃的。">上下文预算</button>
+<button type="button" data-answer="correct" data-feedback="正确。检索本身完成了工作，证据是在上下文组装阶段被丢弃的——去 results[].answer.stats 里的 context_items_dropped 查一下具体是哪个通道、丢了多少。">上下文预算</button>
 <button type="button" data-answer="incorrect" data-feedback="不完全正确。来源先被找到，之后才在上下文组装阶段丢失。">搜索索引</button>
 <p class="lesson-feedback" data-feedback aria-live="polite"></p>
 </div>

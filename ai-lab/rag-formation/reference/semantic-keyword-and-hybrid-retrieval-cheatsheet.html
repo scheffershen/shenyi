@@ -67,19 +67,23 @@
     <section><h2>Glossary</h2><table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody>
       <tr><td><strong>Vector search</strong></td><td>Uses embedding similarity to find meaning and paraphrases. Cross-language results depend on the embedding model.</td></tr>
       <tr><td><strong>Full-text search</strong></td><td>Matches identifiers, names, acronyms, and numbers literally.</td></tr>
-      <tr><td><strong>Cumulative union</strong></td><td>In Lesson 5, the expected source counts as found when its metadata appears in either the vector or full-text results.</td></tr>
-      <tr><td><strong>Hybrid retrieval</strong></td><td>A broader production design that can combine or rerank several signals. This lesson first measures each signal’s contribution to source recall.</td></tr>
+      <tr><td><strong>Summary retrieval</strong></td><td>One embedded summary per whole document, not per chunk — for "what is this document about" questions a single chunk is too narrow for.</td></tr>
+      <tr><td><strong>Graph retrieval</strong></td><td>LightRAG's entity/relationship graph, built and traversed separately from chunk search — the only signal that connects facts across chunks or documents.</td></tr>
+      <tr><td><strong>Cumulative union</strong></td><td>In Lesson 5, the expected source counts as found when its metadata appears in any of the four signals.</td></tr>
+      <tr><td><strong>Hybrid retrieval</strong></td><td>In this system: all four signals run in parallel and their formatted results are concatenated — not fused or reranked. Real fusion only happens inside LightRAG itself.</td></tr>
     </tbody></table></section>
     <section><h2>How to read the table</h2><table><thead><tr><th>Column</th><th>Use this evidence</th><th>Don't claim</th></tr></thead><tbody>
       <tr><td>Vector result</td><td><code>retrieval.indexes.vector.all</code></td><td>That semantic search produced a correct answer.</td></tr>
       <tr><td>Full-text result</td><td><code>retrieval.indexes.fulltext.all</code></td><td>That full-text ranking wins for every query.</td></tr>
-      <tr><td>Cumulative union</td><td><code>retrieval.cumulative["vector+fulltext"].all</code></td><td>That summary or graph retrieval contributed; those are separate ablations.</td></tr>
+      <tr><td>Summary result</td><td><code>retrieval.indexes.summary.all</code></td><td>That a document-level summary hit means the chunk-level answer was found too.</td></tr>
+      <tr><td>Graph result</td><td><code>retrieval.indexes.graph.all</code></td><td>An exact hit — this column is approximate (see callout below).</td></tr>
+      <tr><td>Cumulative union</td><td><code>retrieval.cumulative["vector+fulltext+summary+graph"].all</code></td><td>Any fusion or ranking beyond "found somewhere among the four."</td></tr>
       <tr><td>Interpretation</td><td>Which expected source was added, duplicated, or is still missing.</td><td>A general architecture decision based on one row.</td></tr>
-    </tbody></table><p class="callout">Always match expected document references against source metadata, not arbitrary chunk text. Otherwise, cross-references can create false hits.</p></section>
+    </tbody></table><p class="callout">Always match expected document references against source metadata, not arbitrary chunk text. Otherwise, cross-references can create false hits.</p><p class="callout">The graph column is approximate: LightRAG returns one flat context string, not a document list, so a hit there may come from a cross-reference inside another document rather than the target document itself.</p></section>
     <section><h2>Decision hints</h2><table><thead><tr><th>Question shape</th><th>Useful first hypothesis</th><th>Next experiment</th></tr></thead><tbody>
       <tr><td>Exact document ID</td><td>Full-text search may recover what vector search misses.</td><td>Extract the ID, search for it literally, then merge and deduplicate.</td></tr>
       <tr><td>Cross-lingual concept</td><td>Vector search may help when the embedding model is multilingual.</td><td>Compare the cross-lingual row and verify that the model supports this assumption.</td></tr>
-      <tr><td>Two-document question</td><td>Union recall can be high even when answer quality is low.</td><td>Inspect context assembly and generation after retrieval.</td></tr>
+      <tr><td>Two-document (multi-hop) question</td><td>Union recall can be high even when answer quality is low.</td><td>Check the graph column first — it's the signal built to connect two facts across documents — then inspect context assembly and generation.</td></tr>
     </tbody></table></section>
     <section><h2>Local pointers</h2><ul><li><code>demo/eval.py</code></li><li><code>demo/eval_set.yaml</code></li><li><code>reports/lesson-05-experiment.json</code></li></ul></section>
     

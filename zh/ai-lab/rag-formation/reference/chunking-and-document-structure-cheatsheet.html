@@ -67,18 +67,19 @@
       <div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>术语</th><th>含义</th></tr></thead><tbody>
         <tr><td><strong>源窗口（Source window）</strong></td><td>离线实验中使用的、可重复且有边界的合成 Markdown 片段。</td></tr>
         <tr><td><strong>分块大小（Chunk size）</strong></td><td>单个源窗口允许的最大字符数。</td></tr>
+        <tr><td><strong>分块尺寸档位（Chunk-size profile）</strong></td><td>不是统一规格——Qdrant/Meilisearch 以约 500 token 建立索引，LightRAG 为了更好的实体抽取，有意采用约 1200 token。<code>--profile chunk</code>/<code>graph</code> 分别用字符数近似这两个值。</td></tr>
         <tr><td><strong>重叠（Overlap）</strong></td><td>从一个窗口末尾复制到下一个窗口的字符。</td></tr>
         <tr><td><strong>同位（Co-location）</strong></td><td>预期引用和所有必需事实词出现在同一个窗口中。</td></tr>
-        <tr><td><strong>代理指标（Proxy metric）</strong></td><td>一种方向性信号，不是线上检索或答案质量结果。</td></tr>
+        <tr><td><strong>代理指标（Proxy metric）</strong></td><td>一种方向性信号，不是线上检索或答案质量结果。graph 档位的比例天然会更好看，因为足够大的窗口本来就能装下整篇文档。</td></tr>
       </tbody></table></div>
     </section>
 
     <section>
       <h2>受控实验卡片</h2>
       <div class="lesson-table-scroll"><table class="lesson-comparison-table"><thead><tr><th>步骤</th><th>执行</th><th>不要声称</th></tr></thead><tbody>
-        <tr><td>基线</td><td>使用 280 个字符和 40 个字符的重叠运行 q24。</td><td>这就是最佳生产设置。</td></tr>
-        <tr><td>单项改动</td><td>保持重叠为 40 个字符，使用 420 个字符重新运行 q24。</td><td>多个改动共同造成了这个结果。</td></tr>
-        <tr><td>测量</td><td>比较同位数量/比例以及可读的窗口文本。</td><td>线上索引已经改进。</td></tr>
+        <tr><td>基线</td><td>用 <code>--profile chunk</code>（约 500 token，Qdrant/Meilisearch 的尺寸）运行 q24。</td><td>这就是最佳生产设置。</td></tr>
+        <tr><td>单项改动</td><td>其余保持不变，改用 <code>--profile graph</code>（约 1200 token，LightRAG 的尺寸）重新运行 q24。</td><td>多个改动共同造成了这个结果。</td></tr>
+        <tr><td>测量</td><td>比较同位数量/比例以及可读的窗口文本。</td><td>线上索引已经改进，或者窗口越大就一定越好。</td></tr>
         <tr><td>验证</td><td>重新索引隔离的演示环境，然后再次运行检索评估。</td><td>源窗口代理指标可以替代评估。</td></tr>
       </tbody></table></div>
     </section>
@@ -95,9 +96,9 @@
     <section>
       <h2>命令与结论模板</h2>
       <pre><code>cd demo
-python3 chunk_lab.py --question q24 --window-chars 280 --overlap-chars 40 --output-dir reports/lesson-06-baseline
-python3 chunk_lab.py --question q24 --window-chars 420 --overlap-chars 40 --output-dir reports/lesson-06-larger-window</code></pre>
-      <p><strong>结论模板：</strong>“当窗口为 ___ 个字符、重叠为 ___ 个字符时，___ / ___ 个窗口同时保留了必需事实和来源身份。这支持 ___ 的假设；它不能证明线上检索质量。下一步是在隔离环境中重新索引并再次运行检索评估。”</p>
+python3 chunk_lab.py --question q24 --profile chunk --output-dir reports/lesson-06-chunk-profile
+python3 chunk_lab.py --question q24 --profile graph --output-dir reports/lesson-06-graph-profile</code></pre>
+      <p><strong>结论模板：</strong>“用 ___ 档位（___ 个字符、重叠 ___ 个字符）时，___ / ___ 个窗口同时保留了必需事实和来源身份。这支持 ___ 的假设；它不能证明线上检索质量，也不代表窗口越大越好。下一步是权衡 LightRAG 真实的抽取成本，再在隔离环境中重新索引并再次运行检索评估。”</p>
     </section>
 
     <section>

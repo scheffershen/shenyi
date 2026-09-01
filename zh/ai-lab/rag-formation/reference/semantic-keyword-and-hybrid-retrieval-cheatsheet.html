@@ -61,19 +61,23 @@
     <section><h2>术语表</h2><table><thead><tr><th>术语</th><th>含义</th></tr></thead><tbody>
       <tr><td><strong>向量搜索（Vector search）</strong></td><td>使用嵌入相似度查找语义和释义。跨语言结果取决于嵌入模型。</td></tr>
       <tr><td><strong>全文搜索（Full-text search）</strong></td><td>按字面匹配标识符、名称、缩略词和数字。</td></tr>
-      <tr><td><strong>累积并集（Cumulative union）</strong></td><td>在第 5 课中，只要预期来源的元数据出现在向量结果或全文结果中，就算找到了该来源。</td></tr>
-      <tr><td><strong>混合检索（Hybrid retrieval）</strong></td><td>一种更广泛的生产设计，可以组合或重新排序多种信号。本课首先测量每种信号对来源召回的贡献。</td></tr>
+      <tr><td><strong>摘要检索（Summary retrieval）</strong></td><td>一个独立索引，为每份完整文档存一个向量化摘要，而不是按片段存——用于回答“这份文档讲的是什么”，当单个片段太窄、装不下整份文档主题时使用。</td></tr>
+      <tr><td><strong>图谱检索（Graph retrieval）</strong></td><td>LightRAG 的实体/关系图谱，索引和查询都独立于片段检索——唯一能把分散在多个片段或文档中的事实连接起来的信号。</td></tr>
+      <tr><td><strong>累积并集（Cumulative union）</strong></td><td>在第 5 课中，只要预期来源的元数据出现在四路信号中的任意一路，就算找到了该来源。</td></tr>
+      <tr><td><strong>混合检索（Hybrid retrieval）</strong></td><td>在这套系统里：四路信号并行运行，各自格式化后的结果被拼接在一起——不做融合，也不做重排序。真正的融合只发生在 LightRAG 内部。</td></tr>
     </tbody></table></section>
     <section><h2>如何阅读此表</h2><table><thead><tr><th>列</th><th>使用这些证据</th><th>不要声称</th></tr></thead><tbody>
       <tr><td>向量结果</td><td><code>retrieval.indexes.vector.all</code></td><td>语义搜索已经生成了正确答案。</td></tr>
       <tr><td>全文结果</td><td><code>retrieval.indexes.fulltext.all</code></td><td>全文排序对每个查询都最优。</td></tr>
-      <tr><td>累积并集</td><td><code>retrieval.cumulative["vector+fulltext"].all</code></td><td>摘要检索或图检索做出了贡献；它们是独立的消融实验。</td></tr>
+      <tr><td>摘要结果</td><td><code>retrieval.indexes.summary.all</code></td><td>摘要层面命中，意味着片段层面的答案也一定被找到了。</td></tr>
+      <tr><td>图谱结果</td><td><code>retrieval.indexes.graph.all</code></td><td>这是一次精确命中——这一栏本身是近似值（见下方提示）。</td></tr>
+      <tr><td>累积并集</td><td><code>retrieval.cumulative["vector+fulltext+summary+graph"].all</code></td><td>超出“在四路信号中的某一路里找到了”之外的任何融合或排序。</td></tr>
       <tr><td>解读</td><td>哪个预期来源被补上、重复，或仍然缺失。</td><td>基于一行结果就作出通用的架构决策。</td></tr>
-    </tbody></table><p class="callout">始终根据来源元数据匹配预期文档引用，不要根据片段中的任意文本匹配。否则，交叉引用可能造成虚假命中。</p></section>
+    </tbody></table><p class="callout">始终根据来源元数据匹配预期文档引用，不要根据片段中的任意文本匹配。否则，交叉引用可能造成虚假命中。</p><p class="callout">图谱这一栏本身就是近似值：LightRAG 返回的是一整段扁平的上下文文字，不是文档列表，所以命中也可能来自另一份文档里的交叉引用，而不是目标文档本身。</p></section>
     <section><h2>决策提示</h2><table><thead><tr><th>问题类型</th><th>首个有用假设</th><th>下一项实验</th></tr></thead><tbody>
       <tr><td>精确文档编号</td><td>全文搜索可能找回向量搜索遗漏的内容。</td><td>提取编号，按字面搜索，然后合并并去重。</td></tr>
       <tr><td>跨语言概念</td><td>当嵌入模型支持多语言时，向量搜索可能有所帮助。</td><td>比较跨语言问题对应的行，并验证模型是否支持这一假设。</td></tr>
-      <tr><td>双文档问题</td><td>即使答案质量很低，并集召回率也可能很高。</td><td>在检索之后检查上下文组装和生成环节。</td></tr>
+      <tr><td>双文档问题（多跳）</td><td>即使答案质量很低，并集召回率也可能很高。</td><td>先看图谱这一栏——它是专门用来连接跨文档两个事实的信号——再检查上下文组装和生成环节。</td></tr>
     </tbody></table></section>
     <section><h2>本地入口</h2><ul><li><code>demo/eval.py</code></li><li><code>demo/eval_set.yaml</code></li><li><code>reports/lesson-05-experiment.json</code></li></ul></section>
 <section class="lesson-reference-nav"><p><strong>继续学习：</strong> <a href="../lessons/0005-semantic-keyword-and-hybrid-retrieval.html">打开对应的独立课程</a> · <a href="../">课程路线图</a></p></section>
