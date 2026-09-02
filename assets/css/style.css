@@ -1059,6 +1059,21 @@ ul { margin: 0; padding: 0; list-style: none; }
   overflow-x: auto;
   margin: 1.25rem 0;
 }
+.lesson-diagram-scroll {
+  overflow-x: auto;
+  margin: 1.25rem 0;
+}
+.lesson-diagram-scroll svg {
+  display: block;
+  min-width: 62rem;
+  width: 100%;
+  height: auto;
+}
+.lesson-diagram-scroll figcaption {
+  margin-top: 0.6rem;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
 .lesson-content table {
   width: 100%;
   min-width: 42rem;
@@ -1190,6 +1205,18 @@ ul { margin: 0; padding: 0; list-style: none; }
 .lesson-content .comparison-table,
 .lesson-content .lesson-comparison-table {
   min-width: 42rem;
+}
+.lesson-content .diagram-scroll,
+.lesson-content .lesson-diagram-scroll {
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+.lesson-content .diagram-scroll svg,
+.lesson-content .lesson-diagram-scroll svg {
+  display: block;
+  min-width: 62rem;
+  width: 100%;
+  height: auto;
 }
 .lesson-content .callout,
 .lesson-content .lesson-callout {

@@ -79,13 +79,165 @@
     <section>
       <h2>1 · The smallest useful model</h2>
       <ul>
-        <li><strong>Vector search:</strong> Works off embedding similarity, so it catches meaning and paraphrases rather than exact words. How well it holds up across languages depends on the embedding model — do not assume, measure it.</li>
-        <li><strong>Full-text search:</strong> Matches the literal string — identifiers, names, acronyms, numbers. When exact spelling is what carries the meaning, this is what saves you.</li>
+        <li><strong>Vector search (Semantic):</strong> Converts text into floating-point embeddings (e.g., Qdrant, Pinecone) to capture high-dimensional similarity, context, meaning, and paraphrases rather than exact words. How well it holds up across languages depends on the embedding model — do not assume, measure it.</li>
+        <li><strong>Full-text search (Lexical):</strong> Matches literal token strings, exact identifiers, names, acronyms, and numbers using algorithms like BM25 and typo tolerance (e.g., Meilisearch, Elasticsearch). When exact spelling carries the meaning, this is what saves you. <em>Note: Engine boundaries are evolving — engines like Meilisearch can also handle vector embeddings natively for unified hybrid search.</em></li>
+        <li><strong>Graph retrieval (Relational / Structural):</strong> Navigates explicit nodes, edges, and entity relationships dynamically (e.g., Neo4j, LightRAG). It isn't just "another way to find a chunk" — it is the single structural signal capable of multi-hop connection tracing (e.g., connecting facts spread across different documents), which vector and full-text search cannot do reliably on their own.</li>
         <li><strong>Summary retrieval:</strong> A separate index holding one embedded summary per whole document, not per chunk. It's built for "what is this document about," when a single ~500-token chunk is too narrow a unit to represent the whole thing.</li>
-        <li><strong>Graph retrieval:</strong> LightRAG extracts entities and relationships from the corpus at index time and traverses that graph at query time. It isn't "another way to find a chunk" — it's the one signal that can connect facts living in different chunks or documents, which vector and full-text search structurally cannot do on their own.</li>
         <li><strong>Cumulative union:</strong> For this experiment, a source counts as found the moment it turns up in any of the four signals. That tells you about retrieval contribution — nothing about whether the eventual answer is correct.</li>
-        <li><strong>Hybrid retrieval:</strong> In this system, "hybrid" means running all four signals in parallel and concatenating their formatted results into the prompt — not fusing or reranking them. There's no score normalization or reciprocal rank fusion across signals; the only real fusion happens inside LightRAG itself, across its own entity, relationship, and vector passes. A rerank engine exists in the codebase but isn't wired into live retrieval — don't assume "hybrid" implies more sophistication than parallel-and-concatenate.</li>
+        <li><strong>Hybrid retrieval:</strong> In this system, "hybrid" means running all signals in parallel and concatenating their formatted results into the prompt — not fusing or reranking them. There's no score normalization or reciprocal rank fusion across signals; the only real fusion happens inside LightRAG itself, across its own entity, relationship, and vector passes. A rerank engine exists in the codebase but isn't wired into live retrieval — don't assume "hybrid" implies more sophistication than parallel-and-concatenate.</li>
       </ul>
+
+      <figure class="lesson-diagram-scroll">
+        <svg viewBox="0 0 1240 620" role="img" aria-labelledby="fs-title fs-desc" xmlns="http://www.w3.org/2000/svg">
+          <title id="fs-title">Four retrieval signals: vector, full-text, summary, and graph</title>
+          <desc id="fs-desc">Each signal runs the same query through its own steps, then all four are concatenated — not fused or reranked — into one prompt.</desc>
+
+          <style>
+            .fs-panel-label { font: 700 13px/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+            .fs-box-label { font: 600 13px/1.3 var(--font-sans); }
+            .fs-tagline { font: italic 400 12px/1.4 var(--font-sans); fill: var(--text-dim); }
+            .fs-return-label { font: 700 13px/1.3 var(--font-sans); }
+            .fs-bottom-label { font: 700 12px/1 var(--font-mono); letter-spacing: .07em; text-transform: uppercase; }
+            .fs-prompt-label { font: 700 16px/1 var(--font-mono); letter-spacing: .04em; }
+            .fs-prompt-sub { font: 400 12px/1.4 var(--font-sans); fill: var(--text-dim); }
+          </style>
+
+          <!-- [[[ VECTOR (accent / emerald) ]]] -->
+          <g>
+            <rect x="65" y="8" width="264" height="30" rx="6" fill="#34d399" fill-opacity="0.12"/>
+            <text x="197" y="28" text-anchor="middle" fill="var(--accent)" class="fs-panel-label">Vector · Semantic</text>
+
+            <rect x="65" y="54" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="197" y="70" text-anchor="middle" class="fs-box-label" fill="var(--text)">Query: “machine learning</text>
+            <text x="197" y="86" text-anchor="middle" class="fs-box-label" fill="var(--text)">course”</text>
+            <line x1="197" y1="96" x2="197" y2="114" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="65" y="114" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="197" y="140" text-anchor="middle" class="fs-box-label" fill="var(--text)">Embed query into a vector</text>
+            <line x1="197" y1="156" x2="197" y2="174" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="65" y="174" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="197" y="200" text-anchor="middle" class="fs-box-label" fill="var(--text)">Compare to embedded chunks</text>
+            <line x1="197" y1="216" x2="197" y2="234" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="65" y="234" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="197" y="260" text-anchor="middle" class="fs-box-label" fill="var(--text)">Rank by vector similarity</text>
+            <line x1="197" y1="276" x2="197" y2="294" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="65" y="294" width="264" height="48" rx="8" fill="#34d399" fill-opacity="0.14" stroke="var(--accent)" stroke-opacity="0.55"/>
+            <text x="197" y="322" text-anchor="middle" class="fs-return-label" fill="var(--accent)">Semantically similar chunks</text>
+
+            <text x="197" y="368" text-anchor="middle" class="fs-tagline">catches meaning, not exact words</text>
+          </g>
+
+          <!-- [[[ FULL-TEXT (cyan) ]]] -->
+          <g>
+            <rect x="347" y="8" width="264" height="30" rx="6" fill="#22d3ee" fill-opacity="0.12"/>
+            <text x="479" y="28" text-anchor="middle" fill="var(--cyan)" class="fs-panel-label">Full-text · Lexical</text>
+
+            <rect x="347" y="54" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="479" y="70" text-anchor="middle" class="fs-box-label" fill="var(--text)">Query: “machine learning</text>
+            <text x="479" y="86" text-anchor="middle" class="fs-box-label" fill="var(--text)">course”</text>
+            <line x1="479" y1="96" x2="479" y2="114" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="347" y="114" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="479" y="140" text-anchor="middle" class="fs-box-label" fill="var(--text)">Tokenize and normalize</text>
+            <line x1="479" y1="156" x2="479" y2="174" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="347" y="174" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="479" y="200" text-anchor="middle" class="fs-box-label" fill="var(--text)">Match exact tokens, typo-tolerant</text>
+            <line x1="479" y1="216" x2="479" y2="234" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="347" y="234" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="479" y="260" text-anchor="middle" class="fs-box-label" fill="var(--text)">Rank by term relevance (BM25)</text>
+            <line x1="479" y1="276" x2="479" y2="294" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="347" y="294" width="264" height="48" rx="8" fill="#22d3ee" fill-opacity="0.14" stroke="var(--cyan)" stroke-opacity="0.55"/>
+            <text x="479" y="322" text-anchor="middle" class="fs-return-label" fill="var(--cyan)">Exact-match chunks</text>
+
+            <text x="479" y="368" text-anchor="middle" class="fs-tagline">catches IDs, names, exact spelling</text>
+          </g>
+
+          <!-- [[[ SUMMARY (amber) ]]] -->
+          <g>
+            <rect x="629" y="8" width="264" height="30" rx="6" fill="#fbbf24" fill-opacity="0.14"/>
+            <text x="761" y="28" text-anchor="middle" fill="var(--amber)" class="fs-panel-label">Summary</text>
+
+            <rect x="629" y="54" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="761" y="70" text-anchor="middle" class="fs-box-label" fill="var(--text)">Query: “machine learning</text>
+            <text x="761" y="86" text-anchor="middle" class="fs-box-label" fill="var(--text)">course”</text>
+            <line x1="761" y1="96" x2="761" y2="114" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="629" y="114" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="761" y="140" text-anchor="middle" class="fs-box-label" fill="var(--text)">Embed query into a vector</text>
+            <line x1="761" y1="156" x2="761" y2="174" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="629" y="174" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="761" y="194" text-anchor="middle" class="fs-box-label" fill="var(--text)">Compare to one embedded</text>
+            <text x="761" y="209" text-anchor="middle" class="fs-box-label" fill="var(--text)">summary per document</text>
+            <line x1="761" y1="216" x2="761" y2="234" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="629" y="234" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="761" y="260" text-anchor="middle" class="fs-box-label" fill="var(--text)">Rank by document-level match</text>
+            <line x1="761" y1="276" x2="761" y2="294" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="629" y="294" width="264" height="48" rx="8" fill="#fbbf24" fill-opacity="0.16" stroke="var(--amber)" stroke-opacity="0.6"/>
+            <text x="761" y="322" text-anchor="middle" class="fs-return-label" fill="var(--amber)">Whole-document matches</text>
+
+            <text x="761" y="368" text-anchor="middle" class="fs-tagline">catches "what's this doc about"</text>
+          </g>
+
+          <!-- [[[ GRAPH (ink) ]]] -->
+          <g>
+            <rect x="911" y="8" width="264" height="30" rx="6" fill="var(--text)" fill-opacity="0.08"/>
+            <text x="1043" y="28" text-anchor="middle" fill="var(--text)" class="fs-panel-label">Graph · LightRAG</text>
+
+            <rect x="911" y="54" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="1043" y="70" text-anchor="middle" class="fs-box-label" fill="var(--text)">Query: “machine learning</text>
+            <text x="1043" y="86" text-anchor="middle" class="fs-box-label" fill="var(--text)">course”</text>
+            <line x1="1043" y1="96" x2="1043" y2="114" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="911" y="114" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="1043" y="140" text-anchor="middle" class="fs-box-label" fill="var(--text)">Extract entities + relationships</text>
+            <line x1="1043" y1="156" x2="1043" y2="174" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="911" y="174" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="1043" y="200" text-anchor="middle" class="fs-box-label" fill="var(--text)">Traverse edges (multi-hop)</text>
+            <line x1="1043" y1="216" x2="1043" y2="234" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="911" y="234" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="1043" y="260" text-anchor="middle" class="fs-box-label" fill="var(--text)">Merge entity + relation passes</text>
+            <line x1="1043" y1="276" x2="1043" y2="294" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="911" y="294" width="264" height="48" rx="8" fill="var(--text)" fill-opacity="0.08" stroke="var(--text)" stroke-opacity="0.4"/>
+            <text x="1043" y="322" text-anchor="middle" class="fs-return-label" fill="var(--text)">Cross-document connections</text>
+
+            <text x="1043" y="368" text-anchor="middle" class="fs-tagline">the only multi-hop signal</text>
+          </g>
+
+          <!-- [[[ convergence: concatenated, not fused ]]] -->
+          <path d="M197,394 C197,420 460,420 550,438" fill="none" stroke="var(--border-strong)" stroke-width="1.5"/>
+          <path d="M479,394 C479,412 530,420 570,436" fill="none" stroke="var(--border-strong)" stroke-width="1.5"/>
+          <path d="M761,394 C761,412 710,420 670,436" fill="none" stroke="var(--border-strong)" stroke-width="1.5"/>
+          <path d="M1043,394 C1043,420 780,420 690,438" fill="none" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+          <text x="620" y="410" text-anchor="middle" fill="var(--text)" class="fs-bottom-label">hybrid — concatenated, not fused</text>
+
+          <rect x="270" y="452" width="700" height="52" rx="9" fill="var(--text)"/>
+          <text x="620" y="483" text-anchor="middle" fill="var(--bg)" class="fs-prompt-label">PROMPT — vector + full-text + summary + graph</text>
+
+          <text x="620" y="524" text-anchor="middle" class="fs-prompt-sub">No score blending. No reranking across signals. The only real fusion happens</text>
+          <text x="620" y="542" text-anchor="middle" class="fs-prompt-sub">inside the graph signal itself, between its own entity and relationship passes.</text>
+
+          <defs>
+            <marker id="fs-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--border-strong)"/>
+            </marker>
+          </defs>
+        </svg>
+        <figcaption>Each of the four signals runs the same query through its own steps. Results are concatenated into one prompt — not fused, not reranked.</figcaption>
+      </figure>
+
       <p><a href="https://qdrant.tech/documentation/search/text-search/hybrid-search" target="_blank" rel="noreferrer">Primary reading: Qdrant Hybrid Search</a> — pay attention to how it combines multiple search representations, and why that combination needs to be evaluated rather than just assumed to work.</p>
       </section>
 

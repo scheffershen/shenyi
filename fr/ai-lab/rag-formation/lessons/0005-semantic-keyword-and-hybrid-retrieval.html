@@ -79,13 +79,161 @@
     <section>
       <h2>1 · Le modèle minimal utile</h2>
       <ul>
-        <li><strong>Recherche vectorielle :</strong> elle repose sur la similarité des embeddings et détecte donc le sens et les paraphrases plutôt que les mots exacts. Sa robustesse entre les langues dépend du modèle d’embeddings — ne le supposez pas, mesurez-la.</li>
-        <li><strong>Recherche plein texte :</strong> elle fait correspondre la chaîne littérale — identifiants, noms, acronymes, nombres. Lorsque l’orthographe exacte porte le sens, c’est elle qui vous sauve.</li>
+        <li><strong>Recherche vectorielle (sémantique) :</strong> convertit le texte en embeddings à virgule flottante (par ex. Qdrant, Pinecone) pour capturer la similarité en haute dimension, le contexte, le sens et les paraphrases plutôt que les mots exacts. Sa robustesse entre les langues dépend du modèle d’embeddings — ne le supposez pas, mesurez-la.</li>
+        <li><strong>Recherche plein texte (lexicale) :</strong> fait correspondre des chaînes de tokens littérales — identifiants exacts, noms, acronymes et nombres — à l’aide d’algorithmes comme BM25 et de la tolérance aux fautes de frappe (par ex. Meilisearch, Elasticsearch). Lorsque l’orthographe exacte porte le sens, c’est elle qui vous sauve. <em>Remarque : les frontières entre moteurs évoluent — des moteurs comme Meilisearch savent aussi gérer nativement les embeddings vectoriels pour une recherche hybride unifiée.</em></li>
+        <li><strong>Récupération par graphe (relationnelle / structurelle) :</strong> parcourt dynamiquement des nœuds, des arêtes et des relations d’entités explicites (par ex. Neo4j, LightRAG). Ce n’est pas simplement « une autre façon de trouver un fragment » — c’est le seul signal structurel capable de tracer des connexions à plusieurs sauts (par ex. relier des faits répartis dans différents documents), ce que la recherche vectorielle et plein texte ne peuvent pas faire de façon fiable à elles seules.</li>
         <li><strong>Récupération de résumé :</strong> un index séparé contenant un résumé vectorisé par document entier, et non par fragment. Il répond à « de quoi parle ce document », lorsqu’un seul fragment d’environ 500 tokens est trop étroit pour représenter l’ensemble.</li>
-        <li><strong>Récupération par graphe :</strong> LightRAG extrait les entités et les relations du corpus au moment de l’indexation et parcourt ce graphe au moment de la requête. Ce n’est pas « une autre façon de trouver un fragment » — c’est le seul signal capable de relier des faits répartis dans différents fragments ou documents, ce que la recherche vectorielle et plein texte ne peuvent pas faire à elles seules.</li>
         <li><strong>Union cumulative :</strong> pour cette expérience, une source est considérée comme trouvée dès qu’elle apparaît dans l’un des quatre signaux. Cela mesure la contribution à la récupération, pas l’exactitude de la réponse finale.</li>
-        <li><strong>Récupération hybride :</strong> dans ce système, « hybride » signifie que les quatre signaux s’exécutent en parallèle et que leurs résultats formatés sont concaténés — sans fusion ni réordonnancement. Il n’y a ni normalisation de score ni fusion de rang réciproque entre les signaux ; la seule véritable fusion se produit à l’intérieur de LightRAG lui-même, entre ses propres passes d’entités, de relations et de vecteurs. Un moteur de réordonnancement existe dans le code mais n’est pas branché sur la récupération en production — ne présumez pas qu’« hybride » implique davantage de sophistication que « parallèle et concaténé ».</li>
+        <li><strong>Récupération hybride :</strong> dans ce système, « hybride » signifie que tous les signaux s’exécutent en parallèle et que leurs résultats formatés sont concaténés — sans fusion ni réordonnancement. Il n’y a ni normalisation de score ni fusion de rang réciproque entre les signaux ; la seule véritable fusion se produit à l’intérieur de LightRAG lui-même, entre ses propres passes d’entités, de relations et de vecteurs. Un moteur de réordonnancement existe dans le code mais n’est pas branché sur la récupération en production — ne présumez pas qu’« hybride » implique davantage de sophistication que « parallèle et concaténé ».</li>
       </ul>
+
+      <figure class="lesson-diagram-scroll">
+        <svg viewBox="0 0 1240 620" role="img" aria-labelledby="fs-title fs-desc" xmlns="http://www.w3.org/2000/svg">
+          <title id="fs-title">Quatre signaux de récupération : vecteur, plein texte, résumé et graphe</title>
+          <desc id="fs-desc">Chaque signal fait passer la même requête par ses propres étapes, puis les quatre sont concaténés — sans fusion ni réordonnancement — dans un seul prompt.</desc>
+
+          <style>
+            .fs-panel-label { font: 700 13px/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+            .fs-box-label { font: 600 13px/1.3 var(--font-sans); }
+            .fs-tagline { font: italic 400 12px/1.4 var(--font-sans); fill: var(--text-dim); }
+            .fs-return-label { font: 700 13px/1.3 var(--font-sans); }
+            .fs-bottom-label { font: 700 12px/1 var(--font-mono); letter-spacing: .07em; text-transform: uppercase; }
+            .fs-prompt-label { font: 700 16px/1 var(--font-mono); letter-spacing: .04em; }
+            .fs-prompt-sub { font: 400 12px/1.4 var(--font-sans); fill: var(--text-dim); }
+          </style>
+
+          <!-- [[[ VECTEUR (accent / emeraude) ]]] -->
+          <g>
+            <rect x="65" y="8" width="264" height="30" rx="6" fill="#34d399" fill-opacity="0.12"/>
+            <text x="197" y="28" text-anchor="middle" fill="var(--accent)" class="fs-panel-label">Vecteur · Sémantique</text>
+
+            <rect x="65" y="54" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="197" y="78" text-anchor="middle" class="fs-box-label" fill="var(--text)">Requête : « cours de RAG »</text>
+            <line x1="197" y1="96" x2="197" y2="114" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="65" y="114" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="197" y="140" text-anchor="middle" class="fs-box-label" fill="var(--text)">Vectoriser la requête</text>
+            <line x1="197" y1="156" x2="197" y2="174" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="65" y="174" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="197" y="200" text-anchor="middle" class="fs-box-label" fill="var(--text)">Comparer aux fragments</text>
+            <line x1="197" y1="216" x2="197" y2="234" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="65" y="234" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="197" y="260" text-anchor="middle" class="fs-box-label" fill="var(--text)">Classer par similarité</text>
+            <line x1="197" y1="276" x2="197" y2="294" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="65" y="294" width="264" height="48" rx="8" fill="#34d399" fill-opacity="0.14" stroke="var(--accent)" stroke-opacity="0.55"/>
+            <text x="197" y="322" text-anchor="middle" class="fs-return-label" fill="var(--accent)">Fragments sémantiquement proches</text>
+
+            <text x="197" y="368" text-anchor="middle" class="fs-tagline">détecte le sens, pas les mots exacts</text>
+          </g>
+
+          <!-- [[[ PLEIN TEXTE (cyan) ]]] -->
+          <g>
+            <rect x="347" y="8" width="264" height="30" rx="6" fill="#22d3ee" fill-opacity="0.12"/>
+            <text x="479" y="28" text-anchor="middle" fill="var(--cyan)" class="fs-panel-label">Plein texte · Lexical</text>
+
+            <rect x="347" y="54" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="479" y="78" text-anchor="middle" class="fs-box-label" fill="var(--text)">Requête : « cours de RAG »</text>
+            <line x1="479" y1="96" x2="479" y2="114" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="347" y="114" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="479" y="140" text-anchor="middle" class="fs-box-label" fill="var(--text)">Tokeniser et normaliser</text>
+            <line x1="479" y1="156" x2="479" y2="174" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="347" y="174" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="479" y="200" text-anchor="middle" class="fs-box-label" fill="var(--text)">Tokens exacts, tolérant aux fautes</text>
+            <line x1="479" y1="216" x2="479" y2="234" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="347" y="234" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="479" y="260" text-anchor="middle" class="fs-box-label" fill="var(--text)">Classer par pertinence (BM25)</text>
+            <line x1="479" y1="276" x2="479" y2="294" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="347" y="294" width="264" height="48" rx="8" fill="#22d3ee" fill-opacity="0.14" stroke="var(--cyan)" stroke-opacity="0.55"/>
+            <text x="479" y="322" text-anchor="middle" class="fs-return-label" fill="var(--cyan)">Fragments à correspondance exacte</text>
+
+            <text x="479" y="368" text-anchor="middle" class="fs-tagline">détecte identifiants, noms, orthographe</text>
+          </g>
+
+          <!-- [[[ RÉSUMÉ (ambre) ]]] -->
+          <g>
+            <rect x="629" y="8" width="264" height="30" rx="6" fill="#fbbf24" fill-opacity="0.14"/>
+            <text x="761" y="28" text-anchor="middle" fill="var(--amber)" class="fs-panel-label">Résumé</text>
+
+            <rect x="629" y="54" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="761" y="78" text-anchor="middle" class="fs-box-label" fill="var(--text)">Requête : « cours de RAG »</text>
+            <line x1="761" y1="96" x2="761" y2="114" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="629" y="114" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="761" y="140" text-anchor="middle" class="fs-box-label" fill="var(--text)">Vectoriser la requête</text>
+            <line x1="761" y1="156" x2="761" y2="174" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="629" y="174" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="761" y="194" text-anchor="middle" class="fs-box-label" fill="var(--text)">Comparer aux résumés</text>
+            <text x="761" y="209" text-anchor="middle" class="fs-box-label" fill="var(--text)">de documents</text>
+            <line x1="761" y1="216" x2="761" y2="234" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="629" y="234" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="761" y="260" text-anchor="middle" class="fs-box-label" fill="var(--text)">Classer au niveau du document</text>
+            <line x1="761" y1="276" x2="761" y2="294" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="629" y="294" width="264" height="48" rx="8" fill="#fbbf24" fill-opacity="0.16" stroke="var(--amber)" stroke-opacity="0.6"/>
+            <text x="761" y="322" text-anchor="middle" class="fs-return-label" fill="var(--amber)">Correspondances niveau document</text>
+
+            <text x="761" y="368" text-anchor="middle" class="fs-tagline">détecte « de quoi parle ce document »</text>
+          </g>
+
+          <!-- [[[ GRAPHE (encre) ]]] -->
+          <g>
+            <rect x="911" y="8" width="264" height="30" rx="6" fill="var(--text)" fill-opacity="0.08"/>
+            <text x="1043" y="28" text-anchor="middle" fill="var(--text)" class="fs-panel-label">Graphe · LightRAG</text>
+
+            <rect x="911" y="54" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="1043" y="78" text-anchor="middle" class="fs-box-label" fill="var(--text)">Requête : « cours de RAG »</text>
+            <line x1="1043" y1="96" x2="1043" y2="114" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="911" y="114" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="1043" y="140" text-anchor="middle" class="fs-box-label" fill="var(--text)">Extraire entités et relations</text>
+            <line x1="1043" y1="156" x2="1043" y2="174" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="911" y="174" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="1043" y="200" text-anchor="middle" class="fs-box-label" fill="var(--text)">Parcourir les arêtes (multi-sauts)</text>
+            <line x1="1043" y1="216" x2="1043" y2="234" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="911" y="234" width="264" height="42" rx="8" fill="var(--surface-2)" stroke="var(--border)"/>
+            <text x="1043" y="260" text-anchor="middle" class="fs-box-label" fill="var(--text)">Fusionner entités et relations</text>
+            <line x1="1043" y1="276" x2="1043" y2="294" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+            <rect x="911" y="294" width="264" height="48" rx="8" fill="var(--text)" fill-opacity="0.08" stroke="var(--text)" stroke-opacity="0.4"/>
+            <text x="1043" y="322" text-anchor="middle" class="fs-return-label" fill="var(--text)">Connexions inter-documents</text>
+
+            <text x="1043" y="368" text-anchor="middle" class="fs-tagline">le seul signal multi-sauts</text>
+          </g>
+
+          <!-- [[[ convergence : concaténé, pas fusionné ]]] -->
+          <path d="M197,394 C197,420 460,420 550,438" fill="none" stroke="var(--border-strong)" stroke-width="1.5"/>
+          <path d="M479,394 C479,412 530,420 570,436" fill="none" stroke="var(--border-strong)" stroke-width="1.5"/>
+          <path d="M761,394 C761,412 710,420 670,436" fill="none" stroke="var(--border-strong)" stroke-width="1.5"/>
+          <path d="M1043,394 C1043,420 780,420 690,438" fill="none" stroke="var(--border-strong)" stroke-width="1.5" marker-end="url(#fs-arrow)"/>
+
+          <text x="620" y="410" text-anchor="middle" fill="var(--text)" class="fs-bottom-label">hybride — concaténé, pas fusionné</text>
+
+          <rect x="270" y="452" width="700" height="52" rx="9" fill="var(--text)"/>
+          <text x="620" y="483" text-anchor="middle" fill="var(--bg)" class="fs-prompt-label">PROMPT — vecteur + plein texte + résumé + graphe</text>
+
+          <text x="620" y="524" text-anchor="middle" class="fs-prompt-sub">Pas de fusion des scores. Pas de réordonnancement entre signaux. La véritable fusion</text>
+          <text x="620" y="542" text-anchor="middle" class="fs-prompt-sub">a lieu uniquement à l’intérieur du signal graphe, entre ses passes entités et relations.</text>
+
+          <defs>
+            <marker id="fs-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--border-strong)"/>
+            </marker>
+          </defs>
+        </svg>
+        <figcaption>Chacun des quatre signaux fait passer la même requête par ses propres étapes. Les résultats sont concaténés dans un seul prompt — sans fusion, sans réordonnancement.</figcaption>
+      </figure>
+
       <p><a href="https://qdrant.tech/documentation/search/text-search/hybrid-search" target="_blank" rel="noreferrer">Lecture principale : recherche hybride de Qdrant</a> — observez comment elle combine plusieurs représentations de recherche et pourquoi cette combinaison doit être évaluée plutôt que supposée efficace.</p>
     </section>
 
