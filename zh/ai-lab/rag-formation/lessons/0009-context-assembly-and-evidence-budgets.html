@@ -78,7 +78,8 @@
   <h2>1 · 核心技能</h2>
   <p>选择 q30 或 q63，从检索找到的来源开始，一路跟踪到上下文组装，直到最终的提示词预算。</p>
   <ul>
-    <li><strong>上下文组装：</strong>把后端结果转换成回答模型实际读取的文本。在这套系统里，这一步分四路通道运行——摘要、向量、全文和图谱——每一路都通过一个最大最小公平分配算法拿到证据预算里自己的一份：不会有哪一路被压到零，而另一路还有富余。</li>
+    <li><strong>上下文组装：</strong>把后端结果转换成回答模型实际读取的文本。在这套系统里，这一步分四路通道运行——摘要、向量、全文和图谱——<code>build_context()</code> 会用最大最小公平算法，在一份以字符计量的预算中为每个有内容的通道分配份额。它会尽可能整条丢弃检索结果，报告哪些证据留了下来，并避免某一路被饿到零而另一路还有富余。摘要、向量和全文的每个结果最多 1,200 个字符；图谱上下文最多 6,000 个字符；合并后的 <code>max_context_chars</code> 默认是 32,000 个字符（可配置范围为 1,000–50,000）。</li>
+    <li><strong>分块大小与上下文预算：</strong>前面关于索引的发现是另一件事：统一索引器对 Qdrant/Meilisearch/摘要使用 500 token 分块，对 LightRAG 使用 1,200 token 分块。这些是建索引时的 token 大小，不是回答模型使用的字符预算。把 500 改成 800 需要重新建索引；它本身不会改变 <code>build_context()</code> 的回答上下文上限。</li>
     <li><strong>证据预算：</strong>你能负担的上下文上限，由字符数、token 数、延迟或成本决定。</li>
     <li><strong>来源存活：</strong>格式化和截断完成后，答案真正需要的证据是否仍然保留。描述旧做法的那段代码注释说得很直白：以前是固定顺序拼接，“决定谁能进上下文的是位置，不是相关性”——图谱这一块总是排在最后，所以永远是第一个被挤掉的。</li>
     <li><strong>这跟第 5 到 8 课走的不是同一条路：</strong>那几课用的 <code>--mode retrieval</code> 调用的是 <code>/api/v1/search</code>，没有任何融合，只是纯拼接。这一课用的 <code>--mode answer</code> 调用的是 <code>/api/v1/qa</code>，才有真正按通道公平分配预算的逻辑。第 8 课学到的“没有融合”，不要搬到这一课来用——它在这里不适用。</li>
@@ -92,7 +93,8 @@ python3 eval.py run --mode answer --workspace meridian_demo --category multi_hop
   <p>对每个来源，去看逐题报告里的这几个字段，不要靠猜测已经渲染好的答案：</p>
   <ul>
     <li><code>results[].answer.stats.context_chars_by_index</code>——每个通道（<code>summary</code>/<code>vector</code>/<code>fulltext</code>/<code>graph</code>）真正进入提示词的字符数。</li>
-    <li><code>results[].answer.stats.context_items_included</code> 和 <code>.context_items_dropped</code>——后者只有真被丢弃的内容才会出现，按通道分别列出。</li>
+    <li><code>results[].answer.stats.max_context_chars</code>——配置的合并字符预算；当前 API 默认是 <code>32000</code>，不要把它和建索引时的 chunk size 混为一谈。</li>
+    <li><code>results[].answer.stats.context_items_included</code> 和 <code>.context_items_dropped</code>——后者只有真被丢弃的内容才会出现；被丢弃的条目会按通道分别列出。</li>
     <li><code>results[].answer.stats.context_hard_truncated</code>——正常应该不存在，或者是 false；一旦是 true，说明公平分配的兜底逻辑不得不从字符串中间硬切，而这本该是设计上永远不会发生的情况。</li>
     <li><code>results[].answer.sources</code> 和 <code>.source_hit.all</code>——真正存活下来的引用，以及它们是否覆盖了所有预期来源。</li>
   </ul>
