@@ -50,7 +50,7 @@ ROUTES = {
 }
 
 EXPECTED_LANG = {"en": "en", "fr": "fr", "zh": "zh-CN"}
-DEVELOPMENT_MARKERS = {"en": "development", "fr": "développement", "zh": "开发"}
+COMPLETION_MARKERS = {"en": "complete", "fr": "complet", "zh": "完成"}
 PAGE_METADATA: list[dict[str, str]] = []
 
 
@@ -243,16 +243,16 @@ def check_page(language: str, route_name: str, route: dict[str, object]) -> None
     if not found_types.intersection(route["types"]):
         fail(f"{relative_path}: missing structured data type {route['types']}")
     if route_name == "formation":
-        marker = DEVELOPMENT_MARKERS[language]
+        marker = COMPLETION_MARKERS[language]
         if marker.lower() not in parser.visible_text.lower():
-            fail(f"{relative_path}: Formation visible copy must remain clearly in development")
+            fail(f"{relative_path}: Formation visible copy must clearly indicate completed content")
         course_descriptions = [
             item.get("description", "")
             for item in json_ld
             if isinstance(item, dict) and item.get("@type") == "Course"
         ]
         if not any(marker.lower() in str(description).lower() for description in course_descriptions):
-            fail(f"{relative_path}: Formation Course description must remain clearly in development")
+            fail(f"{relative_path}: Formation Course description must clearly indicate completed content")
 
     expected_lab_href = "./" if route_name == "overview" else "../"
     if not any(link.get("href") == expected_lab_href for link in parser.links):

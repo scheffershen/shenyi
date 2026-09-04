@@ -14,7 +14,7 @@
 </script>
 <title>Référence · Sécurité, permissions et périmètres de déploiement | RAG Formation</title>
 <meta name="author" content="SHEN YI">
-<meta name="description" content="Fiche de référence RAG Formation autonome pour Sécurité, permissions et périmètres de déploiement. Le cours reste en développement.">
+<meta name="description" content="Fiche de référence RAG Formation autonome pour Sécurité, permissions et périmètres de déploiement. Le contenu des 16 leçons est complet.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/security-permissions-and-deployment-boundaries-cheatsheet.html">
 <link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/security-permissions-and-deployment-boundaries-cheatsheet.html">
@@ -26,11 +26,11 @@
 <meta property="og:locale" content="fr_FR">
 <meta property="og:url" content="https://shenyi.dev/fr/ai-lab/rag-formation/reference/security-permissions-and-deployment-boundaries-cheatsheet.html">
 <meta property="og:title" content="Référence · Sécurité, permissions et périmètres de déploiement | RAG Formation">
-<meta property="og:description" content="Fiche de référence RAG Formation autonome pour Sécurité, permissions et périmètres de déploiement. Le cours reste en développement.">
+<meta property="og:description" content="Fiche de référence RAG Formation autonome pour Sécurité, permissions et périmètres de déploiement. Le contenu des 16 leçons est complet.">
 <meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Référence · Sécurité, permissions et périmètres de déploiement | RAG Formation">
-<meta name="twitter:description" content="Fiche de référence RAG Formation autonome. Le cours reste en développement.">
+<meta name="twitter:description" content="Fiche de référence RAG Formation autonome. Le contenu des 16 leçons est complet.">
 <meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
 <link rel="icon" href="../../../../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../../../../assets/css/style.css">
@@ -53,10 +53,10 @@
 </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="Référence RAG Formation"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">reference --status</span></span>
 <span class="row"><span class="t-key">▸ cours </span><span class="t-val">RAG Formation</span></span>
 <span class="row"><span class="t-key">▸ mode </span><span class="t-val">référence autonome</span></span>
-<span class="row"><span class="t-key">▸ statut </span><span class="t-num">En développement</span></span>
+<span class="row"><span class="t-key">▸ statut </span><span class="t-num">Terminé</span></span>
 <span class="row"><span class="t-ok">● apprendre → tester → vérifier</span></span></code></pre></div></div></section>
 <section class="section wrap lesson-content" id="reference-content">
-<div class="section-head"><p class="eyebrow">Fiche de référence</p><h2 class="section-title">Sécurité, permissions et périmètres de déploiement</h2><p class="section-sub">Le cours guidé RAG Formation reste en développement ; cette fiche est disponible pour un apprentissage autonome.</p></div>
+<div class="section-head"><p class="eyebrow">Fiche de référence</p><h2 class="section-title">Sécurité, permissions et périmètres de déploiement</h2><p class="section-sub">Le contenu du cours guidé RAG Formation est complet ; cette fiche est disponible pour un apprentissage autonome.</p></div>
 <section class="card accent"><h2>Règle en une ligne</h2><p><strong>Une réponse factuellement correcte reste inacceptable si elle expose un document restreint ou un secret.</strong></p></section>
 <section><h2>Termes fondamentaux</h2><table><thead><tr><th>Terme</th><th>Signification</th></tr></thead><tbody><tr><td><strong>Moindre privilège</strong></td><td>N’accorder aux utilisateurs, aux services et aux outils que les accès dont ils ont besoin.</td></tr><tr><td><strong>Périmètre de données</strong></td><td>Une séparation technique entre les données et les identifiants de démonstration, de préproduction et de production.</td></tr><tr><td><strong>Injection de prompt/de données</strong></td><td>Du contenu documentaire ou utilisateur non fiable qui tente de modifier le comportement du système ou d’exposer des informations.</td></tr><tr><td><strong>Cloisonnement par workspace</strong></td><td><code>workspace</code> cloisonne réellement le magasin de graphe de LightRAG, mais n’atteint jamais Qdrant ni Meilisearch — ces deux-là l’ignorent complètement. À vérifier par un test en direct à deux appels, pas par hypothèse.</td></tr><tr><td><strong>CORS</strong></td><td><code>api/app.py</code> définit <code>allow_origins=["*"]</code> — un fait observable, pas quelque chose à aller vérifier.</td></tr></tbody></table></section>
 <section><h2>Fiche de preuves</h2><table><thead><tr><th>Élément</th><th>À consigner</th><th>Ne pas affirmer</th></tr></thead><tbody><tr><td>Référence</td><td>Commande, configuration et résultat observé</td><td>La référence est un objectif.</td></tr><tr><td>Modification</td><td>Une hypothèse ou une décision</td><td>On peut savoir ce qui a causé le résultat lorsque plusieurs éléments ont changé.</td></tr><tr><td>Indicateur</td><td>Consigner chaque périmètre, son contrôle actuel, une commande de vérification sûre et tout point d’application manquant.</td><td>Un seul indicateur décrit toute la qualité.</td></tr><tr><td>Sécurité</td><td>Un échec et un cas de régression</td><td>Une réponse fluide prouve que le système est fiable.</td></tr></tbody></table></section>

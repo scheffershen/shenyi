@@ -14,7 +14,7 @@
 </script>
 <title>参考资料 · 上下文组装与证据预算 | RAG Formation</title>
 <meta name="author" content="沈毅">
-<meta name="description" content="RAG Formation 的独立参考资料：上下文组装与证据预算。课程仍在开发中。">
+<meta name="description" content="RAG Formation 的独立参考资料：上下文组装与证据预算。16 节课程内容已完成。">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://shenyi.dev/zh/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html">
 <link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html">
@@ -26,11 +26,11 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:url" content="https://shenyi.dev/zh/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html">
 <meta property="og:title" content="参考资料 · 上下文组装与证据预算 | RAG Formation">
-<meta property="og:description" content="RAG Formation 的独立参考资料。课程仍在开发中。">
+<meta property="og:description" content="RAG Formation 的独立参考资料。16 节课程内容已完成。">
 <meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="参考资料 · 上下文组装与证据预算 | RAG Formation">
-<meta name="twitter:description" content="RAG Formation 的独立参考资料。课程仍在开发中。">
+<meta name="twitter:description" content="RAG Formation 的独立参考资料。16 节课程内容已完成。">
 <meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
 <link rel="icon" href="../../../../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../../../../assets/css/style.css">
@@ -53,10 +53,10 @@
 </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="RAG Formation 参考资料"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">reference --status</span></span>
 <span class="row"><span class="t-key">▸ 课程 </span><span class="t-val">RAG Formation</span></span>
 <span class="row"><span class="t-key">▸ 模式 </span><span class="t-val">独立参考资料</span></span>
-<span class="row"><span class="t-key">▸ 状态 </span><span class="t-num">开发中</span></span>
+<span class="row"><span class="t-key">▸ 状态 </span><span class="t-num">已完成</span></span>
 <span class="row"><span class="t-ok">● 学习 → 测试 → 验证</span></span></code></pre></div></div></section>
 <section class="section wrap lesson-content" id="reference-content">
-<div class="section-head"><p class="eyebrow">参考资料</p><h2 class="section-title">上下文组装与证据预算</h2><p class="section-sub">RAG Formation 课程仍在开发中；这份资料可用于自主学习和练习。</p></div>
+<div class="section-head"><p class="eyebrow">参考资料</p><h2 class="section-title">上下文组装与证据预算</h2><p class="section-sub">RAG Formation 的课程内容已完成；这份资料可用于自主学习和练习。</p></div>
 <section class="card accent"><h2>一句话规则</h2><p><strong>如果截断在模型看到来源之前将其删除，检索到的来源就不是有用的证据。</strong></p></section>
 <section><h2>核心术语</h2><table><thead><tr><th>术语</th><th>含义</th></tr></thead><tbody><tr><td><strong>上下文组装（Context assembly）</strong></td><td>将后端结果转换为发送给回答模型的文本——分四路通道（摘要/向量/全文/图谱），每一路都通过最大最小公平分配算法拿到预算里自己的一份。</td></tr><tr><td><strong>证据预算（Evidence budget）</strong></td><td>由字符数、tokens、延迟或成本限制的最大上下文范围。</td></tr><tr><td><strong>来源存活（Source survival）</strong></td><td>回答所需的证据在格式化和截断后是否仍然存在。通道顺序是固定的（摘要→向量→全文→图谱）——决定每路能存活多少的是预算公平性，不是相关性排序。</td></tr><tr><td><strong>跟第 5–8 课不是同一条路</strong></td><td><code>--mode retrieval</code> 调用 <code>/api/v1/search</code>（没有融合）。<code>--mode answer</code> 调用 <code>/api/v1/qa</code>（真正按通道分配预算）——本课用的是后者。</td></tr></tbody></table></section>
 <section><h2>证据卡</h2><table><thead><tr><th>事项</th><th>记录</th><th>不要声称</th></tr></thead><tbody><tr><td>基线</td><td>命令、配置和观测结果</td><td>基线就是目标。</td></tr><tr><td>改动</td><td>一个假设或决策</td><td>多个因素同时变化时，仍能确定是什么导致了结果。</td></tr><tr><td>指标</td><td>逐题查看：<code>answer.stats.context_chars_by_index</code>、<code>.context_items_included</code>/<code>.context_items_dropped</code>、<code>.context_hard_truncated</code>、<code>answer.sources</code> 和 <code>.source_hit.all</code>。多跳问题先看 <code>context_chars_by_index.graph</code>。</td><td>一个指标就能说明质量的全部。</td></tr><tr><td>安全</td><td>一个失败案例和一个回归案例</td><td>流畅的回答就能证明系统可靠。</td></tr></tbody></table></section>

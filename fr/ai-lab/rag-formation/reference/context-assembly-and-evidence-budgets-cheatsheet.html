@@ -14,7 +14,7 @@
 </script>
 <title>Référence · Assemblage du contexte et budgets de preuve | RAG Formation</title>
 <meta name="author" content="SHEN YI">
-<meta name="description" content="Fiche de référence RAG Formation autonome pour Assemblage du contexte et budgets de preuve. Le cours reste en développement.">
+<meta name="description" content="Fiche de référence RAG Formation autonome pour Assemblage du contexte et budgets de preuve. Le contenu des 16 leçons est complet.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://shenyi.dev/fr/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html">
 <link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html">
@@ -26,11 +26,11 @@
 <meta property="og:locale" content="fr_FR">
 <meta property="og:url" content="https://shenyi.dev/fr/ai-lab/rag-formation/reference/context-assembly-and-evidence-budgets-cheatsheet.html">
 <meta property="og:title" content="Référence · Assemblage du contexte et budgets de preuve | RAG Formation">
-<meta property="og:description" content="Fiche de référence RAG Formation autonome pour Assemblage du contexte et budgets de preuve. Le cours reste en développement.">
+<meta property="og:description" content="Fiche de référence RAG Formation autonome pour Assemblage du contexte et budgets de preuve. Le contenu des 16 leçons est complet.">
 <meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Référence · Assemblage du contexte et budgets de preuve | RAG Formation">
-<meta name="twitter:description" content="Fiche de référence RAG Formation autonome. Le cours reste en développement.">
+<meta name="twitter:description" content="Fiche de référence RAG Formation autonome. Le contenu des 16 leçons est complet.">
 <meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
 <link rel="icon" href="../../../../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../../../../assets/css/style.css">
@@ -53,10 +53,10 @@
 </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="Référence RAG Formation"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">reference --status</span></span>
 <span class="row"><span class="t-key">▸ cours </span><span class="t-val">RAG Formation</span></span>
 <span class="row"><span class="t-key">▸ mode </span><span class="t-val">référence autonome</span></span>
-<span class="row"><span class="t-key">▸ statut </span><span class="t-num">En développement</span></span>
+<span class="row"><span class="t-key">▸ statut </span><span class="t-num">Terminé</span></span>
 <span class="row"><span class="t-ok">● apprendre → tester → vérifier</span></span></code></pre></div></div></section>
 <section class="section wrap lesson-content" id="reference-content">
-<div class="section-head"><p class="eyebrow">Fiche de référence</p><h2 class="section-title">Assemblage du contexte et budgets de preuve</h2><p class="section-sub">Le cours guidé RAG Formation reste en développement ; cette fiche est disponible pour un apprentissage autonome.</p></div>
+<div class="section-head"><p class="eyebrow">Fiche de référence</p><h2 class="section-title">Assemblage du contexte et budgets de preuve</h2><p class="section-sub">Le contenu du cours guidé RAG Formation est complet ; cette fiche est disponible pour un apprentissage autonome.</p></div>
 <section class="card accent"><h2>Règle en une ligne</h2><p><strong>Une source récupérée n’est pas une preuve utile si la troncature la supprime avant que le modèle ne la voie.</strong></p></section>
 <section><h2>Termes fondamentaux</h2><table><thead><tr><th>Terme</th><th>Signification</th></tr></thead><tbody><tr><td><strong>Assemblage du contexte</strong></td><td>Transformer les résultats du backend en texte envoyé au modèle qui répond — sur quatre canaux (résumé/vecteur/plein texte/graphe), chacun recevant une part équitable du budget grâce à un algorithme d’allocation max-min.</td></tr><tr><td><strong>Budget de preuves</strong></td><td>Le contexte maximal autorisé par le nombre de caractères, les tokens, la latence ou le coût.</td></tr><tr><td><strong>Survie de la source</strong></td><td>La preuve nécessaire à une réponse est-elle encore présente après le formatage et la troncature ? L’ordre des canaux est fixe (résumé→vecteur→plein texte→graphe) — c’est l’équité du budget, pas un classement par pertinence, qui décide combien de chacun survit.</td></tr><tr><td><strong>Pas le même chemin que les leçons 5–8</strong></td><td><code>--mode retrieval</code> appelle <code>/api/v1/search</code> (sans fusion). <code>--mode answer</code> appelle <code>/api/v1/qa</code> (véritable allocation par canal) — cette leçon utilise ce second chemin.</td></tr></tbody></table></section>
 <section><h2>Fiche de preuves</h2><table><thead><tr><th>Élément</th><th>À consigner</th><th>Ne pas affirmer</th></tr></thead><tbody><tr><td>Référence</td><td>Commande, configuration et résultat observé</td><td>La référence est un objectif.</td></tr><tr><td>Modification</td><td>Une hypothèse ou une décision</td><td>On peut savoir ce qui a causé le résultat lorsque plusieurs éléments ont changé.</td></tr><tr><td>Indicateur</td><td>Par question : <code>answer.stats.context_chars_by_index</code>, <code>.context_items_included</code>/<code>.context_items_dropped</code>, <code>.context_hard_truncated</code>, <code>answer.sources</code> et <code>.source_hit.all</code>. Pour le multi-étapes, vérifier d’abord <code>context_chars_by_index.graph</code>.</td><td>Un seul indicateur décrit toute la qualité.</td></tr><tr><td>Sécurité</td><td>Un échec et un cas de régression</td><td>Une réponse fluide prouve que le système est fiable.</td></tr></tbody></table></section>

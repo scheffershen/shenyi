@@ -19,7 +19,7 @@
 </script>
 <title>Reference · Latency, cost, and observability | RAG Formation</title>
 <meta name="author" content="SHEN YI">
-<meta name="description" content="A standalone RAG Formation reference sheet for Latency, cost, and observability. The course remains in development.">
+<meta name="description" content="A standalone RAG Formation reference sheet for Latency, cost, and observability. The 16-lesson course content is complete.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://shenyi.dev/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html">
 <link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html">
@@ -31,16 +31,16 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://shenyi.dev/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html">
 <meta property="og:title" content="Reference · Latency, cost, and observability | RAG Formation">
-<meta property="og:description" content="A standalone RAG Formation reference sheet for Latency, cost, and observability. The course remains in development.">
+<meta property="og:description" content="A standalone RAG Formation reference sheet for Latency, cost, and observability. The 16-lesson course content is complete.">
 <meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Reference · Latency, cost, and observability | RAG Formation">
-<meta name="twitter:description" content="A standalone RAG Formation reference sheet for Latency, cost, and observability. The course remains in development.">
+<meta name="twitter:description" content="A standalone RAG Formation reference sheet for Latency, cost, and observability. The 16-lesson course content is complete.">
 <meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png">
 <link rel="icon" href="../../../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../../../assets/css/style.css">
 <script>document.documentElement.classList.add("js");</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Reference · Latency, cost, and observability | RAG Formation","description":"A standalone RAG Formation reference sheet. The course remains in development.","url":"https://shenyi.dev/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html","inLanguage":"en","isPartOf":{"@type":"Course","name":"RAG Formation","url":"https://shenyi.dev/ai-lab/rag-formation/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Reference · Latency, cost, and observability | RAG Formation","description":"A standalone RAG Formation reference sheet. The 16-lesson course content is complete.","url":"https://shenyi.dev/ai-lab/rag-formation/reference/latency-cost-and-observability-cheatsheet.html","inLanguage":"en","isPartOf":{"@type":"Course","name":"RAG Formation","url":"https://shenyi.dev/ai-lab/rag-formation/"}}</script>
 </head>
 <body class="ai-lab-page">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -59,10 +59,10 @@
 </div><div class="terminal"><div class="terminal-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/shen/rag-formation</span></div><pre class="terminal-body" aria-label="RAG Formation reference"><code><span class="row"><span class="t-prompt">$</span> <span class="t-cmd">reference --status</span></span>
 <span class="row"><span class="t-key">▸ course </span><span class="t-val">RAG Formation</span></span>
 <span class="row"><span class="t-key">▸ mode </span><span class="t-val">standalone reference</span></span>
-<span class="row"><span class="t-key">▸ status </span><span class="t-num">In development</span></span>
+<span class="row"><span class="t-key">▸ status </span><span class="t-num">Complete</span></span>
 <span class="row"><span class="t-ok">● learn → test → verify</span></span></code></pre></div></div></section>
 <section class="section wrap lesson-content" id="reference-content">
-<div class="section-head"><p class="eyebrow">Reference sheet</p><h2 class="section-title">Latency, cost, and observability</h2><p class="section-sub">The guided RAG Formation course remains in development; this reference is available for self-directed practice.</p></div>
+<div class="section-head"><p class="eyebrow">Reference sheet</p><h2 class="section-title">Latency, cost, and observability</h2><p class="section-sub">The guided RAG Formation course content is complete; this reference is available for self-directed practice.</p></div>
 <section class="card accent"><h2>One-line rule</h2><p><strong>Average latency can hide a slow tail that makes the system unusable in a pilot.</strong></p></section>
 <section><h2>Core terms</h2><table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody><tr><td><strong>p50 and p95</strong></td><td>The median and the slow tail. Both matter because a fast average can hide painful outliers. p95 is only computed for answer-mode runs — retrieval-only reports p50 alone.</td></tr><tr><td><strong>Cost drivers</strong></td><td>Embedding calls, graph LLM calls, answer generation, judge calls, and context size.</td></tr><tr><td><strong>The one real lever</strong></td><td><code>--graph-topk</code> (default 20) — lowering it trades LightRAG's graph-traversal depth against latency. There is no way to disable LightRAG entirely on a live request.</td></tr><tr><td><strong>Observability</strong></td><td>Structured traces, metrics, and logs that show what happened without exposing secrets or document text.</td></tr></tbody></table></section>
 <section><h2>Evidence card</h2><table><thead><tr><th>Need</th><th>Record</th><th>Don't claim</th></tr></thead><tbody><tr><td>Baseline</td><td>Command, configuration, observed result — the same <code>eval_set.yaml</code> baseline from Lesson 4.</td><td>The baseline is a target.</td></tr><tr><td>Change</td><td>One hypothesis or decision</td><td>You can tell what caused the result when several things changed.</td></tr><tr><td>Metric</td><td><code>summary.answer.latency_p50_s</code>/<code>.latency_p95_s</code>, <code>summary.retrieval.latency_p50_s</code>, <code>answer.stats.total_context_chars</code>/<code>.graph_context_chars</code>; never log secrets or raw sensitive content.</td><td>One metric tells you everything about quality.</td></tr><tr><td>Safety</td><td>A failure and a regression case</td><td>A fluent answer proves the system is reliable.</td></tr></tbody></table></section>
