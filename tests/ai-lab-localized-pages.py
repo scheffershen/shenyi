@@ -21,7 +21,7 @@ ROUTES = {
         "zh": "zh/ai-lab/",
         "types": {"CollectionPage"},
         "project_names": {"RAG Engineer", "RAG Evaluation", "RAG Formation"},
-        "asset": "assets/img/ai-lab/rag-engineer-social.png",
+        "asset": "assets/img/ai-lab/rag-engineer-social.jpg",
     },
     "engineer": {
         "en": "ai-lab/rag-engineer/",
@@ -29,7 +29,7 @@ ROUTES = {
         "zh": "zh/ai-lab/rag-engineer/",
         "types": {"TechArticle"},
         "project_names": {"RAG Engineer"},
-        "asset": "assets/img/ai-lab/rag-engineer-social.png",
+        "asset": "assets/img/ai-lab/rag-engineer-social.jpg",
     },
     "evaluation": {
         "en": "ai-lab/rag-evaluation/",
@@ -37,7 +37,7 @@ ROUTES = {
         "zh": "zh/ai-lab/rag-evaluation/",
         "types": {"TechArticle"},
         "project_names": {"RAG Evaluation"},
-        "asset": "assets/img/ai-lab/rag-evaluation-social.png",
+        "asset": "assets/img/ai-lab/rag-evaluation-social.jpg",
     },
     "formation": {
         "en": "ai-lab/rag-formation/",
@@ -45,6 +45,14 @@ ROUTES = {
         "zh": "zh/ai-lab/rag-formation/",
         "types": {"Course"},
         "project_names": {"RAG Formation"},
+        "asset": "assets/img/og-image.png",
+    },
+    "formation_continue_01": {
+        "en": "ai-lab/rag-formation/continue/01-improve-your-rag.html",
+        "fr": "fr/ai-lab/rag-formation/continue/01-improve-your-rag.html",
+        "zh": "zh/ai-lab/rag-formation/continue/01-improve-your-rag.html",
+        "types": {"TechArticle"},
+        "project_names": {"RAG Formation", "RAG Formation Continue"},
         "asset": "assets/img/og-image.png",
     },
 }
@@ -163,7 +171,9 @@ def meta_content(parser: PageParser, attribute: str, value: str) -> list[str]:
 
 def check_page(language: str, route_name: str, route: dict[str, object]) -> None:
     relative_path = route[language]
-    page_path = ROOT / relative_path / "index.html"
+    page_path = ROOT / relative_path
+    if relative_path.endswith("/"):
+        page_path = page_path / "index.html"
     if not page_path.is_file():
         fail(f"missing page {page_path}")
 
@@ -215,7 +225,7 @@ def check_page(language: str, route_name: str, route: dict[str, object]) -> None
             fail(f"{relative_path}: {storage_name} consent is not denied by default")
 
     depth = len(Path(relative_path).parts)
-    if route_name != "formation":
+    if route_name not in {"formation", "formation_continue_01"}:
         expected_asset = (Path(*([".."] * depth)) / route["asset"]).as_posix()
         expected_asset_options = {
             expected_asset,
@@ -254,7 +264,12 @@ def check_page(language: str, route_name: str, route: dict[str, object]) -> None
         if not any(marker.lower() in str(description).lower() for description in course_descriptions):
             fail(f"{relative_path}: Formation Course description must clearly indicate completed content")
 
-    expected_lab_href = "./" if route_name == "overview" else "../"
+    if route_name == "overview":
+        expected_lab_href = "./"
+    elif route_name == "formation_continue_01":
+        expected_lab_href = "../../../"
+    else:
+        expected_lab_href = "../"
     if not any(link.get("href") == expected_lab_href for link in parser.links):
         fail(f"{relative_path}: missing local AI Lab overview navigation link")
 
