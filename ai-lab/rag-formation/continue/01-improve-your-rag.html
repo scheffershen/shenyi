@@ -1,3 +1,240 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script async src="https://www.googletagmanager.com/gtag/js?id=G-S0YRBQKHLZ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent', 'default', {'ad_storage': 'denied', 'ad_user_data': 'denied', 'ad_personalization': 'denied', 'analytics_storage': 'denied'});gtag('js', new Date());gtag('config', 'G-S0YRBQKHLZ');</script><title>Turn RAG feedback into an improvement plan | RAG Formation Continue</title><meta name="author" content="SHEN YI"><meta name="description" content="Log every RAG interaction, capture feedback, analyse real failures with Claude Code or Codex, and plan measurable improvements."><link rel="canonical" href="https://shenyi.dev/ai-lab/rag-formation/continue/01-improve-your-rag.html"><link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/continue/01-improve-your-rag.html"><link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/continue/01-improve-your-rag.html"><link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/continue/01-improve-your-rag.html"><link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/continue/01-improve-your-rag.html"><meta property="og:type" content="article"><meta property="og:site_name" content="SHEN YI"><meta property="og:locale" content="en_US"><meta property="og:url" content="https://shenyi.dev/ai-lab/rag-formation/continue/01-improve-your-rag.html"><meta property="og:title" content="Turn RAG feedback into an improvement plan"><meta property="og:description" content="A production workflow for logs, feedback, agent analysis, scoped fixes, and verification."><meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Turn RAG feedback into an improvement plan"><meta name="twitter:description" content="A production workflow for logs, feedback, agent analysis, scoped fixes, and verification."><meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png"><link rel="stylesheet" href="../../../assets/css/style.css"><script>document.documentElement.classList.add('js');</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Turn RAG feedback into an improvement plan","description":"Log every RAG interaction, capture feedback, analyse real failures with Claude Code or Codex, and plan measurable improvements.","url":"https://shenyi.dev/ai-lab/rag-formation/continue/01-improve-your-rag.html","inLanguage":"en","articleSection":"RAG Formation Continue","isPartOf":{"@type":"Course","name":"RAG Formation"},"author":{"@type":"Person","name":"SHEN YI"}}</script></head>
-<body class="ai-lab-page"><main id="main"><section class="hero wrap"><p class="eyebrow">RAG Formation Continue · 01 · Production improvement loop</p><h1>Turn every RAG interaction into a <span class="grad">better next release.</span></h1><p class="ai-lab-hero-note">Instrument the application, listen to users, then give Claude Code or Codex real evidence—not a vague request to “make the RAG better.”</p></section><section class="section wrap lesson-content"><section class="card accent"><h2>The teaching goal</h2><p>Interaction → log → user feedback → agent analysis → improvement plan → scoped fix → fresh evidence. The output is a defensible plan, not a collection of guesses.</p></section><section><h2>1 · Log every interaction before you tune anything</h2><p>For each answer, store a stable interaction ID, user and entry point, exact question, request parameters, retrieved documents by channel, final context, answer, citations, latency, cost, and errors.</p><p class="lesson-callout">A bad answer without its trace is an anecdote. A bad answer with its trace is an engineering case.</p><figure class="lesson-diagram-scroll"><img src="diagrams/architecture-baseline.en.svg" alt="Four-channel RAG baseline from source documents to grounded cited answers"><figcaption>Instrument this request path: every stage contributes evidence to the interaction log.</figcaption></figure></section><section><h2>2 · Put feedback on the same record</h2><p>Add thumbs-up and thumbs-down below every answer, with an optional comment. Write the rating, comment, and time back to that interaction ID. Feedback tells you which failures matter; the log tells you what the system actually did.</p><figure class="lesson-diagram-scroll"><img src="diagrams/loop-triage-to-fix.en.svg" alt="Feedback flows through triage, a scoped coding-agent fix, regression testing, deployment, and fresh review"><figcaption>Feedback and trace data open and close the improvement loop.</figcaption></figure></section><section><h2>3 · Hand real logs to Claude Code or Codex</h2><p>Pull 20–30 negative-feedback rows. Redact sensitive material, then provide the query, results by channel, context, answer, citations, latency, and comment. Ask the agent to classify each failure as <code>retrieval_miss</code>, <code>ranking_miss</code>, <code>unfaithful_answer</code>, <code>over_refusal</code>, <code>under_refusal</code>, or <code>followup_lost</code>.</p><pre><code>Analyse these negative-feedback interactions.&#10;For each, name one failure class and cite the evidence in the log.&#10;Group recurring patterns. Do not suggest a fix yet.&#10;If evidence is insufficient, say which log field is missing.</code></pre><figure class="lesson-diagram-scroll"><img src="diagrams/layers-context-window.en.svg" alt="Large context windows do not replace cost, access control, freshness, or traceability"><figcaption>More context does not remove retrieval, permissions, freshness, cost, or traceability failures.</figcaption></figure></section><section><h2>4 · Ask for a plan, then scope one fix</h2><p>Give the classified batch back to Claude Code or Codex. Require a ranked plan that connects each change to its evidence, responsible layer, expected metric movement, regression case, and verification method. Start with the smallest high-impact fix.</p><pre><code>Using the classified logs, propose a ranked RAG improvement plan.&#10;For each item: evidence, responsible layer, change, risk, acceptance criterion, regression test, and fresh-log verification.&#10;Do not change unrelated retrieval channels or the generation prompt.</code></pre></section><section><h2>5 · Improve in an order that keeps evidence intact</h2><figure class="lesson-diagram-scroll"><img src="diagrams/timeline-build-order.en.svg" alt="Build timeline from parsing through retrieval, context assembly, cited generation, and smoke testing"><figcaption>Build and improve in an order that keeps one path working and every added layer observable.</figcaption></figure><ol><li>Make logs and feedback reliable first.</li><li>Fix one measured failure class in its responsible layer.</li><li>Add a regression case from a real interaction.</li><li>Ship the scoped change.</li><li>Run the same analysis on fresh logs and compare counts.</li></ol></section><section class="card"><h2>Deliverable</h2><p>A prioritized RAG improvement plan linked to production evidence, with one regression case per proposed fix and an explicit re-analysis step after release.</p><p><strong>Next action:</strong> add the interaction log and feedback control before spending another hour tuning prompts or embeddings.</p></section></section></main><script src="../../../assets/js/main.js" defer></script></body></html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-S0YRBQKHLZ"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied',
+      });
+      gtag('js', new Date());
+      gtag('config', 'G-S0YRBQKHLZ');
+    </script>
+    <title>
+      Turn RAG feedback into an improvement plan | RAG Formation Continue
+    </title>
+    <meta name="author" content="SHEN YI" />
+    <meta
+      name="description"
+      content="Log every RAG interaction, capture feedback, analyse real failures with Claude Code or Codex, and plan measurable improvements."
+    />
+    <link
+      rel="canonical"
+      href="https://shenyi.dev/ai-lab/rag-formation/continue/01-improve-your-rag.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://shenyi.dev/ai-lab/rag-formation/continue/01-improve-your-rag.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fr"
+      href="https://shenyi.dev/fr/ai-lab/rag-formation/continue/01-improve-your-rag.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="zh"
+      href="https://shenyi.dev/zh/ai-lab/rag-formation/continue/01-improve-your-rag.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://shenyi.dev/ai-lab/rag-formation/continue/01-improve-your-rag.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="SHEN YI" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      property="og:url"
+      content="https://shenyi.dev/ai-lab/rag-formation/continue/01-improve-your-rag.html"
+    />
+    <meta
+      property="og:title"
+      content="Turn RAG feedback into an improvement plan"
+    />
+    <meta
+      property="og:description"
+      content="A production workflow for logs, feedback, agent analysis, scoped fixes, and verification."
+    />
+    <meta
+      property="og:image"
+      content="https://shenyi.dev/assets/img/og-image.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Turn RAG feedback into an improvement plan"
+    />
+    <meta
+      name="twitter:description"
+      content="A production workflow for logs, feedback, agent analysis, scoped fixes, and verification."
+    />
+    <meta
+      name="twitter:image"
+      content="https://shenyi.dev/assets/img/og-image.png"
+    />
+    <link rel="stylesheet" href="../../../assets/css/style.css" />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Turn RAG feedback into an improvement plan",
+        "description": "Log every RAG interaction, capture feedback, analyse real failures with Claude Code or Codex, and plan measurable improvements.",
+        "url": "https://shenyi.dev/ai-lab/rag-formation/continue/01-improve-your-rag.html",
+        "inLanguage": "en",
+        "articleSection": "RAG Formation Continue",
+        "isPartOf": { "@type": "Course", "name": "RAG Formation" },
+        "author": { "@type": "Person", "name": "SHEN YI" }
+      }
+    </script>
+  </head>
+  <body class="ai-lab-page">
+  <main id="main">
+    <p class="wrap"><a class="card-link" href="../../">Back to AI Engineering Lab <span aria-hidden="true">→</span></a></p>
+      <section class="hero wrap">
+        <p class="eyebrow">
+          RAG Formation Continue · 01 · Production improvement loop
+        </p>
+        <h1>
+          Turn every RAG interaction into a
+          <span class="grad">better next release.</span>
+        </h1>
+        <p class="ai-lab-hero-note">
+          Instrument the application, listen to users, then give Claude Code or
+          Codex real evidence—not a vague request to “make the RAG better.”
+        </p>
+      </section>
+      <section class="section wrap lesson-content">
+        <section class="card accent">
+          <h2>The teaching goal</h2>
+          <p>
+            Interaction → log → user feedback → agent analysis → improvement
+            plan → scoped fix → fresh evidence. The output is a defensible plan,
+            not a collection of guesses.
+          </p>
+        </section>
+        <section>
+          <h2>1 · Log every interaction before you tune anything</h2>
+          <p>
+            For each answer, store a stable interaction ID, user and entry
+            point, exact question, request parameters, retrieved documents by
+            channel, final context, answer, citations, latency, cost, and
+            errors.
+          </p>
+          <p class="lesson-callout">
+            A bad answer without its trace is an anecdote. A bad answer with its
+            trace is an engineering case.
+          </p>
+          <figure class="lesson-diagram-scroll">
+            <img
+              src="diagrams/architecture-baseline.en.svg"
+              alt="Four-channel RAG baseline from source documents to grounded cited answers"
+            />
+            <figcaption>
+              Instrument this request path: every stage contributes evidence to
+              the interaction log.
+            </figcaption>
+          </figure>
+        </section>
+        <section>
+          <h2>2 · Put feedback on the same record</h2>
+          <p>
+            Add thumbs-up and thumbs-down below every answer, with an optional
+            comment. Write the rating, comment, and time back to that
+            interaction ID. Feedback tells you which failures matter; the log
+            tells you what the system actually did.
+          </p>
+          <figure class="lesson-diagram-scroll">
+            <img
+              src="diagrams/loop-triage-to-fix.en.svg"
+              alt="Feedback flows through triage, a scoped coding-agent fix, regression testing, deployment, and fresh review"
+            />
+            <figcaption>
+              Feedback and trace data open and close the improvement loop.
+            </figcaption>
+          </figure>
+        </section>
+        <section>
+          <h2>3 · Hand real logs to Claude Code or Codex</h2>
+          <p>
+            Pull 20–30 negative-feedback rows. Redact sensitive material, then
+            provide the query, results by channel, context, answer, citations,
+            latency, and comment. Ask the agent to classify each failure as
+            <code>retrieval_miss</code>, <code>ranking_miss</code>,
+            <code>unfaithful_answer</code>, <code>over_refusal</code>,
+            <code>under_refusal</code>, or <code>followup_lost</code>.
+          </p>
+          <pre><code>Analyse these negative-feedback interactions.&#10;For each, name one failure class and cite the evidence in the log.&#10;Group recurring patterns. Do not suggest a fix yet.&#10;If evidence is insufficient, say which log field is missing.</code></pre>
+          <figure class="lesson-diagram-scroll">
+            <img
+              src="diagrams/layers-context-window.en.svg"
+              alt="Large context windows do not replace cost, access control, freshness, or traceability"
+            />
+            <figcaption>
+              More context does not remove retrieval, permissions, freshness,
+              cost, or traceability failures.
+            </figcaption>
+          </figure>
+        </section>
+        <section>
+          <h2>4 · Ask for a plan, then scope one fix</h2>
+          <p>
+            Give the classified batch back to Claude Code or Codex. Require a
+            ranked plan that connects each change to its evidence, responsible
+            layer, expected metric movement, regression case, and verification
+            method. Start with the smallest high-impact fix.
+          </p>
+          <pre><code>Using the classified logs, propose a ranked RAG improvement plan.&#10;For each item: evidence, responsible layer, change, risk, acceptance criterion, regression test, and fresh-log verification.&#10;Do not change unrelated retrieval channels or the generation prompt.</code></pre>
+        </section>
+        <section>
+          <h2>5 · Improve in an order that keeps evidence intact</h2>
+          <figure class="lesson-diagram-scroll">
+            <img
+              src="diagrams/timeline-build-order.en.svg"
+              alt="Build timeline from parsing through retrieval, context assembly, cited generation, and smoke testing"
+            />
+            <figcaption>
+              Build and improve in an order that keeps one path working and
+              every added layer observable.
+            </figcaption>
+          </figure>
+          <ol>
+            <li>Make logs and feedback reliable first.</li>
+            <li>Fix one measured failure class in its responsible layer.</li>
+            <li>Add a regression case from a real interaction.</li>
+            <li>Ship the scoped change.</li>
+            <li>Run the same analysis on fresh logs and compare counts.</li>
+          </ol>
+        </section>
+        <section class="card">
+          <h2>Deliverable</h2>
+          <p>
+            A prioritized RAG improvement plan linked to production evidence,
+            with one regression case per proposed fix and an explicit
+            re-analysis step after release.
+          </p>
+          <p>
+            <strong>Next action:</strong> add the interaction log and feedback
+            control before spending another hour tuning prompts or embeddings.
+          </p>
+        </section>
+      </section>
+    </main>
+    <script src="../../../assets/js/main.js" defer></script>
+  </body>
+</html>
