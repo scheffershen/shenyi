@@ -4,6 +4,25 @@
 (function () {
   "use strict";
 
+  /* ---------- RAG Formation Continue shared navigation ---------- */
+  var continuationPath = window.location.pathname;
+  if (/\/ai-lab\/rag-formation\/continue\//.test(continuationPath) && !document.querySelector('.header')) {
+    var continuationLocale = document.documentElement.lang;
+    var continuationFile = continuationPath.split('/').pop() || '01-improve-your-rag.html';
+    var hasLocalizedLesson = continuationFile === '01-improve-your-rag.html' || continuationFile === '02-build-your-rag-from-zero.html';
+    var continuationCopy = continuationLocale === 'fr'
+      ? { home: 'accueil', services: 'Services', portfolio: 'Réalisations', lab: 'Laboratoire d’ingénierie IA', contact: 'Contact', change: 'Changer de langue', open: 'Ouvrir le menu', close: 'Fermer le menu', mobile: 'Navigation mobile', book: 'Réserver un appel de cadrage', hubs: 'Paris • Singapour • Shanghai', lang: 'FR', flag: '🇫🇷', en: 'English', fr: 'Français', zh: '中文' }
+      : continuationLocale === 'zh-CN'
+        ? { home: '首页', services: '服务', portfolio: '项目案例', lab: 'AI 工程实验室', contact: '联系', change: '切换语言', open: '打开菜单', close: '关闭菜单', mobile: '移动端导航', book: '预约需求沟通', hubs: '巴黎 • 新加坡 • 上海', lang: 'ZH', flag: '🇨🇳', en: 'English', fr: 'Français', zh: '中文' }
+        : { home: 'home', services: 'Services', portfolio: 'Portfolio', lab: 'AI Engineering Lab', contact: 'Contact', change: 'Change language', open: 'Open menu', close: 'Close menu', mobile: 'Mobile navigation', book: 'Discuss a project', hubs: 'Paris • Singapore • Shanghai', lang: 'EN', flag: '🇬🇧', en: 'English', fr: 'Français', zh: '中文' };
+    var languageTargets = hasLocalizedLesson
+      ? { en: '../../../ai-lab/rag-formation/continue/' + continuationFile, fr: '../../../fr/ai-lab/rag-formation/continue/' + continuationFile, zh: '../../../zh/ai-lab/rag-formation/continue/' + continuationFile }
+      : { en: '../../../ai-lab/rag-formation/continue/' + continuationFile, fr: '../../../fr/ai-lab/rag-formation/', zh: '../../../zh/ai-lab/rag-formation/' };
+    var currentLanguage = continuationLocale === 'fr' ? 'fr' : continuationLocale === 'zh-CN' ? 'zh' : 'en';
+    var navigation = '<a class="skip-link" href="#main">' + (continuationLocale === 'fr' ? 'Aller au contenu principal' : continuationLocale === 'zh-CN' ? '跳到主要内容' : 'Skip to content') + '</a><header class="header"><div class="wrap header-inner"><a class="brand" href="../../../" aria-label="SHEN YI — ' + continuationCopy.home + '"><span class="brand-mark" aria-hidden="true">YS</span><span class="brand-text"><span class="brand-name">SHEN YI</span><span class="brand-role">Full-Stack &amp; AI</span></span></a><p class="hubs-badge"><span class="dot" aria-hidden="true"></span>' + continuationCopy.hubs + '</p><nav class="nav-desktop" aria-label="' + continuationCopy.lab + '"><ul><li><a href="../../../#services">' + continuationCopy.services + '</a></li><li><a href="../../../#portfolio">' + continuationCopy.portfolio + '</a></li><li><a href="../../" aria-current="page">' + continuationCopy.lab + '</a></li><li><a href="../../../#contact">' + continuationCopy.contact + '</a></li></ul></nav><div class="lang"><button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu"><span aria-hidden="true">' + continuationCopy.flag + '</span><span>' + continuationCopy.lang + '</span><span class="lang-caret" aria-hidden="true">⌄</span><span class="sr-only">' + continuationCopy.change + '</span></button><div class="lang-menu" id="lang-menu" role="menu"><a href="' + languageTargets.en + '" hreflang="en"' + (currentLanguage === 'en' ? ' aria-current="true"' : '') + ' role="menuitem">' + continuationCopy.en + '</a><a href="' + languageTargets.fr + '" hreflang="fr"' + (currentLanguage === 'fr' ? ' aria-current="true"' : '') + ' role="menuitem">' + continuationCopy.fr + '</a><a href="' + languageTargets.zh + '" hreflang="zh"' + (currentLanguage === 'zh' ? ' aria-current="true"' : '') + ' role="menuitem">' + continuationCopy.zh + '</a></div></div><button class="burger" type="button" aria-expanded="false" aria-controls="drawer"><span class="burger-box" aria-hidden="true"><span></span><span></span><span></span></span><span class="sr-only">' + continuationCopy.open + '</span></button></div></header><div class="drawer" id="drawer" aria-hidden="true"><div class="drawer-top"><button class="drawer-close" type="button"><span aria-hidden="true">✕</span><span class="sr-only">' + continuationCopy.close + '</span></button></div><nav aria-label="' + continuationCopy.mobile + '"><ul><li><a href="../../../#services"><i>01</i>' + continuationCopy.services + '</a></li><li><a href="../../../#portfolio"><i>02</i>' + continuationCopy.portfolio + '</a></li><li><a href="../../"><i>03</i>' + continuationCopy.lab + '</a></li><li><a href="../../../#contact"><i>04</i>' + continuationCopy.contact + '</a></li></ul></nav><div class="drawer-foot"><p class="drawer-hubs"><span class="dot" aria-hidden="true"></span>' + continuationCopy.hubs + '</p><a class="btn btn-primary btn-block" href="../../../#contact">' + continuationCopy.book + '</a></div></div>';
+    document.body.insertAdjacentHTML('afterbegin', navigation);
+  }
+
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- Sticky header shadow ---------- */
@@ -201,8 +220,20 @@
       card.innerHTML = '<span class="ai-lab-status">' + continuation.status + '</span><h3>' + continuation.title + '</h3><p class="card-focus">' + continuation.text + '</p><a class="card-link" href="ai-lab/rag-formation/continue/01-improve-your-rag.html">' + continuation.link + ' <span aria-hidden="true">→</span></a>';
       labGrid.appendChild(card);
     }
+    if (labGrid && !document.getElementById('rag-formation-baseline-card')) {
+      var baseline = locale === 'fr'
+        ? { status: 'Leçon complémentaire', title: 'RAG Formation Continue · 02 · Construire votre chatbot RAG à partir de zéro', text: 'Construire une base RAG à quatre canaux avec réponses fondées, citations et refus honnêtes, avant le feedback et les suivis.', link: 'Ouvrir la leçon' }
+        : locale === 'zh-CN'
+          ? { status: '补充实战课程', title: 'RAG Formation Continue · 02 · 从零构建自己的 RAG 聊天机器人', text: '构建具备有据回答、引用和诚实拒答的四通道 RAG 基线，再加入反馈和追问处理。', link: '打开课程' }
+          : { status: 'Supplementary lesson', title: 'RAG Formation Continue · 02 · Build your own RAG chatbot from zero', text: 'Build a four-channel RAG baseline with grounded answers, cited sources, and honest refusals—before adding feedback or follow-up handling.', link: 'Open lesson' };
+      var baselineCard = document.createElement('article');
+      baselineCard.id = 'rag-formation-baseline-card';
+      baselineCard.className = 'card ai-lab-card';
+      baselineCard.innerHTML = '<span class="ai-lab-status">' + baseline.status + '</span><h3>' + baseline.title + '</h3><p class="card-focus">' + baseline.text + '</p><a class="card-link" href="ai-lab/rag-formation/continue/02-build-your-rag-from-zero.html">' + baseline.link + ' <span aria-hidden="true">→</span></a>';
+      labGrid.appendChild(baselineCard);
+    }
   }
-  if (/\/(?:fr\/|zh\/)?ai-lab\/rag-formation\/$/.test(path) && !document.getElementById('rag-formation-continue')) {
+  if (/\/(?:fr\/|zh\/)?ai-lab\/rag-formation\/(?:index\.html)?$/.test(path) && !document.getElementById('rag-formation-continue')) {
     var lesson = locale === 'fr'
       ? { eyebrow: 'Leçon terrain complémentaire', text: 'Transformer les logs et le feedback utilisateur en plan d’amélioration RAG fondé sur les preuves, avec Claude Code ou Codex.', link: 'Ouvrir la leçon' }
       : locale === 'zh-CN'
@@ -214,6 +245,19 @@
     section.innerHTML = '<div class="card"><p class="card-index">' + lesson.eyebrow + '</p><h2>RAG Formation Continue · 01</h2><p class="card-focus">' + lesson.text + '</p><a class="card-link" href="continue/01-improve-your-rag.html">' + lesson.link + ' <span aria-hidden="true">→</span></a></div>';
     var lessons = document.getElementById('lessons');
     if (lessons) lessons.insertAdjacentElement('afterend', section);
+  }
+  if (/\/(?:fr\/|zh\/)?ai-lab\/rag-formation\/(?:index\.html)?$/.test(path) && !document.getElementById('rag-formation-baseline')) {
+    var baselineLesson = locale === 'fr'
+      ? { eyebrow: 'Leçon terrain complémentaire', text: 'Construire une base RAG à quatre canaux avec réponses fondées, citations et refus honnêtes, avant le feedback et les suivis.', link: 'Ouvrir la leçon' }
+      : locale === 'zh-CN'
+        ? { eyebrow: '补充实战课程', text: '构建具备有据回答、引用和诚实拒答的四通道 RAG 基线，再加入反馈和追问处理。', link: '打开课程' }
+        : { eyebrow: 'Supplementary field lesson', text: 'Build a four-channel RAG chatbot baseline with cited answers and honest refusals before adding feedback or follow-up handling.', link: 'Open lesson' };
+    var continuationSection = document.getElementById('rag-formation-continue');
+    var baselineSection = document.createElement('section');
+    baselineSection.id = 'rag-formation-baseline';
+    baselineSection.className = 'section wrap';
+    baselineSection.innerHTML = '<div class="card"><p class="card-index">' + baselineLesson.eyebrow + '</p><h2>RAG Formation Continue · 02</h2><p class="card-focus">' + baselineLesson.text + '</p><a class="card-link" href="continue/02-build-your-rag-from-zero.html">' + baselineLesson.link + ' <span aria-hidden="true">→</span></a></div>';
+    if (continuationSection) continuationSection.insertAdjacentElement('afterend', baselineSection);
   }
 
   /* ---------- Footer year ---------- */

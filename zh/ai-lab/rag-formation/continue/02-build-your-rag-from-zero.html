@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script async src="https://www.googletagmanager.com/gtag/js?id=G-S0YRBQKHLZ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent', 'default', {'ad_storage': 'denied', 'ad_user_data': 'denied', 'ad_personalization': 'denied', 'analytics_storage': 'denied'});gtag('js', new Date());gtag('config', 'G-S0YRBQKHLZ');</script><title>从零构建自己的 RAG 聊天机器人 | RAG Formation Continue</title><meta name="author" content="SHEN YI"><meta name="description" content="一份提示词、实施计划和清单，帮助你从零构建四通道 RAG 聊天机器人，输出有依据且带引用的回答。"><link rel="canonical" href="https://shenyi.dev/zh/ai-lab/rag-formation/continue/02-build-your-rag-from-zero.html"><link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/rag-formation/continue/02-build-your-rag-from-zero.html"><link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/rag-formation/continue/02-build-your-rag-from-zero.html"><link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/continue/02-build-your-rag-from-zero.html"><link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/continue/02-build-your-rag-from-zero.html"><meta property="og:type" content="article"><meta property="og:site_name" content="SHEN YI"><meta property="og:locale" content="zh_CN"><meta property="og:url" content="https://shenyi.dev/zh/ai-lab/rag-formation/continue/02-build-your-rag-from-zero.html"><meta property="og:title" content="从零构建自己的 RAG 聊天机器人"><meta property="og:description" content="构建四通道 RAG 基线，再生成有依据且带引用的回答。"><meta property="og:image" content="https://shenyi.dev/assets/img/og-image.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="从零构建自己的 RAG 聊天机器人"><meta name="twitter:description" content="构建四通道 RAG 基线，再生成有依据且带引用的回答。"><meta name="twitter:image" content="https://shenyi.dev/assets/img/og-image.png"><link rel="stylesheet" href="../../../assets/css/style.css"><script>document.documentElement.classList.add('js');</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"从零构建自己的 RAG 聊天机器人","description":"一份用于构建可靠四通道 RAG 基线的提示词与实施计划。","url":"https://shenyi.dev/zh/ai-lab/rag-formation/continue/02-build-your-rag-from-zero.html","inLanguage":"zh-CN","articleSection":"RAG Formation Continue","isPartOf":{"@type":"Course","name":"RAG Formation"},"author":{"@type":"Person","name":"SHEN YI"}}</script></head>
+<body class="ai-lab-page"><main id="main"><section class="hero wrap"><p class="eyebrow">RAG Formation Continue · 02 · 构建 RAG 基线</p><h1>从零构建自己的 <span class="grad">RAG 聊天机器人。</span></h1><p class="ai-lab-hero-note">一份可直接复制的提示词、构建计划和清单，帮助你与 Codex 或 Claude Code 一起创建可靠的首个文档问答基线。</p></section><section class="section wrap lesson-content"><section class="card accent"><h2>学习目标</h2><p>先构建一条可用的文档问答路径，再扩展为四个互补的检索通道。每个回答都必须基于检索到的上下文，列出来源文档，或明确拒答。</p></section><section><h2>1 · 将这份提示词交给 AI 编程助手</h2><p>将这份完整需求交给 Claude Code、Codex，或用作自己的实施规范。每完成一步都先用真实问题验证，再继续下一步。</p><pre><code>你正在为固定的内部语料构建一个文档问答聊天机器人。请端到端地逐步构建；当前步骤不能回答真实问题前，不要进入下一步。
+
+语料与导入
+- 接收源文档文件夹，先支持纯文本或转为文本的 PDF。
+- 解析每份文档，并拆分为适合检索而非展示的、彼此重叠的段落。
+- 为每份完整文档生成并保存简短摘要。
+
+四个检索通道——必须全部构建：
+1. 段落向量：嵌入每个段落，支持 top-k 相似度检索。
+2. 摘要向量：嵌入每份文档摘要，支持 top-k 相似度检索。
+3. 全文 / 关键词：在原始文本上进行精确与近似术语检索。
+4. 图谱：提取跨文档实体和关系，支持多跳遍历。
+
+合并与上下文组装
+- 每个问题都并行查询四个通道。
+- 在应用上下文大小预算前，对重叠结果去重。
+- 无法查询的通道应作为状态返回，而不是让整个请求失败的异常。
+
+生成与引用
+- 严格依据组装后的上下文作答，绝不使用外部知识。
+- 每个回答都必须列出使用的文档。
+- 当检索到的上下文无法支持回答时，明确拒答。
+
+本基线暂不包含
+- 每个回答的反馈收集和评论。
+- 多轮或追问处理：暂时将每个问题视为独立问题。
+
+完成标准：提出十个真实问题，覆盖改写提问、宽泛文档发现、精确代码查找和多跳关系。每个问题都得到有依据且带引用的回答，或诚实地拒答。</code></pre></section><section><h2>2 · 先完成一条端到端路径，再逐步扩展</h2><p>从段落、向量索引和带引用的生成开始。当这条路径能回答真实问题后，再逐一加入其他通道，这样每次失败都能被观察和定位。</p><ol><li><strong>语料与解析。</strong> 在编写检索代码前，为每个来源建立稳定、可引用的 ID。</li><li><strong>段落、段落向量与生成。</strong> 先让这一个通道端到端输出带引用的回答。</li><li><strong>摘要与摘要索引。</strong> 每份文档摘要只生成一次，存储后再嵌入。</li><li><strong>全文索引。</strong> 使用成熟的搜索引擎，而不是手写术语匹配和排序。</li><li><strong>图谱索引。</strong> 最后再加入实体和关系；这是维护成本最高的通道。</li><li><strong>合并、去重与上下文预算。</strong> 让这一步可独立测试，无需调用 LLM。</li><li><strong>有依据的生成与引用。</strong> 要求列出来源；没有证据时必须明确拒答。</li><li><strong>十题冒烟测试。</strong> 每个通道专长至少测试一个问题，再宣布基线完成。</li></ol></section><section><h2>3 · 基线清单</h2><ul><li>可以添加和重新索引文档，而无需完整重启。</li><li>四个通道都可以单独查询和检查。</li><li>合并步骤会在应用上下文预算前去除重叠结果。</li><li>每个生成回答都会列出使用的文档。</li><li>没有检索到相关证据时，聊天机器人会拒答而不是猜测。</li><li>十题冒烟测试记录每个回答由哪个通道贡献。</li><li>反馈收集和追问处理仍有意排除在这个基线之外。</li></ul></section><section class="card"><h2>下一课</h2><p>当此基线可用后，再加入交互日志、用户反馈和追问处理，形成基于证据的生产改进闭环。</p><p><a class="card-link" href="01-improve-your-rag.html">打开生产改进闭环 <span aria-hidden="true">→</span></a></p></section></section></main><script src="../../../assets/js/main.js" defer></script></body></html>
