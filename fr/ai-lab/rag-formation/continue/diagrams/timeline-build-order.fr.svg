@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1200 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="timeline-build-order.fr-title timeline-build-order.fr-desc">
+      <title id="timeline-build-order.fr-title">Huit étapes vers une base fonctionnelle</title>
+      <desc id="timeline-build-order.fr-desc">Chronologie montrant les huit étapes de construction, de l'analyse du corpus au test de fumée à dix questions, avec la livraison du canal vectoriel par fragment de bout en bout et le test de fumée final marqués comme les deux jalons majeurs.</desc>
+        <defs><style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap');</style>
+          <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="0.9" fill="#0f172a" fill-opacity="0.10"/>
+          </pattern>
+        </defs>
+
+        <rect width="100%" height="100%" fill="#f2f5fa"/>
+        <rect width="100%" height="100%" fill="url(#dots)" opacity="0.55"/>
+
+        <!-- Baseline -->
+        <line x1="68" y1="240" x2="1140" y2="240" stroke="#45536b" stroke-opacity="0.45" stroke-width="1"/>
+        <line x1="68" y1="232" x2="68" y2="248" stroke="#0f172a" stroke-opacity="0.20" stroke-width="1"/>
+        <line x1="1140" y1="232" x2="1140" y2="248" stroke="#0f172a" stroke-opacity="0.20" stroke-width="1"/>
+
+        <!-- Étape 01 — Corpus et analyse (below) -->
+        <line x1="100" y1="240" x2="100" y2="296" stroke="#0f172a" stroke-opacity="0.30" stroke-width="1"/>
+        <circle cx="100" cy="240" r="4" fill="#0f172a"/>
+        <text x="100" y="312" fill="#45536b" font-size="8" font-family="'JetBrains Mono', monospace" text-anchor="middle" letter-spacing="0.14em">ÉTAPE 01</text>
+        <text x="100" y="328" fill="#0f172a" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Corpus et analyse</text>
+
+        <!-- Étape 02 — Vecteur fragment, de bout en bout (above, MAJOR) -->
+        <line x1="244" y1="160" x2="244" y2="240" stroke="#047857" stroke-width="1"/>
+        <circle cx="244" cy="240" r="6" fill="#047857"/>
+        <text x="244" y="128" fill="#047857" font-size="8" font-family="'JetBrains Mono', monospace" text-anchor="middle" letter-spacing="0.14em">ÉTAPE 02 · MAJEUR</text>
+        <text x="244" y="148" fill="#0f172a" font-size="14" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Vecteur fragment, bout en bout</text>
+        <text x="244" y="164" fill="#45536b" font-size="9" font-family="'JetBrains Mono', monospace" text-anchor="middle">premier chemin réel</text>
+
+        <!-- Étape 03 — Résumés + index résumé (below) -->
+        <line x1="388" y1="240" x2="388" y2="296" stroke="#0f172a" stroke-opacity="0.30" stroke-width="1"/>
+        <circle cx="388" cy="240" r="4" fill="#0f172a"/>
+        <text x="388" y="312" fill="#45536b" font-size="8" font-family="'JetBrains Mono', monospace" text-anchor="middle" letter-spacing="0.14em">ÉTAPE 03</text>
+        <text x="388" y="328" fill="#0f172a" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Résumés + index résumé</text>
+
+        <!-- Étape 04 — Index plein texte (above) -->
+        <line x1="532" y1="184" x2="532" y2="240" stroke="#0f172a" stroke-opacity="0.30" stroke-width="1"/>
+        <circle cx="532" cy="240" r="4" fill="#0f172a"/>
+        <text x="532" y="156" fill="#45536b" font-size="8" font-family="'JetBrains Mono', monospace" text-anchor="middle" letter-spacing="0.14em">ÉTAPE 04</text>
+        <text x="532" y="172" fill="#0f172a" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Index plein texte</text>
+
+        <!-- Étape 05 — Index graphe (below) -->
+        <line x1="676" y1="240" x2="676" y2="296" stroke="#0f172a" stroke-opacity="0.30" stroke-width="1"/>
+        <circle cx="676" cy="240" r="4" fill="#0f172a"/>
+        <text x="676" y="312" fill="#45536b" font-size="8" font-family="'JetBrains Mono', monospace" text-anchor="middle" letter-spacing="0.14em">ÉTAPE 05</text>
+        <text x="676" y="328" fill="#0f172a" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Index graphe</text>
+
+        <!-- Étape 06 — Fusion, dédoublonnage, budget (above) -->
+        <line x1="820" y1="184" x2="820" y2="240" stroke="#0f172a" stroke-opacity="0.30" stroke-width="1"/>
+        <circle cx="820" cy="240" r="4" fill="#0f172a"/>
+        <text x="820" y="156" fill="#45536b" font-size="8" font-family="'JetBrains Mono', monospace" text-anchor="middle" letter-spacing="0.14em">ÉTAPE 06</text>
+        <text x="820" y="172" fill="#0f172a" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Fusion, dédoublonnage, budget</text>
+
+        <!-- Étape 07 — Génération fondée + citation (below) -->
+        <line x1="964" y1="240" x2="964" y2="296" stroke="#0f172a" stroke-opacity="0.30" stroke-width="1"/>
+        <circle cx="964" cy="240" r="4" fill="#0f172a"/>
+        <text x="964" y="312" fill="#45536b" font-size="8" font-family="'JetBrains Mono', monospace" text-anchor="middle" letter-spacing="0.14em">ÉTAPE 07</text>
+        <text x="964" y="328" fill="#0f172a" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Génération fondée + citation</text>
+
+        <!-- Étape 08 — Test de fumée à dix questions (above, MAJOR) -->
+        <line x1="1108" y1="160" x2="1108" y2="240" stroke="#047857" stroke-width="1"/>
+        <circle cx="1108" cy="240" r="6" fill="#047857"/>
+        <text x="1108" y="128" fill="#047857" font-size="8" font-family="'JetBrains Mono', monospace" text-anchor="middle" letter-spacing="0.14em">ÉTAPE 08 · MAJEUR</text>
+        <text x="1108" y="148" fill="#0f172a" font-size="14" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Test à dix questions</text>
+        <text x="1108" y="164" fill="#45536b" font-size="9" font-family="'JetBrains Mono', monospace" text-anchor="middle">base terminée</text>
+
+        <!-- Legend -->
+        <line x1="40" y1="376" x2="1160" y2="376" stroke="#0f172a" stroke-opacity="0.10" stroke-width="0.8"/>
+        <text x="40" y="392" fill="#45536b" font-size="8" font-family="'JetBrains Mono', monospace" letter-spacing="0.18em">LÉGENDE</text>
+
+        <circle cx="52" cy="408" r="4" fill="#0f172a"/>
+        <text x="68" y="412" fill="#45536b" font-size="8.5" font-family="'Inter', sans-serif">Étape</text>
+
+        <circle cx="148" cy="408" r="6" fill="#047857"/>
+        <text x="164" y="412" fill="#45536b" font-size="8.5" font-family="'Inter', sans-serif">Jalon majeur</text>
+
+        <text x="320" y="412" fill="#45536b" font-size="8.5" font-family="'Inter', sans-serif" font-style="italic">L'espacement égal montre l'ordre de construction, pas le temps calendaire.</text>
+      </svg>

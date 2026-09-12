@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="layers-context-window.en-title layers-context-window.en-desc">
+      <title id="layers-context-window.en-title">What a bigger context window doesn't solve</title>
+      <desc id="layers-context-window.en-desc">Layer stack showing that a large context window only reaches the top "can it fit" layer, while cost and latency, access control, freshness, and traceability remain retrieval's job, with the top layer highlighted as the one a context window actually solves.</desc>
+        <defs><style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap');</style>
+          <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="0.9" fill="#0f172a" fill-opacity="0.10"/>
+          </pattern>
+        </defs>
+
+        <rect width="100%" height="100%" fill="#f2f5fa"/>
+        <rect width="100%" height="100%" fill="url(#dots)" opacity="0.55"/>
+
+        <!-- Direction column (left margin) -->
+        <text x="60" y="68" fill="#45536b" font-size="8" font-family="'JetBrains Mono', monospace" letter-spacing="0.18em">CONTEXT REACHES</text>
+        <line x1="80" y1="80" x2="80" y2="400" stroke="#0f172a" stroke-opacity="0.30" stroke-width="1"/>
+        <polygon points="76,80 84,80 80,72" fill="#45536b"/>
+        <text x="60" y="416" fill="#45536b" font-size="8" font-family="'JetBrains Mono', monospace" letter-spacing="0.18em">NEEDS RETRIEVAL</text>
+
+        <!-- Stack container hairlines (top + bottom edges) -->
+        <line x1="120" y1="80" x2="960" y2="80" stroke="#0f172a" stroke-opacity="0.12" stroke-width="1"/>
+        <line x1="120" y1="400" x2="960" y2="400" stroke="#0f172a" stroke-opacity="0.12" stroke-width="1"/>
+
+        <!-- L5 — Can it fit (top layer, FOCAL: accent tint + accent stroke) -->
+        <rect x="120" y="80" width="840" height="64" fill="#047857" fill-opacity="0.08"/>
+        <rect x="120" y="80" width="840" height="64" fill="none" stroke="#047857" stroke-width="1"/>
+        <text x="140" y="116" fill="#047857" font-size="8" font-family="'JetBrains Mono', monospace" letter-spacing="0.14em" font-weight="600">L5</text>
+        <text x="260" y="118" fill="#0f172a" font-size="16" font-weight="600" font-family="'Inter', sans-serif">Can it fit</text>
+        <text x="940" y="118" fill="#047857" font-size="10" font-family="'JetBrains Mono', monospace" text-anchor="end" letter-spacing="0.08em">a 1M-token window answers this</text>
+
+        <!-- L4 — Cost and latency per query -->
+        <rect x="120" y="144" width="840" height="64" fill="#ffffff"/>
+        <line x1="120" y1="208" x2="960" y2="208" stroke="#0f172a" stroke-opacity="0.12" stroke-width="1"/>
+        <text x="140" y="180" fill="#45536b" font-size="8" font-family="'JetBrains Mono', monospace" letter-spacing="0.14em">L4</text>
+        <text x="260" y="182" fill="#0f172a" font-size="16" font-weight="600" font-family="'Inter', sans-serif">Cost &amp; latency per query</text>
+        <text x="940" y="182" fill="#45536b" font-size="10" font-family="'JetBrains Mono', monospace" text-anchor="end" letter-spacing="0.08em">re-reading everything, every request</text>
+
+        <!-- L3 — Access control -->
+        <rect x="120" y="208" width="840" height="64" fill="#eef1f6"/>
+        <line x1="120" y1="272" x2="960" y2="272" stroke="#0f172a" stroke-opacity="0.12" stroke-width="1"/>
+        <text x="140" y="244" fill="#45536b" font-size="8" font-family="'JetBrains Mono', monospace" letter-spacing="0.14em">L3</text>
+        <text x="260" y="246" fill="#0f172a" font-size="16" font-weight="600" font-family="'Inter', sans-serif">Access control</text>
+        <text x="940" y="246" fill="#45536b" font-size="10" font-family="'JetBrains Mono', monospace" text-anchor="end" letter-spacing="0.08em">who's allowed to see which document</text>
+
+        <!-- L2 — Freshness -->
+        <rect x="120" y="272" width="840" height="64" fill="#ffffff"/>
+        <line x1="120" y1="336" x2="960" y2="336" stroke="#0f172a" stroke-opacity="0.12" stroke-width="1"/>
+        <text x="140" y="308" fill="#45536b" font-size="8" font-family="'JetBrains Mono', monospace" letter-spacing="0.14em">L2</text>
+        <text x="260" y="310" fill="#0f172a" font-size="16" font-weight="600" font-family="'Inter', sans-serif">Freshness</text>
+        <text x="940" y="310" fill="#45536b" font-size="10" font-family="'JetBrains Mono', monospace" text-anchor="end" letter-spacing="0.08em">re-index one document, not everything</text>
+
+        <!-- L1 — Traceability (bottom) -->
+        <rect x="120" y="336" width="840" height="64" fill="#eef1f6"/>
+        <text x="140" y="372" fill="#45536b" font-size="8" font-family="'JetBrains Mono', monospace" letter-spacing="0.14em">L1</text>
+        <text x="260" y="374" fill="#0f172a" font-size="16" font-weight="600" font-family="'Inter', sans-serif">Traceability</text>
+        <text x="940" y="374" fill="#45536b" font-size="10" font-family="'JetBrains Mono', monospace" text-anchor="end" letter-spacing="0.08em">prove which document, cited here</text>
+
+        <!-- Caption -->
+        <text x="120" y="456" fill="#45536b" font-size="8" font-family="'JetBrains Mono', monospace" letter-spacing="0.18em">FOCAL LAYER</text>
+        <text x="240" y="456" fill="#45536b" font-size="8.5" font-family="'Inter', sans-serif" font-style="italic">A bigger context window only ever reaches the top layer. The four below it aren't a context-size problem — they're what retrieval is actually for.</text>
+      </svg>

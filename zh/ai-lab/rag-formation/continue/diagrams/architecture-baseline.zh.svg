@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 880 680" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="architecture-baseline.zh-title architecture-baseline.zh-desc">
+      <title id="architecture-baseline.zh-title">v0.2.2 基础版架构</title>
+      <desc id="architecture-baseline.zh-desc">架构图展示文档经过分块与摘要后，并行送入四个检索通道，合并进入一个有预算限制的上下文，最终生成带引用的答案；反馈采集与追问处理被标注为这个基础版本暂不涉及的范围。</desc>
+      <defs><style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;family=JetBrains+Mono:wght@500;600&amp;family=Noto+Sans+SC:wght@500;700&amp;display=swap');</style>
+        <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+          <circle cx="1" cy="1" r="0.9" fill="#0f172a" fill-opacity="0.10"/>
+        </pattern>
+        <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#45536b"/></marker>
+        <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#047857"/></marker>
+      </defs>
+
+      <rect width="100%" height="100%" fill="#f2f5fa"/>
+      <rect width="100%" height="100%" fill="url(#dots)" opacity="0.55"/>
+
+      <!-- Arrows first (behind boxes) -->
+      <line x1="440" y1="88" x2="440" y2="128" stroke="#45536b" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+      <line x1="194" y1="184" x2="194" y2="252" stroke="#45536b" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <line x1="358" y1="184" x2="358" y2="252" stroke="#45536b" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <line x1="522" y1="184" x2="522" y2="252" stroke="#45536b" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <line x1="686" y1="184" x2="686" y2="252" stroke="#45536b" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+      <line x1="194" y1="316" x2="194" y2="380" stroke="#45536b" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <line x1="358" y1="316" x2="358" y2="380" stroke="#45536b" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <line x1="522" y1="316" x2="522" y2="380" stroke="#45536b" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <line x1="686" y1="316" x2="686" y2="380" stroke="#45536b" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+      <line x1="440" y1="436" x2="440" y2="492" stroke="#047857" stroke-width="1.4" marker-end="url(#arrow-accent)"/>
+
+      <!-- Node: Documents (input) -->
+      <rect x="340" y="40" width="200" height="48" rx="6" fill="#f2f5fa"/>
+      <rect x="340" y="40" width="200" height="48" rx="6" fill="#45536b" fill-opacity="0.10" stroke="#5b6b84" stroke-width="1"/>
+      <text x="440" y="69" fill="#0f172a" font-size="13" font-weight="600" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">文档</text>
+
+      <!-- Node: Chunk + summarize (wide bar) -->
+      <rect x="124" y="128" width="632" height="56" rx="6" fill="#f2f5fa"/>
+      <rect x="124" y="128" width="632" height="56" rx="6" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
+      <text x="440" y="161" fill="#0f172a" font-size="13" font-weight="600" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">分块 + 摘要</text>
+
+      <!-- Nodes: 4 retrieval channels -->
+      <rect x="124" y="252" width="140" height="64" rx="6" fill="#f2f5fa"/>
+      <rect x="124" y="252" width="140" height="64" rx="6" fill="#0f172a" fill-opacity="0.05" stroke="#45536b" stroke-width="1"/>
+      <text x="194" y="281" fill="#0f172a" font-size="13" font-weight="600" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">分块向量</text>
+      <text x="194" y="298" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">改写、语义</text>
+
+      <rect x="288" y="252" width="140" height="64" rx="6" fill="#f2f5fa"/>
+      <rect x="288" y="252" width="140" height="64" rx="6" fill="#0f172a" fill-opacity="0.05" stroke="#45536b" stroke-width="1"/>
+      <text x="358" y="281" fill="#0f172a" font-size="13" font-weight="600" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">摘要向量</text>
+      <text x="358" y="298" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">整体是哪份文档</text>
+
+      <rect x="452" y="252" width="140" height="64" rx="6" fill="#f2f5fa"/>
+      <rect x="452" y="252" width="140" height="64" rx="6" fill="#0f172a" fill-opacity="0.05" stroke="#45536b" stroke-width="1"/>
+      <text x="522" y="281" fill="#0f172a" font-size="13" font-weight="600" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">全文检索</text>
+      <text x="522" y="298" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">精确编号、名称</text>
+
+      <rect x="616" y="252" width="140" height="64" rx="6" fill="#f2f5fa"/>
+      <rect x="616" y="252" width="140" height="64" rx="6" fill="#0f172a" fill-opacity="0.05" stroke="#45536b" stroke-width="1"/>
+      <text x="686" y="281" fill="#0f172a" font-size="13" font-weight="600" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">图检索</text>
+      <text x="686" y="298" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">多跳关系</text>
+
+      <!-- Node: Merge (wide bar) -->
+      <rect x="124" y="380" width="632" height="56" rx="6" fill="#f2f5fa"/>
+      <rect x="124" y="380" width="632" height="56" rx="6" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
+      <text x="440" y="413" fill="#0f172a" font-size="13" font-weight="600" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">合并、去重、上下文预算</text>
+
+      <!-- Node: Generate + cite (focal) -->
+      <rect x="320" y="492" width="240" height="56" rx="6" fill="#f2f5fa"/>
+      <rect x="320" y="492" width="240" height="56" rx="6" fill="#047857" fill-opacity="0.08" stroke="#047857" stroke-width="1.2"/>
+      <text x="440" y="517" fill="#047857" font-size="13" font-weight="600" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">生成 + 引用</text>
+      <text x="440" y="534" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">严格基于上下文，否则拒答</text>
+
+      <!-- Node: out of scope (optional treatment, no connector) -->
+      <rect x="680" y="40" width="160" height="64" rx="6" fill="#0f172a" fill-opacity="0.02" stroke="#0f172a" stroke-opacity="0.20" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="760" y="67" fill="#45536b" font-size="12" font-weight="600" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">暂不涉及</text>
+      <text x="760" y="83" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">反馈 +</text>
+      <text x="760" y="98" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">追问</text>
+
+      <!-- Legend strip -->
+      <line x1="40" y1="588" x2="840" y2="588" stroke="#0f172a" stroke-opacity="0.10" stroke-width="0.8"/>
+      <text x="40" y="604" fill="#45536b" font-size="8" font-family="'JetBrains Mono', monospace" letter-spacing="0.18em">LEGEND</text>
+
+      <rect x="40" y="620" width="14" height="10" rx="2" fill="#45536b" fill-opacity="0.10" stroke="#5b6b84" stroke-width="1"/>
+      <text x="60" y="629" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif">输入</text>
+
+      <rect x="140" y="620" width="14" height="10" rx="2" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
+      <text x="160" y="629" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif">处理步骤</text>
+
+      <rect x="250" y="620" width="14" height="10" rx="2" fill="#0f172a" fill-opacity="0.05" stroke="#45536b" stroke-width="1"/>
+      <text x="270" y="629" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif">检索通道</text>
+
+      <rect x="360" y="620" width="14" height="10" rx="2" fill="#047857" fill-opacity="0.08" stroke="#047857" stroke-width="1.2"/>
+      <text x="380" y="629" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif">重点</text>
+
+      <rect x="440" y="620" width="14" height="10" rx="2" fill="#0f172a" fill-opacity="0.02" stroke="#0f172a" stroke-opacity="0.20" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="460" y="629" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif">刻意暂不构建</text>
+    </svg>

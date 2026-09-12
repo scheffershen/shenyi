@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1200 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="timeline-build-order.zh-title timeline-build-order.zh-desc">
+      <title id="timeline-build-order.zh-title">打造可用基础版的八个步骤</title>
+      <desc id="timeline-build-order.zh-desc">时间线展示从语料解析到十问题冒烟测试的八个构建步骤，将端到端跑通分块向量通道和最终冒烟测试标记为两个主要里程碑。</desc>
+        <defs><style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;family=JetBrains+Mono:wght@500;600&amp;family=Noto+Sans+SC:wght@500;700&amp;display=swap');</style>
+          <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="0.9" fill="#0f172a" fill-opacity="0.10"/>
+          </pattern>
+        </defs>
+
+        <rect width="100%" height="100%" fill="#f2f5fa"/>
+        <rect width="100%" height="100%" fill="url(#dots)" opacity="0.55"/>
+
+        <!-- Baseline -->
+        <line x1="68" y1="240" x2="1140" y2="240" stroke="#45536b" stroke-opacity="0.45" stroke-width="1"/>
+        <line x1="68" y1="232" x2="68" y2="248" stroke="#0f172a" stroke-opacity="0.20" stroke-width="1"/>
+        <line x1="1140" y1="232" x2="1140" y2="248" stroke="#0f172a" stroke-opacity="0.20" stroke-width="1"/>
+
+        <!-- 步骤 01 — 语料与解析 (below) -->
+        <line x1="100" y1="240" x2="100" y2="296" stroke="#0f172a" stroke-opacity="0.30" stroke-width="1"/>
+        <circle cx="100" cy="240" r="4" fill="#0f172a"/>
+        <text x="100" y="314" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">步骤 01</text>
+        <text x="100" y="330" fill="#0f172a" font-size="13" font-weight="600" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">语料与解析</text>
+
+        <!-- 步骤 02 — 分块向量端到端 (above, MAJOR) -->
+        <line x1="244" y1="160" x2="244" y2="240" stroke="#047857" stroke-width="1"/>
+        <circle cx="244" cy="240" r="6" fill="#047857"/>
+        <text x="244" y="126" fill="#047857" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">步骤 02 · 主要</text>
+        <text x="244" y="146" fill="#0f172a" font-size="15" font-weight="600" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">分块向量端到端</text>
+        <text x="244" y="164" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">第一条真正路径</text>
+
+        <!-- 步骤 03 — 摘要 + 摘要索引 (below) -->
+        <line x1="388" y1="240" x2="388" y2="296" stroke="#0f172a" stroke-opacity="0.30" stroke-width="1"/>
+        <circle cx="388" cy="240" r="4" fill="#0f172a"/>
+        <text x="388" y="314" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">步骤 03</text>
+        <text x="388" y="330" fill="#0f172a" font-size="13" font-weight="600" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">摘要 + 摘要索引</text>
+
+        <!-- 步骤 04 — 全文索引 (above) -->
+        <line x1="532" y1="184" x2="532" y2="240" stroke="#0f172a" stroke-opacity="0.30" stroke-width="1"/>
+        <circle cx="532" cy="240" r="4" fill="#0f172a"/>
+        <text x="532" y="158" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">步骤 04</text>
+        <text x="532" y="174" fill="#0f172a" font-size="13" font-weight="600" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">全文索引</text>
+
+        <!-- 步骤 05 — 图索引 (below) -->
+        <line x1="676" y1="240" x2="676" y2="296" stroke="#0f172a" stroke-opacity="0.30" stroke-width="1"/>
+        <circle cx="676" cy="240" r="4" fill="#0f172a"/>
+        <text x="676" y="314" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">步骤 05</text>
+        <text x="676" y="330" fill="#0f172a" font-size="13" font-weight="600" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">图索引</text>
+
+        <!-- 步骤 06 — 合并、去重、预算 (above) -->
+        <line x1="820" y1="184" x2="820" y2="240" stroke="#0f172a" stroke-opacity="0.30" stroke-width="1"/>
+        <circle cx="820" cy="240" r="4" fill="#0f172a"/>
+        <text x="820" y="158" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">步骤 06</text>
+        <text x="820" y="174" fill="#0f172a" font-size="13" font-weight="600" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">合并、去重、预算</text>
+
+        <!-- 步骤 07 — 有依据的生成 + 引用 (below) -->
+        <line x1="964" y1="240" x2="964" y2="296" stroke="#0f172a" stroke-opacity="0.30" stroke-width="1"/>
+        <circle cx="964" cy="240" r="4" fill="#0f172a"/>
+        <text x="964" y="314" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">步骤 07</text>
+        <text x="964" y="330" fill="#0f172a" font-size="13" font-weight="600" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">有依据的生成 + 引用</text>
+
+        <!-- 步骤 08 — 十问题冒烟测试 (above, MAJOR) -->
+        <line x1="1108" y1="160" x2="1108" y2="240" stroke="#047857" stroke-width="1"/>
+        <circle cx="1108" cy="240" r="6" fill="#047857"/>
+        <text x="1108" y="126" fill="#047857" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">步骤 08 · 主要</text>
+        <text x="1108" y="146" fill="#0f172a" font-size="15" font-weight="600" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">十问题冒烟测试</text>
+        <text x="1108" y="164" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif" text-anchor="middle">基础版完成</text>
+
+        <!-- Legend -->
+        <line x1="40" y1="376" x2="1160" y2="376" stroke="#0f172a" stroke-opacity="0.10" stroke-width="0.8"/>
+        <text x="40" y="392" fill="#45536b" font-size="8" font-family="'JetBrains Mono', monospace" letter-spacing="0.18em">LEGEND</text>
+
+        <circle cx="52" cy="408" r="4" fill="#0f172a"/>
+        <text x="68" y="412" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif">步骤</text>
+
+        <circle cx="140" cy="408" r="6" fill="#047857"/>
+        <text x="156" y="412" fill="#45536b" font-size="12" font-weight="500" font-family="'Inter','Noto Sans SC',sans-serif">主要里程碑</text>
+
+        <text x="280" y="412" fill="#45536b" font-size="12" font-family="'Inter','Noto Sans SC',sans-serif" font-style="italic">间距相等表示构建顺序，不是日历时间。</text>
+      </svg>
