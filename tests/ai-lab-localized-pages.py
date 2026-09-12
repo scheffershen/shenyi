@@ -267,7 +267,7 @@ def check_page(language: str, route_name: str, route: dict[str, object]) -> None
     if route_name == "overview":
         expected_lab_href = "./"
     elif route_name == "formation_continue_01":
-        expected_lab_href = "../../../"
+        expected_lab_href = "../../"
     else:
         expected_lab_href = "../"
     if not any(link.get("href") == expected_lab_href for link in parser.links):
