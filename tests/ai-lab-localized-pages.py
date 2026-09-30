@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 import xml.etree.ElementTree as ET
 from datetime import date
@@ -55,6 +56,49 @@ ROUTES = {
         "project_names": {"RAG Formation", "RAG Formation Continue"},
         "asset": "assets/img/og-image.png",
     },
+    "saas_copilot": {
+        "en": "ai-lab/saas-support-copilot/",
+        "fr": "fr/ai-lab/saas-support-copilot/",
+        "zh": "zh/ai-lab/saas-support-copilot/",
+        "types": {"Course"},
+        "project_names": {"SaaS Support Copilot"},
+        "asset": "assets/img/og-image.png",
+    },
+}
+
+# The course text lives in a separate public repository that already ships full
+# EN/FR/ZH translations; the site page links each episode in the visitor's language.
+COPILOT_REPO = "https://github.com/scheffershen/saas-support-copilot"
+COPILOT_LESSONS = [
+    "00-setup",
+    "01-python-foundations",
+    "02-smallest-llm-call",
+    "03-structured-output",
+    "04-routing",
+    "05-tools",
+    "06-agent-loop",
+    "07-conversation-state-and-memory",
+    "08-rag-fundamentals",
+    "09-knowledge-graphs",
+    "10-permission-aware-search",
+    "11-planning-feature-feasibility",
+    "12-human-approval-and-refusal",
+    "13-prompt-injection-and-data-exfiltration",
+    "14-fastapi-application-boundary",
+    "15-evaluation-and-observability",
+    "16-local-deployment-and-reproducibility",
+    "17-prototype-vs-production-architecture",
+    "18-capstone-demonstration",
+    "prompting-the-build",
+]
+COPILOT_LESSON_DIRS = {"en": "lessons/", "fr": "lessons/fr/", "zh": "lessons/zh/"}
+# Employer identifiers must never appear on public case-study or course pages.
+FORBIDDEN_IDENTIFIERS = (r"Universal\s+Medica", r"\bUMP\b", r"universalmedica\.com")
+# (page, AI Lab section marker or None for the whole page) that must link to the course.
+COPILOT_DISCOVERY_PAGES = {
+    "en": [("index.html", 'id="ai-lab"'), ("ai-lab/index.html", None)],
+    "fr": [("fr/index.html", 'id="ai-lab"'), ("fr/ai-lab/index.html", None)],
+    "zh": [("zh/index.html", 'id="ai-lab"'), ("zh/ai-lab/index.html", None)],
 }
 
 EXPECTED_LANG = {"en": "en", "fr": "fr", "zh": "zh-CN"}
@@ -225,7 +269,7 @@ def check_page(language: str, route_name: str, route: dict[str, object]) -> None
             fail(f"{relative_path}: {storage_name} consent is not denied by default")
 
     depth = len(Path(relative_path).parts)
-    if route_name not in {"formation", "formation_continue_01"}:
+    if route_name not in {"formation", "formation_continue_01", "saas_copilot"}:
         expected_asset = (Path(*([".."] * depth)) / route["asset"]).as_posix()
         expected_asset_options = {
             expected_asset,
@@ -286,8 +330,65 @@ def check_page(language: str, route_name: str, route: dict[str, object]) -> None
         if not target.is_file():
             fail(f"{relative_path}: broken local link {href}")
 
+    if route_name == "saas_copilot":
+        check_saas_copilot_course(language, relative_path, parser, html)
+
     PAGE_METADATA.append({"route": route_name, "language": language, "title": title.strip(), "description": description[0].strip()})
     print(f"PASS page {relative_path}")
+
+
+def check_saas_copilot_course(language: str, relative_path: str, parser: PageParser, html: str) -> None:
+    lesson_prefix = f"{COPILOT_REPO}/blob/main/{COPILOT_LESSON_DIRS[language]}"
+    expected = [f"{lesson_prefix}{name}.md" for name in COPILOT_LESSONS]
+    lesson_hrefs = [
+        link["href"] for link in parser.links
+        if link.get("href", "").startswith(f"{COPILOT_REPO}/blob/main/lessons/")
+    ]
+    if sorted(lesson_hrefs) != sorted(expected):
+        missing = sorted(set(expected) - set(lesson_hrefs))
+        extra = sorted(set(lesson_hrefs) - set(expected))
+        fail(f"{relative_path}: lesson links must be the 19 episodes + prompting-the-build in "
+             f"{COPILOT_LESSON_DIRS[language]} exactly once each; missing={missing} extra={extra}")
+    if not any(link.get("href") == COPILOT_REPO for link in parser.links):
+        fail(f"{relative_path}: missing link to the {COPILOT_REPO} repository")
+    for link in parser.links:
+        if link.get("href", "").startswith(COPILOT_REPO):
+            if link.get("target") != "_blank" or "noopener" not in link.get("rel", ""):
+                fail(f"{relative_path}: external link {link['href']} needs target=_blank rel=noopener")
+    if "Loopline" not in parser.visible_text:
+        fail(f"{relative_path}: must name the fictional Loopline sample app")
+    for pattern in FORBIDDEN_IDENTIFIERS:
+        if re.search(pattern, html, re.IGNORECASE):
+            fail(f"{relative_path}: forbidden employer identifier matching {pattern}")
+
+
+def check_copilot_discovery() -> None:
+    route = ROUTES["saas_copilot"]
+    for language, pages in COPILOT_DISCOVERY_PAGES.items():
+        target = (ROOT / route[language] / "index.html").resolve()
+        for relative_page, section_marker in pages:
+            page_path = ROOT / relative_page
+            html = page_path.read_text(encoding="utf-8")
+            if section_marker:
+                start = html.find(section_marker)
+                if start == -1:
+                    fail(f"{relative_page}: missing {section_marker} section")
+                html = html[start:html.index("</section>", start)]
+            parser = PageParser()
+            parser.feed(html)
+            cards = []
+            for link in parser.links:
+                href = link.get("href", "")
+                if not href or href.startswith(("#", "http:", "https:", "mailto:")):
+                    continue
+                resolved = (page_path.parent / href.split("#", 1)[0]).resolve()
+                if resolved.is_dir():
+                    resolved = resolved / "index.html"
+                if resolved == target and "card-link" in link.get("class", "").split():
+                    cards.append(href)
+            if len(cards) != 1:
+                fail(f"{relative_page}: expected exactly one card-link to the SaaS Support Copilot course, found {cards}")
+            print(f"PASS discovery card {relative_page}")
 
 
 def check_localized_metadata() -> None:
@@ -330,5 +431,6 @@ for route_name, route in ROUTES.items():
     for language in ("en", "fr", "zh"):
         check_page(language, route_name, route)
 check_localized_metadata()
+check_copilot_discovery()
 check_sitemap()
 print("PASS all AI Lab localization checks")

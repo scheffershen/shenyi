@@ -888,6 +888,11 @@ ul { margin: 0; padding: 0; list-style: none; }
   letter-spacing: 0.12em;
   line-height: 1.35;
 }
+/* Non-featured course art: amber is reserved for the featured card (DESIGN.md). */
+.ai-lab-course-art.is-cool {
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.12), rgba(14, 116, 144, 0.14));
+}
+.ai-lab-course-art.is-cool small { color: var(--cyan); }
 .ai-lab-card h3 { font-size: clamp(1.12rem, 1.05rem + 0.35vw, 1.3rem); }
 .ai-lab-card .card-focus { min-height: 5.4rem; }
 .ai-lab-method {

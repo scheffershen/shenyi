@@ -1270,4 +1270,34 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/rag-formation/continue/02-build-your-rag-from-zero.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/rag-formation/continue/02-build-your-rag-from-zero.html"/>
   </url>
+  <url>
+    <loc>https://shenyi.dev/ai-lab/saas-support-copilot/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/saas-support-copilot/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/saas-support-copilot/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/saas-support-copilot/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/saas-support-copilot/"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/fr/ai-lab/saas-support-copilot/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/saas-support-copilot/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/saas-support-copilot/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/saas-support-copilot/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/saas-support-copilot/"/>
+  </url>
+  <url>
+    <loc>https://shenyi.dev/zh/ai-lab/saas-support-copilot/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shenyi.dev/ai-lab/saas-support-copilot/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://shenyi.dev/fr/ai-lab/saas-support-copilot/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://shenyi.dev/zh/ai-lab/saas-support-copilot/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shenyi.dev/ai-lab/saas-support-copilot/"/>
+  </url>
 </urlset>
