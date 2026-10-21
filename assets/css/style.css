@@ -823,6 +823,84 @@ ul { margin: 0; padding: 0; list-style: none; }
   border: 0;
 }
 
+/* ---------- YouTube channel ---------- */
+/* Generated pages: tools/youtube/build.py. Cards reuse .card / .ai-lab-status / .card-link. */
+.yt-grid { display: grid; gap: 1.15rem; }
+.yt-card { overflow: hidden; }
+.yt-card-media {
+  display: block;
+  aspect-ratio: 16 / 9;
+  margin: calc(clamp(1.4rem, 3.5vw, 1.9rem) * -1);
+  margin-bottom: clamp(1.4rem, 3.5vw, 1.9rem);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-deep);
+  overflow: hidden;
+}
+.yt-card-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.yt-card h3 a { color: inherit; text-decoration: none; }
+.yt-card h3 a:hover { color: var(--accent); }
+.yt-card .card-focus { flex: 1 1 auto; }
+.yt-langs {
+  margin-top: 0.85rem;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.yt-langs a { color: var(--accent); text-decoration: none; }
+.yt-langs a:hover { text-decoration: underline; }
+.yt-hero-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-deep);
+  box-shadow: 0 22px 48px -22px rgba(15, 23, 42, 0.28);
+}
+.yt-hero-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.yt-hero-play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 2.6rem;
+  background: rgba(15, 23, 42, 0.22);
+  transition: background 0.28s var(--ease);
+}
+.yt-hero-media:hover .yt-hero-play { background: rgba(4, 120, 87, 0.42); }
+.yt-page .hero { padding-bottom: 1.5rem; }
+.yt-page .hero h1 { max-width: 46rem; font-size: clamp(1.7rem, 1.25rem + 2vw, 2.6rem); }
+.yt-page .hero .yt-langs { margin-top: 1rem; }
+.yt-page .video-embed { margin-block: 1.5rem 1.4rem; background: #0b1220; box-shadow: 0 22px 48px -22px rgba(15, 23, 42, 0.28); }
+.yt-page .section { padding-top: 0; }
+.yt-page .section + .section { padding-top: var(--section-y); }
+.yt-desc { max-width: 46rem; color: var(--text-dim); line-height: 1.65; }
+.yt-desc p { margin: 0 0 1rem; }
+.yt-desc h3 { margin: 1.9rem 0 0.65rem; font-size: 1.05rem; letter-spacing: -0.01em; color: var(--text); }
+.yt-desc ul { margin: 0 0 1rem 1.2rem; padding: 0; }
+.yt-desc li { margin: 0.3rem 0; }
+.yt-desc a { color: var(--accent); overflow-wrap: anywhere; }
+.yt-chapters { display: grid; gap: 0.35rem; margin: 0 0 1.25rem; padding: 0; list-style: none; }
+.yt-chapters li { margin: 0; }
+.yt-chapters a {
+  display: flex;
+  gap: 0.9rem;
+  align-items: baseline;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.28s var(--ease), background 0.28s var(--ease);
+}
+.yt-chapters a:hover { border-color: rgba(16, 185, 129, 0.34); background: var(--surface-2); }
+.yt-chapters time { flex: 0 0 3.6rem; color: var(--accent); font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600; }
+
 /* ---------- AI Engineering Lab ---------- */
 .ai-lab-grid {
   display: grid;
@@ -1500,6 +1578,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 680px) {
   .grid-2 { grid-template-columns: repeat(2, 1fr); }
   .ai-lab-grid { grid-template-columns: repeat(2, 1fr); }
+  .yt-grid { grid-template-columns: repeat(2, 1fr); }
   .ai-lab-phase-grid { grid-template-columns: repeat(2, 1fr); }
   .ai-lab-syllabus-top { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); align-items: start; }
   .ai-lab-syllabus-meta,
@@ -1522,6 +1601,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   .grid-4 { grid-template-columns: repeat(4, 1fr); }
   .grid-2 { grid-template-columns: repeat(2, 1fr); }
   .ai-lab-grid { grid-template-columns: repeat(3, 1fr); }
+  .yt-grid { grid-template-columns: repeat(3, 1fr); }
   .contact-grid { grid-template-columns: 1.25fr 0.75fr; }
   .stack-grid { grid-template-columns: repeat(3, 1fr); }
 }

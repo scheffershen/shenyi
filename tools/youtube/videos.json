@@ -1,0 +1,476 @@
+[
+ {
+  "id": "IZreMn2Cpfc",
+  "lang": "zh",
+  "topic": "automating-a-regulated-application-with-a-multi-agent-system",
+  "title": "用多智能体系统自动化一个受监管的应用",
+  "description": "一个受监管的应用，成本很少花在敲代码上。花在岗位上：七个阶段，七次交接，每个人都在等上一个人。花在文档上：最后才写，凭记忆写，谁还在就谁写。花在审计上：一个当时不在场的人，要还原出谁验证的、谁决定的、证据是什么。\n\n这条教程讲怎么把每一个岗位交给一个 agent，同时在每一道关卡上留一个人。十个 Claude Code agent、三个 skill 和一个 workflow 脚本，把一个小的 Symfony API 从需求文档做到验证档案，再从日志和需求收件箱做维护。编排者从不写代码。tester 从不读 diff。verifier 每次从零开始。tag、merge 和 push 永远归你。\n\n四章：受监管应用的典型流程（三条流程、七个阶段）；TicketFlow 演示（构建、维护、发布三条流程，每条一张图）；基本概念（Claude Code 里的 skill、agent、workflow 各是什么）；以及怎么从你自己的流程出发，搭出你自己的 skill 和 agent。\n\n2026 年 10 月 15 日，一个全新的会话在演示项目上只敲了 /improve，做到了这些：两轮，修了三个 bug，交付了两条功能需求，提了八个决定并都得到回答，每个事项第一次验证就通过；第一轮 27 分钟，第二轮 9 分钟，发布 10 分钟。数字都在教程仓库里。\n\n### 章节\n\n0:00 Agent 来做，人来决定\n0:32 1. 三条流程：构建、维护、发布\n1:12 七个阶段，和三条隔离规则\n2:09 成本在哪里\n2:44 2. TicketFlow 演示：工具包一览\n3:35 构建流程：从 URS 开始的 /build\n4:52 维护流程：从日志和需求开始的 /improve\n6:14 发布流程：到验证档案为止的 /release\n7:29 决定属于人\n8:16 3. 什么是 skill\n9:09 什么是 agent\n10:13 什么是 workflow\n11:27 4. 七步搭出你自己的工具包\n12:46 只改一个文件，不改十个角色\n13:24 结尾\n\n### 链接\n\n演示仓库（公开，可以克隆下来把三条流程跑一遍）\n- https://github.com/scheffershen/youtube-multi-agent-development-with-claude-code\n- 分支：`main`（`v0.4.0` 之后的完整模块）、`demo/round-1-example`（维护循环修掉的一个 bug，带报告和每个角色的 token 消耗）、`build/urs-002`（从 URS 构建的 SLA 模块，三个版本，带 changelog、发布说明和验证档案）\n- 埋了 bug 的起点：提交 `f443dc7`\n\nPowered by https://www.shenyi.dev",
+  "seconds": 821,
+  "published": "2026-10-21",
+  "keywords": [
+   "ClaudeCode",
+   "AI",
+   "多智能体",
+   "AIAgent",
+   "软件工程",
+   "受监管软件",
+   "Symfony",
+   "PHP",
+   "验证",
+   "教程"
+  ],
+  "views": 6
+ },
+ {
+  "id": "l40lv0W5BjA",
+  "lang": "fr",
+  "topic": "automating-a-regulated-application-with-a-multi-agent-system",
+  "title": "Automatiser une application réglementée avec un système multi-agents",
+  "description": "Une application réglementée coûte ce qu'elle coûte à cause des postes, pas de la frappe : sept étapes, autant de passages de relais, une documentation écrite en dernier de mémoire, et un audit qui doit reconstituer qui a vérifié, qui a décidé et quelle était la preuve.\n\nCe tutoriel montre comment donner chaque poste à un agent et garder une personne à chaque porte. Dix agents Claude Code, trois skills et un script de workflow spécifient, construisent, testent, vérifient, documentent et livrent une petite API Symfony à partir d'un document d'exigences, puis la maintiennent depuis ses logs et sa boîte de demandes. L'orchestrateur n'écrit jamais de code. Le testeur ne lit jamais le diff. Le vérificateur repart de zéro. Le tag, le merge et le push restent les vôtres.\n\nQuatre chapitres : le workflow type d'une application réglementée (trois flux, sept étapes), la démo TicketFlow (les flux de build, de maintenance et de release sur des schémas d'un écran), les concepts fondamentaux (ce qu'est un skill, un agent et un workflow dans Claude Code), et comment construire vos propres skills et agents à partir de votre propre processus.\n\nCe qu'une session toute neuve a fait sur la démo avec rien d'autre que /improve, le 15 octobre 2026 : deux tours, trois bugs corrigés, deux demandes de fonctionnalité livrées, huit décisions posées et répondues, chaque élément validé à sa première vérification ; le premier tour a pris 27 minutes, le deuxième 9, la release 10. Les chiffres sont dans le dépôt du tutoriel.\n\n### Chapitres\n\n0:00 Les agents construisent, les personnes décident\n0:38 1. Trois flux : build, maintenance, release\n1:32 Sept étapes, et les trois règles de séparation\n2:57 Où est le coût\n3:35 2. La démo TicketFlow : le kit en un coup d'œil\n4:35 Le flux de build : /build depuis une URS\n6:05 Le flux de maintenance : /improve depuis les logs et les demandes\n7:46 Le flux de release : /release jusqu'au dossier de validation\n9:13 Les décisions appartiennent aux personnes\n10:11 3. Qu'est-ce qu'un skill\n11:07 Qu'est-ce qu'un agent\n12:24 Qu'est-ce qu'un workflow\n13:50 4. Votre propre kit en sept étapes\n15:25 Adapter un seul fichier, pas dix rôles\n16:12 Fin\n\n### Liens\n\nLe dépôt de démo (public : clonez-le et faites tourner les trois flux)\n- https://github.com/scheffershen/youtube-multi-agent-development-with-claude-code\n- Branches : `main` (le module complet après `v0.4.0`), `demo/round-1-example` (un bug corrigé par la boucle de maintenance, avec le rapport et le coût en tokens de chaque rôle), `build/urs-002` (le module SLA construit depuis une URS, trois releases avec changelog, flash info et dossiers de validation)\n- Le point de départ avec les bugs plantés : commit `f443dc7`\n\nPowered by https://www.shenyi.dev",
+  "seconds": 990,
+  "published": "2026-10-21",
+  "keywords": [
+   "ClaudeCode",
+   "AgentsIA",
+   "MultiAgents",
+   "GénieLogiciel",
+   "LogicielRéglementé",
+   "Symfony",
+   "PHP",
+   "Validation",
+   "DevOps",
+   "Tutoriel"
+  ],
+  "views": 4
+ },
+ {
+  "id": "yklFNT5lMmM",
+  "lang": "en",
+  "topic": "automating-a-regulated-application-with-a-multi-agent-system",
+  "title": "Automating a regulated application with a multi-agent system",
+  "description": "A regulated application costs what it costs because of the seats, not the typing: seven stages, each a handover, documentation written last from memory, and an audit that has to reconstruct who verified, who decided and what the evidence was.\n\nThis tutorial shows how to give every seat to an agent and keep a person at every gate. Ten Claude Code agents, three skills and one workflow script specify, build, test, verify, document and release a small Symfony API from a requirements document, then maintain it from its logs and its request inbox. The orchestrator never writes code. The tester never reads the diff. The verifier starts fresh. The tag, the merge and the push stay yours.\n\nFour chapters: the typical workflow of a regulated application (three flows, seven stages), the TicketFlow demo (build, maintenance and release flows on one-screen diagrams), the fundamental concepts (what a skill, an agent and a workflow are in Claude Code), and how to build your own skills and agents from your own process.\n\nWhat a fresh session did on the demo with nothing but /improve, on 2026-10-15: two rounds, three bugs fixed, two feature requests shipped, eight decisions asked and answered, every item passed on its first verification; round one took 27 minutes, round two 9, the release 10. The numbers are in the tutorial repository.\n\n### Chapters\n\n0:00 Agents build, people decide\n0:38 1. Three flows: build, maintenance, release\n1:27 Seven stages, and the three rules of separation\n2:39 Where the cost is\n3:14 2. The TicketFlow demo: the kit at a glance\n4:05 The build flow: /build from a URS\n5:37 The maintenance flow: /improve from logs and requests\n7:08 The release flow: /release to a validation dossier\n8:27 Decisions belong to people\n9:18 3. What is a skill\n10:05 What is an agent\n11:12 What is a workflow\n12:27 4. Your own kit in seven steps\n13:54 Adapt one file, not ten roles\n14:35 Close\n\n### Links\n\nThe demo repository (public, clone it and run the three flows)\n- https://github.com/scheffershen/youtube-multi-agent-development-with-claude-code\n- Branches: `main` (the complete module after `v0.4.0`), `demo/round-1-example` (one bug fixed by the maintenance loop, with the report and the token cost of each role), `build/urs-002` (the SLA module built from a URS, three releases with changelog, flash info and validation dossiers)\n- The planted-bugs starting point: commit `f443dc7`\n\nPowered by https://www.shenyi.dev",
+  "seconds": 894,
+  "published": "2026-10-21",
+  "keywords": [
+   "ClaudeCode",
+   "AIAgents",
+   "MultiAgent",
+   "SoftwareEngineering",
+   "RegulatedSoftware",
+   "Symfony",
+   "PHP",
+   "Validation",
+   "DevOps",
+   "Tutorial"
+  ],
+  "views": 3
+ },
+ {
+  "id": "3uRgiFKVGUs",
+  "lang": "zh",
+  "topic": "software-is-over",
+  "title": "软件结束了, 当代码不再稀缺，什么会变得稀缺？",
+  "description": "2026 年 10 月，一个开源项目在 GitHub 上一天之内拿到两万颗星。同一个月，一位开发者用 AI 一周克隆了七个 Adobe 的软件。再往前，五月，Outreach 前 CEO 在全球最大的 SaaS 大会门口挂出一条横幅：Software is over。\n\n软件真的结束了吗？不完全是。结束的，是作为资产的软件。四分钟，四件事：\n\n· 大势所趋：AI 光速迭代，造东西和拆东西的成本一起崩塌\n· 降维打击：代码从资产沦为一次性餐巾纸，人人都能做 App\n· 两极分化：银行、电信、政务这些核心系统依然是耐用品\n· 终局重构：代码不再稀缺时，Spec、数据、工作流升格为核心资产，成为真正的护城河\n\n这是 12 分钟完整版的浓缩版。所有来源都在下面，标了 ⚠️ 的数字只有单一来源或有争议，细节见置顶评论。\n\n### 章节\n\n0:00 软件结束了？\n0:42 速度爆发 · 大势所趋\n1:36 代码变成一次性 · 降维打击\n2:37 核心系统依然耐用 · 两极分化\n3:04 Spec · 数据 · 工作流 · 终局重构\n3:52 从资产到消耗品\n\n### 来源\n\n开场\n- Matthew Berman「Software is done.」 https://x.com/MatthewBerman/status/2108245653843509415\n- lifcc：一天两万星 https://x.com/mylifcc/status/2108940999527690525\n- Manny Medina 在 SaaStr 门口的横幅 https://x.com/medinism/status/2057195512902922452\n- PetaPixel 报道 ArtCraft（七个 Adobe 克隆） https://petapixel.com/2026/10/07/someone-rebuilt-free-open-source-versions-of-photoshop-premiere-and-lightroom-using-ai/\n- Aakash Gupta 谈 ArtCraft https://x.com/aakashgupta/status/2109198317624463646\n\n速度爆发\n- 模型发布节奏：「十周 → 十一天」 https://x.com/AGTPinsights/status/2105100887047933962 ⚠️\n- CNBC「Model fatigue」 https://x.com/CNBC/status/2096572100219715912\n- REA 仓库（DX-Ball 案例：3205 个测试、63 个字节，见 README） https://github.com/morluto/rea\n- 宝玉介绍 REA https://x.com/dotey/status/2108794629172682783\n- Afiz「See a feature you love? Your agent can reverse engineer it」 https://x.com/itsafiz/status/2107063919290573174\n\n代码变成一次性\n- Addy Osmani：餐巾纸 https://x.com/addyosmani/status/2012235423519854891\n- Axios：Jim VandeHei 用手机做了四个 App https://www.axios.com/2026/01/17/ai-coding-claude-apps\n- John Tavares：12 小时替换掉一个 SaaS https://x.com/1johntavares/status/2029816404006805506\n- XDA 退订 Notion https://x.com/xdadevelopers/status/2053429885675143360\n- AlphaSignal「Cowork caused a $285B crash」 https://x.com/AlphaSignalAI/status/2019641856225866247\n- Aakash Gupta「四周四次大抛售」 https://x.com/aakashgupta/status/2026393777401901523\n- Bull Theory：蒸发的市值 https://x.com/BullTheoryio/status/2038670758982103528\n\n核心系统、Spec、数据、工作流\n- Xiaoyin Qu「it's not a funeral, it's a migration」 https://x.com/quxiaoyin/status/2024720924923072770\n- Martin Tobias「Agent or SaaS? Wrong question」 https://x.com/MartinGTobias/article/2103907614388375746\n- Satya Nadella，BG2，2024 年 12 月：「业务应用会在 agent 时代崩塌」 https://www.cxtoday.com/data-analytics/microsoft-ceo-ai-agents-will-transform-saas-as-we-know-it/\n\nPowered by shenyi.dev\n\n#SoftwareIsOver #AI #SaaS #ClaudeCode #逆向工程 #REA #Adobe #ArtCraft #AIAgent #软件\n\n## 置顶评论（补充说明）\n\n- ⚠️「两个模型之间不到两周」来自 unbenchmark.com 的统计口径（OpenAI + Anthropic 每年 4 / 15 / 42 / 39 个模型）。如果只算主要版本，SemiAnalysis 的口径大约是 51 天。取决于你把什么算作一次发布。\n- 2850 亿美元是 2026 年 2 月 3 日之后几天内，软件、金融服务、资管板块蒸发的市值；汤森路透当天跌了超过 16%。\n- 「最小可行市场是一个人」和「餐巾纸」都是 Addy Osmani 的说法。\n- 应用层 / 核心系统的划分，以及 Spec、数据、工作流这三项资产，是本视频的观点，不是引用。\n- 声音：XTTS v2 克隆的我自己的声音。完整版 12 分钟的视频在频道里。",
+  "seconds": 265,
+  "published": "2026-10-13",
+  "keywords": [],
+  "views": 45
+ },
+ {
+  "id": "HzCnUx8Q-YQ",
+  "lang": "fr",
+  "topic": "software-is-over",
+  "title": "Software is over : quand le code n'est plus rare, qu'est-ce qui le devient ?",
+  "description": "En octobre 2026, un projet open source a pris 20 000 étoiles sur GitHub en une journée. Le même mois, un développeur seul a cloné sept logiciels d'Adobe avec de l'IA. En mai, l'ancien patron d'Outreach a accroché « Software is over » devant la plus grande conférence SaaS du monde.\n\nLe logiciel, c'est fini ? Pas exactement. Ce qui est fini, c'est le logiciel comme actif. En quatre points et moins de cinq minutes : la vitesse qui explose, le code qui devient jetable, les systèmes cœur qui restent durables, et les trois choses qui deviennent rares quand le code ne l'est plus : la spec, les données, le workflow.\n\nToutes les sources sont ci-dessous. Les chiffres marqués ⚠️ ont une seule source ou sont contestés ; le détail est en commentaire épinglé.\n\n### Chapitres\n\n0:00 Le logiciel, c'est fini ?\n0:40 La vitesse explose\n1:38 Le code devient jetable\n2:45 Les systèmes cœur restent durables\n3:12 Spec, données, workflow\n4:14 D'actif à consommable\n\n### Sources\n\nOuverture\n- Matthew Berman « Software is done. » https://x.com/MatthewBerman/status/2108245653843509415\n- lifcc : 20 000 étoiles en un jour https://x.com/mylifcc/status/2108940999527690525\n- Banderole de Manny Medina devant SaaStr https://x.com/medinism/status/2057195512902922452\n- PetaPixel sur ArtCraft (sept clones d'Adobe) https://petapixel.com/2026/10/07/someone-rebuilt-free-open-source-versions-of-photoshop-premiere-and-lightroom-using-ai/\n- Aakash Gupta sur ArtCraft https://x.com/aakashgupta/status/2109198317624463646\n\nLa vitesse explose\n- Cadence des modèles : « dix semaines → onze jours » https://x.com/AGTPinsights/status/2105100887047933962 ⚠️\n- CNBC « Model fatigue » https://x.com/CNBC/status/2096572100219715912\n- Dépôt REA (cas DX-Ball : 3 205 tests, 63 octets, dans le README) https://github.com/morluto/rea\n- 宝玉 présente REA https://x.com/dotey/status/2108794629172682783\n- Afiz « See a feature you love? Your agent can reverse engineer it » https://x.com/itsafiz/status/2107063919290573174\n\nLe code devient jetable\n- Addy Osmani, la serviette en papier https://x.com/addyosmani/status/2012235423519854891\n- Axios : Jim VandeHei, quatre apps depuis son téléphone https://www.axios.com/2026/01/17/ai-coding-claude-apps\n- John Tavares, 12 heures pour remplacer un SaaS https://x.com/1johntavares/status/2029816404006805506\n- XDA résilie Notion https://x.com/xdadevelopers/status/2053429885675143360\n- AlphaSignal « Cowork caused a $285B crash » https://x.com/AlphaSignalAI/status/2019641856225866247\n- Aakash Gupta « quatre ventes massives en quatre semaines » https://x.com/aakashgupta/status/2026393777401901523\n- Bull Theory : la capitalisation effacée https://x.com/BullTheoryio/status/2038670758982103528\n\nSystèmes cœur, spec, données, workflow\n- Xiaoyin Qu « it's not a funeral, it's a migration » https://x.com/quxiaoyin/status/2024720924923072770\n- Martin Tobias « Agent or SaaS? Wrong question » https://x.com/MartinGTobias/article/2103907614388375746\n- Satya Nadella, BG2, décembre 2024 : « les applications métier vont s'effondrer à l'ère des agents » https://www.cxtoday.com/data-analytics/microsoft-ceo-ai-agents-will-transform-saas-as-we-know-it/\n\nPowered by shenyi.dev\n\n#SoftwareIsOver #IA #SaaS #ClaudeCode #RétroIngénierie #REA #Adobe #ArtCraft #AIAgent #Logiciel\n\n## Commentaire épinglé (précisions)\n\n- ⚠️ « Moins de deux semaines entre deux modèles » vient du décompte d'unbenchmark.com (4 / 15 / 42 / 39 modèles OpenAI + Anthropic). Avec un autre périmètre (versions majeures seulement), SemiAnalysis arrive à environ 51 jours. Tout dépend de ce qu'on appelle une sortie.\n- Les 285 milliards de dollars sont la capitalisation effacée sur les logiciels, services financiers et gestion d'actifs en quelques jours après le 3 février 2026 ; Thomson Reuters a perdu plus de 16 % ce jour-là.\n- « Marché minimum viable : une personne » et « serviette en papier » sont les formules d'Addy Osmani.\n- Le classement applicatif / systèmes cœur et les trois actifs (spec, données, workflow) sont la thèse de la vidéo, pas une citation.\n- Voix : clonage XTTS v2 de ma propre voix, lue en français.",
+  "seconds": 280,
+  "published": "2026-10-13",
+  "keywords": [],
+  "views": 9
+ },
+ {
+  "id": "Zqo3Ahpk0qs",
+  "lang": "en",
+  "topic": "software-is-over",
+  "title": "Software is over: when code stops being scarce, what becomes scarce instead?",
+  "description": "In October 2026, an open-source project picked up 20,000 GitHub stars in a single day. The same month, one developer cloned seven Adobe apps with AI. Back in May, the former CEO of Outreach hung a \"Software is over\" banner outside the biggest SaaS conference in the world.\n\nIs software over? Not quite. What is over is software as an asset. Four points in under five minutes: speed explodes, code becomes disposable, core systems stay durable, and three things become scarce once code no longer is: the spec, the data, the workflow.\n\nEvery source is below. Figures marked ⚠️ rest on a single source or are disputed; details in the pinned comment.\n\n### Chapters\n\n0:00 Is software over?\n0:38 Speed explodes\n1:34 Code becomes disposable\n2:45 Core systems stay durable\n3:18 Spec, data, workflow\n4:16 From asset to consumable\n\n### Sources\n\nOpening\n- Matthew Berman \"Software is done.\" https://x.com/MatthewBerman/status/2108245653843509415\n- lifcc: 20,000 stars in one day https://x.com/mylifcc/status/2108940999527690525\n- Manny Medina's banner outside SaaStr https://x.com/medinism/status/2057195512902922452\n- PetaPixel on ArtCraft (seven Adobe clones) https://petapixel.com/2026/10/07/someone-rebuilt-free-open-source-versions-of-photoshop-premiere-and-lightroom-using-ai/\n- Aakash Gupta on ArtCraft https://x.com/aakashgupta/status/2109198317624463646\n\nSpeed explodes\n- Model cadence: \"ten weeks → eleven days\" https://x.com/AGTPinsights/status/2105100887047933962 ⚠️\n- CNBC \"Model fatigue\" https://x.com/CNBC/status/2096572100219715912\n- REA repository (DX-Ball case: 3,205 tests, 63 bytes, in the README) https://github.com/morluto/rea\n- 宝玉 introduces REA https://x.com/dotey/status/2108794629172682783\n- Afiz \"See a feature you love? Your agent can reverse engineer it\" https://x.com/itsafiz/status/2107063919290573174\n\nCode becomes disposable\n- Addy Osmani, the napkin https://x.com/addyosmani/status/2012235423519854891\n- Axios: Jim VandeHei, four apps from his phone https://www.axios.com/2026/01/17/ai-coding-claude-apps\n- John Tavares, 12 hours to replace a SaaS https://x.com/1johntavares/status/2029816404006805506\n- XDA cancels Notion https://x.com/xdadevelopers/status/2053429885675143360\n- AlphaSignal \"Cowork caused a $285B crash\" https://x.com/AlphaSignalAI/status/2019641856225866247\n- Aakash Gupta \"four massive sell-offs in four weeks\" https://x.com/aakashgupta/status/2026393777401901523\n- Bull Theory: the market cap erased https://x.com/BullTheoryio/status/2038670758982103528\n\nCore systems, spec, data, workflow\n- Xiaoyin Qu \"it's not a funeral, it's a migration\" https://x.com/quxiaoyin/status/2024720924923072770\n- Martin Tobias \"Agent or SaaS? Wrong question\" https://x.com/MartinGTobias/article/2103907614388375746\n- Satya Nadella, BG2, December 2024: \"business applications will collapse in the agent era\" https://www.cxtoday.com/data-analytics/microsoft-ceo-ai-agents-will-transform-saas-as-we-know-it/\n\nPowered by shenyi.dev\n\n#SoftwareIsOver #AI #SaaS #ClaudeCode #ReverseEngineering #REA #Adobe #ArtCraft #AIAgents #Software\n\n## Pinned comment (caveats)\n\n- ⚠️ \"Less than two weeks between models\" comes from unbenchmark.com's count (4 / 15 / 42 / 39 OpenAI + Anthropic models per year). With a narrower scope (major releases only), SemiAnalysis lands at roughly 51 days. It all depends on what counts as a release.\n- The $285 billion is the market cap erased across software, financial services and asset management within days after February 3, 2026; Thomson Reuters fell more than 16% that day.\n- \"Minimum viable market: one person\" and \"napkin\" are Addy Osmani's phrases.\n- The application-layer / core-systems split and the three assets (spec, data, workflow) are this video's thesis, not a quote.\n- Voice: an XTTS v2 clone of my own voice, reading in English.",
+  "seconds": 282,
+  "published": "2026-10-13",
+  "keywords": [],
+  "views": 41
+ },
+ {
+  "id": "B1nZ_uSCCw4",
+  "lang": "zh",
+  "topic": "how-to-build-ai-driven-saas",
+  "title": "如何构建由 AI 智能体驱动的 SaaS ?",
+  "description": "通过 Symfony 表单和 AI 智能体完成同一套视频工作流程。应用技能准备封面、英语、法语、德语、意大利语和西班牙语字幕，以及标题和描述，然后上传文件、保存未发布的草稿，并读取结果进行核对。项目包含 Docker 部署包。WebMCP 仍处于实验阶段，需要兼容的浏览器和智能体客户端。\n\nSource: https://github.com/scheffershen/video-saas-webmcp-demo\n\n00:00 通过智能体操作 SaaS\n00:21 完整的视频表单\n01:03 技能准备哪些内容\n01:52 提出请求，准备，保存，核对\n03:15 共用的 Symfony 后端\n04:09 运行并改造项目",
+  "seconds": 296,
+  "published": "2026-10-04",
+  "keywords": [],
+  "views": 7
+ },
+ {
+  "id": "dMeYc5HMps8",
+  "lang": "fr",
+  "topic": "how-to-build-ai-driven-saas",
+  "title": "Créer un SaaS piloté par un agent IA",
+  "description": "Découvrez un workflow vidéo complet depuis un formulaire Symfony et un agent IA. La compétence prépare une image de couverture, des sous-titres EN/FR/DE/IT/ES, un titre et une description, puis charge les fichiers et crée un brouillon non publié dont le contenu est vérifié. Le projet fournit un déploiement Docker. WebMCP est expérimental et nécessite un navigateur et un client compatibles.\n\nSource: https://github.com/scheffershen/video-saas-webmcp-demo\n\n00:00 Votre SaaS depuis un agent\n00:24 Le formulaire vidéo complet\n01:06 Ce que prépare la compétence\n01:49 Demander, préparer, enregistrer, vérifier\n03:06 Un backend Symfony partagé\n04:06 Exécuter et adapter le projet\n\n#WebMCP #Symfony #AIAgents #SaaS #OpenSource",
+  "seconds": 296,
+  "published": "2026-10-04",
+  "keywords": [
+   "WebMCP",
+   "SaaS",
+   "Symfony",
+   "AIAgents"
+  ],
+  "views": 110
+ },
+ {
+  "id": "3do_vXv7bjY",
+  "lang": "en",
+  "topic": "how-to-build-ai-driven-saas",
+  "title": "How to Build AI-Driven SaaS ?",
+  "description": "See a complete video workflow through a Symfony form and an AI agent. The application skill prepares a cover, EN/FR/DE/IT/ES subtitles, a title and a description, then uploads the files and creates a verified unpublished draft. The code includes a Docker deployment package. WebMCP is experimental and needs a compatible browser and agent client.\n\nSource: https://github.com/scheffershen/video-saas-webmcp-demo\n\n00:00 Your SaaS, through an agent\n00:19 The complete video form\n01:00 What the skill prepares\n01:44 Ask. Prepare. Save. Verify.\n03:05 One shared Symfony backend\n04:04 Run it. Adapt it.\n\nNarration: XTTS v2, generated locally from the author’s own voice recording with permission. No music.\n\n#WebMCP #Symfony #AIAgents #SaaS #OpenSource",
+  "seconds": 290,
+  "published": "2026-10-04",
+  "keywords": [
+   "WebMCP",
+   "Symfony",
+   "AIAgents",
+   "SaaS"
+  ],
+  "views": 54
+ },
+ {
+  "id": "bY6o7yvoJIc",
+  "lang": "zh",
+  "topic": "saas-platform-support-copilot",
+  "title": "如何构建SaaS平台的副驾驶",
+  "description": "大多数客服机器人都在瞎猜，这个不会。5 分钟讲清楚：如何构建一个只读、只凭证据回答并始终标明引用的 AI 支持副驾驶。演示对象是 Loopline，一个虚构的工单应用，其中预置了一个通知故障。你会看到类型化并经过验证的模型输出、路由、安全的工具、有界的智能体循环、混合检索（RAG）、调用图、记忆、规划、权限感知搜索、对破坏性命令的拒绝，以及提示注入防御——画面里都是仓库中的真实代码和真实测试输出。\n\n本视频是对核心构建过程的浓缩总结（覆盖 19 节课中的第 00–13 课）。完整的分步课程、代码和测试都在仓库里：\nhttps://github.com/scheffershen/saas-support-copilot\n\n时间戳：\n- 0:00 问题：一个不会瞎猜的支持副驾驶\n- 0:56 类型化的大脑：结构化输出与路由\n- 1:55 工具与智能体循环\n- 2:53 找到知识：RAG、调用图、记忆与规划\n- 3:50 安全：权限、拒绝与提示注入\n- 4:56 回顾与代码在哪里\n\n涵盖的课程（仓库的 `lessons/` 文件夹）：\n- 00 我们要构建什么\n- 01 Python 项目基础\n- 02 最小的实用 LLM 调用\n- 03 系统提示和结构化输出\n- 04 决策、路由和工作流\n- 05 工具和安全工具合约\n- 06 代理循环\n- 07 对话状态与记忆\n- 08 RAG 基础\n- 09 用知识图谱理解代码关系\n- 10 权限感知搜索\n- 11 评估功能的可行性\n- 12 人工审批与拒绝机制\n- 13 提示词注入与数据外泄防护\n\n这是学习用的原型，不是生产环境的安全保证：仓库里的生产就绪清单列出了仍然缺少的部分。Loopline 是虚构的，没有使用任何真实公司的数据。\n\n旁白是用作者本人声音生成的 AI 语音。\n\n#AI智能体 #RAG #LLM #Python #提示注入 #软件工程 #SaaS #教程",
+  "seconds": 325,
+  "published": "2026-10-03",
+  "keywords": [
+   "AI智能体",
+   "RAG",
+   "LLM",
+   "Python",
+   "SaaS",
+   "软件工程",
+   "教程"
+  ],
+  "views": 13
+ },
+ {
+  "id": "iRQaFMgGW8g",
+  "lang": "fr",
+  "topic": "saas-platform-support-copilot",
+  "title": "Comment créer un copilote de support pour une plateforme SaaS ?",
+  "description": "La plupart des bots d’assistance devinent. Celui-ci ne le peut pas. En cinq minutes : comment construire un copilote d’assistance IA en lecture seule, qui ne répond qu’avec des preuves et cite toujours ses sources. Le terrain d’essai est Loopline, une application de tickets fictive avec un problème de notification volontaire. Vous verrez des sorties de modèle typées et validées, le routage, des outils sûrs, une boucle d’agent bornée, la recherche hybride (RAG), un graphe d’appels, la mémoire, la planification, la recherche tenant compte des permissions, le refus des commandes destructrices et la défense contre l’injection de prompt — avec du vrai code et de vrais résultats de tests du dépôt.\n\nCette vidéo résume l’essentiel de la construction (leçons 00 à 13 du cours, qui en compte 19). Les leçons détaillées, le code et les tests sont dans le dépôt :\nhttps://github.com/scheffershen/saas-support-copilot\n\nHorodatages :\n- 0:00 Le problème : un copilote qui ne devine pas\n- 0:59 Le cerveau typé : sorties structurées et routage\n- 2:05 Outils et boucle de l’agent\n- 3:06 Trouver l’information : RAG, graphe d’appels, mémoire, planification\n- 4:05 Sécurité : permissions, refus, injection de prompt\n- 5:12 Récap et où trouver le code\n\nLeçons couvertes (dossier `lessons/` du dépôt) :\n- 00 Ce que nous allons construire\n- 01 Les fondations d’un projet Python\n- 02 Le plus petit appel utile à un LLM\n- 03 Prompts système et sorties structurées\n- 04 Décisions, routage et workflows\n- 05 Outils et contrats d’outils sûrs\n- 06 La boucle de l’agent\n- 07 État de conversation et mémoire\n- 08 Les fondamentaux du RAG\n- 09 Les graphes de connaissances pour relier le code\n- 10 Recherche tenant compte des permissions\n- 11 Évaluer la faisabilité d’une fonctionnalité\n- 12 Approbation humaine et refus\n- 13 Injection de prompt et prévention de l’exfiltration\n\nPrototype pédagogique, pas une garantie de sécurité en production : la liste de contrôle de mise en production du dépôt indique ce qui manque encore. Loopline est fictive ; aucune donnée d’entreprise réelle n’est utilisée.\n\nLa narration est une version générée par IA de la voix de l’auteur.\n\n#AgentsIA #RAG #LLM #Python #InjectionDePrompt #GénieLogiciel #SaaS #Tutoriel",
+  "seconds": 338,
+  "published": "2026-10-03",
+  "keywords": [
+   "Agents",
+   "RAG",
+   "LLM",
+   "Python",
+   "GénieLogiciel",
+   "SaaS",
+   "Tutorial"
+  ],
+  "views": 30
+ },
+ {
+  "id": "kvuWM7TcZ6Y",
+  "lang": "en",
+  "topic": "saas-platform-support-copilot",
+  "title": "How to Build a SaaS Platform Support Copilot ?",
+  "description": "Most support bots guess. This one can’t. In five minutes: how to build a read-only AI support copilot that answers only from evidence and always cites its sources. The test subject is Loopline, a fictional ticketing app with a seeded notification bug. You’ll see typed and validated model output, routing, safe tools, a bounded agent loop, hybrid retrieval (RAG), a call graph, memory, planning, permission-aware search, refusal of destructive commands, and prompt-injection defense — with real code and real test output from the repository.\n\nThis is a condensed summary of the core build (lessons 00–13 of the 19-lesson course). The full step-by-step lessons, code and tests are in the repository:\nhttps://github.com/scheffershen/saas-support-copilot\n\nTimestamps:\n- 0:00 The problem: a support copilot that can’t guess\n- 0:52 The typed brain: structured output & routing\n- 1:58 Tools and the agent loop\n- 2:59 Finding knowledge: RAG, call graph, memory, planning\n- 3:56 Safety: permissions, refusal, prompt injection\n- 4:59 Recap and where to find the code\n\nLessons covered (repository folder `lessons/`):\n- 00 What we’re building\n- 01 Python project foundations\n- 02 The smallest useful LLM call\n- 03 System prompts and structured output\n- 04 Decisions, routing, and workflows\n- 05 Tools and safe tool contracts\n- 06 The agent loop\n- 07 Conversation state and memory\n- 08 RAG fundamentals\n- 09 Knowledge graphs for code relationships\n- 10 Permission-aware search\n- 11 Planning feature feasibility\n- 12 Human approval and refusal\n- 13 Prompt injection and data-exfiltration defense\n\nLearning prototype, not a production-security guarantee: the repository’s production-readiness checklist lists what is still missing. Loopline is fictional; no real company data is used.\n\nThe narration is an AI-generated version of the author’s own voice.\n\n#AIAgents #RAG #LLM #Python #PromptInjection #SoftwareEngineering #SaaS #Tutorial",
+  "seconds": 326,
+  "published": "2026-10-03",
+  "keywords": [
+   "Agents",
+   "RAG",
+   "LLM",
+   "SaaS",
+   "Tutorial",
+   "SoftwareEngineering"
+  ],
+  "views": 11
+ },
+ {
+  "id": "H4SpRjTLdeM",
+  "lang": "zh",
+  "topic": "stop-wasting-ai-coding-tokens",
+  "title": "别再浪费 AI 编程 Token 了：选对工具",
+  "description": "你的 Claude Code 和 Codex 的token用得飞快，但\"浪费 token\"从来不是一个原因，而是五个。这期视频把 RTK、Serena、codebase-memory-mcp、Context Mode、Headroom、Repomix、Code2Prompt、Gitingest、chop 和 squeez 逐一拆解,教你怎么选出真正解决你那个瓶颈的最小工具组合。\n\n时间戳:\n- 0:00 开场 — 费 token 不是一个原因\n- 0:32 上下文浪费的五个类别\n- 1:28 默认组合:RTK + 一个结构化工具\n- 2:23 Shell 输出压缩:RTK 对比 chop 对比 squeez\n- 3:26 结构化工具:Serena 对比 codebase-memory-mcp\n- 4:45 大型工具输出:Context Mode 对比 Headroom\n- 5:49 一次性上下文打包\n- 6:32 决策与选择\n- 7:36 自己动手测一遍 + 结尾\n\n视频中提到的工具仓库:\n- RTK:https://github.com/rtk-ai/rtk\n- Serena:https://github.com/oraios/serena\n- codebase-memory-mcp:https://github.com/DeusData/codebase-memory-mcp\n- Context Mode:https://github.com/mksglu/context-mode\n- Headroom:https://github.com/headroomlabs-ai/headroom\n- Graft:https://github.com/trailhq/Graft\n- Graphify:https://github.com/Graphify-Labs/graphify\n- GitNexus:https://github.com/abhigyanpatwari/GitNexus\n- CodeGraph:https://github.com/colbymchenry/codegraph\n- Code Context Engine:https://github.com/elara-labs/code-context-engine\n- Repomix:https://github.com/yamadashy/repomix\n- Code2Prompt:https://github.com/mufeedvh/code2prompt\n- Gitingest:https://github.com/coderamp-labs/gitingest\n- chop:https://github.com/AgusRdz/chop\n- squeez:https://github.com/claudioemmanuel/squeez\n\n本视频是独立的对比测评,不是上述任何工具的官方或赞助内容。安装命令和仓库名称可能会变化——安装前请到官方仓库重新核实,尤其是较新的工具(Context Mode、squeez、Code Context Engine)。\n\n#ClaudeCode #AI编程 #OpenAICodex #开发工具 #AI智能体 #编程 #软件工程 #上下文窗口 #LLM",
+  "seconds": 530,
+  "published": "2026-09-21",
+  "keywords": [],
+  "views": 32
+ },
+ {
+  "id": "rqQwO7gJ4Sw",
+  "lang": "fr",
+  "topic": "stop-wasting-ai-coding-tokens",
+  "title": "RTK, Serena, Headroom : quels outils installer pour Claude Code et Codex",
+  "description": "Votre agent IA de code consomme son contexte à toute vitesse, mais le « gaspillage de tokens » n'est pas un seul problème : il y en a cinq. Cette vidéo décortique RTK, Serena, codebase-memory-mcp, Context Mode, Headroom, Repomix, Code2Prompt, Gitingest, chop et squeez, et vous montre comment choisir la plus petite pile qui règle vraiment votre goulot d'étranglement\n\nHorodatages :\n- 0:00 Accroche — le gaspillage de tokens n'est pas une seule chose\n- 0:34 Les cinq catégories de gaspillage de contexte\n- 1:35 La pile par défaut : RTK + un outil structurel\n- 2:27 Compression de sortie shell : RTK contre chop contre squeez\n- 3:25 Outils structurels : Serena contre codebase-memory-mcp\n- 4:40 Grosses sorties d'outils : Context Mode contre Headroom\n- 5:42 Packaging de contexte ponctuel\n- 6:26 Arbre de décision et recettes\n- 7:31 Mesurez-le vous-même + conclusion\n\nDépôts des outils mentionnés dans cette vidéo :\n- RTK : https://github.com/rtk-ai/rtk\n- Serena : https://github.com/oraios/serena\n- codebase-memory-mcp : https://github.com/DeusData/codebase-memory-mcp\n- Context Mode : https://github.com/mksglu/context-mode\n- Headroom : https://github.com/headroomlabs-ai/headroom\n- Graft : https://github.com/trailhq/Graft\n- Graphify : https://github.com/Graphify-Labs/graphify\n- GitNexus : https://github.com/abhigyanpatwari/GitNexus\n- CodeGraph : https://github.com/colbymchenry/codegraph\n- Code Context Engine : https://github.com/elara-labs/code-context-engine\n- Repomix : https://github.com/yamadashy/repomix\n- Code2Prompt : https://github.com/mufeedvh/code2prompt\n- Gitingest : https://github.com/coderamp-labs/gitingest\n- chop : https://github.com/AgusRdz/chop\n- squeez : https://github.com/claudioemmanuel/squeez\n\nCette vidéo est une comparaison indépendante, pas une sortie officielle ou sponsorisée par l'un de ces outils. Les commandes d'installation et les noms de dépôts changent — revérifiez auprès du dépôt source avant d'installer, surtout pour les outils les plus récents (Context Mode, squeez, Code Context Engine).\n\n#ClaudeCode #IA #OpenAICodex #DevTools #AgentsIA #Programmation #GénieLogiciel #FenêtreDeContexte #LLM",
+  "seconds": 524,
+  "published": "2026-09-21",
+  "keywords": [],
+  "views": 84
+ },
+ {
+  "id": "W2uKqxg8kuY",
+  "lang": "en",
+  "topic": "stop-wasting-ai-coding-tokens",
+  "title": "Stop Wasting AI Coding Tokens: Choose the Right Tool",
+  "description": "Your AI coding agent burns through context fast — but \"token waste\" isn't one problem, it's five. This video breaks down RTK, Serena, codebase-memory-mcp, Context Mode, Headroom, Repomix, Code2Prompt, Gitingest, chop, and squeez, and shows you how to pick the smallest stack that actually fixes your specific bottleneck.\n\nTimestamps:\n- 0:00 Hook — token waste isn't one thing\n- 0:30 The five categories of context waste\n- 1:28 The default stack: RTK + one structural tool\n- 2:20 Shell-output compression: RTK vs chop vs squeez\n- 3:16 Structural tools: Serena vs codebase-memory-mcp\n- 4:29 Large tool-output: Context Mode vs Headroom\n- 5:26 One-shot context packaging\n- 6:10 Decision tree and recipes\n- 7:16 Measure it yourself + close\n\nTool repositories mentioned in this video:\n- RTK: https://github.com/rtk-ai/rtk\n- Serena: https://github.com/oraios/serena\n- codebase-memory-mcp: https://github.com/DeusData/codebase-memory-mcp\n- Context Mode: https://github.com/mksglu/context-mode\n- Headroom: https://github.com/headroomlabs-ai/headroom\n- Graft: https://github.com/trailhq/Graft\n- Graphify: https://github.com/Graphify-Labs/graphify\n- GitNexus: https://github.com/abhigyanpatwari/GitNexus\n- CodeGraph: https://github.com/colbymchenry/codegraph\n- Code Context Engine: https://github.com/elara-labs/code-context-engine\n- Repomix: https://github.com/yamadashy/repomix\n- Code2Prompt: https://github.com/mufeedvh/code2prompt\n- Gitingest: https://github.com/coderamp-labs/gitingest\n- chop: https://github.com/AgusRdz/chop\n- squeez: https://github.com/claudioemmanuel/squeez\n\nThis video is an independent comparison, not an official or sponsored release from any of the tools above. Install commands and repository names change — re-verify against the upstream repo before installing, especially for the newer tools (Context Mode, squeez, Code Context Engine).\n\n#ClaudeCode #AICoding #OpenAICodex #DevTools #AIAgents #Programming #SoftwareEngineering #ContextWindow #LLM",
+  "seconds": 509,
+  "published": "2026-09-21",
+  "keywords": [],
+  "views": 94
+ },
+ {
+  "id": "SolX5X-Xt84",
+  "lang": "zh",
+  "topic": "save-your-ai-coding-quotas",
+  "title": "如何避免用完 Claude Code Pro  和 OpenAI Plus套餐的 Token 额度",
+  "description": "如果你的 Claude Pro 和 OpenAI Plus 每周配额总是烧得太快，解决办法是两个模型：把大约八成的工作交给 Claude Code 的 Sonnet 5 和 OpenAI 的 Codex Luna，两者都配合 medium 或 high 强度，遇到复杂任务时让两者互相校验。这期视频接着讲清楚哪类工作该用哪个模型、如何按任务难度选择效力等级，以及一套结合 Claude Code 和 Codex 的流程：用 Claude Code 规划、用 Codex 执行、再用 Claude Code 复查。\n\n这期视频把常见的软件工程任务分配到 Claude Code 的模型阵容（Fable 5.1、Opus 5、Sonnet 5、Haiku 4.5）和效力阶梯（low、medium、high、xhigh、max）上，让 Sonnet 5 承担约八成日常工作，Ultracode 只留给单个智能体装不下的多文件自主任务。同时也讲了 Codex 真实的模型阵容（Astra、Sol、Terra、Luna）、它的 low/medium/high/max 效力设置和 Ultra 模式、两个工具按任务的对应关系——包括这期视频为什么把\"日常主力\"这一行特意配上 Luna，而不是 OpenAI 建议的 Terra——以及为什么 OpenAI 公布的用量数字是预估区间，而不是固定上限。\n\n0:00 每周配额问题：Sonnet 5 + Codex Luna，互相校验\n0:26 效力阶梯 + 模型阵容\n0:56 按任务分流（五类任务对照表）\n1:34 Codex 与 ChatGPT Pro 套餐：Astra、Sol、Terra、Luna\n2:04 同样的五类任务，对应到 Codex\n2:34 跨工具流程：用 Claude 规划、用 Codex 执行、用 Claude 复查\n3:03 两个工具都不会自动降级 + Sonnet 5 / Codex Luna 结论回顾\n\n本视频参考的信息来源：见英文简介中的完整链接列表。\n\n完整分配表与防护清单：见置顶评论 / 关联文档。\n\n#ClaudeCode #DevEx",
+  "seconds": 217,
+  "published": "2026-09-15",
+  "keywords": [
+   "Claude Code Pro Plan",
+   "OpenAI Plus Plan"
+  ],
+  "views": 29
+ },
+ {
+  "id": "bu7Xuh9ZGb4",
+  "lang": "fr",
+  "topic": "save-your-ai-coding-quotas",
+  "title": "Comment éviter d'atteindre votre limite de tokens sur le plan Claude Code Pro et OpenAI Code Plus",
+  "description": "Si vos tokens hebdomadaires du plan Claude Pro et du plan OpenAI Plus fondent trop vite, la solution tient en deux modèles : envoyez environ 80 % de votre travail à Sonnet 5 de Claude Code et à Codex Luna d'OpenAI, tous deux en medium ou high, et croisez les deux sur ce qui est complexe. Cette vidéo explique ensuite quel modèle utiliser pour quel type de travail, comment choisir le niveau d'effort selon la difficulté de la tâche, et un flux de travail pour combiner Claude Code et Codex : planifier avec Claude Code, exécuter avec Codex, relire avec Claude Code.\n\nElle répartit des tâches d'ingénierie logicielle courantes sur la gamme de modèles Claude Code (Fable 5.1, Opus 5, Sonnet 5, Haiku 4.5) et l'échelle d'effort (low, medium, high, xhigh, max), pour que Sonnet 5 reste votre pilier à ~80 % et qu'Ultracode soit réservé aux passes autonomes multi-fichiers qui dépassent le contexte d'un seul agent. Elle couvre aussi la vraie gamme de modèles Codex (Astra, Sol, Terra, Luna), ses réglages d'effort low/medium/high/max et son mode Ultra, une correspondance tâche par tâche entre les deux outils — dont la raison pour laquelle cette vidéo associe délibérément la ligne « pilier quotidien » à Luna plutôt qu'à Terra comme le suggère OpenAI — et pourquoi les chiffres d'usage publiés par OpenAI sont des fourchettes estimées, pas des limites fixes.\n\n0:00 Le problème du quota hebdomadaire : Sonnet 5 + Codex Luna, croisés\n0:23 L'échelle d'effort + la gamme de modèles\n0:51 Répartir par tâche (le tableau à 5 catégories)\n1:27 Codex sur un plan ChatGPT Pro : Astra, Sol, Terra, Luna\n1:55 Les 5 mêmes catégories, du côté Codex\n2:22 Flux inter-outils : planifier avec Claude, exécuter avec Codex, relire avec Claude\n2:50 Pas de rétrogradation automatique sur aucun des deux outils + le rappel Sonnet 5 / Codex Luna\n\nSources consultées pour cette vidéo : voir la version anglaise de cette description pour les liens complets.\n\nTableau complet et checklist de garde-fous : voir le commentaire épinglé / le document lié.\n\n#ClaudeCode #DevEx",
+  "seconds": 202,
+  "published": "2026-09-15",
+  "keywords": [
+   "Claude Code Pro Plan",
+   "OpenAI Plus Plan"
+  ],
+  "views": 50
+ },
+ {
+  "id": "QeR2_JxV3GM",
+  "lang": "en",
+  "topic": "save-your-ai-coding-quotas",
+  "title": "How to Save 80% of Your AI Coding Quotas: Effort Level & Model Routing Guide",
+  "description": "If your weekly Claude Pro plan and OpenAI Plus plan tokens keep disappearing too fast, the fix starts with two models: send about 80% of your work to Claude Code's Sonnet 5 and OpenAI's Codex Luna, both at medium or high effort, and cross-check the two against each other on anything complex. This video walks through which model fits which kind of work, how to pick an effort level based on how hard the job is, and a cross-tool workflow for pairing Claude Code and Codex: plan with Claude Code, implement with Codex, review with Claude Code.\n\nIt maps common software engineering workloads to the Claude Code model lineup (Fable 5.1, Opus 5, Sonnet 5, Haiku 4.5) and the effort ladder (low, medium, high, xhigh, max), so Sonnet 5 stays your ~80% daily workhorse and Ultracode gets reserved for multi-file autonomous passes that outgrow a single agent's context. It also covers Codex's real model lineup (Astra, Sol, Terra, Luna), its low/medium/high/max effort settings and Ultra mode, a direct task-by-task mapping between the two tools' models — including why this video deliberately pairs the daily-workhorse row with Luna rather than OpenAI's suggested Terra — and why OpenAI's published usage numbers are estimated ranges rather than fixed limits.\n\n0:00 The weekly-quota problem: Sonnet 5 + Codex Luna, cross-checked\n0:24 The effort ladder + model lineup\n0:52 Route by task (the 5-category table)\n1:27 Codex on a ChatGPT Pro plan: Astra, Sol, Terra, Luna\n1:54 The same 5 categories, mapped to Codex\n2:22 Cross-tool workflow: plan with Claude, implement with Codex, review with Claude\n2:50 No auto-downgrade on either tool + the Sonnet 5 / Codex Luna recap\n\nSources referenced while researching this video:\n- https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work\n- https://support.claude.com/en/articles/11145838-using-claude-code-with-your-pro-or-max-plan\n- https://support.claude.com/en/articles/9797557-usage-limit-best-practices\n- https://support.claude.com/en/articles/14552983-models-usage-and-limits-in-claude-code\n- https://code.claude.com/docs/en/model-config\n- https://code.claude.com/docs/en/fast-mode\n- https://code.claude.com/docs/en/workflows\n- https://code.claude.com/docs/en/costs\n- https://claude.com/blog/claude-model-and-effort-level-in-claude-code\n- https://platform.claude.com/docs/en/build-with-claude/effort\n- https://developers.openai.com/codex/learn/best-practices (Codex usage-saving practices: AGENTS.md, Plan mode, prompt structure)\n- https://help.openai.com/en/articles/20001516-managing-usage-with-gpt-6-astra-in-work-and-codex (Codex model lineup, effort levels, estimated usage ranges)\n- https://openai.com/index/gpt-5-6/ (GPT-5.6 Sol/Terra/Luna launch, Ultra mode)\n\nFull routing table and guardrail checklist: see the pinned comment / linked doc.\n\n#ClaudeCode #DevEx",
+  "seconds": 201,
+  "published": "2026-09-15",
+  "keywords": [
+   "ClaudeCode",
+   "Codex"
+  ],
+  "views": 26
+ },
+ {
+  "id": "6tSeQaCgkL4",
+  "lang": "zh",
+  "topic": "why-your-rag-system-fails",
+  "title": "让你的 RAG 真正在生产环境里跑起来",
+  "description": "一段简短实用的讲解，讲清楚到底是什么让检索增强生成（RAG）系统在生产环境里真正好用，而不只是演示好看。五条来自真实生产经验的教训。\n\n你将学到：\n\n- 为什么在动手调整检索之前，记录每一次交互并收集点赞/点踩反馈，是你能做的投入回报最高的改动。\n- 为什么更大的上下文窗口不能取代检索，以及它始终解决不了的四件事：成本与延迟、访问控制、时效性，以及可追溯性。\n- 为什么一个检索通道永远不够，以及分块向量、摘要向量、全文检索和图检索各自如何弥补另一个的盲区。\n- 如何阅读自己的失败案例，用大模型归类，然后把一个界定清楚、可核实的问题交给 Claude Code 或 Codex 这样的编程 Agent，而不是含糊地让它\"把 RAG 变好\"。\n- 一份提示词，让你自己从零搭建整条四通道流水线。\n\n时间戳：\n0:00 课程概览\n0:40 第 1 章 · 记录日志，让用户打分\n1:56 第 2 章 · 上下文窗口不是检索\n3:18 第 3 章 · 四个检索通道，而不是一个\n4:46 第 4 章 · 从归类到修复\n6:20 第 5 章 · 从零开始搭建自己的版本\n\n完整的书面教程（英语、法语、中文）以及视频中出现的所有图表：\nhttps://github.com/scheffershen/yt-rag-formation/tree/main/lessons/zh/continue\nhttps://shenyi.dev/zh/ai-lab/rag-formation/continue/01-improve-your-rag\n\n#RAG #检索增强生成 #LLM #AI工程 #机器学习",
+  "seconds": 458,
+  "published": "2026-09-14",
+  "keywords": [],
+  "views": 14
+ },
+ {
+  "id": "3sJHHNDPWuQ",
+  "lang": "fr",
+  "topic": "why-your-rag-system-fails",
+  "title": "Faites vraiment marcher votre RAG en production",
+  "description": "Un parcours court et pratique sur ce qui fait vraiment fonctionner un\nsystème RAG (Retrieval-Augmented Generation) une fois en production, pas\nseulement en démo. Cinq leçons tirées d'une vraie expérience de\nproduction.\n\nCe que vous allez apprendre :\n\n- Pourquoi journaliser chaque interaction et collecter un retour pouce\n  levé / pouce baissé est le changement le plus rentable que vous\n  puissiez faire, avant même de toucher à la recherche.\n- Pourquoi une fenêtre de contexte plus grande ne remplace pas la\n  recherche, et les quatre choses qu'elle ne résout toujours pas : le\n  coût et la latence, le contrôle d'accès, la fraîcheur, et la\n  traçabilité.\n- Pourquoi un seul canal de recherche ne suffit jamais, et comment le\n  vecteur fragment, le vecteur résumé, le plein texte et la recherche\n  par graphe couvrent chacun un angle mort différent.\n- Comment lire vos propres échecs, les classer avec un LLM, et confier\n  une correction ciblée et vérifiable à un agent de code comme Claude\n  Code ou Codex, plutôt que de lui demander vaguement d'« améliorer le\n  RAG ».\n- Un prompt que vous pouvez utiliser pour construire tout ce pipeline à\n  quatre canaux vous-même, à partir de zéro.\n\nHorodatage :\n0:00 Aperçu du cours\n0:38 Chapitre 1 · Journaliser, et laisser les utilisateurs noter\n1:55 Chapitre 2 · Les fenêtres de contexte ne sont pas la recherche\n3:18 Chapitre 3 · Quatre canaux de recherche, pas un seul\n4:44 Chapitre 4 · Du tri à la correction\n6:19 Chapitre 5 · Construire sa propre base, à partir de zéro\n\nTutoriel écrit complet (anglais, français et chinois) et tous les\ndiagrammes montrés dans cette vidéo :\nhttps://github.com/scheffershen/yt-rag-formation/tree/main/lessons/fr/continue\nhttps://shenyi.dev/fr/ai-lab/rag-formation/continue/01-improve-your-rag\n\n#RAG #RetrievalAugmentedGeneration #LLM #IngénierieIA #MachineLearning",
+  "seconds": 456,
+  "published": "2026-09-13",
+  "keywords": [],
+  "views": 19
+ },
+ {
+  "id": "svn_lpje8pw",
+  "lang": "en",
+  "topic": "why-your-rag-system-fails",
+  "title": "Why Your RAG System Fails (and How to Actually Fix It)",
+  "description": "A short, practical walkthrough of what actually makes a Retrieval-Augmented\nGeneration (RAG) system work once it's in production, not just in a demo.\nFive lessons drawn from real production experience.\n\nWhat you'll learn:\n\n- Why logging every interaction and collecting thumbs-up / thumbs-down\n  feedback is the single highest-leverage change you can make, before\n  touching retrieval at all.\n- Why a bigger context window doesn't replace retrieval, and what four\n  things it still doesn't solve: cost and latency, access control,\n  freshness, and traceability.\n- Why one retrieval channel is never enough, and how chunk-vector,\n  summary-vector, full-text, and graph search each cover a different\n  blind spot.\n- How to read your own failures, categorize them with an LLM, and hand a\n  scoped, checkable fix to a coding agent like Claude Code or Codex,\n  rather than asking it to vaguely \"make the RAG better.\"\n- A prompt you can use to build this whole four-channel pipeline\n  yourself, from zero.\n\nTimestamps:\n0:00 Course overview\n0:36 Chapter 1 · Log it, and let users rate it\n1:48 Chapter 2 · Context windows are not retrieval\n3:11 Chapter 3 · Four retrieval channels, not one\n4:33 Chapter 4 · From triage to fix\n6:06 Chapter 5 · Build your own baseline, from zero\n\nFull written tutorial (English, French, and Chinese) and every diagram\nshown in this video:\nhttps://github.com/scheffershen/yt-rag-formation/tree/main/lessons/en/continue\nhttps://shenyi.dev/ai-lab/rag-formation/continue/01-improve-your-rag\n\n#RAG #RetrievalAugmentedGeneration #LLM #AIEngineering #MachineLearning",
+  "seconds": 439,
+  "published": "2026-09-13",
+  "keywords": [
+   "RAG",
+   "RetrievalAugmentedGeneration",
+   "LLM",
+   "AIEngineering",
+   "MachineLearning"
+  ],
+  "views": 26
+ },
+ {
+  "id": "DtwLltXljw0",
+  "lang": "zh",
+  "topic": "rag-formation-lesson-16-pilot-readiness",
+  "title": "如何判断你的 RAG 是否真的可以上线｜第 16 课",
+  "description": "在 RAG Formation 第 16 课中，我们收尾整门课程，把你测量到的一切转化为一份按优先级排序的实施待办清单和试点计划。\n\n16 课的证据最后都指向一个决定：这次试点到底准备好了吗？这个决定必须经过明确的门槛，而不能靠一次碰巧顺利的演示。想象一份真正的就绪检查：质量通过，性能通过，运维通过，但安全项卡住了，因为幻觉率和准确率一起上升。一次安全回归就足以让整个试点暂停，直到有人查清原因。这正是门槛应该发挥的作用。\n\n接下来，未来 30 天会有清晰的形状：修复已经测出来的三个最高优先级故障，用同一份评估重新运行，确认没有出现回归；把试点收窄到一小段有意控制的真实使用场景；再用同一组门槛做一次上线或不上线的评审。你交付的不是\"每个答案都会完美\"的承诺，而是一份可以逐行辩护的原型，每一个说法后面都有证据。\n\n课程网站：\nhttps://shenyi.dev/zh/ai-lab/rag-formation/lessons/0016-pilot-review-and-30-day-implementation-plan\n\nGitHub 仓库：\nhttps://github.com/scheffershen/yt-rag-formation/\n\n## 时间戳\n\n00:00 — 第四阶段回顾：从安全到试点决定\n00:22 — 标题：试点评审与 30 天实施计划\n00:36 — 就绪门槛：质量、性能、运维、安全\n00:53 — 30 天路线图\n01:15 — 总结：可以辩护的原型，而不是完美的承诺\n\n#RAG #试点就绪 #上线决定 #实施路线图 #AI工程 #RAGFormation",
+  "seconds": 85,
+  "published": "2026-09-04",
+  "keywords": [
+   "RAG",
+   "试点就绪",
+   "上线决定",
+   "实施路线图",
+   "AI工程",
+   "RAGFormation"
+  ],
+  "views": 3
+ },
+ {
+  "id": "WtSSYv2-XhM",
+  "lang": "fr",
+  "topic": "rag-formation-lesson-16-pilot-readiness",
+  "title": "Comment décider si votre pilote RAG est vraiment prêt à être déployé | Leçon 16",
+  "description": "Dans la Leçon 16 de RAG Formation, nous clôturons le cours en transformant tout ce que vous avez mesuré en un backlog d'implémentation priorisé et un plan pilote.\n\nSeize leçons de preuves aboutissent à une décision : ce pilote est-il réellement prêt ? Cette décision doit passer par des seuils explicites, et non par une démonstration qui s'est bien déroulée par hasard. Imaginez une vraie vérification de préparation : la qualité est validée, la performance est validée, les opérations sont validées, mais la sécurité bloque parce que le taux d'hallucination a augmenté en même temps que l'exactitude. Une seule régression de sécurité suffit à suspendre tout le pilote jusqu'à son analyse. C'est exactement le rôle du seuil.\n\nEnsuite, les 30 prochains jours prennent une forme précise : corriger les trois pannes mesurées les plus importantes, relancer la même évaluation pour vérifier qu'aucune régression n'est apparue, limiter le pilote à une portion volontairement réduite de l'usage réel et organiser une revue de décision go/no-go avec les mêmes seuils. Ce que vous transmettez n'est pas la promesse que chaque réponse sera parfaite. C'est un prototype que vous pouvez réellement défendre, ligne par ligne, avec une preuve derrière chaque affirmation.\n\nSite du cours :\nhttps://shenyi.dev/fr/ai-lab/rag-formation/lessons/0016-pilot-review-and-30-day-implementation-plan\n\nDépôt GitHub :\nhttps://github.com/scheffershen/yt-rag-formation/\n\n## Chapitres\n\n00:00 — Récapitulatif phase 4 : de la sécurité à une décision pilote\n00:22 — Titre : revue du pilote et plan d'implémentation sur 30 jours\n00:36 — Le seuil de préparation : qualité, performance, opérations, sécurité\n00:53 — La feuille de route sur 30 jours\n01:15 — Conclusion : un prototype défendable, pas une promesse de perfection\n\n#RAG #PreparationPilote #GoNoGo #FeuilleDeRoute #IngenierieIA #RAGFormation",
+  "seconds": 85,
+  "published": "2026-09-04",
+  "keywords": [
+   "RAG",
+   "PreparationPilote",
+   "GoNoGo",
+   "FeuilleDeRoute",
+   "IngenierieIA",
+   "RAGFormation"
+  ],
+  "views": 5
+ },
+ {
+  "id": "pjZdnCYHKR8",
+  "lang": "zh",
+  "topic": "rag-formation-lesson-15-tenant-isolation",
+  "title": "RAG 安全：在线测试租户边界｜第 15 课",
+  "description": "在 RAG Formation 第 15 课中，我们转向安全——防止聊天机器人向错误的用户暴露文档，或泄露机密与客户数据。\n\n如果系统泄露了不该泄露的内容，其他一切都没有意义——验证边界是否存在的诚实方法，不是先假定它存在，而是在线实际测试。这套系统的每个请求都有一个 workspace 字段，很容易让人以为它就是租户边界。用同一个问题和两个不同的 workspace 值调用 API 两次，然后观察真正发生了什么变化：图谱信号发生了变化——因为 LightRAG 确实按 workspace 做了范围隔离。向量搜索和全文搜索完全没有变化，因为它们从一开始就没有收到这个字段。\n\n这不是假设性的漏洞；你可以用两个 curl 调用亲眼看到它。旁边还有另一个应该直接阅读、而不是想当然的事实：这个 API 的 CORS 策略允许来自任何地方的请求。这不是需要另行验证的风险，而是一行值得读懂的代码。\n\n课程网站：\nhttps://shenyi.dev/zh/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries\n\nGitHub 仓库：\nhttps://github.com/scheffershen/yt-rag-formation/\n\n## 时间戳\n\n00:00 — 第四阶段回顾：从可靠性数字到安全\n00:21 — 标题：安全、权限与部署边界\n00:32 — 同一个问题，两个 workspace 值\n00:45 — 三个信号不变，只有一个变化\n00:57 — CORS：一行值得读懂的代码\n01:07 — 总结\n\n#RAG #安全 #租户隔离 #CORS #AI工程 #RAGFormation",
+  "seconds": 76,
+  "published": "2026-09-04",
+  "keywords": [
+   "RAG",
+   "安全",
+   "租户隔离",
+   "CORS",
+   "AI工程",
+   "RAGFormation"
+  ],
+  "views": 8
+ },
+ {
+  "id": "Ig4auaEHfIk",
+  "lang": "fr",
+  "topic": "rag-formation-lesson-15-tenant-isolation",
+  "title": "Votre système RAG isole-t-il vraiment ses tenants ? Testez, ne supposez pas | Leçon 15",
+  "description": "Dans la Leçon 15 de RAG Formation, nous nous tournons vers la sécurité — empêcher le chatbot d'exposer des documents aux mauvais utilisateurs ou de divulguer des secrets et des données clients.\n\nRien de tout cela ne compte si le système divulgue quelque chose qu'il ne devrait pas — et la façon honnête de le vérifier n'est pas de supposer qu'un périmètre existe, c'est de le tester en direct. Ce système comporte un champ workspace sur chaque requête, et il est tentant de supposer que c'est votre périmètre de tenant. Appelez l'API deux fois avec la même question et deux valeurs de workspace différentes, et observez ce qui change réellement : le signal du graphe se déplace — parce que LightRAG applique véritablement un cloisonnement par workspace. La recherche vectorielle et la recherche plein texte ne bougent pas du tout. Elles n'ont jamais reçu ce champ.\n\nCe n'est pas une faille hypothétique ; c'est quelque chose que vous pouvez observer en deux appels curl. Et cela se situe à côté d'un autre fait qu'il suffit de lire plutôt que de supposer : la politique CORS de cette API autorise les requêtes depuis n'importe où. Pas un risque à aller vérifier — une ligne de code à aller lire.\n\nSite du cours :\nhttps://shenyi.dev/fr/ai-lab/rag-formation/lessons/0015-security-permissions-and-deployment-boundaries\n\nDépôt GitHub :\nhttps://github.com/scheffershen/yt-rag-formation/\n\n## Chapitres\n\n00:00 — Récapitulatif phase 4 : des chiffres de fiabilité à la sécurité\n00:21 — Titre : sécurité, autorisations et limites de déploiement\n00:32 — Même question, deux valeurs de workspace\n00:45 — Trois signaux ne bougent pas, un seul bouge\n00:57 — CORS : une ligne de code à lire\n01:07 — Conclusion\n\n#RAG #Securite #IsolationDesTenants #CORS #IngenierieIA #RAGFormation",
+  "seconds": 76,
+  "published": "2026-09-04",
+  "keywords": [
+   "RAG",
+   "Securite",
+   "IsolationDesTenants",
+   "CORS",
+   "IngenierieIA",
+   "RAGFormation"
+  ],
+  "views": 4
+ },
+ {
+  "id": "tQgv1rAZtAg",
+  "lang": "zh",
+  "topic": "rag-formation-lesson-14-latency-and-cost",
+  "title": "RAG 流水线里唯一真正的成本调节杆：--graph-topk｜第 14 课",
+  "description": "在 RAG Formation 第 14 课中，我们审视可靠性背后的数字——响应时间、词元成本、图谱调用，以及追踪这些指标所需的运营可见性。\n\n一个正确的答案，如果速度很慢、成本很高，或者出故障时无法解释，其实还没有完成——而这里有一个直接写进测量方式的陷阱。运行这门课自己的评估，并选择仅检索模式，汇总报告会给出中位数。它永远不会给出第九十五百分位——这个数字只有在答案模式下运行时才会出现。漏掉这一点，你就会以为这个工具无法显示拖垮试点的精确尾部延迟。\n\n另一个真正的调节杆，不是某个听起来应该存在、实际上却不存在的成本开关——你无法彻底关闭图谱信号。你能做的是降低它搜索的深度。只调低这一个数字，就能在图谱信号深度和延迟之间做出可测量的交换，而不是猜测一个没有人记录过的设置。\n\n课程网站：\nhttps://shenyi.dev/fr/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability\n\nGitHub 仓库：\nhttps://github.com/scheffershen/yt-rag-formation/\n\n## 时间戳\n\n00:00 — 第四阶段回顾：从优雅降级到可靠性数字\n00:21 — 标题：延迟、成本与可观测性\n00:33 — 测量陷阱：仅检索模式与答案模式下的 p95\n00:49 — 真正的调节杆：--graph-topk 深度控制\n01:07 — 总结：只测量你真正能测量的东西\n\n#RAG #延迟 #可观测性 #p95 #AI工程 #RAGFormation",
+  "seconds": 76,
+  "published": "2026-09-04",
+  "keywords": [
+   "RAG",
+   "延迟",
+   "可观测性",
+   "p95",
+   "AI工程",
+   "RAGFormation"
+  ],
+  "views": 2
+ },
+ {
+  "id": "BEesTOD25kU",
+  "lang": "fr",
+  "topic": "rag-formation-lesson-14-latency-and-cost",
+  "title": "Pourquoi votre rapport d'évaluation RAG cache sa propre latence de traîne | Leçon 14",
+  "description": "Dans la Leçon 14 de RAG Formation, nous examinons les chiffres qui sous-tendent la fiabilité — temps de réponse, coût en tokens, appels au graphe, et la visibilité opérationnelle pour les suivre.\n\nUne réponse correcte qui est lente, coûteuse, ou impossible à expliquer quand elle tombe en panne, n'est pas encore terminée — et il y a un piège intégré à la façon même dont on mesure cela. Lancez l'évaluation de ce cours en mode recherche seule, et le rapport agrégé vous donne une médiane. Il ne vous donnera jamais un quatre-vingt-quinzième percentile — ce chiffre n'existe que lorsque vous exécutez le mode réponse. Ratez ce détail, et vous jureriez que l'outil est incapable de vous montrer la latence de traîne exacte qui coule un pilote.\n\nL'autre vrai levier n'est pas un interrupteur de coût qui semble exister mais qui n'existe pas — il n'y a aucun moyen de couper entièrement le signal du graphe. Ce que vous pouvez faire, c'est réduire la profondeur de sa recherche. Baissez ce seul chiffre, et vous échangez la profondeur du signal du graphe contre la latence, d'une façon que vous pouvez réellement mesurer — pas en devinant un réglage que personne n'a documenté.\n\nSite du cours :\nhttps://shenyi.dev/fr/ai-lab/rag-formation/lessons/0014-latency-cost-and-observability\n\nDépôt GitHub :\nhttps://github.com/scheffershen/yt-rag-formation/",
+  "seconds": 76,
+  "published": "2026-09-04",
+  "keywords": [
+   "RAG",
+   "Latence",
+   "Observabilite",
+   "p95",
+   "IngenierieIA",
+   "RAGFormation"
+  ],
+  "views": 5
+ },
+ {
+  "id": "zKzdbelhrvM",
+  "lang": "zh",
+  "topic": "rag-formation-lesson-13-failure-isolation",
+  "title": "RAG 可靠性：把故障限制住，并诚实地降级｜第 13 课",
+  "description": "在 RAG Formation 第 13 课中，我们设计当某个依赖宕机时，RAG 系统应该如何反应——Qdrant、Meilisearch、图索引、嵌入服务、补全调用、Redis。\n\n工程问题不是“依赖会不会宕机”，而是“这次故障能不能被限制在自己的范围内，以及系统针对刚刚发生的故障，是否做出了正确的反应”。\n\n两种故障需要两种不同的诚实反应。向量索引丢了，关键词检索和图检索仍然可以工作——诚实的做法是优雅降级：继续回答，但明确说明当前结果只有关键词检索。补全服务丢了，就没有任何路径能生成有依据的答案——这时应该安全失败，给出清楚的拒答，而不是编造一个看起来正常的答案。\n\n没有证据支撑的正常答案从来不是优雅降级，只是包装得更有礼貌的不安全行为。\n\n课程网站：\nhttps://shenyi.dev/zh/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation\n\nGitHub 仓库：\nhttps://github.com/scheffershen/yt-rag-formation/\n\n## 时间戳\n\n00:00 — 第三阶段完成：有依据答案的里程碑\n00:14 — 第四阶段开始：可靠性与产品就绪\n00:31 — 标题：故障隔离与优雅降级\n00:43 — 依赖矩阵：两种诚实的故障响应\n01:20 — 总结：故障被限制住，而不是包装得更有礼貌\n\n#RAG #故障隔离 #优雅降级 #可靠性工程 #AI工程 #RAGFormation",
+  "seconds": 90,
+  "published": "2026-09-04",
+  "keywords": [
+   "RAG",
+   "故障隔离",
+   "优雅降级",
+   "可靠性工程",
+   "AI工程",
+   "RAGFormation"
+  ],
+  "views": 4
+ },
+ {
+  "id": "NTVJaPANZQU",
+  "lang": "fr",
+  "topic": "rag-formation-lesson-13-failure-isolation",
+  "title": "Comment un système RAG doit échouer : dégrader ou refuser clairement | Leçon 13",
+  "description": "Dans la Leçon 13 de RAG Formation, nous concevons le comportement d'un système RAG lorsqu'une de ses dépendances tombe en panne — Qdrant, Meilisearch, l'index de graphe, le service d'embeddings, l'appel de complétion, Redis.\n\nLa question d'ingénierie n'est pas de savoir si une dépendance tombera en panne. C'est de savoir si la panne reste contenue, et si la réponse du système correspond réellement à ce qui vient de se casser.\n\nDeux pannes appellent deux réponses honnêtes différentes. Si l'index vectoriel tombe, la recherche par mots-clés et la recherche dans le graphe continuent de fonctionner : la dégradation maîtrisée consiste à continuer de répondre, en précisant que les résultats sont actuellement limités aux mots-clés. Si le service de complétion tombe, il ne reste plus de chemin vers une réponse étayée : il faut alors échouer par fermeture, avec un refus clair, et non en inventer un qui aurait l'air normal.\n\nUne réponse normale sans preuve n'a jamais été une dégradation maîtrisée. C'était seulement une réponse dangereuse, mieux présentée.\n\nSite du cours :\nhttps://shenyi.dev/fr/ai-lab/rag-formation/lessons/0013-failure-isolation-and-graceful-degradation\n\nDépôt GitHub :\nhttps://github.com/scheffershen/yt-rag-formation/\n\n## Chapitres\n\n00:00 — Phase 3 terminée : le jalon de la réponse fondée\n00:14 — Début de la phase 4 : fiabilité et maturité produit\n00:31 — Titre : isolation des pannes et dégradation maîtrisée\n00:43 — Matrice des dépendances : deux réponses honnêtes à la panne\n01:20 — Conclusion : une panne contenue, pas une réponse dangereuse mieux présentée\n\n#RAG #IsolationDesPannes #DegradationMaitrisee #IngenierieDeLaFiabilite #IngenierieIA #RAGFormation",
+  "seconds": 90,
+  "published": "2026-09-04",
+  "keywords": [
+   "RAG",
+   "IsolationDesPannes",
+   "DegradationMaitrisee",
+   "IngenierieDeLaFiabilite",
+   "IngenierieIA",
+   "RAGFormation"
+  ],
+  "views": 2
+ },
+ {
+  "id": "2A77KhaElCk",
+  "lang": "zh",
+  "topic": "rag-formation-lesson-11-citation-design",
+  "title": "为什么引用数量不等于引用支撑｜第 11 课",
+  "description": "在 RAG Formation 第 11 课中，我们把引用从装饰变成一份可测试的证据契约。\n\n本课的实际收获，是一份定义文档身份、文本块或页面身份、主张与证据映射，以及去重规则的引用契约。你将从 q28、q30、q46 或 q63 中选择一个问题，审计回答中的每条重要主张，并追溯到真正支撑它的文档。\n\n课程区分三个属性：忠实性——被引用的来源确实支持这条主张；完整性——每条重要主张都有足够的证据；身份——用户可以检查并复现的稳定文档与文本块引用。\n\n课程网站：\nhttps://shenyi.dev/zh/ai-lab/rag-formation/lessons/0011-citation-design-and-source-fidelity\n\nGitHub 仓库：\nhttps://github.com/scheffershen/yt-rag-formation/\n\n## 时间戳\n\n00:00 — 第三阶段回顾：从有依据的答案到可追溯的证据\n00:20 — 标题：引用设计与来源忠实性\n00:31 — 主张-来源之桥：一个支撑来源从未被引用\n00:46 — 引用契约：忠实性、完整性、身份\n01:01 — 总结：审计员真正会核实的那座桥\n\n#RAG #引用 #来源忠实性 #RAG评估 #AI工程 #RAGFormation",
+  "seconds": 70,
+  "published": "2026-09-04",
+  "keywords": [
+   "RAG",
+   "引用",
+   "来源忠实性",
+   "RAG评估",
+   "AI工程",
+   "RAGFormation"
+  ],
+  "views": 8
+ }
+]
