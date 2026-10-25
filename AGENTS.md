@@ -66,6 +66,42 @@ Every AI Lab route must appear in `sitemap.xml`. Each of the 12 URL entries must
 
 ## Verification
 
+### YouTube updates and video structured data
+
+The pages under `youtube/`, `fr/youtube/`, and `zh/youtube/` are generated. Update
+`tools/youtube/videos.json`, `tools/youtube/topics.json`, or `tools/youtube/build.py`,
+then rebuild; do not hand-edit the generated HTML.
+
+For every `VideoObject`, including objects nested in listing pages' `hasPart`:
+
+- Provide a nonempty, localized description drawn from the video's actual content.
+- Provide a player `embedUrl` or a direct video-file `contentUrl`. For YouTube videos,
+  use `https://www.youtube-nocookie.com/embed/VIDEO_ID`. A YouTube watch-page URL is
+  not a video-file URL and must not be used as `contentUrl`.
+- Preserve the original publication timestamp, including its time and timezone, in
+  `uploadDate`. Do not truncate it to a date or invent a publication time.
+- Keep these requirements consistent across English, French, and Chinese.
+
+Before deploying a YouTube update, run from the repository root with Python 3.12+
+and PowerShell:
+
+```powershell
+python -B tools/youtube/build.py
+pwsh -NoProfile -File tests/youtube-pages.ps1
+```
+
+The PowerShell command also runs `tests/youtube-import.py`, which recursively checks
+video metadata on listing and individual pages and tests timestamp preservation.
+Both commands must succeed before deployment. Update the changed pages' sitemap
+`lastmod` values and commit the source data/generator, generated pages, sitemap,
+and relevant tests together.
+
+After deploying a template change, check a listing page and an individual video
+page with Google's Rich Results Test. Search Console reports may lag behind the
+deployed site; request validation there for previously reported issues.
+
+### AI Lab checks
+
 From the repository root, run with Python 3:
 
 ```bash

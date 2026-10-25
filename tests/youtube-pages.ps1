@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 
 # The YouTube section: tools/youtube/build.py generates <locale>/youtube/ and one page per video.
-# This script checks the generated pages, the menu entry on every page, and the sitemap block.
+# This script checks the generated pages (including nested video metadata), menus, and sitemap.
 
 $videos = Get-Content -Raw -Encoding UTF8 'tools/youtube/videos.json' | ConvertFrom-Json
 $locales = @{ en = ''; fr = 'fr/'; zh = 'zh/' }
@@ -81,5 +81,9 @@ foreach ($v in $videos) {
   $loc = '<loc>https://shenyi.dev/' + $locales[$v.lang] + 'youtube/' + $v.topic + '/</loc>'
   if ($sitemap -notlike "*$loc*") { throw "sitemap.xml lacks $loc" }
 }
+
+# Run the recursive metadata/import checks too: listing pages contain nested VideoObjects.
+& python -B (Join-Path $PSScriptRoot 'youtube-import.py')
+if ($LASTEXITCODE -ne 0) { throw 'YouTube metadata/import checks failed. Do not deploy.' }
 
 Write-Output "YouTube pages assertions passed ($($videos.Count) videos, $($byTopic.Count) topics)."
