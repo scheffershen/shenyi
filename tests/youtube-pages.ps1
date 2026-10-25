@@ -26,6 +26,23 @@ foreach ($v in $videos) {
   $embed = 'src="https://www.youtube-nocookie.com/embed/' + $v.id + '"'
   if (([regex]::Matches($content, [regex]::Escape($embed))).Count -ne 1) { throw "$page must embed $($v.id) exactly once." }
   if ($content -notmatch '"@type": ?"VideoObject"') { throw "$page has no VideoObject structured data." }
+  $videoData = @([regex]::Matches($content, '<script type="application/ld\+json">(.*?)</script>', 'Singleline') | ForEach-Object {
+    $json = $_.Groups[1].Value
+    if (($json | ConvertFrom-Json).'@type' -eq 'VideoObject') { $json }
+  })
+  if ($videoData.Count -ne 1) { throw "$page must contain exactly one VideoObject." }
+  # Inspect the literal: ConvertFrom-Json can convert ISO strings to local DateTime objects.
+  $uploadDate = [regex]::Match($videoData[0], '"uploadDate"\s*:\s*"([^"]+)"').Groups[1].Value
+  if ($uploadDate -notmatch '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$') {
+    throw "$page uploadDate must include an ISO 8601 time and timezone: $uploadDate"
+  }
+  $parsedDate = [DateTimeOffset]::MinValue
+  if (-not [DateTimeOffset]::TryParse($uploadDate, [System.Globalization.CultureInfo]::InvariantCulture, [System.Globalization.DateTimeStyles]::None, [ref]$parsedDate)) {
+    throw "$page has an invalid uploadDate: $uploadDate"
+  }
+  if ($parsedDate.ToUniversalTime() -ne ([DateTimeOffset]$v.published).ToUniversalTime()) {
+    throw "$page uploadDate differs from the imported publication timestamp."
+  }
   if ($content -notmatch 'rel="canonical" href="https://shenyi.dev/' + [regex]::Escape($locales[$v.lang] + 'youtube/' + $v.topic + '/') + '"') { throw "$page has a wrong canonical." }
   foreach ($identifier in $forbiddenIdentifiers) {
     if ($content -match [regex]::Escape($identifier)) { throw "$page exposes the prohibited identifier: $identifier" }

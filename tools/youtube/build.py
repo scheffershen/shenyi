@@ -14,6 +14,7 @@ the section stays consistent with the rest of the site without a template system
 in different languages are each other's hreflang alternates.
 """
 import html, json, pathlib, re
+from datetime import datetime
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 VIDEOS = json.load(open(ROOT / "tools" / "youtube" / "videos.json", encoding="utf-8"))
@@ -226,7 +227,9 @@ def list_page(lang, topics):
     alternates = {l: "youtube/" for l in LOCALES}
     ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": tr["page_title"], "description": tr["page_desc"],
           "url": f"{SITE}/{LOCALES[lang]}youtube/", "inLanguage": lang, "author": {"@type": "Person", "name": "SHEN YI", "url": SITE + "/"},
-          "hasPart": [{"@type": "VideoObject", "name": v["title"], "url": f"{SITE}/{LOCALES[lang]}youtube/{v['topic']}/", "thumbnailUrl": f"https://i.ytimg.com/vi/{v['id']}/hqdefault.jpg", "uploadDate": v["published"], "duration": iso_dur(v["seconds"])} for v in vids]}
+          "hasPart": [{"@type": "VideoObject", "name": v["title"], "description": excerpt(v["description"], 300),
+                       "embedUrl": f"https://www.youtube-nocookie.com/embed/{v['id']}",
+                       "url": f"{SITE}/{LOCALES[lang]}youtube/{v['topic']}/", "thumbnailUrl": f"https://i.ytimg.com/vi/{v['id']}/hqdefault.jpg", "uploadDate": v["published"], "duration": iso_dur(v["seconds"])} for v in vids]}
     image = f"https://i.ytimg.com/vi/{vids[0]['id']}/maxresdefault.jpg" if vids else f"{SITE}/assets/img/og-image.png"
     body = (f'<body class="ai-lab-page yt-list-page">{top}<main id="main"><section class="hero wrap"><div class="hero-grid"><div><p class="eyebrow">{tr["eyebrow"]}</p><h1>{esc(tr["title"])}</h1>'
             f'<p class="ai-lab-hero-note">{esc(tr["sub"])}</p><div class="ai-lab-cta"><a class="btn btn-primary" href="{CHANNEL_URL}?sub_confirmation=1" target="_blank" rel="noopener noreferrer">{tr["subscribe"]} <span aria-hidden="true">↗</span></a></div></div>'
@@ -253,7 +256,7 @@ def video_page(v, lang, topics):
     ld = {"@context": "https://schema.org", "@type": "VideoObject", "name": v["title"], "description": excerpt(v["description"], 300),
           "thumbnailUrl": [f"https://i.ytimg.com/vi/{v['id']}/maxresdefault.jpg", f"https://i.ytimg.com/vi/{v['id']}/hqdefault.jpg"],
           "uploadDate": v["published"], "duration": iso_dur(v["seconds"]), "embedUrl": f"https://www.youtube-nocookie.com/embed/{v['id']}",
-          "contentUrl": f"https://www.youtube.com/watch?v={v['id']}", "url": f"{SITE}/{LOCALES[lang]}youtube/{v['topic']}/", "inLanguage": lang,
+          "url": f"{SITE}/{LOCALES[lang]}youtube/{v['topic']}/", "inLanguage": lang,
           "author": {"@type": "Person", "name": "SHEN YI", "url": SITE + "/"}, "publisher": {"@type": "Person", "name": "SHEN YI"}}
     body = (f'<body class="ai-lab-page yt-page">{top}<main id="main"><section class="hero wrap"><p class="eyebrow">{tr["eyebrow"]} · {fmt_date(v["published"], lang)} · {fmt_dur(v["seconds"], lang)}</p><h1>{esc(v["title"])}</h1>'
             + (f'<p class="yt-langs">{tr["also"]}: {also}</p>' if also else "")
@@ -284,9 +287,11 @@ def add_menu_everywhere():
 
 def sitemap(topics):
     sm = ROOT / "sitemap.xml"; s = sm.read_text(encoding="utf-8")
+    previous_dates = dict(re.findall(r'<loc>([^<]+)</loc>\s*<lastmod>([^<]+)</lastmod>', s))
     s = re.sub(r"\s*<!-- youtube:start -->.*?<!-- youtube:end -->", "", s, flags=re.S)
-    today = max(v["published"] for v in VIDEOS)
+    today = max(v["published"][:10] for v in VIDEOS)
     def url(loc, lastmod, prio, alts):
+        lastmod = max(lastmod[:10], previous_dates.get(loc, "")[:10])
         links = "".join(f'\n    <xhtml:link rel="alternate" hreflang="{l}" href="{h}"/>' for l, h in alts)
         return f"\n  <url>\n    <loc>{loc}</loc>\n    <lastmod>{lastmod}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>{prio}</priority>{links}\n  </url>"
     block = ["\n  <!-- youtube:start -->"]
@@ -301,6 +306,11 @@ def sitemap(topics):
     sm.write_text(s, encoding="utf-8")
 
 def main():
+    # Reject date-only/naive values before writing pages: Google needs a DateTime.
+    for v in VIDEOS:
+        published = datetime.fromisoformat(v["published"].replace("Z", "+00:00"))
+        if published.utcoffset() is None:
+            raise ValueError(f"{v['id']}: published must include a time and timezone")
     topics = by_topic()
     pages = [list_page(l, topics) for l in LOCALES] + [video_page(v, v["lang"], topics) for v in VIDEOS]
     n = add_menu_everywhere()

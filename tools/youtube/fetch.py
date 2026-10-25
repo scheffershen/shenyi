@@ -30,7 +30,7 @@ def slugify(text):
     return text[:70].rstrip("-") or "video"
 
 def main():
-    topics = {k: v for k, v in json.load(open(HERE / "topics.json", encoding="utf-8")).items() if not k.startswith("_")}
+    topics = {k: v for k, v in json.loads((HERE / "topics.json").read_text(encoding="utf-8")).items() if not k.startswith("_")}
     page = get(f"{HANDLE}/videos")
     ids = []
     for m in re.finditer(r'"videoId":"([A-Za-z0-9_-]{11})"', page):
@@ -49,7 +49,7 @@ def main():
         if not topic:
             topic = slugify(title); print("  WARNING no topic for", vid, "->", topic)
         out.append(dict(id=vid, lang=lang_of(title), topic=topic, title=title, description=vd.get("shortDescription", ""),
-                        seconds=int(vd.get("lengthSeconds", 0)), published=mf.get("publishDate", "")[:10],
+                        seconds=int(vd.get("lengthSeconds", 0)), published=mf.get("publishDate", ""),
                         keywords=vd.get("keywords", []), views=int(vd.get("viewCount", 0) or 0)))
         print(" ", out[-1]["published"], vid, out[-1]["lang"], out[-1]["seconds"], "s")
     out.sort(key=lambda v: (v["published"], v["topic"], v["lang"]), reverse=True)
