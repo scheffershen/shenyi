@@ -1,0 +1,24 @@
+# Repository files that are not part of the published site.
+#
+# The Cloudflare build runs `npx wrangler deploy`, which treats this
+# directory (the repository root) as the Worker's static assets. Every
+# path not listed here is served publicly, so keep this in sync when
+# adding tooling or documentation at the root.
+
+# Version control and editor/agent state
+.git/
+.gitignore
+.claude/
+.serena/
+
+# Tooling, tests and internal documentation
+docs/
+tests/
+tools/
+
+# Internal notes and project instructions
+AGENTS.md
+CLAUDE.md
+DESIGN.md
+suggestions.md
+skills-lock.json
