@@ -124,8 +124,12 @@ def chrome(lang, depth):
     top = top.replace(' aria-current="page"', "")
     return top, bottom
 
+def root_rel(lang, depth):
+    """Hops back to the site root: fr/ and zh/ pages sit one level deeper than en."""
+    return "../" * (depth + (0 if lang == "en" else 1))
+
 def lang_block(lang, alternates, depth):
-    rel = "../" * depth
+    rel = root_rel(lang, depth)
     flags = {"en": "🇬🇧", "fr": "🇫🇷", "zh": "🇨🇳"}
     items = []
     for l in ("en", "fr", "zh"):
@@ -210,7 +214,7 @@ def by_topic():
 
 def card(v, lang, href_prefix, topics):
     tr = T[lang]; sib = topics[v["topic"]]
-    also = " · ".join(f'<a href="{"../" * (1 if href_prefix == "" else 2)}{LOCALES[l]}youtube/{v["topic"]}/" hreflang="{l}">{l.upper()}</a>' for l in ("en", "fr", "zh") if l != lang and l in sib)
+    also = " · ".join(f'<a href="{root_rel(lang, 1 if href_prefix == "" else 2)}{LOCALES[l]}youtube/{v["topic"]}/" hreflang="{l}">{l.upper()}</a>' for l in ("en", "fr", "zh") if l != lang and l in sib)
     return (f'<article class="card yt-card"><a class="yt-card-media" href="{href_prefix}{v["topic"]}/" aria-hidden="true" tabindex="-1">'
             f'<img src="https://i.ytimg.com/vi/{v["id"]}/hqdefault.jpg" width="480" height="360" loading="lazy" alt=""></a>'
             f'<span class="ai-lab-status">{fmt_dur(v["seconds"], lang)} · {fmt_date(v["published"], lang)}</span>'
@@ -251,7 +255,7 @@ def video_page(v, lang, topics):
     top = re.sub(r'<a class="skip-link" href="#main">[^<]*</a>', f'<a class="skip-link" href="#main">{tr["skip"]}</a>', top, count=1)
     vids = [x for x in VIDEOS if x["lang"] == lang]
     i = vids.index(v); neighbours = [x for x in (vids[i - 1] if i > 0 else None, vids[i + 1] if i + 1 < len(vids) else None) if x]
-    also = " · ".join(f'<a href="../../{LOCALES[l]}youtube/{v["topic"]}/" hreflang="{l}">{T[lang]["lang_names"][l]}</a>' for l in ("en", "fr", "zh") if l != lang and l in sib)
+    also = " · ".join(f'<a href="{root_rel(lang, 2)}{LOCALES[l]}youtube/{v["topic"]}/" hreflang="{l}">{T[lang]["lang_names"][l]}</a>' for l in ("en", "fr", "zh") if l != lang and l in sib)
     desc = excerpt(v["description"], 200)
     ld = {"@context": "https://schema.org", "@type": "VideoObject", "name": v["title"], "description": excerpt(v["description"], 300),
           "thumbnailUrl": [f"https://i.ytimg.com/vi/{v['id']}/maxresdefault.jpg", f"https://i.ytimg.com/vi/{v['id']}/hqdefault.jpg"],
