@@ -11,6 +11,9 @@
 .claude/
 .serena/
 
+# Deploy configuration (used by the build, not part of the site)
+wrangler.jsonc
+
 # Tooling, tests and internal documentation
 docs/
 tests/
