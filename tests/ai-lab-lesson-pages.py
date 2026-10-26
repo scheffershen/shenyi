@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 import xml.etree.ElementTree as ET
 from datetime import date
@@ -20,7 +21,8 @@ LANGUAGES = {
     "fr": {"html_lang": "fr", "root": Path("fr/ai-lab/rag-formation")},
     "zh": {"html_lang": "zh-CN", "root": Path("zh/ai-lab/rag-formation")},
 }
-DEVELOPMENT_MARKERS = {"en": "development", "fr": "développement", "zh": "开发"}
+COMPLETION_STATUS = {"en": "Complete", "fr": "Terminé", "zh": "已完成"}
+STATUS_ROW_RE = re.compile(r'status\s*</span><span class="t-num">([^<]*)</span>')
 LESSONS = [
     "0001-from-question-to-cited-answer.html",
     "0002-trace-one-question.html",
@@ -242,8 +244,11 @@ def check_lesson(page_path: Path, parser: PageParser, locale: str, basename: str
         fail(f"{route_label}: missing lesson.js")
     if "RAG Formation" not in parser.visible_text:
         fail(f"{route_label}: missing RAG Formation label")
-    if DEVELOPMENT_MARKERS[locale].lower() not in parser.visible_text.lower():
-        fail(f"{route_label}: missing course-in-development marker")
+    status_row = STATUS_ROW_RE.search(raw)
+    if status_row is None:
+        fail(f"{route_label}: missing course status row")
+    if status_row.group(1).strip() != COMPLETION_STATUS[locale]:
+        fail(f"{route_label}: course status {status_row.group(1).strip()!r}, expected {COMPLETION_STATUS[locale]!r}")
     quiz_count = raw.count("data-quiz")
     feedback_count = raw.count("data-feedback")
     answer_count = raw.count("data-answer=")
